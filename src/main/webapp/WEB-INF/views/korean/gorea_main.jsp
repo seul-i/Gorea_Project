@@ -5,44 +5,73 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/main/Main.css">
+<title>Go!rea Main</title>
 
-<!-- 페이지 어딘가에 추가 -->
-<script>
-    function logout() {
-        // 로그아웃 URL로 이동하거나 로그아웃 처리를 위한 기본 동작을 수행합니다.
-        window.location.href = '/logout.do';
-    }
-</script>
-
+<script type="text/javascript" src="/js/main/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main/skel.min.js"></script>
+<script  type="text/javascript" src="/js/main/main.js"></script>
 </head>
+
 <body>
-한국어 메인페이지<br/>
-
-	<div class="login_box">
-	    <c:if test="${empty SPRING_SECURITY_CONTEXT}">
-	        <a href="/korean/login.do"><span>로그인</span></a>
-	    </c:if>
-	    
-	    <c:if test="${not empty SPRING_SECURITY_CONTEXT}">
-	        <c:set var="role" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.go_user_role}" />
-	     
-	        <c:choose>
-	            <c:when test="${role eq 'ROLE_USER'}">
-	                <h1><span class="role" data-nickname="${role }">일반 회원</span><br/></h1>
-	                	<a href="/user/korean/mypage.do">마이페이지로 이동</a><br/>
-	            </c:when>
-	            <c:when test="${role eq 'ROLE_ADMIN'}">
-	                <h1><span class="role" data-nickname="${role }">관리자</span><br/></h1>
-	                	<a href="/user/korean/mypage.do">마이페이지로 이동</a><br/>
-	                	<a href="/admin/adminpage.do">관리자페이지로 이동</a><br/>
-	            </c:when>
-	            <c:otherwise>
-	                <!-- 다른 역할에 해당하는 경우 -->
-	            </c:otherwise>
-	        </c:choose>
-	    </c:if>
-	</div>
-
+	
+	<jsp:include page="/WEB-INF/views/korean/includes/header.jsp"></jsp:include>
+		
+		<section class="banner half">
+			<article>
+				<img src="/img/main/DDP.jpg" width="1440" height="961">
+					<div class="inner">
+						<header>
+<!-- 							<h4 style="font-weight:bold;">역사와 현대가 공존하는 문화와 쇼핑의 중심지</h4> -->
+							<h2 style="font-weight:bold;">동 대 문</h2>
+						</header>
+					</div>
+			</article>
+			
+			<article>
+				<img src="/img/main/gangnam.jpg" width="1440" height="961">
+					<div class="inner">
+						<header>
+							<h2 style="font-weight:bold;">강 남</h2>
+							<!-- 작가 tawatchai07 출처 Freepik -->
+						</header>
+					</div>
+			</article>
+			
+			<article>
+				<img src="/img/main/sungsu.jpg" alt="" width="1440" height="962">
+					<div class="inner">
+						<header>
+							<h2 style="font-weight:bold;">성 수 동</h2>
+						</header>
+					</div>
+			</article>
+			
+			<article>
+				<img src="/img/main/gang.jpg" width="1440" height="961">
+					<div class="inner">
+						<header>
+							<h2 style="font-weight:bold;">광 장 시 장</h2>
+						</header>
+					</div>
+			</article>
+			
+			<article>
+				<img src="/img/main/nowon.jpg" width="1440" height="962">
+					<div class="inner">
+						<header>
+							<h2 style="font-weight:bold;">노 원</h2>
+						</header>
+					</div>
+			</article>
+		</section>
+		
+		<div class="test" style="border-bottom: 1px solid rgba(0,0,0,0.15); height: 600px;"> 
+	
+		</div>
+		
+		<jsp:include page="/WEB-INF/views/korean/includes/footer.jsp"></jsp:include>
 </body>
 </html>

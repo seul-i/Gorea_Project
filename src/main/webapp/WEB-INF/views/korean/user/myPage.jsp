@@ -55,9 +55,6 @@
 	                <!-- 다른 역할에 해당하는 경우 -->
 	            </c:otherwise>
 	        </c:choose><br/>
-	        
-	        	<a href="/korean/check1.do">세션 체크1</a><br/>
-	        	<a href="/korean/check2.do">세션 체크2</a><br/><br/>
 	        <button type="button" class="logout" onclick="logout()">로그아웃</button>
 	    </c:if>
 	</div>

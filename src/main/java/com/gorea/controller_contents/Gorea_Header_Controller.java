@@ -46,14 +46,4 @@ public class Gorea_Header_Controller {
 	    return "korean/user/myPage";
 	}
 	
-	// 나중에 삭제할거
-	@GetMapping("/korean/check1.do")
-	public String session1() {
-		return "korean/sessionCheck01";
-	}
-	@GetMapping("/korean/check2.do")
-	public String session2() {
-		return "korean/sessionCheck02";
-	}
-	
 }

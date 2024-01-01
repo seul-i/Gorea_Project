@@ -1,0 +1,227 @@
+:root {
+    --pink:#e84393;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden; 
+}
+
+.region-selector {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    max-width: 1400px;
+}
+
+.region-selector .region-button {	
+	padding: 2%, 3%;
+    width: calc(20% - 1.5rem);
+    height: 175px;
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+    border-radius: 1rem solid rgba(0, 0, 0, .1);
+    position: relative;
+    border: 15px solid #ddd;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.7);
+
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    
+}
+
+.region-button span {
+    display: inline-block; /* span을 block 요소로 변경하여 수평 중앙 정렬 적용 */
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.album-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.album-container .album {
+    width: calc(24% - 1rem);
+    height: 330px;
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+    border-radius: 1rem solid rgba(0, 0, 0, .1);
+    position: relative;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    justify-content: space-between;
+    
+}
+
+.album {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+
+}
+
+.album-container .album .image {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.album-container .album .image img {
+    width: 100%;
+    height: 23rem;
+}
+
+.album-container .album:hover .image img {
+    transform: scale(1.1);
+}
+
+.icons i:last-child {
+    display: none;
+}
+
+.icons:hover i:first-child {
+    display: none;
+}
+
+.icons:hover i:last-child {
+    display: inline-block;
+}
+
+
+.album-container .album .content {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.content-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.album-container .album .content .title {
+    font-size: 1.8rem;
+    color: #333;
+}
+.album-container .album .content .explain {
+    font-size: 1.3rem;
+    color: #807e7e;
+    padding-top: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 원하는 줄 수를 지정 */
+    -webkit-box-orient: vertical;
+}
+
+
+.banner {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.banner-text {
+    position: absolute;
+    bottom: 30px; /* 텍스트의 하단과 부모 요소의 하단 간의 간격 조정 */
+    left: 180px; /* 텍스트의 좌측과 부모 요소의 좌측 간의 간격 조정 */
+    color: white; /* 텍스트 색상 */
+    font-size: 32px; /* 텍스트 크기 */
+    font-weight: bold; /* 텍스트 굵기 */
+    /* 추가적인 스타일링을 원하는 대로 추가하세요. */
+}
+
+.banner img {
+    width: 100%;
+    max-height: 500px;
+    filter: brightness(60%);
+    opacity: 0.9; /* 투명도 조절 */
+}
+
+
+
+
+@media (max-width: 1200px) {
+    .albums .album-container .album {
+        width: calc(50% - 1.5rem); /* 화면이 767px 이하일 때 한 줄에 2개씩 출력 (간격을 빼서 조절) */
+    }
+
+}
+
+@media (max-width: 800px) {
+    .albums .album-container .album {
+       width: 100%;
+    }
+
+}
+
+.bread-crumbs {
+    display: flex;
+    align-items: flex-start;
+    padding: 2rem 0 2rem 0;
+    background-color: #ffffff;
+    margin-bottom: -2rem;
+    margin: 0 auto;
+}
+
+
+.bread-crumbs ul {
+    list-style: none; /* 목록 스타일 제거 */
+    display: flex;
+    gap: 2rem; /* 아이콘 간격 조절 */
+}
+
+.bread-crumbs li {
+    margin-right: 0.5rem;
+}
+
+.bread-crumbs a {
+    text-decoration: none;
+}
+
+.bread-crumbs i {
+    font-size: 25px;
+}
+
+.write-button {
+    float: right;
+    margin-top: 10px;
+    margin-right: 50px;
+    margin-bottom: 50px; /* 추가된 부분: 아래로 20px 간격을 둡니다. */
+}
+
+.write-button a {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000000;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+
+
+
+

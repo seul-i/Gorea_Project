@@ -32,12 +32,12 @@
 				<div class="top_link">
 					<a href="/korean/main.do"> 
 					<i class="fa-regular fa-circle-right fa-rotate-180 fa-lg"></i>
-					Main Page
+					<span class="goMain">Main Page</span>
 					</a>
 				</div>
 				<div class="contact">
 					<form action="/loginProcKr" method="post">
-						<img src="/img/login/gorea_logo.png" style="width:150px">
+						<img src="/img/login/gorea_logo.png" class="login_logo">
 						<input type="text" name="username" value="" placeholder="ID">
 						<input type="password" name="password" value="" placeholder="PASSWORD">
 						<div class="checkbox_container">

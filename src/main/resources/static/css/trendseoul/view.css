@@ -1,0 +1,258 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden; 
+}
+
+header {
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 2rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+    font-size: 3rem;
+    color: #333;
+    font-weight: bolder;
+}
+
+header .logo span {
+    color: rgb(236, 134, 134);
+}
+
+/* body {
+    font-family: 'Arial', sans-serif;
+    /* background-color: #f8f9fa;
+    background: white;
+    margin: 0;
+    padding: 0;
+} */
+
+.container {
+    width: 100%;
+    /* width: 100%; */
+    /* margin: 5px auto; */
+    margin: 1px auto;
+    background-color: #fff;
+    padding: 30px 300px;
+    /* border: 1px solid #eee;
+     border-radius: 10px; */
+}
+
+.post-title {
+    font-size: 24px;
+    font-weight: bolder;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.post-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.post-info-left, .post-info-right {
+    display: flex;
+    align-items: center;
+}
+
+.post-info-item {
+    margin-right: 15px;
+}
+
+.post-content {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    min-height: 200px;
+    text-align: center;
+}
+
+.content-img {
+    margin-bottom: 20px;
+}
+
+.content-img img {
+    width: 70%; 
+    max-height: 500px; 
+    display: block; 
+    margin: 0 auto; 
+}
+
+.content-text {
+    max-width: 1000px; /* 허용할 최대 너비를 설정하세요. */
+    overflow-wrap: break-word; /* 단어 단위로 줄 바꿈이 됩니다. */
+    text-align: left; /* 텍스트를 왼쪽 정렬합니다. */
+    margin: 0 auto; /* 가운데 정렬을 수행합니다. */
+    margin-bottom: 100px;
+}
+
+.content-info {
+    text-align: left;
+}
+
+.content-info div {
+    margin-bottom: 18px;
+}
+
+.content-info span.label {
+    font-size: 18px; /* 첫 번째 span의 글씨 크기 설정 */
+    font-weight: bold; /* 첫 번째 span의 글씨를 굵게 설정 */
+    display: inline-block;
+    vertical-align: top; /* 세로 정렬을 top으로 설정 */
+    width: 200px; /* 첫 번째 span의 가로 길이 설정 */
+}
+
+.content-info .mark {
+    width: 30px;
+    font-size: 18px; /* 첫 번째 span의 글씨 크기 설정 */
+    font-weight: bold;
+    vertical-align: top;
+    
+}
+
+.content-info span.value {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: top; /* 세로 정렬을 top으로 설정 */
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+
+.comment-section {
+    padding-top: 20px;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-timestamp {
+    font-size: 12px;
+    color: #aaa;
+}
+.comments-count {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+padding-bottom: 5px;
+border-bottom: 1px solid #eee;
+}
+
+.comment-actions a {
+    color: #aaa;
+    margin-left: 10px;
+    font-size: 12px;
+    text-decoration: none;
+    color: #aaa;
+}
+
+.btn-reply {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.comment-form {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: center;
+margin-top: 20px;
+}
+.comment-form textarea {
+flex: 1;
+resize: none;
+padding: 10px;
+border-radius: 4px;
+border: 1px solid #ccc;
+min-height: 60px;
+}
+
+.comment-form button {
+padding: 10px 20px;
+border: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.sub-comment {
+margin-left: 10px; /* 대댓글 왼쪽 마진을 늘려 오른쪽으로 이동시킵니다. */
+padding-left: 10px; /* 대댓글 내용과 선 사이에 여백을 추가합니다. */
+}
+
+.comment-form-btn button {
+padding: 20px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.btn {
+background-color: #007bff; /* 배경색을 원하는 색상으로 설정하세요 */
+color: #fff; /* 텍스트 색상을 흰색 또는 원하는 색상으로 설정하세요 */
+border: none;
+border-radius: 4px;
+padding: 10px 20px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+.comment-form-btn {
+display: flex;
+justify-content: flex-end; /* 내용을 오른쪽으로 정렬 */
+margin-top: 10px;
+}
+
+/* 아래의 CSS 코드를 추가하여 댓글 작성 버튼을 오른쪽으로 정렬합니다. */
+.comment-form button {
+    margin-left: 10px;
+}

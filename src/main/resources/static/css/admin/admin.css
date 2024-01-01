@@ -1,0 +1,184 @@
+@charset "UTF-8";
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: grid;
+    grid-template-areas: "sidebar content";
+    grid-template-rows: 1fr;
+    grid-template-columns: 200px 1fr;
+    height: 100vh;
+}
+
+aside {
+    grid-area: sidebar;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    position: relative;
+    transition: left 0.3s;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside ul li a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    font-size: 0.9em;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+aside ul li a i {
+    margin-right: 10px;
+}
+
+.submenu-indicator {
+    margin-left: auto;
+    transition: transform 0.3s;
+    line-height: normal;
+}
+
+.submenu {
+    display: none;
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    width: 70%;
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+}
+
+.sidebar-footer a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.logo,
+.logo-space {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.logo-space {
+    height: 41px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.admin-title {
+    color: rgb(0, 0, 0);
+    flex-grow: 1;
+    text-align: center;
+}
+
+.logout-btn {
+    color: rgb(255, 255, 255);
+    background-color: #333;
+    border: none;
+    cursor: pointer;
+    width: 8%;
+    padding: 0.7%;
+}
+
+main {
+    grid-area: content;
+    padding: 10px;
+}
+
+.toggle-sidebar-btn,
+.close-sidebar-btn {
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    border: transparent;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.close-sidebar-btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    position: absolute;
+    top: 3px;
+    right: 2px;
+    font-size: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+aside.visible .close-sidebar-btn {
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-areas: "content";
+    }
+    aside {
+        position: fixed;
+        left: -200px;
+        top: 0;
+        height: 100%;
+        width: 180px;
+    }
+    aside.visible {
+        left: 0;
+    }
+    main {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .toggle-sidebar-btn {
+        display: block;
+        position: fixed;
+        top: 2px;
+        left: 2px;
+        z-index: 2000;
+    }
+    .logout-btn {
+        width: 25%;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .toggle-sidebar-btn {
+        display: none;
+    }
+    .close-sidebar-btn {
+        display: none;
+    }
+}
