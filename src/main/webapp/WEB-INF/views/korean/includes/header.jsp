@@ -153,7 +153,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <li>
             <a href="#">에디터 추천</a>
             <ul class="dropdown-list">
-              <li><a href="#">에디터 추천장소</a></li>
+              <li><a href="/korean/editRecommend_list.do">에디터 추천장소</a></li>
               <li><a href="#">에디터 추천꿀팁</a></li>
             </ul>
           </li>
