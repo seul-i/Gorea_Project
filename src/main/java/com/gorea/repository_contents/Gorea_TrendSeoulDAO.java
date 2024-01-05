@@ -24,14 +24,6 @@ public class Gorea_TrendSeoulDAO {
 		ArrayList<Gorea_TrendSeoul_BoardTO> lists = new ArrayList<Gorea_TrendSeoul_BoardTO>();
 		lists = mapper.trendSeoul_List();
 		
-		for(Gorea_TrendSeoul_BoardTO to : lists) {
-			String go_seoul_content = to.getGo_seoul_content();
-			
-			Document document = Jsoup.parse(go_seoul_content);
-	        String textContent = document.text();
-	        
-	        to.setGo_seoul_content(textContent);
-		}
 		 return lists;
 	}
 	
@@ -66,13 +58,6 @@ public class Gorea_TrendSeoulDAO {
         // 위도와 경도를 TO 객체에 추가
         to.setLatitude(latitude);
         to.setLongitude(longitude);
-        
-        String go_seoul_content = to.getGo_seoul_content();
-		
-		Document document = Jsoup.parse(go_seoul_content);
-        String textContent = document.text();
-        
-        to.setGo_seoul_content(textContent);
 
 		return to;
 	}

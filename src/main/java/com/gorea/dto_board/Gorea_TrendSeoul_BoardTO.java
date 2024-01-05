@@ -29,4 +29,6 @@ public class Gorea_TrendSeoul_BoardTO {
     private Double latitude;
     private Double longitude;
     
+    private String firstImageUrl;
+    
 }
