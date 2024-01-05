@@ -1,0 +1,158 @@
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #fff;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			width: 65%;
+			margin: 5px auto;
+			background-color: #fff;
+			padding: 20px;
+			border: 1px solid #eee;
+			border-radius: 10px;
+		}
+
+		.post-title {
+			font-size: 24px;
+			color: #333;
+			margin-bottom: 10px;
+		}
+
+		.post-info {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-bottom: 1px solid #eee;
+			padding-bottom: 15px;
+			margin-bottom: 20px;
+		}
+
+		.post-info-left,
+		.post-info-right {
+			display: flex;
+			align-items: center;
+		}
+
+		.post-info-item {
+			margin-right: 15px;
+		}
+
+		.post-content {
+			font-size: 16px;
+			color: #333;
+			line-height: 1.6;
+			margin-bottom: 30px;
+			min-height: 200px;
+		}
+
+		.comment-section {
+			padding-top: 20px;
+		}
+
+		.comment {
+			display: flex;
+			flex-direction: column;
+			padding: 10px 0;
+			border-bottom: 1px solid #eee;
+		}
+
+		.comment-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.comment-author {
+			font-weight: bold;
+		}
+
+		.comment-actions {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.comment-timestamp {
+			font-size: 12px;
+			color: #aaa;
+		}
+
+		.comments-count {
+			font-weight: bold;
+			font-size: 16px;
+			color: #333;
+			padding-bottom: 5px;
+			border-bottom: 1px solid #eee;
+		}
+
+		.comment-actions a {
+			color: #aaa;
+			margin-left: 10px;
+			font-size: 12px;
+			text-decoration: none;
+			color: #aaa;
+		}
+
+		.btn-reply {
+			color: #28a745;
+			border-color: #28a745;
+		}
+
+		.comment-form {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 20px;
+		}
+
+		.comment-form textarea {
+			flex: 1;
+			resize: none;
+			padding: 10px;
+			border-radius: 4px;
+			border: 1px solid #ccc;
+			min-height: 60px;
+		}
+
+		.comment-form button {
+			padding: 10px 20px;
+			border: none;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+
+		.comment-form-btn button {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.btn {
+			background-color: #007bff;
+			/* 배경색을 원하는 색상으로 설정하세요 */
+			color: #fff;
+			/* 텍스트 색상을 흰색 또는 원하는 색상으로 설정하세요 */
+			border: none;
+			border-radius: 4px;
+			padding: 10px 20px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.comment-form-btn {
+			display: flex;
+			justify-content: flex-end;
+			/* 내용을 오른쪽으로 정렬 */
+			margin-top: 10px;
+		}
+
+		/* 아래의 CSS 코드를 추가하여 댓글 작성 버튼을 오른쪽으로 정렬합니다. */
+		.comment-form button {
+			margin-left: 10px;
+		}

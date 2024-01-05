@@ -1,0 +1,282 @@
+:root {
+    --pink:#e84393;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden; 
+}
+
+.location {
+	width: 100%;
+	max-width: 1200px;
+	margin: 20px auto 0 auto;
+	padding: 10px 0px 20px 20px;
+	font-size: 17px;
+	color: #666;
+	box-sizing: border-box;
+	background-size: 21px auto;
+	margin-left: 20px;
+	/* margin-left 값을 조절하여 왼쪽으로 이동 */
+}
+
+span a {
+	font-weight: bold;
+	color: #333;
+}
+
+i {
+	color: #333;
+}
+
+.ar {
+	font-weight: bold;
+}
+
+.btn {
+	background-color: #007bff;
+	/* 배경색을 원하는 색상으로 설정하세요 */
+	color: #fff;
+	/* 텍스트 색상을 흰색 또는 원하는 색상으로 설정하세요 */
+	border: none;
+	border-radius: 4px;
+	padding: 10px 20px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+header {
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 2rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+    font-size: 3rem;
+    color: #333;
+    font-weight: bolder;
+}
+
+header .logo span {
+    color: var(--pink);
+}
+
+section {
+    padding: 2% 3%;
+}
+
+.heading {
+    text-align: center;
+    font-size: 4rem;
+    color: #333;
+    padding: 1rem;
+    margin: 2rem 0;
+    background: rgba(255, 51, 153, .05);
+}
+
+.heading span {
+    color: var(--pink);
+}
+
+.album-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.logo img {
+    width: 150px; /* 원하는 가로 크기로 조절 */
+    height: auto; /* 가로 크기에 맞게 세로 크기 조절 (비율 유지) */
+}
+
+.album-container .album {
+    width: calc(25% - 1.5rem);
+    height: 330px;
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+    border-radius: 1rem solid rgba(0, 0, 0, .1);
+    position: relative;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+
+.album .title,
+.album .subtitle {
+    font-family: 'Noto Sans KR', sans-serif; /* 사용할 폰트 설정 */
+}
+
+.album .content .title-subtitle .title {
+	text-align: center;
+    font-size: 22px;
+    font-weight: bolder;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.album .content .title-subtitle .subtitle {
+	text-align: center;
+    font-size: 12px;
+    font-weight: lighter;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.album-container .album .image {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.album-container .album .image img {
+    width: 100%;
+    height: 23rem;
+}
+
+.album-container .album:hover .image img {
+    transform: scale(1.1);
+}
+
+.content-top {
+    display: block;
+    justify-content: space-between;
+}
+
+.album .image .i {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
+    display: flex;
+}
+
+.album .image .i .fa-star,
+.album .image .i .fa-star-o {
+    font-size: 24px; /* 원하는 크기로 조절하세요 */
+}
+
+
+.album .image .i .fa-star {
+    color: #94b8f4;
+    transition: color 0.2s linear;
+    display: none; /* 처음에는 채워진 별을 감춤 */
+}
+
+.album .image .i .fa-star-o {
+    color: #94b8f4;
+}
+
+.album .image:hover .i .fa-star {
+    display: inline-block; /* 마우스를 올리면 채워진 별을 보이게 함 */
+}
+
+.album .image:hover .i .fa-star-o {
+    display: none; /* 마우스를 올리면 빈 별을 감춤 */
+}
+
+
+.album-container .album .content .explain {
+    font-size: 1.3rem;
+    color: #807e7e;
+    padding-top: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 원하는 줄 수를 지정 */
+    -webkit-box-orient: vertical;
+}
+
+.banner {
+	position: relative;
+}
+
+.banner-text {
+	position: absolute;
+	bottom: 30px;
+	left: 30px;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.banner img {
+	width: 100%;
+	max-height: 500px;
+}
+
+@media (max-width: 1200px) {
+    .albums .album-container .album {
+        width: calc(50% - 1.5rem); /* 화면이 767px 이하일 때 한 줄에 2개씩 출력 (간격을 빼서 조절) */
+    }
+}
+
+@media (max-width: 800px) {
+    .albums .album-container .album {
+       width: calc(100% - 1.5rem);
+    }
+}
+
+.pagination {
+    text-align: center; /* 가운데 정렬 추가 */
+    margin-top: 20px; /* 상단 여백 추가 */
+    font-weight: bolder;
+}
+
+.pagination a.icon {
+    display: inline-block;
+    vertical-align: middle;
+    height: 36px;
+    width: 36px;
+    line-height: 36px; /* 수정된 부분 */
+    color: #555;
+    background: #fff;
+    border: 1px solid #dedede;
+    border-radius: 50%;
+    font-size: 14px;
+    margin: 0 5px;
+    text-align: center; /* 수정된 부분 */
+}
+
+.pagination a.icon.prev,
+.pagination a.icon.next {
+    text-align: center; /* 수정된 부분 */
+    font-size: 16px;
+}
+
+.pagination a {
+    display: inline-block;
+    vertical-align: top;
+    height: 36px;
+    width: 36px;
+    line-height: 36px;
+    color: #555;
+    background: #fff;
+    border: 1px solid #fff;
+    border-radius: 36px;
+    font-size: 14px;
+    margin: 0 5px;
+    text-align: center;
+}
