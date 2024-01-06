@@ -27,7 +27,7 @@ public class Geocoding {
     public Map<String, Double> getLatLongByAddress(String address) {
         try {
             String encodedAddress = URLEncoder.encode(address, "UTF-8");
-            String apiUrl = String.format("%s?address=%s&key=%s", GEOCODING_API_URL, encodedAddress, apiKey);
+            String apiUrl = String.format("%s?seoulLoc=%s&key=%s", GEOCODING_API_URL, encodedAddress, apiKey);
 
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

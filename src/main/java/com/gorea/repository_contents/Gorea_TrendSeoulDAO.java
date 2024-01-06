@@ -46,18 +46,18 @@ public class Gorea_TrendSeoulDAO {
 		to = mapper.trendSeoul_View(to);
 		
 		 // 주소 정보 추출
-        String address = to.getAddress();
-        
-        // 주소를 이용하여 지오코딩 수행
-        Map<String, Double> coordinates = geocoding.getLatLongByAddress(address);
-
-        // 위도와 경도 추출
-        Double latitude = coordinates.get("lat");
-        Double longitude = coordinates.get("lng");
-
-        // 위도와 경도를 TO 객체에 추가
-        to.setLatitude(latitude);
-        to.setLongitude(longitude);
+//        String address = to.getSeoulLoc();
+//        
+//        // 주소를 이용하여 지오코딩 수행
+//        Map<String, Double> coordinates = geocoding.getLatLongByAddress(address);
+//
+//        // 위도와 경도 추출
+//        Double latitude = coordinates.get("lat");
+//        Double longitude = coordinates.get("lng");
+//
+//        // 위도와 경도를 TO 객체에 추가
+//        to.setLatitude(latitude);
+//        to.setLongitude(longitude);
 
 		return to;
 	}

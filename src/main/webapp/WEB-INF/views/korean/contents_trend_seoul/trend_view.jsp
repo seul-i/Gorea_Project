@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
-<c:set var="seq" value="${param.go_seoul_seq}" />
+<c:set var="seq" value="${param.seoulSeq}" />
 <c:set var="to" value="${requestScope.to}" />
 
 <html lang="ko">
@@ -20,11 +20,12 @@
     <main>
         <section>
             <div class="container">
-                <div class="post-title">${to.go_seoul_subject}</div>
+            	<div class="category">${to.subCategory} </div>
+                <div class="post-title">${to.seoulTitle}</div>
                 <div class="post-info">
                     <div class="post-info-right">
-                        <span class="post-info-item">작성일: ${to.go_seoul_wdate}</span>
-                        <span class="post-info-item">조회수: ${to.go_seoul_hit}</span>
+                        <span class="post-info-item">작성일: ${to.seoulpostDate}</span>
+                        <span class="post-info-item">조회수: ${to.seoulHit}</span>
                     </div>
                 </div>
                 <div class="post-content">
@@ -32,34 +33,51 @@
                         <img src="../../upload/${to.firstImageUrl}" alt="">
                     </div>
                     <div class="content-text">
-                        <span>${to.go_seoul_content}</span>
+                        <span>${to.seoulContent}</span>
                     </div>
                     
                     <div class="content-info">
-                        <div class="phone-number">
-                            <span class="label">전화번호</span>
-                            <span class="mark">:</span>
-                            <span class="value">${to.tel}</span>
-                        </div>
-                        <div class="address">
+                        <div class="info">
                             <span class="label">주소</span>
                             <span class="mark">:</span>
-                            <span class="value">${to.address}</span>
+                            <span class="value">${to.seoulLoc}</span>
                         </div>
-                        <div class="amenity">
-                            <span class="label">편의시설</span>
+                        <div class="info">
+                            <span class="label">사이트</span>
                             <span class="mark">:</span>
-                            <span class="value">${to.facilities}</span>
+                            <span class="value">
+                                <c:if test="${not empty to.seoulSite}">
+                                    <a href="${to.seoulSite}" target="_blank">홈페이지</a>
+                                </c:if>
+                                <c:if test="${empty to.seoulSite}">
+                                    정보 없음
+                                </c:if>
+                            </span>
                         </div>
-                        <div class="transport-info">
-                            <span class="label">교통 정보</span>
+                        <div class="info">
+                            <span class="label">이용시간</span>
                             <span class="mark">:</span>
-                            <span class="value">${to.traffic_info}</span>
+                            <span class="value">${to.seoulusageTime}</span>
+                        </div>
+                        <div class="info">
+                            <span class="label">이용요금</span>
+                            <span class="mark">:</span>
+                            <span class="value">${to.seoulusageFee}</span>
+                        </div>
+                        <div class="info">
+                            <span class="label">교통정보</span>
+                            <span class="mark">:</span>
+                            <span class="value">${to.seoulTrafficinfo}</span>
+                        </div>
+                        <div class="info">
+                            <span class="label">꼭 알아야할 것</span>
+                            <span class="mark">:</span>
+                            <span class="value">${to.seoulNotice}</span>
                         </div>
                     </div>
-                </div>  
+                </div>
                 
-                <div id="map" data-address="${to.address}"></div>
+                <div id="map" data-address="${to.seoulLoc}"></div>
                 
                 <div class="map"> </div>
                 <div class="comment-section">
@@ -77,36 +95,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sub-comment">
-                        <div class="comment">
-                            <div class="comment-header">
-                                <div class="comment-author">김철수</div>
-                            </div>
-                            <div class="comment-body">대댓글 내용입니다.</div>
-                            <div class="comment-actions">
-                                <span class="comment-timestamp">2023-01-02 16:15 <a href="#">답변쓰기</a></span>
-                                <div>
-                                    <a href="#">수정</a>
-                                    <a href="#">삭제</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sub-comment">
-                        <div class="comment">
-                            <div class="comment-header">
-                                <div class="comment-author">김철수</div>
-                            </div>
-                            <div class="comment-body">대댓글 내용입니다.</div>
-                            <div class="comment-actions">
-                                <span class="comment-timestamp">2023-01-02 16:15 <a href="#">답변쓰기</a></span>
-                                <div>
-                                    <a href="#">수정</a>
-                                    <a href="#">삭제</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!-- 추가 댓글들 -->
                 </div>
                 <div class="comment-form">
@@ -114,13 +102,12 @@
                     <button class="btn">댓글 작성</button>
                 </div>
                 <div class="post-actions" style="text-align: right; margin-top: 10px;">
-                    <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='trend_delete_ok.do?go_seoul_seq=${seq}'" />
-                    <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='trend_modify.do?go_seoul_seq=${seq}'" />
-                    <button class="btn" onclick="location.href='trend_seoul.do'">목록</button>
+                    <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='trend_delete_ok.do?seoulSeq=${seq}'" />
+                    <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='trend_modify.do?seoulSeq=${seq}'" />
+                     <input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='trend_seoul.do'" />
                 </div>
             </div>
         </section>
     </main>
-    <jsp:include page="/WEB-INF/views/korean/includes/footer.jsp"></jsp:include>
 </body>
 </html>

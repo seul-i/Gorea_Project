@@ -10,35 +10,6 @@
 
 <fmt:formatNumber var="totalRecord" value="${totalRecord}" />
 
-<c:set var="sbHtml" value="" />
-
-<c:forEach var="to" items="${boardList}">
-    <c:set var="go_seoul_seq" value="${to.go_seoul_seq}" />
-    <c:set var="go_seoul_subject" value="${to.go_seoul_subject}" />
-    <c:set var="go_seoul_subtitle" value="${to.go_seoul_subtitle}" />
-    <c:set var="filename" value="${to.filename}" />
-    <c:set var="firstImageUrl" value="${to.firstImageUrl}" />
-    <c:set var="go_seoul_loc" value="${to.go_seoul_loc}" />
-
-   <c:set var="sbHtml" value="${sbHtml}<div class='album' data-go_seoul_seq='${go_seoul_seq}'>
-     <div class='image'>
-         <img src='../../upload/${firstImageUrl}' alt=''>
-     </div>
-     <div class='content'>
-         <div class='content-top'>
-             <h3 class='title'>${go_seoul_subject}</h3>
-             <div class='icons' id='likeButton'>
-                 <i class='fa fa-star-o fa-2x' style='color: #94b8f4;'></i>
-                 <i class='fa fa-star fa-2x' style='color: #94b8f4;'></i>
-             </div>
-         </div>
-         <div class='explain'>${go_seoul_subtitle}</div>
-       </div>
-    </div>" />
-</c:forEach>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,9 +21,9 @@
     <script>
         $(document).ready(function () {
             // 앨범 클릭 이벤트 처리
-            $('.album').on('click', function () {
-                var go_seoul_seq = $(this).data('go_seoul_seq');
-                window.location.href = './trend_view.do?go_seoul_seq=' + go_seoul_seq;
+            $('.album').on('click', function() {
+                var seoulSeq = $(this).data('seq');
+                window.location.href = '/korean/trend_view.do?seoulSeq=' + seoulSeq;
             });
 
         });
@@ -72,15 +43,34 @@
             </div>
         </article>
     </section>
-
-    <section class="albums">
+    
+     <section class="albums">
         <div class="album-container">
-            ${sbHtml}
-        </div>
-        <div class="writeBtn">
-   		 	<a href="./trend_write.do">글쓰기<i class="fa fa-pen"></i></a>
+            <c:forEach var="to" items="${boardList}">
+			    <div class='album' data-seq='${to.seoulSeq}'>
+			        <div class='image'>
+			            <img src='../../upload/${to.firstImageUrl}' alt=''>
+			        </div>
+			        <div class='content'>
+			            <div class='content-top'>
+			                <h3 class='title'>${to.seoulTitle}</h3>
+			                <div class='icons' id='likeButton'>
+			                    <i class='fa fa-star-o fa-2x' style='color: #94b8f4;'></i>
+			                    <i class='fa fa-star fa-2x' style='color: #94b8f4;'></i>
+			                </div>
+			            </div>
+			            <div class='explain'>${to.seoulsubTitle}</div>
+			        </div>
+			    </div>
+			</c:forEach>
         </div>
     </section>
+    <div class="writeBtn">
+   		<a href="./trend_write.do">글쓰기<i class="fa fa-pen"></i></a>
+    </div>
+    
+    
+
 </div>
 <jsp:include page="/WEB-INF/views/korean/includes/footer.jsp"></jsp:include>
 </body>

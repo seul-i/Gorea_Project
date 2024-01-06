@@ -31,55 +31,86 @@
     <div class="container">
         <h2>게시글 수정</h2>
         <form action="./trend_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
-            <input type="hidden" name="go_seoul_seq" value="${param.go_seoul_seq}" />
+            <input type="hidden" name="seoulSeq" value="${param.seoulSeq}" />
 
             <div class="form-group">
-                <input type="text" class="form-control" name="go_seoul_subject" value="${to.go_seoul_subject}" style="height: 50px" placeholder="제목을 입력해 주세요." />
-                <input type="text" class="form-control" name="go_seoul_subtitle" value="${to.go_seoul_subtitle}" placeholder="부제목을 입력해 주세요." />
+                <input type="text" class="form-control" name="seoulTitle" value="${to.seoulTitle}" style="height: 50px" placeholder="제목을 입력해 주세요." />
+                <input type="text" class="form-control" name="seoulsubTitle" value="${to.seoulsubTitle}" placeholder="부제목을 입력해 주세요." />
             </div>
 
 		<div class="form-group">
-		    <label for="location">지역 선택</label>
-		    <select class="form-control" name="go_seoul_loc" id="location">
-		        <option value="강남" <c:if test="${'강남' eq to.go_seoul_loc}">selected</c:if>>강남</option>
-		        <option value="광화문" <c:if test="${'광화문' eq to.go_seoul_loc}">selected</c:if>>광화문</option>
-		        <option value="동대문" <c:if test="${'동대문' eq to.go_seoul_loc}">selected</c:if>>동대문</option>
-		        <option value="명동" <c:if test="${'명동' eq to.go_seoul_loc}">selected</c:if>>명동</option>
-		        <option value="성수" <c:if test="${'성수' eq to.go_seoul_loc}">selected</c:if>>성수</option>
-		        <option value="여의도" <c:if test="${'여의도' eq to.go_seoul_loc}">selected</c:if>>여의도</option>
-		        <option value="이태원" <c:if test="${'이태원' eq to.go_seoul_loc}">selected</c:if>>이태원</option>
-		        <option value="잠실" <c:if test="${'잠실' eq to.go_seoul_loc}">selected</c:if>>잠실</option>
-		        <option value="홍대" <c:if test="${'홍대' eq to.go_seoul_loc}">selected</c:if>>홍대</option>
-		        <option value="기타" <c:if test="${'기타' eq to.go_seoul_loc}">selected</c:if>>기타</option>
-		    </select>
-		</div>
-
-
+			    <label for="location">지역 선택</label>
+			    <select class="form-control" name="seoulLocGu"  value="${to.seoulLocGu} id="location">
+			    	<option value="강남구">강남구</option>
+			        <option value="영등포구">영등포구</option>
+			        <option value="마포구">마포구</option>
+			        <option value="송파구">송파구</option>
+			        <option value="중구">중구</option>
+			        <option value="용산구">용산구</option>
+		            <option value="종로구">종로구</option>
+			    	<option value="기타">기타</option>
+			    </select>
+			    
+			    <label for="location">카테고리 선택</label>
+			    <select class="form-control" name="seoulcategoryNo" value="${to.seoulcategoryNo}" id="category">
+			    	<option value="1">카페&디저트</option>
+			        <option value="2">주점</option>
+			        <option value="3">한식</option>
+			        <option value="4">중식</option>
+			        <option value="5">일식</option>
+			        <option value="6">아시아식</option>
+		            <option value="7">서양식</option>
+			    	<option value="8">레스토랑</option>
+				    <option value="9">백화점</option>
+			        <option value="10">쇼핑몰</option>
+			        <option value="11">면세점</option>
+			        <option value="12">시장</option>
+			        <option value="13">뷰티</option>
+			        <option value="14">관광지</option>
+		            <option value="15">도시공원</option>
+			    	<option value="16">자연공원</option>
+			    	<option value="17">전시시설</option>
+			        <option value="18">공연시설</option>
+			        <option value="19">역사</option>
+		            <option value="20">성당&교회</option>
+			    	<option value="21">절</option>
+			    </select>
+			</div>
             <div class="form-group">
-                <textarea class="form-control" id="content" name="go_seoul_content" placeholder="내용을 입력해 주세요.">${to.go_seoul_content}</textarea>
+                <textarea class="form-control" id="content" name="seoulContent" placeholder="내용을 입력해 주세요."> ${to.seoulContent} </textarea>
             </div>
-
-            <div class="form-group">
-                <div class="phone">
-                    <span class="label">전화번호</span>
-                    <span class="mark">:</span>
-                    <input type="text" class="form-control" name="tel" value="${to.tel}" placeholder="전화번호를 입력해 주세요." />
-                </div>
-                <div class="address">
-                    <span class="label">주소</span>
-                    <span class="mark">:</span>
-                    <input type="text" class="form-control" name="address" value="${to.address}" placeholder="주소를 입력해 주세요." />
-                </div>
-                <div class="amenity">
-                    <span class="label">편의시설</span>
-                    <span class="mark">:</span>
-                    <input type="text" class="form-control" name="facilities" value="${to.facilities}" placeholder="편의시설을 입력해 주세요." />
-                </div>
-                <div class="transportation">
-                    <span class="label">교통정보</span>
-                    <span class="mark">:</span>
-                    <input type="text" class="form-control" name="traffic_info" value="${to.traffic_info}" placeholder="교통시설 입력해 주세요." />
-                </div>
+            
+             <div class="form-group">
+                <div class="input-info">
+            		<span class="label">주소</span>
+            		<span class="mark">:</span>
+            		 <input type="text" class="form-control" name="seoulLoc"  value="${to.seoulLoc}" placeholder="주소를 입력해 주세요."/>
+            	</div>
+            	<div class="input-info">
+            		<span class="label">사이트</span>
+            		<span class="mark">:</span>
+            		 <input type="text" class="form-control" name="seoulSite"  value="${to.seoulSite}" placeholder="사이트를 입력해 주세요."/>
+            	</div>
+            	<div class="input-info">
+            		<span class="label">이용시간</span>
+            		<span class="mark">:</span>
+            		 <input type="text" class="form-control" name="seoulusageTime"  value="${to.seoulusageTime}" placeholder="이용시간을 입력해 주세요."/>
+            	</div>
+            	<div class="input-info">
+            		<span class="label">이용요금</span>
+            		<span class="mark">:</span>
+            		 <input type="text" class="form-control" name="seoulusageFee"  value="${to.seoulusageFee}" placeholder="이용요금을 입력해 주세요."/>
+            	</div>
+           	    <div class="input-info">
+            		<span class="label">교통정보</span>
+            		<span class="mark">:</span>
+            		 <input type="text" class="form-control" name="seoulTrafficinfo"  value="${to.seoulTrafficinfo}" placeholder="교통정보를 입력해 주세요."/>
+            	</div>
+            	<div class="input-info">
+            		<span class="label">꼭알아야할것</span>
+            		<span class="mark">:</span>
+            		 <input type="text" class="form-control" name="seoulNotice"  value="${to.seoulNotice}" placeholder="꼭 알아야할 것을 입력해 주세요."/>
+            	</div>
             </div>
 
             <div class="btn_wrap">
@@ -90,7 +121,7 @@
 
     <script type="text/javascript">
         window.onload = function() {
-            CKEDITOR.replace('go_seoul_content', {
+            CKEDITOR.replace('seoulContent', {
                 filebrowserUploadUrl: 'imageUpload',
                 height: 500,
                 toolbar: [
