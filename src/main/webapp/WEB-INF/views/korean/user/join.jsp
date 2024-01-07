@@ -62,13 +62,13 @@
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="firstName"></label> <input type="text"
-								class="form-control" id="firstName" name="go_user_firstname" placeholder="성" value=""
+								class="form-control" id="firstName" name="userFirstname" placeholder="성" value=""
 								required="">
 							<div class="invalid-feedback">이름을 입력해주세요.</div>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="lastName"></label> <input type="text"
-								class="form-control" id="lastName" name="go_user_lastname" placeholder="이름" value=""
+								class="form-control" id="lastName" name="userLastname" placeholder="이름" value=""
 								required="">
 							<div class="invalid-feedback">성을 입력해주세요.</div>
 						</div>
@@ -77,7 +77,7 @@
 					<div class="mb-3">
 						<label for="nickname"></label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="nickname" name="go_user_nickname"
+							<input type="text" class="form-control" id="nickname" name="userNickname"
 								placeholder="닉네임" required="">
 							<button class="btn btn-primary2" type="button"
 								onclick="checkNickname()">중복
@@ -88,13 +88,13 @@
 
 					<div class="mb-3">
 						<label for="email"></label> <input type="email"
-							class="form-control" id="email" name="go_user_mail" placeholder="you@example.com"
+							class="form-control" id="email" name="userMail" placeholder="you@example.com"
 							required="">
 						<div class="invalid-feedback">이메일을 입력해주세요.</div>
 					</div>
 					
 					<div class="mb-3">
-						<select id="country" name="go_user_nation">
+						<select id="country" name="userNation">
     					<option value="대한민국">대한민국 (South Korea)</option>
     					<option value="미국">미국 (USA)</option>
     					<option value="일본">일본 (Japan)</option>

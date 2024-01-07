@@ -31,11 +31,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <body>
     <c:set
       var="role"
-      value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.go_user_role}"
+      value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}"
     />
     <c:set
       var="nickname"
-      value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.go_user_nickname}"
+      value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}"
     />
 
     <div class="header-nav">

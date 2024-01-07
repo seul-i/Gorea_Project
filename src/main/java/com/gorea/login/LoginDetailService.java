@@ -20,13 +20,11 @@ public class LoginDetailService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		Gorea_UserTO user = userMapper.login(username);
-		System.out.println("user 네임 확인 : " + user ) ;
 		
 		if (user != null) {
 			LoginService loginDetail = new LoginService();
  
 			loginDetail.setGorea_UserTO(user);
-			System.out.println("loginDetail : " + loginDetail);
 			return loginDetail;
 			
 		} else {

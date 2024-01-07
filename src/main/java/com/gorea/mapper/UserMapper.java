@@ -18,27 +18,27 @@ import com.gorea.dto_user.Gorea_UserTO;
 public interface UserMapper {
 	
 	// 회원가입
-	@Insert("insert into user (username, password, go_user_lastname, go_user_firstname, go_user_nickname, go_user_point, go_user_mail, go_user_nation, go_user_rating) " +
-	        "values (#{username}, #{password}, #{go_user_lastname}, #{go_user_firstname}, #{go_user_nickname}, #{go_user_point}, #{go_user_mail}, #{go_user_nation}, #{go_user_rating})")
-	@Options(useGeneratedKeys = true, keyProperty = "go_user_seq")
+	@Insert("insert into user (username, password, userLastname, userFirstname, userNickname, userMail, userNation, userPoint) " +
+	        "values (#{username}, #{password}, #{userLastname}, #{userFirstname}, #{userNickname}, #{userMail}, #{userNation}, #{userPoint})")
+	@Options(useGeneratedKeys = true, keyProperty = "userSeq")
 	int join(Gorea_JoinTO gorea_JoinTO);
 	
 	// 로그인
 	@Select("select "+
-			"go_user_seq,"+
-			  "username,"+
-			  "password,"+
-			  "go_user_lastname,"+
-			  "go_user_firstname,"+
-			  "go_user_nickname,"+
-			  "go_user_mail,"+
-			  "go_user_nation,"+
-			  "go_user_joindate,"+
-			  "go_user_point,"+
-			  "go_user_rating,"+
-			  "go_user_role "+
-			"FROM user " +
-			"WHERE username = #{username}")
+			"userSeq,"+
+			"username,"+
+			"password,"+
+			"userLastname,"+
+			"userFirstname,"+
+			"userNickname,"+
+			"userMail,"+
+			"userNation,"+
+			"userJoindate,"+
+			"userPoint,"+
+			"userRating,"+
+			"userRole "+
+				"FROM user " +
+				"WHERE username = #{username}")
 	Gorea_UserTO login(String username);
 	
 	/* editRecommend */

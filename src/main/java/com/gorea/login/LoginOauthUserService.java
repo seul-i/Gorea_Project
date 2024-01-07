@@ -46,8 +46,8 @@ public class LoginOauthUserService extends DefaultOAuth2UserService {
 			Gorea_JoinTO join = new Gorea_JoinTO();
 			join.setUsername(username);
 			join.setPassword(password);
-			join.setGo_user_mail(Google_mail);
-			join.setGo_user_nickname(username);
+			join.setUserMail(Google_mail);
+			join.setUserNickname(username);
 			
 			gorea_UserDAO_Interface.join(join);
 			

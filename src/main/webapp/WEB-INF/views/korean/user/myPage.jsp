@@ -22,10 +22,10 @@
 	<div>
 	    <c:if test="${not empty SPRING_SECURITY_CONTEXT}">
 	        <!-- 시큐리티 컨텍스트에서 사용자 정보를 가져옴 -->
-	        <c:set var="nickname" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.go_user_nickname}" />
-	        <c:set var="role" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.go_user_role}" />
-	        <c:set var="mail" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.go_user_mail}" />
-	        <c:set var="nation" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.go_user_nation}" />
+	        <c:set var="nickname" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
+	        <c:set var="role" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
+	        <c:set var="mail" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userMail}" />
+	        <c:set var="nation" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNation}" />
 	       
 	        <!-- 저장한 변수를 사용자에게 보여주고, data-nickname 속성에도 동일한 값 지정 -->
 	        <h2>유저 정보</h2>

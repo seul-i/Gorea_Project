@@ -26,7 +26,7 @@ public class LoginService implements UserDetails, OAuth2User {
 		roles.add(new GrantedAuthority() {
 			@Override
 			public String getAuthority() {
-				return gorea_UserTO.getGo_user_role();
+				return gorea_UserTO.getUserRole();
 			}
 		});
 		return roles;

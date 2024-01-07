@@ -22,10 +22,12 @@ public class Gorea_Header_Controller {
 	public String login() {
 		return "korean/user/login";
 	}
+	
 	@GetMapping("/korean/join.do")
 	public String join() {
 	    return "korean/user/join";
 	}
+	
 	@PostMapping("/korean/joinOk.do")
 	public String joinProc(Gorea_JoinTO gorea_JoinTO) {
 		String encPwd = pwdEncoder.encode(gorea_JoinTO.getPassword());
@@ -39,7 +41,6 @@ public class Gorea_Header_Controller {
 	public String admin() {
 	    return "gorea_admingpage";
 	}
-	
 	// 마이 페이지 이동
 	@GetMapping("/user/korean/mypage.do")
 	public String mypage() {
