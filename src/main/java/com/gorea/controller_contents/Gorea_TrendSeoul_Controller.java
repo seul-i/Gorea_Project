@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -24,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 import com.gorea.repository_contents.Gorea_TrendSeoulDAO;
 
+import jakarta.annotation.Resource;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -46,22 +49,24 @@ public class Gorea_TrendSeoul_Controller {
 	
 	@RequestMapping("/korean/trend_seoul.do")
 	public String list(HttpServletRequest request, Model model) {
-	 System.out.println("list 호출 성공");
-	 List<Gorea_TrendSeoul_BoardTO> boardList = dao.trendSeoul_List();
-	    
-	    for (Gorea_TrendSeoul_BoardTO board : boardList) {
-         String content = board.getSeoulContent();
-         String firstImageUrl = extractFirstImageUrl(content);
-         board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
-         
-         // System.out.printf("결과 : %s ", firstImageUrl);
-     }
+		System.out.println("list 호출 성공");
+		List<Gorea_TrendSeoul_BoardTO> boardList = dao.trendSeoul_List();
 
-	    model.addAttribute("boardList", boardList);
-      
-      return "korean/contents_trend_seoul/trend_seoul";
+		for (Gorea_TrendSeoul_BoardTO board : boardList) {
+			String content = board.getSeoulContent();
+			String firstImageUrl = extractFirstImageUrl(content);
+			board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+
+			// System.out.printf("결과 : %s ", firstImageUrl);
+		}
+
+		model.addAttribute("boardList", boardList);
+		
+		System.out.println(boardList);
+
+		return "korean/contents_trend_seoul/trend_seoul";
 	}
-	
+
 	
 	@RequestMapping("/korean/trend_write.do")
     public String gowrite(HttpServletRequest request, Model model) {

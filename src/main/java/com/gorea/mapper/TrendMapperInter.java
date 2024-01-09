@@ -1,10 +1,11 @@
 package com.gorea.mapper;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -14,8 +15,11 @@ import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 public interface TrendMapperInter {
 	
 	// trend_seoul
-	@Select("select seoulSeq, seoulTitle, seoulsubTitle, seoulContent from trendseoul order by seoulSeq desc")
-	ArrayList<Gorea_TrendSeoul_BoardTO> trendSeoul_List(); 
+	@Select("select ts.userSeq, ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, ts.seoulScore, cn.mainCategory, cn.subCategory from trendseoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc")
+	List<Gorea_TrendSeoul_BoardTO> trendSeoul_List();
+	
+	 @Select("SELECT COUNT(*) FROM trendseoul")
+	 int get_trendSeoulTotalCount();
 	
 	// trend_seoul_WriteOk
 	// rank -> 일단 값이 없어서 1로 고정시켜서 넣어놓음

@@ -1,6 +1,7 @@
 package com.gorea.repository_contents;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.jsoup.Jsoup;
@@ -20,12 +21,19 @@ public class Gorea_TrendSeoulDAO {
 	@Autowired
 	private Geocoding geocoding;
 	
-	public ArrayList<Gorea_TrendSeoul_BoardTO> trendSeoul_List() {
-		ArrayList<Gorea_TrendSeoul_BoardTO> lists = new ArrayList<Gorea_TrendSeoul_BoardTO>();
-		lists = mapper.trendSeoul_List();
+	public List<Gorea_TrendSeoul_BoardTO> trendSeoul_List() {
 		
-		 return lists;
+		List<Gorea_TrendSeoul_BoardTO> lists = mapper.trendSeoul_List();
+		System.out.println("리스트출력" + lists);
+		return lists;
 	}
+	
+//	public int getTotalRowCount() {
+//		
+//	    int totalRowCount = mapper.get_trendSeoulTotalCount();
+//	    System.out.println("토탈" + totalRowCount);
+//	    return totalRowCount;
+//	}
 	
 	public void trendSeoul_Write() {}
 	

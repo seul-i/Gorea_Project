@@ -13,7 +13,7 @@ import lombok.ToString;
 public class Gorea_TrendSeoul_BoardTO {
 
 	private String seoulSeq;         // 글 번호
-//	private String userSeq;          // 글 작성자 정보
+	private String userSeq;          // 글 작성자 정보
 	private String seoulboardNo;     // 게시판 분류 
 	private String seoulcategoryNo;  // 카테고리 
 	private String seoulRank;        // 검색건 수

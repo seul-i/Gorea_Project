@@ -54,7 +54,7 @@ header .logo span {
     /* margin: 5px auto; */
     margin: 1px auto;
     background-color: #fff;
-    padding: 30px 300px;
+    padding: 30px 200px;
     /* border: 1px solid #eee;
      border-radius: 10px; */
 }
@@ -99,8 +99,8 @@ header .logo span {
 }
 
 .content-img img {
-    width: 70%; 
-    max-height: 500px; 
+    width: 80%; 
+    max-height: 600px; 
     display: block; 
     margin: 0 auto; 
 }
@@ -255,4 +255,51 @@ margin-top: 10px;
 /* 아래의 CSS 코드를 추가하여 댓글 작성 버튼을 오른쪽으로 정렬합니다. */
 .comment-form button {
     margin-left: 10px;
+}
+
+
+@media only screen and (max-width: 1280px) {
+	.container {
+	    width: 100%;
+	    /* width: 100%; */
+	    /* margin: 5px auto; */
+	    margin: 1px auto;
+	    background-color: #fff;
+	    padding: 30px 200px;
+	    /* border: 1px solid #eee;
+	     border-radius: 10px; */
+	}
+}
+
+@media only screen and (max-width: 880px) {
+	.container {
+	    width: 100%;
+	    /* width: 100%; */
+	    /* margin: 5px auto; */
+	    margin: 1px auto;
+	    background-color: #fff;
+	    padding: 30px 100px;
+	    /* border: 1px solid #eee;
+	     border-radius: 10px; */
+	}
+	
+	.content-img img {
+    width: 100%; 
+    max-height: 600px; 
+    display: block; 
+    margin: 0 auto; 
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.container {
+	    width: 100%;
+	    /* width: 100%; */
+	    /* margin: 5px auto; */
+	    margin: 1px auto;
+	    background-color: #fff;
+	    padding: 30px 10px;
+	    /* border: 1px solid #eee;
+	     border-radius: 10px; */
+	}
 }

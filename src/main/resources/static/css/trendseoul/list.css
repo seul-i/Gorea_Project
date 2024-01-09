@@ -13,8 +13,9 @@
     transition: .2s linear;
 }
 
-html {
-    font-size: 62.5%;
+
+main {
+	font-size: 62.5%;
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
     overflow-x: hidden; 
@@ -59,12 +60,12 @@ html {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-    height: 100vh;
+/*    height: 100vh;*/
 }
 
 .album-container .album {
     width: calc(24% - 1rem);
-    height: 330px;
+    height: 380px;
     box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
     border-radius: 1rem solid rgba(0, 0, 0, .1);
     position: relative;
@@ -92,7 +93,7 @@ html {
 
 .album-container .album .image img {
     width: 100%;
-    height: 23rem;
+    height: 15rem;
 }
 
 .album-container .album:hover .image img {
@@ -113,17 +114,33 @@ html {
 
 
 .album-container .album .content {
-    padding: 1.5rem;
+    padding: 1.2rem;
     text-align: center;
 }
 
-.content-top {
+.content-sub {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.starpoint {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 20px;
+    
+}
+
+.content-main {
     display: flex;
     justify-content: space-between;
 }
 
+
 .album-container .album .content .title {
-    font-size: 1.8rem;
+    font-size: 1.2rem;
     color: #333;
 }
 .album-container .album .content .explain {
@@ -137,23 +154,13 @@ html {
     -webkit-box-orient: vertical;
 }
 
-
-.banner {
+.trendseoulBanner {
     position: relative;
     margin-bottom: 20px;
 }
 
-.banner-text {
-    position: absolute;
-    bottom: 30px; /* 텍스트의 하단과 부모 요소의 하단 간의 간격 조정 */
-    left: 180px; /* 텍스트의 좌측과 부모 요소의 좌측 간의 간격 조정 */
-    color: white; /* 텍스트 색상 */
-    font-size: 32px; /* 텍스트 크기 */
-    font-weight: bold; /* 텍스트 굵기 */
-    /* 추가적인 스타일링을 원하는 대로 추가하세요. */
-}
 
-.banner img {
+.trendseoulBanner img {
     width: 100%;
     max-height: 500px;
     filter: brightness(60%);
@@ -161,12 +168,14 @@ html {
 }
 
 
-
-
 @media (max-width: 1200px) {
     .albums .album-container .album {
         width: calc(50% - 1.5rem); /* 화면이 767px 이하일 때 한 줄에 2개씩 출력 (간격을 빼서 조절) */
     }
+    
+    .album-container {
+	    margin-left: 1.5rem;
+	}
 
 }
 
@@ -174,6 +183,10 @@ html {
     .albums .album-container .album {
        width: 100%;
     }
+    
+    .album-container {
+	    margin-left: 0rem;
+	}
 
 }
 
@@ -224,3 +237,25 @@ html {
 	cursor: pointer; /* 마우스 커서 모양 변경 */
     margin-right: 10px; /* 오른쪽 마진 추가 */
 }
+
+/*별점처리부분*/
+
+.starpoint_wrap{display:inline-block;}
+.starpoint_box{position:relative;background:url(https://ido-archive.github.io/svc/etc/element/img/sp_star.png) 0 0 no-repeat;font-size:0;}
+.starpoint_box .starpoint_bg{display:block;position:absolute;top:0;left:0;height:18px;background:url(/img/trendseoul/sp_star.png) 0 -20px no-repeat;pointer-events:none;}
+.starpoint_box .label_star{display:inline-block;width:10px;height:18px;box-sizing:border-box;}
+.starpoint_box .star_radio{opacity:0;width:0;height:0;position:absolute;}
+.starpoint_box .star_radio:nth-of-type(1):checked ~ .starpoint_bg{width:10%; }
+.starpoint_box .star_radio:nth-of-type(2):checked ~ .starpoint_bg{width:20%; }
+.starpoint_box .star_radio:nth-of-type(3):checked ~ .starpoint_bg{width:30%; }
+.starpoint_box .star_radio:nth-of-type(4):checked ~ .starpoint_bg{width:40%; }
+.starpoint_box .star_radio:nth-of-type(5):checked ~ .starpoint_bg{width:50%; }
+.starpoint_box .star_radio:nth-of-type(6):checked ~ .starpoint_bg{width:60%; }
+.starpoint_box .star_radio:nth-of-type(7):checked ~ .starpoint_bg{width:70%; }
+.starpoint_box .star_radio:nth-of-type(8):checked ~ .starpoint_bg{width:80%; }
+.starpoint_box .star_radio:nth-of-type(9):checked ~ .starpoint_bg{width:90%; }
+.starpoint_box .star_radio:nth-of-type(10):checked ~ .starpoint_bg{width:100%; }
+
+
+.blind{position:absolute;clip:rect(0 0 0 0);margin:-1px;width:1px;height: 1px;overflow:hidden;}
+

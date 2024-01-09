@@ -30,7 +30,7 @@
                 </div>
                 <div class="post-content">
                     <div class="content-img">
-                        <img src="../../upload/${to.firstImageUrl}" alt="">
+                        <img src="${to.firstImageUrl}" alt="">
                     </div>
                     <div class="content-text">
                         <span>${to.seoulContent}</span>
@@ -47,7 +47,7 @@
                             <span class="mark">:</span>
                             <span class="value">
                                 <c:if test="${not empty to.seoulSite}">
-                                    <a href="${to.seoulSite}" target="_blank">홈페이지</a>
+                                    <a href="${to.seoulSite}" target="_blank">Site Link</a>
                                 </c:if>
                                 <c:if test="${empty to.seoulSite}">
                                     정보 없음
