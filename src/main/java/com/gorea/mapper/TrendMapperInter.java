@@ -14,29 +14,31 @@ import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 public interface TrendMapperInter {
 	
 	// trend_seoul
-	@Select("select go_seoul_seq, go_seoul_subject, go_seoul_subtitle, go_seoul_content, uid, filename from trendseoul order by go_seoul_seq desc")
+	@Select("select seoulSeq, seoulTitle, seoulsubTitle, seoulContent from trendseoul order by seoulSeq desc")
 	ArrayList<Gorea_TrendSeoul_BoardTO> trendSeoul_List(); 
 	
 	// trend_seoul_WriteOk
-	@Insert("insert into trendseoul values (0, #{go_seoul_subject}, #{go_seoul_subtitle}, #{go_seoul_content}, 0, now(), #{go_seoul_loc}, #{uid}, #{filename}, #{tel}, #{address}, #{facilities}, #{traffic_info})")
+	// rank -> 일단 값이 없어서 1로 고정시켜서 넣어놓음
+	// userSeq는 db에서 일단 빼놨음
+	@Insert("insert into trendseoul values (0, 7, #{seoulcategoryNo}, 1, #{seoulTitle}, #{seoulsubTitle}, now(), 0, #{seoulContent}, #{seoulLoc}, #{seoulLocGu}, #{seoulSite}, #{seoulusageTime}, #{seoulusageFee}, #{seoulTrafficinfo}, #{seoulNotice}, 0)")
 	int trendSeoul_Write_Ok(Gorea_TrendSeoul_BoardTO to);
 	
 	// trend_view
-	@Update("update trendseoul set go_seoul_hit=go_seoul_hit+1 where go_seoul_seq=#{go_seoul_seq}")
+	@Update("update trendseoul set seoulHit=seoulHit+1 where seoulSeq=#{seoulSeq}")
 	int TrendHit(Gorea_TrendSeoul_BoardTO to);
 	
-	@Select("select go_seoul_subject, go_seoul_subtitle, go_seoul_content, go_seoul_hit, date_format(go_seoul_wdate, '%Y.%m.%d') go_seoul_wdate, uid, filename, tel, address, facilities, traffic_info, datediff(now(), go_seoul_wdate) from trendseoul where go_seoul_seq=#{go_seoul_seq} ")
+	@Select("SELECT ts.seoulSeq, ts.seoulboardNo, ts.seoulcategoryNo, ts.seoulRank, ts.seoulTitle, ts.seoulsubTitle, ts.seoulpostDate, ts.seoulHit, ts.seoulContent, ts.seoulLoc, ts.seoulLocGu, ts.seoulSite, ts.seoulusageTime, ts.seoulusageFee, ts.seoulTrafficinfo, ts.seoulNotice, ts.seoulScore, bn.goreaboardName, cn.mainCategory, cn.subCategory, date_format(ts.seoulpostDate, '%Y.%m.%d') seoulpostDate, datediff(now(), ts.seoulpostDate) FROM TrendSeoul ts JOIN BoardNo bn ON ts.seoulboardNo = bn.goreaboardNo JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo WHERE ts.seoulSeq=#{seoulSeq}")
 	Gorea_TrendSeoul_BoardTO trendSeoul_View(Gorea_TrendSeoul_BoardTO to);
-	
+
 	// trend_Modify
-	@Select("select go_seoul_subject, go_seoul_subtitle, go_seoul_content, uid, filename, tel, address, facilities, traffic_info from trendseoul where go_seoul_seq=#{go_seoul_seq}")
+	@Select("select seoulTitle, seoulsubTitle, seoulContent, seoulLoc, seoulLocGu, seoulSite, seoulusageTime, seoulusageFee, seoulTrafficinfo, seoulNotice from trendseoul where seoulSeq=#{seoulSeq}")
 	Gorea_TrendSeoul_BoardTO trendSeoul_Modify(Gorea_TrendSeoul_BoardTO to);
 	
 	// trend_modify_ok
-	@Update("update trendseoul set go_seoul_subject=#{go_seoul_subject}, go_seoul_subtitle=#{go_seoul_subtitle}, go_seoul_content=#{go_seoul_content}, go_seoul_loc=#{go_seoul_loc}, uid=#{uid}, filename=#{filename}, tel=#{tel}, address=#{address}, facilities=#{facilities}, traffic_info=#{traffic_info} where go_seoul_seq=#{go_seoul_seq}")
+	@Update("update trendseoul set seoulTitle=#{seoulTitle}, seoulsubTitle=#{seoulsubTitle}, seoulContent=#{seoulContent}, seoulLoc=#{seoulLoc}, seoulLocGu=#{seoulLocGu}, seoulSite=#{seoulSite}, seoulusageTime=#{seoulusageTime}, seoulusageFee=#{seoulusageFee}, seoulTrafficinfo=#{seoulTrafficinfo}, seoulNotice=#{seoulNotice} where seoulSeq=#{seoulSeq}")
 	int trendSeoul_Modify_Ok(Gorea_TrendSeoul_BoardTO to);
 	
 	// trend_delete_ok
-	@Delete("delete from trendseoul where go_seoul_seq=#{go_seoul_seq}")
+	@Delete("delete from trendseoul where seoulSeq=#{seoulSeq}")
 	int trendSeoul_Delete_Ok(Gorea_TrendSeoul_BoardTO to);
 }

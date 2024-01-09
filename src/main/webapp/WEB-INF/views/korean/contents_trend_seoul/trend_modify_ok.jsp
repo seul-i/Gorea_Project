@@ -1,20 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.io.File" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%
-	request.setCharacterEncoding("utf-8");
-	int flag = (Integer)request.getAttribute("flag");
+<c:set var="flag" value="${requestScope.flag}" />
 
-	out.println("<script type='text/javascript'>");
-	if(flag == 0){
-		// 정상
-		out.println("alert('글 수정 성공');");
-		out.println("location.href = 'trend_seoul.do';");
-	} else if(flag == 1) {
-		// 에러
-		out.println("alert('글 수정 실패.');");
-		out.println("history.back();");
-	}
-		out.println("</script>");
-%>
+<script type="text/javascript">
+    <c:choose>
+        <c:when test="${flag == 0}">
+            alert('수정 성공');
+            location.href='trend_seoul.do';
+        </c:when>
+        <c:when test="${flag == 1}">
+            alert('수정 실패');
+            history.back();
+        </c:when>
+    </c:choose>
+</script>

@@ -9,7 +9,11 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -43,102 +47,127 @@ public class Gorea_TrendSeoul_Controller {
 	@RequestMapping("/korean/trend_seoul.do")
 	public String list(HttpServletRequest request, Model model) {
 	 System.out.println("list 호출 성공");
-      List<Gorea_TrendSeoul_BoardTO> lists = dao.trendSeoul_List();
-      model.addAttribute("lists", lists);
+	 List<Gorea_TrendSeoul_BoardTO> boardList = dao.trendSeoul_List();
+	    
+	    for (Gorea_TrendSeoul_BoardTO board : boardList) {
+         String content = board.getSeoulContent();
+         String firstImageUrl = extractFirstImageUrl(content);
+         board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+         
+         // System.out.printf("결과 : %s ", firstImageUrl);
+     }
+
+	    model.addAttribute("boardList", boardList);
       
       return "korean/contents_trend_seoul/trend_seoul";
 	}
 	
 	
 	@RequestMapping("/korean/trend_write.do")
-    public ModelAndView gowrite(HttpServletRequest request, Model model) {
-		ModelAndView modelAndView = new ModelAndView("korean/contents_trend_seoul/trend_write");
-		return modelAndView;
+    public String gowrite(HttpServletRequest request, Model model) {
+		return "korean/contents_trend_seoul/trend_write";
     }
 	
 	@RequestMapping("/korean/trend_write_ok.do")
-	public ModelAndView write_ok(HttpServletRequest request, MultipartFile upload) {
-		int flag = 2;
-		
-		to.setGo_seoul_subject(request.getParameter( "go_seoul_subject" ));
-		to.setGo_seoul_subtitle(request.getParameter( "go_seoul_subtitle" ) );
-		to.setGo_seoul_content(request.getParameter("go_seoul_content"));
-		to.setGo_seoul_loc(request.getParameter("go_seoul_loc"));
-		to.setTel(request.getParameter("tel"));
-		to.setAddress(request.getParameter("address"));
-		to.setFacilities(request.getParameter("facilities"));
-		to.setTraffic_info(request.getParameter("traffic_info"));
-		
-		flag = dao.trendSeoul_Write_Ok(to);
-		
-		ModelAndView modelAndView = new ModelAndView("korean/contents_trend_seoul/trend_write_ok");
-		modelAndView.addObject("flag", flag);
+    public String write_ok(HttpServletRequest request, MultipartFile upload, Model model) {
+        int flag = 2;
+        
+//        to.setSeoulboardNo(request.getParameter("seoulboardNo"));
+        to.setSeoulcategoryNo(request.getParameter("seoulcategoryNo"));
+//        to.setSeoulRank(request.getParameter("seoulRank"));
+        to.setSeoulTitle(request.getParameter("seoulTitle"));
+        to.setSeoulsubTitle(request.getParameter("seoulsubTitle"));
+        to.setSeoulContent(request.getParameter("seoulContent"));
+        to.setSeoulLoc(request.getParameter("seoulLoc"));
+        to.setSeoulLocGu(request.getParameter("seoulLocGu"));
+        to.setSeoulSite(request.getParameter("seoulSite"));
+        to.setSeoulusageTime(request.getParameter("seoulusageTime"));
+        to.setSeoulusageFee(request.getParameter("seoulusageFee"));
+        to.setSeoulTrafficinfo(request.getParameter("seoulTrafficinfo"));
+        to.setSeoulNotice(request.getParameter("seoulNotice"));
+//        to.setSeoulScore(request.getParameter("seoulScore"));
+        
+        flag = dao.trendSeoul_Write_Ok(to);
+        
+        model.addAttribute("flag", flag);
 
-		return modelAndView;
+        return "korean/contents_trend_seoul/trend_write_ok";
 	}
 	
 	@RequestMapping("/korean/trend_view.do")
-	public ModelAndView view(HttpServletRequest request) {
-		to.setGo_seoul_seq(request.getParameter("go_seoul_seq"));
-		System.out.println("## seq : " + request.getParameter("go_seoul_seq"));
+	public String view(HttpServletRequest request, Model model) {
+		to.setSeoulSeq(request.getParameter("seoulSeq"));
+		System.out.println("## seq : " + request.getParameter("seoulSeq"));
 		
 		to = dao.trendSeoul_View(to);
 		
-		ModelAndView modelAndView = new ModelAndView("korean/contents_trend_seoul/trend_view");
-		modelAndView.addObject("to", to);
+		// 이미지 URL 추출
+	    String content = to.getSeoulContent();
+	    String firstImageUrl = extractFirstImageUrl(content);
+	    to.setFirstImageUrl(firstImageUrl);
+	    
+		Document document = Jsoup.parse(content);
+		String textContent = document.text();
+      
+		to.setSeoulContent(textContent);
 		
-		return modelAndView;
+	    model.addAttribute("to", to);
+		
+		return "korean/contents_trend_seoul/trend_view";
 	}
 	
 	@RequestMapping("/korean/trend_modify.do")
-	public ModelAndView modify(HttpServletRequest request) {
+	public String modify(HttpServletRequest request, Model model) {
 	
-		to.setGo_seoul_seq( request.getParameter("go_seoul_seq") );
-		System.out.println("## seq : " + request.getParameter("go_seoul_seq"));
+		to.setSeoulSeq( request.getParameter("seoulSeq") );
+		System.out.println("## seq : " + request.getParameter("seoulSeq"));
 		
 		to = dao.trendSeoul_Modify(to);
 		
-		ModelAndView modelAndView = new ModelAndView("korean/trend_modify");
-		modelAndView.addObject("to", to);
-		modelAndView.addObject("go_seoul_seq", to.getGo_seoul_seq());
+		model.addAttribute("to", to);
+		model.addAttribute("seoulSeq", to.getSeoulSeq());
 		
-		return modelAndView;
+		return "korean/contents_trend_seoul/trend_modify";
 	}
 	
 	@RequestMapping("/korean/trend_modify_ok.do")
-	public ModelAndView modify_ok(HttpServletRequest request, MultipartFile upload) {
+	public String modify_ok(HttpServletRequest request, MultipartFile upload, Model model) {
 		int flag = 1;
-		to.setGo_seoul_seq( request.getParameter("go_seoul_seq") );
-		to.setGo_seoul_subject(request.getParameter( "go_seoul_subject" ));
-		to.setGo_seoul_subtitle(request.getParameter( "go_seoul_subtitle" ) );
-		to.setGo_seoul_content(request.getParameter("go_seoul_content"));
-		to.setGo_seoul_loc(request.getParameter("go_seoul_loc"));
 		
-		to.setTel(request.getParameter("tel"));
-		to.setAddress(request.getParameter("address"));
-		to.setFacilities(request.getParameter("facilities"));
-		to.setTraffic_info(request.getParameter("traffic_info"));
+		to.setSeoulSeq( request.getParameter("seoulSeq") );
+		to.setSeoulboardNo(request.getParameter("seoulboardNo"));
+        to.setSeoulcategoryNo(request.getParameter("seoulcategoryNo"));
+        to.setSeoulRank(request.getParameter("seoulRank"));
+        to.setSeoulTitle(request.getParameter("seoulTitle"));
+        to.setSeoulsubTitle(request.getParameter("seoulsubTitle"));
+        to.setSeoulContent(request.getParameter("seoulContent"));
+        to.setSeoulLoc(request.getParameter("seoulLoc"));
+        to.setSeoulLocGu(request.getParameter("seoulLocGu"));
+        to.setSeoulSite(request.getParameter("seoulSite"));
+        to.setSeoulusageTime(request.getParameter("seoulusageTime"));
+        to.setSeoulusageFee(request.getParameter("seoulusageFee"));
+        to.setSeoulTrafficinfo(request.getParameter("seoulTrafficinfo"));
+        to.setSeoulNotice(request.getParameter("seoulNotice"));
+        to.setSeoulScore(request.getParameter("seoulScore"));
 		
-		System.out.println("## seq : " + request.getParameter("go_seoul_seq"));
+		System.out.println("## seq : " + request.getParameter("seoulSeq"));
 		
 		flag = dao.trendSeoul_Modify_Ok(to);
-		
-		ModelAndView modelAndView = new ModelAndView("korean/contents_trend_seoul/trend_modify_ok");
-		modelAndView.addObject("flag", flag);
+
+		model.addAttribute("flag", flag);
 		System.out.println(flag);
-		return modelAndView;
+		return "korean/contents_trend_seoul/trend_modify_ok";
 	}
 	
 	@RequestMapping("/korean/trend_delete_ok.do")
-	public ModelAndView delete_ok(HttpServletRequest request) {
-		to.setGo_seoul_seq(request.getParameter("go_seoul_seq"));
+	public String delete_ok(HttpServletRequest request, Model model) {
+		to.setSeoulSeq(request.getParameter("seoulSeq"));
 		
 		int flag = dao.trendSeoul_Delete_Ok(to);
 		
-		ModelAndView modelAndView = new ModelAndView("korean/contents_trend_seoul/trend_delete_ok");
-		modelAndView.addObject("flag", flag);
+		model.addAttribute("flag", flag);
 		
-		return modelAndView;
+		return "korean/contents_trend_seoul/trend_delete_ok";
 	}
 	
 	
@@ -256,4 +285,23 @@ public class Gorea_TrendSeoul_Controller {
             e.printStackTrace();
         }
     }
+    
+    private String extractFirstImageUrl(String content) {
+//	    System.out.println("Content: " + content); // 콘텐츠 출력
+
+	    String imageUrl = "";
+	    Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+	    Matcher matcher = pattern.matcher(content);
+	    if (matcher.find()) {
+	        imageUrl = matcher.group(1);
+//	        System.out.println("Extracted Image URL: " + imageUrl); // 추출된 이미지 URL 출력
+
+	        // URL에서 필요한 부분 추출 및 조정
+	        imageUrl = imageUrl.replace("/ckImgSubmit?uid=", "").replace("&amp;fileName=", "_");
+//	        System.out.println("Formatted Image URL: " + imageUrl); // 조정된 이미지 URL 출력
+	    } else {
+	        System.out.println("No image found"); // 이미지를 찾지 못한 경우
+	    }
+	    return imageUrl;
+	}
 }

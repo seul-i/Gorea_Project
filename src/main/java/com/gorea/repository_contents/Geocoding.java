@@ -27,7 +27,7 @@ public class Geocoding {
     public Map<String, Double> getLatLongByAddress(String address) {
         try {
             String encodedAddress = URLEncoder.encode(address, "UTF-8");
-            String apiUrl = String.format("%s?address=%s&key=%s", GEOCODING_API_URL, encodedAddress, apiKey);
+            String apiUrl = String.format("%s?seoulLoc=%s&key=%s", GEOCODING_API_URL, encodedAddress, apiKey);
 
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -44,10 +44,6 @@ public class Geocoding {
 
             Map<String, Double> coordinates = parseGeocodingResponse(responseStrBuilder.toString());
             
-            // 출력문 추가
-            System.out.println("주소: " + address);
-            System.out.println("위도: " + coordinates.get("lat"));
-            System.out.println("경도: " + coordinates.get("lng"));
             return coordinates;
         } catch (IOException e) {
             e.printStackTrace();
