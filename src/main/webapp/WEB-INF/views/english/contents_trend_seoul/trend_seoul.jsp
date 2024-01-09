@@ -6,11 +6,8 @@
 <%@ page import="com.gorea.dto_board.Gorea_TrendSeoul_BoardTO"%>
 <%@ page import="java.util.ArrayList" %>
 
-<%-- <c:set var="paging" value="${requestScope.paging}" /> --%>
 <c:set var="boardList" value="${requestScope.boardList}" />
 <c:set var="totalRecord" value="${fn:length(boardList)}" />
-
-<%-- <fmt:formatNumber var="totalRecord" value="${totalRecord}" /> --%>
 
 <!DOCTYPE html>
 <html>
@@ -42,7 +39,7 @@
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/views/korean/includes/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/english/includes/header.jsp"></jsp:include>
 
 <div class="main">
     <section class="trendseoulBanner">
@@ -59,9 +56,8 @@
 				            <img src='${to.firstImageUrl}' alt=''>
 				        </div>
 			        <div class='content'>
-			        	<div class='content-sub'>
+			        	<div class='content-sub'>			        	
 			        		<p>[${to.seoulLocGu}] ${to.mainCategory}/${to.subCategory}</p>
-			        		
 							<span></span>
 			        	</div>
 			        	

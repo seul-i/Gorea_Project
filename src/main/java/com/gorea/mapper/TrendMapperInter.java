@@ -10,13 +10,15 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
+import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
+
 
 @Mapper
 public interface TrendMapperInter {
 	
 	// trend_seoul
-	@Select("select ts.userSeq, ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, ts.seoulScore, cn.mainCategory, cn.subCategory from trendseoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc")
-	List<Gorea_TrendSeoul_BoardTO> trendSeoul_List();
+	@Select("select ts.userSeq, ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, ts.seoulScore, cn.mainCategory, cn.subCategory from trendseoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc LIMIT 4")
+	List<Gorea_TrendSeoul_ListTO> trendSeoul_List();
 	
 	 @Select("SELECT COUNT(*) FROM trendseoul")
 	 int get_trendSeoulTotalCount();

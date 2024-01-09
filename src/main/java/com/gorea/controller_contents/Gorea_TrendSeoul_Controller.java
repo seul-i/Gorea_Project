@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
+import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.repository_contents.Gorea_TrendSeoulDAO;
+import com.gorea.service_contents.Gorea_Content_Translation;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletOutputStream;
@@ -46,27 +49,36 @@ public class Gorea_TrendSeoul_Controller {
 	@Autowired
 	private Gorea_TrendSeoul_BoardTO to;
 	
+	@Autowired
+	private Gorea_Content_Translation translation;
 	
-	@RequestMapping("/korean/trend_seoul.do")
-	public String list(HttpServletRequest request, Model model) {
-		System.out.println("list 호출 성공");
-		List<Gorea_TrendSeoul_BoardTO> boardList = dao.trendSeoul_List();
-
-		for (Gorea_TrendSeoul_BoardTO board : boardList) {
-			String content = board.getSeoulContent();
-			String firstImageUrl = extractFirstImageUrl(content);
-			board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
-
-			// System.out.printf("결과 : %s ", firstImageUrl);
-		}
+	@GetMapping("/korean/trend_seoul.do")
+	public String Trendlist(Model model) {
+		System.out.println("TrendSeoul list 호출 성공");
+		List<Gorea_TrendSeoul_ListTO> boardList = dao.trendSeoul_List();
 
 		model.addAttribute("boardList", boardList);
-		
-		System.out.println(boardList);
 
 		return "korean/contents_trend_seoul/trend_seoul";
 	}
 
+	// 영어 번역 처리 ============================================================================
+	
+	@GetMapping("/english/trend_seoul.do")
+	public String Trendlist_En(Model model) {
+		System.out.println("TrendSeoul list 영어번역 호출 성공");
+		
+		List<Gorea_TrendSeoul_ListTO> boardList_en = translation.trendSeoul_List_EN();	
+		
+		System.out.println(boardList_en);
+		
+		model.addAttribute("boardList", boardList_en);
+		
+		return "english/contents_trend_seoul/trend_seoul";
+	}
+	
+	
+	// =======================================================================================
 	
 	@RequestMapping("/korean/trend_write.do")
     public String gowrite(HttpServletRequest request, Model model) {
@@ -99,22 +111,12 @@ public class Gorea_TrendSeoul_Controller {
         return "korean/contents_trend_seoul/trend_write_ok";
 	}
 	
-	@RequestMapping("/korean/trend_view.do")
+	@GetMapping("/korean/trend_view.do")
 	public String view(HttpServletRequest request, Model model) {
 		to.setSeoulSeq(request.getParameter("seoulSeq"));
 		System.out.println("## seq : " + request.getParameter("seoulSeq"));
 		
 		to = dao.trendSeoul_View(to);
-		
-		// 이미지 URL 추출
-	    String content = to.getSeoulContent();
-	    String firstImageUrl = extractFirstImageUrl(content);
-	    to.setFirstImageUrl(firstImageUrl);
-	    
-		Document document = Jsoup.parse(content);
-		String textContent = document.text();
-      
-		to.setSeoulContent(textContent);
 		
 	    model.addAttribute("to", to);
 		
@@ -290,23 +292,4 @@ public class Gorea_TrendSeoul_Controller {
             e.printStackTrace();
         }
     }
-    
-    private String extractFirstImageUrl(String content) {
-//	    System.out.println("Content: " + content); // 콘텐츠 출력
-
-	    String imageUrl = "";
-	    Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
-	    Matcher matcher = pattern.matcher(content);
-	    if (matcher.find()) {
-	        imageUrl = matcher.group(1);
-//	        System.out.println("Extracted Image URL: " + imageUrl); // 추출된 이미지 URL 출력
-
-	        // URL에서 필요한 부분 추출 및 조정
-	        imageUrl = imageUrl.replace("/ckImgSubmit?uid=", "").replace("&amp;fileName=", "_");
-//	        System.out.println("Formatted Image URL: " + imageUrl); // 조정된 이미지 URL 출력
-	    } else {
-	        System.out.println("No image found"); // 이미지를 찾지 못한 경우
-	    }
-	    return imageUrl;
-	}
 }

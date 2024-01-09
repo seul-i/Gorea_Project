@@ -3,6 +3,8 @@ package com.gorea.repository_contents;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
+import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.mapper.TrendMapperInter;
 
 @Repository
@@ -21,15 +24,20 @@ public class Gorea_TrendSeoulDAO {
 	@Autowired
 	private Geocoding geocoding;
 	
-	public List<Gorea_TrendSeoul_BoardTO> trendSeoul_List() {
+	public List<Gorea_TrendSeoul_ListTO> trendSeoul_List() {
 		
-		List<Gorea_TrendSeoul_BoardTO> lists = mapper.trendSeoul_List();
-		System.out.println("리스트출력" + lists);
-		return lists;
+		List<Gorea_TrendSeoul_ListTO> boardList = mapper.trendSeoul_List();
+		
+		for (Gorea_TrendSeoul_ListTO board : boardList) {
+			String content = board.getSeoulContent();
+			String firstImageUrl = extractFirstImageUrl(content);
+			board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+		}
+		
+		return boardList;
 	}
 	
 //	public int getTotalRowCount() {
-//		
 //	    int totalRowCount = mapper.get_trendSeoulTotalCount();
 //	    System.out.println("토탈" + totalRowCount);
 //	    return totalRowCount;
@@ -52,6 +60,15 @@ public class Gorea_TrendSeoulDAO {
 		
 		int hitResult = mapper.TrendHit(to);
 		to = mapper.trendSeoul_View(to);
+		
+		// 이미지 URL 추출
+	    String content = to.getSeoulContent();
+	    String firstImageUrl = extractFirstImageUrl(content);
+	    to.setFirstImageUrl(firstImageUrl);
+	    
+		Document document = Jsoup.parse(content);
+		String textContent = document.text();
+		to.setSeoulContent(textContent);
 		
 		 // 주소 정보 추출
 //        String address = to.getSeoulLoc();
@@ -98,6 +115,25 @@ public class Gorea_TrendSeoulDAO {
 		}
 		
 		return flag;
+	}
+	
+    private String extractFirstImageUrl(String content) {
+//	    System.out.println("Content: " + content); // 콘텐츠 출력
+
+	    String imageUrl = "";
+	    Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+	    Matcher matcher = pattern.matcher(content);
+	    if (matcher.find()) {
+	        imageUrl = matcher.group(1);
+//	        System.out.println("Extracted Image URL: " + imageUrl); // 추출된 이미지 URL 출력
+
+	        // URL에서 필요한 부분 추출 및 조정
+	        imageUrl = imageUrl.replace("/ckImgSubmit?uid=", "").replace("&amp;fileName=", "_");
+//	        System.out.println("Formatted Image URL: " + imageUrl); // 조정된 이미지 URL 출력
+	    } else {
+	        //System.out.println("No image found"); // 이미지를 찾지 못한 경우
+	    }
+	    return imageUrl;
 	}
 	
 }
