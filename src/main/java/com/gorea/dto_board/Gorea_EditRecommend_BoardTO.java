@@ -19,7 +19,5 @@ public class Gorea_EditRecommend_BoardTO implements Serializable{
 	private String editrecoContent;
 	private String editrecoHit;
 	private String editrecoWdate;
-	private String uid;
-    private String filename;
     private String firstImageUrl;
 }
