@@ -1,5 +1,7 @@
 package com.gorea.dto_board;
 
+import org.springframework.stereotype.Repository;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,82 +9,39 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Gorea_TrendSeoul_ListTO {
+@Repository
+public class Gorea_TrendSeoul_BoardTO {
 
-	private int totalcount; // 페이징에 적용할 전체 데이터 갯수
-    private int pagenum; // 현재 페이지 번호
-    private int contentnum; // 한페이지에 몇개 표시할지
-    private int startPage=1; // 현재 페이지 블록의 시작 페이지
-    private int endPage=5; // 현재 페이지 블럭의 마지막 페이지
-    private boolean prev; // 이전 페이지로 가는 화살표
-    private boolean next; //  다음 페이지로 가는 화살표
-    private int currentblock; // 현재 페이지 블록
-    private int lastblock; //  마지막 페이지 블록
+	private String seoulSeq;         // 글 번호
+	private String userSeq;          // 글 작성자 정보
+	private String seoulboardNo;     // 게시판 분류 
+	private String seoulcategoryNo;  // 카테고리 
+	private String seoulRank;        // 검색건 수
+	private String seoulTitle;       // 제목
+	private String seoulsubTitle;    // 서브제목
+	private String seoulpostDate;    // 글작성 일자
+	private String seoulHit;         // 조회수
+	private String seoulContent;     // 내용
+	private String seoulLoc;         // 위치(주소)
+	private String seoulLocGu;		 // 구 
+	private String seoulSite;        // 사이트
+	private String seoulusageTime;   // 이용 시간
+	private String seoulusageFee;    // 이용 요금
+	private String seoulTrafficinfo; // 교통 정보
+	private String seoulNotice;      // 알아야할 정보
+	private String seoulScore;       // 리뷰 점수
+	
+	// content 사진
+	private String uid;
+	private String filename;
+	private String firstImageUrl;
+	
+	// 주소 -> 위도, 경도 변환
+    private Double latitude;
+    private Double longitude;
+    
+    // join
+    private String mainCategory;
+    private String subCategory;
 
-    public void prevnext(int pagenum) {
-        if (calcpage(totalcount, contentnum) < 6) {
-            setPrev(false);
-            setNext(false);
-        } else if (pagenum > 0 && pagenum < 6) {
-            setPrev(false);
-            setNext(true);
-        } else if (getLastblock() == getCurrentblock()) {
-            setPrev(true);
-            setNext(false);
-        } else {
-            setPrev(true);
-            setNext(true);
-        }
-    }
-
-    public int calcpage(int totalcount, int contentnum){ // 전체페이지 수를 계산하는 함수
-        //125 / 10 => 12.5
-        //13페이지
-        int totalpage = totalcount / contentnum;
-        if(totalcount%contentnum>0){
-            totalpage++;
-        }
-        return totalpage;
-    }
-
-    public void setStartPage(int currentblock) {
-        this.startPage = (currentblock*5)-4;
-        /*
-        *  1  // 1 2 3 4 5 
-        *  2  // 6 7 8 9 10
-        *  3  // 11 12 13 14
-        * */
-     }
-
-    public void setEndPage(int getlastblock, int getcurrentblock) {
-        // 마지막 페이지 블록을 구하는 곳
-        if(getlastblock == getcurrentblock){
-            this.endPage = calcpage(getTotalcount(),getContentnum()); // 전체페이지 개수가 오는곳
-        }else{
-            this.endPage = getStartPage()+4;   
-        }
-    }
-
-    public void setCurrentblock(int pagenum) {
-        //현재페이지 블록 구하는 곳  페이지 번호를 통해서 구한다.
-        //페이지 번호 / 페이지 그룹안의 페이지 개수
-        // 1p => 1 / 5 => 0.2   + 1 = 현재 페이지블록 1
-        // 3p => 3 / 5 => 0.xx  + 1 = 현재 페이지 블록 1
-        this.currentblock = pagenum/5;
-        if(pagenum%5>0){
-            this.currentblock++;
-        }
-    }
-
-    public void setLastblock(int lastblock) {
-        //10 , 5  = > 10 * 5 => 50
-        // 12 5 / 50
-        // 3
-        this.lastblock = totalcount / (5*this.contentnum);
-
-        if(totalcount %(5*this.contentnum)>0){
-            this.lastblock++;
-        }
-    }
 }
-
