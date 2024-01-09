@@ -11,8 +11,6 @@ request.setCharacterEncoding("utf-8");
 	String subject = to.getEditrecoSubject();
 	String subtitle = to.getEditrecoSubtitle();
 	String content = to.getEditrecoContent();
-	String uid = to.getUid();
-	String filename = to.getFilename();
 %>
 <html>
 <head>

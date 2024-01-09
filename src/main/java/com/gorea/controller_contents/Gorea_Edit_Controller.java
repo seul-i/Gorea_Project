@@ -17,6 +17,7 @@ import javax.swing.text.Document;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gorea.dto_board.Gorea_EditRecommendListTO;
+import com.gorea.dto_board.Gorea_Edit_ListTO;
 import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
 import com.gorea.dto_board.Gorea_EditTip_BoardTO;
 import com.gorea.repository_contents.Gorea_EditDAO;
@@ -48,54 +49,80 @@ public class Gorea_Edit_Controller {
 	@Autowired
 	private Gorea_EditRecommend_BoardTO to;
 
-
 	/* editRecommend */
 	@RequestMapping("/korean/editRecommend_list.do")
 	public String editRecommendList(Model model, @RequestParam(defaultValue = "1") int cpage,
-			@RequestParam(defaultValue = "5") int pageSize) {
-		int offset = (cpage <= 0) ? 0 : (cpage - 1) * pageSize;
+	        @RequestParam(defaultValue = "8") int pageSize) {
+	    // cpage가 0 이하이면 1로 설정
+	    cpage = (cpage <= 0) ? 1 : cpage;
 
-		List<Gorea_EditRecommend_BoardTO> lists = dao.editRecommend_List(offset, pageSize);
+	    if (cpage <= 0) {
+	        // cpage가 0 이하인 경우, 1페이지로 리다이렉트
+	        return "redirect:/korean/editRecommend_list.do?cpage=1";
+	    }
 
-		for (Gorea_EditRecommend_BoardTO to : lists) {
-			String content = to.getEditrecoContent();
-			String firstImageUrl = extractFirstImageUrl(content);
-			to.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+	    int offset = (cpage - 1) * pageSize;
 
-			System.out.printf("결과 : %s ", firstImageUrl);
-		}
-		Gorea_EditRecommendListTO paging = createPagingModel(lists);
-		model.addAttribute("paging", paging);
+	    List<Gorea_EditRecommend_BoardTO> lists = dao.editRecommend_List(offset, pageSize);
 
-		return "korean/contents_edit_recommend/editRecommend_List";
+	    for (Gorea_EditRecommend_BoardTO to : lists) {
+	        String content = to.getEditrecoContent();
+	        String firstImageUrl = extractFirstImageUrl(content);
+	        to.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+
+	        System.out.printf("결과 : %s ", firstImageUrl);
+	    }
+
+	    Gorea_Edit_ListTO paging = createPagingModel(lists, cpage);
+	    model.addAttribute("paging", paging);
+
+	    // 페이지 번호를 추가하는 부분
+	    List<Integer> pageNumbers = new ArrayList<>();
+	    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+	        pageNumbers.add(i);
+	    }
+	    model.addAttribute("pageNumbers", pageNumbers);
+
+	    return "korean/contents_edit_recommend/editRecommend_List";
+	}
+
+	/**
+	 * 페이징 모델을 생성하여 반환하는 메소드
+	 *
+	 * @param lists  현재 페이지에 표시할 목록
+	 * @param cpage  현재 페이지 번호
+	 * @return 페이징 모델
+	 */
+	private Gorea_Edit_ListTO createPagingModel(List<Gorea_EditRecommend_BoardTO> lists, int cpage) {
+	    Gorea_Edit_ListTO paging = new Gorea_Edit_ListTO();
+	    paging.setLists(lists != null ? lists : new ArrayList<>());
+	    paging.setTotalRecord(dao.getTotalRowCount());
+	    paging.setCpage(cpage);  // 추가: cpage 값을 설정
+
+	    // 수정: pageSetting 호출 전에 cpage 값을 확인하고 필요하다면 수정
+	    if (cpage > paging.getTotalPage()) {
+	        cpage = paging.getTotalPage();
+	    }
+
+	    paging.pageSetting();
+
+	    return paging;
 	}
 
 	// extractFirstImageUrl 메서드
 	private String extractFirstImageUrl(String content) {
 
-		System.out.println("content : " + content);
 		String imageUrl = "";
 		Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
 		Matcher matcher = pattern.matcher(content);
-		System.out.println("Extracted Image URL2: " + matcher);
 		if (matcher.find()) {
 			imageUrl = matcher.group(1);
 			imageUrl = imageUrl.replace("/ckImgSubmitForEditRecommend?uid=", "").replace("&amp;fileName=", "_");
-			System.out.println("Extracted Image URL2: " + imageUrl);
 
 		} else {
 			System.out.println("No image found");
 		}
 		return imageUrl;
-	}
-
-	private Gorea_EditRecommendListTO createPagingModel(List<Gorea_EditRecommend_BoardTO> lists) {
-		Gorea_EditRecommendListTO paging = new Gorea_EditRecommendListTO();
-		paging.setLists(lists != null ? lists : new ArrayList<>());
-		paging.setTotalRecord(dao.getTotalRowCount());
-		paging.pageSetting();
-		return paging;
-
 	}
 
 	@RequestMapping("/korean/editRecommend_write.do")
@@ -203,8 +230,6 @@ public class Gorea_Edit_Controller {
 						outputStream.write(upload.getBytes());
 					}
 
-					to.setUid(uid.toString());
-					to.setFilename(encodedFileName);
 					// 클라이언트에게 JSON 반환
 					response.setCharacterEncoding("utf-8");
 					response.setContentType("text/html;charset=utf-8");
@@ -277,7 +302,6 @@ public class Gorea_Edit_Controller {
 					try (OutputStream outputStream = new FileOutputStream(new File(newFilePath))) {
 						outputStream.write(upload.getBytes());
 					}
-					to.setFilename(newEncodedFileName);
 
 					String callback = request.getParameter("CKEditorFuncNum");
 					PrintWriter printWriter = response.getWriter();

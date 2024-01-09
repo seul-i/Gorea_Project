@@ -16,8 +16,6 @@
     String hit = to.getEditrecoHit(); 
     String content = to.getEditrecoContent();
     String wdate = to.getEditrecoWdate();
-    String uid = to.getUid();
-    String filename = to.getFilename();
     
 %>
 
