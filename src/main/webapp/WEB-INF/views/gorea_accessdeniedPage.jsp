@@ -53,7 +53,6 @@
 </style>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/korean/includes/header.jsp"></jsp:include>
 <div class="container_error">
 	<br/>
 	<h1>ERROR</h1>
@@ -64,6 +63,6 @@
 	<a href="/intro.do">Go IntroPage</a>
 	<a href="javascript:history.back();">Go BackPage</a>
 </div>
-<jsp:include page="/WEB-INF/views/korean/includes/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>
 </html>

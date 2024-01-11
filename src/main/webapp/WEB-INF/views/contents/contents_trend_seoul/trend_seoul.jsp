@@ -56,7 +56,7 @@
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/views//${language}/includes/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 
 <div class="main">
 
@@ -205,7 +205,7 @@
 		</c:choose>
 	</div>
 
-	<jsp:include page="/WEB-INF/views/${language}/includes/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 
 </body>
 </html>

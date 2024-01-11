@@ -3,7 +3,9 @@ package com.gorea.controller_contents;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gorea.dto_user.Gorea_JoinTO;
@@ -18,33 +20,73 @@ public class Gorea_Header_Controller {
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder;
 	
-	@GetMapping("/korean/login.do")
-	public String login() {
-		return "korean/user/login";
+	@GetMapping("/{language}/login.do")
+	public String login(@PathVariable String language, Model model) {
+		
+		model.addAttribute("language", language);
+		
+		if(language.equals("korean")) {
+			
+		}else if(language.equals("english")) {
+			
+		}else if(language.equals("japanese")) {
+			
+		}else if(language.equals("chinese")) {
+			
+		}
+		
+		return "user/login";
 	}
 	
-	@GetMapping("/korean/join.do")
-	public String join() {
-	    return "korean/user/join";
+	@GetMapping("/{language}/join.do")
+	public String join(@PathVariable String language, Model model) {
+	    
+		model.addAttribute("language", language);
+		
+		if(language.equals("korean")) {
+			
+		}else if(language.equals("english")) {
+			
+		}else if(language.equals("japanese")) {
+			
+		}else if(language.equals("chinese")) {
+			
+		}
+		
+		return "user/join";
 	}
 	
-	@PostMapping("/korean/joinOk.do")
+	@PostMapping("/joinOk.do")
 	public String joinProc(Gorea_JoinTO gorea_JoinTO) {
 		String encPwd = pwdEncoder.encode(gorea_JoinTO.getPassword());
 		gorea_JoinTO.setPassword(encPwd);
 		userService.join(gorea_JoinTO);
-		return "korean/user/login";
+		return "user/login";
+	}
+	
+	// 마이 페이지 이동
+	@GetMapping("/user/{language}/mypage.do")
+	public String mypage(@PathVariable String language, Model model) {
+		
+		model.addAttribute("language", language);
+		
+		if(language.equals("korean")) {
+			
+		}else if(language.equals("english")) {
+			
+		}else if(language.equals("japanese")) {
+			
+		}else if(language.equals("chinese")) {
+			
+		}
+		
+		return "user/myPage";
 	}
 	
 	// 어드민 페이지 이동
 	@GetMapping("/admin/adminpage.do")
 	public String admin() {
-	    return "gorea_admingpage";
-	}
-	// 마이 페이지 이동
-	@GetMapping("/user/korean/mypage.do")
-	public String mypage() {
-	    return "korean/user/myPage";
+	    return "gorea_admingPage";
 	}
 	
 }

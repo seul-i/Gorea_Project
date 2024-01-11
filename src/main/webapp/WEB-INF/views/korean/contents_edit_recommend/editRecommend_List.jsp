@@ -65,7 +65,7 @@
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/korean/includes/header.jsp"></jsp:include>
+	<c:import url="includes/${language}Header.jsp" />
 
 	<div class="banner" id="banner">
 		<img src="/img/banner/editrecommendbanner.jpg" alt="banner">
@@ -198,6 +198,6 @@
 	</div>
 
 
-		<jsp:include page="/WEB-INF/views/korean/includes/footer.jsp"></jsp:include>
+		<c:import url="includes/footer.jsp" />
 </body>
 </html>

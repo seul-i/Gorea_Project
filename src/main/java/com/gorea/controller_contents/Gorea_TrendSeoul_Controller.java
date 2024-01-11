@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,6 +46,9 @@ public class Gorea_TrendSeoul_Controller {
 	
 	@Value("${spring.servlet.multipart.location}")
     private String uploadDir;
+	
+	@Value("${geocoding.api.key}")
+	private String googlemap;
 
 	@Autowired
 	private Gorea_TrendSeoulDAO dao;
@@ -57,9 +61,6 @@ public class Gorea_TrendSeoul_Controller {
 	
 	@Autowired
 	private Gorea_Content_ViewTranslation viewTranslation;
-	
-	@Value("${geocoding.api.key}")
-	private String googlemap;
 	
 	@GetMapping("/{language}/trend_seoul.do")
 	public String trendList(@PathVariable String language, Model model,
@@ -76,21 +77,13 @@ public class Gorea_TrendSeoul_Controller {
 	    }
 	    
 	    int offset = (cpage - 1) * pageSize;
-	    
-	    // language 변수를 이용하여 언어에 따른 경로를 동적으로 설정
-	    // String path = language.equals("korean") ? "korean" : "english";
-	    
-	    String viewPath = "trend_seoul.do";
-	    viewPath = viewPath.toLowerCase();
-	    
-	    model.addAttribute("viewPath", viewPath);
+
 	    model.addAttribute("language", language);
 	    
 	    if(language.equals("korean")) {
-	    	List<Gorea_TrendSeoul_ListTO> boardList = dao.trendSeoul_List(offset, pageSize);
-		    //model.addAttribute("boardList", boardList);
+	    	List<Gorea_TrendSeoul_ListTO> boardList = listTranslation.trendSeoul_List_KO(offset, pageSize);
 	    	Gorea_PagingTO paging = createPagingModel(boardList, cpage);
-	    	System.out.println(paging);
+
 	    	model.addAttribute("paging", paging);
 	    	
 	    	// 페이지 번호를 추가하는 부분
@@ -145,7 +138,7 @@ public class Gorea_TrendSeoul_Controller {
 
 	    // 동적으로 경로를 설정
 	    //return path + "/contents_trend_seoul/trend_seoul";
-	    return "korean/contents_trend_seoul/trend_seoul";
+	    return "contents/contents_trend_seoul/trend_seoul";
 	}	
 	
 	private Gorea_PagingTO createPagingModel(List<Gorea_TrendSeoul_ListTO> boardList, int cpage) {
@@ -188,17 +181,17 @@ public class Gorea_TrendSeoul_Controller {
 			model.addAttribute("to", to);
 		}
 		
-		return "korean/contents_trend_seoul/trend_view";
+		return "contents/contents_trend_seoul/trend_view";
 	}
 	
 	// =======================================================================================
 	
-	@RequestMapping("/korean/trend_write.do")
+	@GetMapping("/korean/trend_write.do")
     public String gowrite(HttpServletRequest request, Model model) {
-		return "korean/contents_trend_seoul/trend_write";
+		return "contents/contents_trend_seoul/trend_write";
     }
 	
-	@RequestMapping("/korean/trend_write_ok.do")
+	@PostMapping("/korean/trend_write_ok.do")
     public String write_ok(HttpServletRequest request, MultipartFile upload, Model model) {
         int flag = 2;
         
@@ -221,10 +214,10 @@ public class Gorea_TrendSeoul_Controller {
         
         model.addAttribute("flag", flag);
 
-        return "korean/contents_trend_seoul/trend_write_ok";
+        return "contents/contents_trend_seoul/trend_write_ok";
 	}
 	
-	@RequestMapping("/korean/trend_modify.do")
+	@GetMapping("/korean/trend_modify.do")
 	public String modify(HttpServletRequest request, Model model) {
 	
 		to.setSeoulSeq( request.getParameter("seoulSeq") );
@@ -235,10 +228,10 @@ public class Gorea_TrendSeoul_Controller {
 		model.addAttribute("to", to);
 		model.addAttribute("seoulSeq", to.getSeoulSeq());
 		
-		return "korean/contents_trend_seoul/trend_modify";
+		return "contents/contents_trend_seoul/trend_modify";
 	}
 	
-	@RequestMapping("/korean/trend_modify_ok.do")
+	@PostMapping("/korean/trend_modify_ok.do")
 	public String modify_ok(HttpServletRequest request, MultipartFile upload, Model model) {
 		int flag = 1;
 		
@@ -264,10 +257,10 @@ public class Gorea_TrendSeoul_Controller {
 
 		model.addAttribute("flag", flag);
 		System.out.println(flag);
-		return "korean/contents_trend_seoul/trend_modify_ok";
+		return "contents/contents_trend_seoul/trend_modify_ok";
 	}
 	
-	@RequestMapping("/korean/trend_delete_ok.do")
+	@PostMapping("/korean/trend_delete_ok.do")
 	public String delete_ok(HttpServletRequest request, Model model) {
 		to.setSeoulSeq(request.getParameter("seoulSeq"));
 		
@@ -275,7 +268,7 @@ public class Gorea_TrendSeoul_Controller {
 		
 		model.addAttribute("flag", flag);
 		
-		return "korean/contents_trend_seoul/trend_delete_ok";
+		return "contents/contents_trend_seoul/trend_delete_ok";
 	}
 	
 	

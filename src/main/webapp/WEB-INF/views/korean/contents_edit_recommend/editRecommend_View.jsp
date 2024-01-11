@@ -29,7 +29,7 @@
 </head>
 <body>
     
-        <jsp:include page="/WEB-INF/views/korean/includes/header.jsp"></jsp:include>
+        <c:import url="includes/${language}Header.jsp" />
     
 	<div class="location">
 		<i class="fa-solid fa-house"></i> <span class="ar">></span> 추천 <span class="ar">></span> <span> <a href="./editRecommend_list.do">에디터

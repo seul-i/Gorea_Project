@@ -5,19 +5,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.firewall.DefaultHttpFirewall;
-import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 
 import com.gorea.login.CustomAccessDeniedHandler;
 import com.gorea.login.LoginDetailService;
 import com.gorea.login.LoginFail;
 import com.gorea.login.LoginOauthUserService;
 import com.gorea.login.LoginSuccess;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+
 
 
 @EnableWebSecurity
@@ -30,6 +31,7 @@ public class Gorea_LoginSecurity_Config {
 	// 로그인 실패시
 	@Autowired
 	private LoginFail loginFail;
+	
 	@Autowired
 	private LoginDetailService loginDetailService;
 	@Autowired
@@ -46,7 +48,6 @@ public class Gorea_LoginSecurity_Config {
 	public BCryptPasswordEncoder encodePwd() {
 		return new BCryptPasswordEncoder();
 	}
-
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

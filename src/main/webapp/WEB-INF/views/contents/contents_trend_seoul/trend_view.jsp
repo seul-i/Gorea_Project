@@ -33,7 +33,9 @@
     <script src="/js/map/map.js"></script>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/views/${language}/includes/header.jsp"></jsp:include>
+
+    <jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+    
     <main>
         <section>
             <div class="container">

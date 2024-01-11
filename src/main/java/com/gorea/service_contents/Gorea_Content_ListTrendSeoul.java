@@ -17,6 +17,14 @@ public class Gorea_Content_ListTrendSeoul implements Gorea_Content_ListTranslati
     private Gorea_TrendSeoul_ListTranslation translation;
 	
 	@Override
+	public List<Gorea_TrendSeoul_ListTO> trendSeoul_List_KO(int offset, int pageSize) {
+		
+		List<Gorea_TrendSeoul_ListTO> boardList = gorea_TrendSeoulDAO.trendSeoul_List(offset, pageSize);
+
+		return boardList;
+	}
+	
+	@Override
 	public List<Gorea_TrendSeoul_ListTO> trendSeoul_List_EN(int offset, int pageSize) {
 		
 		List<Gorea_TrendSeoul_ListTO> boardList = gorea_TrendSeoulDAO.trendSeoul_List(offset, pageSize);

@@ -26,7 +26,7 @@
     </script>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/views/korean/includes/header.jsp" />
+    <jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 
     <div class="container">
         <h2>게시글 수정</h2>

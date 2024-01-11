@@ -27,16 +27,6 @@ public class Gorea_TrendSeoul_ViewTranslation{
 	private String clientId;
 	@Value("${spring.papago.clientSecret}")
 	private String clientSecret;
-
-//    public Gorea_TrendSeoul_Translation() {
-//    	
-//    	Gorea_PAPAGO_Config papago = new Gorea_PAPAGO_Config();
-//    	
-//        this.clientId = papago.getPapagoApiKey();
-//        this.clientSecret = papago.getPapagoApiSecret();
-//        
-//        System.out.println(clientId+"/"+clientSecret);
-//    }
     
     public Gorea_TrendSeoul_BoardTO translateBoardView(Gorea_TrendSeoul_BoardTO boardView, String lang_code) {
     	

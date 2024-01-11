@@ -8,7 +8,8 @@
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/korean/includes/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+	
     <div class="container">
         <h2>게시글 작성</h2>
         <form class="form-horizontal" method="post" action="./trend_write_ok.do">

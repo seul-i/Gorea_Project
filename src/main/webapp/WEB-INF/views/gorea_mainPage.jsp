@@ -1,30 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="language" value="${language}" />
+
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/main/Main.css">
-<title>Go!rea Main</title>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script type="text/javascript" src="/js/main/jquery.min.js"></script>
-<script type="text/javascript" src="/js/main/skel.min.js"></script>
-<script  type="text/javascript" src="/js/main/main.js"></script>
-</head>
+		<link rel="stylesheet" type="text/css" href="/css/main/Main.css">
 
-<body>
+		<title>Go!rea Main</title>
+
+		<script type="text/javascript" src="/js/main/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/main/skel.min.js"></script>
+		<script  type="text/javascript" src="/js/main/main.js"></script>
+	</head>
+
+	<body>
 	
-	<jsp:include page="/WEB-INF/views/korean/includes/header.jsp"></jsp:include>
-		
+		<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+	
 		<section class="banner half">
 			<article>
 				<img src="/img/main/DDP.jpg" width="1440" height="961">
 					<div class="inner">
 						<header>
-<!-- 							<h4 style="font-weight:bold;">역사와 현대가 공존하는 문화와 쇼핑의 중심지</h4> -->
+							<!-- <h4 style="font-weight:bold;">역사와 현대가 공존하는 문화와 쇼핑의 중심지</h4> -->
 							<h2 style="font-weight:bold;">동 대 문</h2>
 						</header>
 					</div>
@@ -35,7 +39,6 @@
 					<div class="inner">
 						<header>
 							<h2 style="font-weight:bold;">강 남</h2>
-							<!-- 작가 tawatchai07 출처 Freepik -->
 						</header>
 					</div>
 			</article>
@@ -69,9 +72,9 @@
 		</section>
 		
 		<div class="test" style="border-bottom: 1px solid rgba(0,0,0,0.15); height: 600px;"> 
-	
 		</div>
 		
-		<jsp:include page="/WEB-INF/views/korean/includes/footer.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		
 </body>
 </html>

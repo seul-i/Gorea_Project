@@ -30,7 +30,7 @@
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
 				<h4 class="mb-3">SIGN UP</h4>
-				<form class="validation-form" novalidate="" action="/korean/joinOk.do" method="post">
+				<form class="validation-form" novalidate="" action="/joinOk.do" method="post">
 					<div class="mb-3">
 						<label for="username"></label>
 						<div class="input-group">
