@@ -167,29 +167,6 @@ main {
     opacity: 0.9; /* 투명도 조절 */
 }
 
-
-@media (max-width: 1200px) {
-    .albums .album-container .album {
-        width: calc(50% - 1.5rem); /* 화면이 767px 이하일 때 한 줄에 2개씩 출력 (간격을 빼서 조절) */
-    }
-    
-    .album-container {
-	    margin-left: 1.5rem;
-	}
-
-}
-
-@media (max-width: 800px) {
-    .albums .album-container .album {
-       width: 100%;
-    }
-    
-    .album-container {
-	    margin-left: 0rem;
-	}
-
-}
-
 .bread-crumbs {
     display: flex;
     align-items: flex-start;
@@ -236,6 +213,65 @@ main {
     border-radius: 5px; /* 버튼 모서리 둥글게 조절 */
 	cursor: pointer; /* 마우스 커서 모양 변경 */
     margin-right: 10px; /* 오른쪽 마진 추가 */
+}
+
+.pagination {
+    margin-bottom: 20px;
+    text-align: center; /* 가운데 정렬 추가 */
+    margin-top: 20px; /* 상단 여백 추가 */
+    font-weight: bolder;
+}
+
+.pagination-item {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+.pagination-item.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination-item.disabled {
+    color: #333;
+    cursor: pointer;
+}
+  
+@media (max-width: 1200px) {
+	.albums .album-container .album {
+    	width: calc(50% - 1.5rem); /* 화면이 767px 이하일 때 한 줄에 2개씩 출력 (간격을 빼서 조절) */
+	}
+    
+    .album-container {
+	    margin-left: 1.5rem;
+	}
+
+}
+
+@media (max-width: 800px) {
+    .albums .album-container .album {
+       width: 100%;
+    }
+    
+    .album-container {
+	    margin-left: 0rem;
+	}
+	
+	.pagination-item {
+    margin: 0 5px;
+    padding: 2px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
 }
 
 /*별점처리부분*/

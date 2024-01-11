@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -28,7 +30,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       };
     </script>
   </head>
-  <body>
+  <body >
     <c:set
       var="role"
       value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}"
@@ -58,6 +60,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   class="search"
                   required
                   placeholder="Search"
+                  value=""
                 />
                 <span class="search-boxSpan"></span>
               </li>
@@ -80,9 +83,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   onchange="location.href=this.value"
                 >
                   <option value="#">한국어</option>
-                  <option value="/english/main.do">영어</option>
-                  <option value="/japanese/main.do">일본어</option>
-                  <option value="/chinese/main.do">중국어</option>
+<!--                   <option value="/english/main.do">영어</option> -->
+<!--                   <option value="/japanese/main.do">일본어</option> -->
+<!--                   <option value="/chinese/main.do">중국어</option> -->
+					<option value="/english/trend_seoul.do">영어</option>
+					<option value="/japanese/trend_seoul.do">일본어</option>
+					<option value="/chinese/trend_seoul.do">중국어</option>
                 </select>
               </li>
               <li>
@@ -147,6 +153,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <li><a href="#">Best TOP5</a></li>
               <li><a href="#">여행자 추천</a></li>
               <li><a href="#">자유게시판</a></li>
+              <li>${url}</li>
             </ul>
           </li>
 
@@ -175,7 +182,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <ul class="dropdown-list">
               <li><a href="#">사이트 소개</a></li>
               <li><a href="#">문의하기</a></li>
-              <li><a href="#">공지사항</a></li>
+              <li><a href="http://192.168.0.48:8080/korean/notice.do">공지사항</a></li>
             </ul>
           </li>
         </ul>

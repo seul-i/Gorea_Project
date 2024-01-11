@@ -17,8 +17,8 @@ import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 public interface TrendMapperInter {
 	
 	// trend_seoul
-	@Select("select ts.userSeq, ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, ts.seoulScore, cn.mainCategory, cn.subCategory from trendseoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc LIMIT 4")
-	List<Gorea_TrendSeoul_ListTO> trendSeoul_List();
+	@Select("select ts.userSeq, ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, ts.seoulScore, cn.mainCategory, cn.subCategory from trendseoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc LIMIT #{firstRow}, #{pageSize}")
+	List<Gorea_TrendSeoul_ListTO> trendSeoul_List(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 	
 	 @Select("SELECT COUNT(*) FROM trendseoul")
 	 int get_trendSeoulTotalCount();

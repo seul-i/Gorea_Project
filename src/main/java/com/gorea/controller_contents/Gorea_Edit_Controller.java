@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gorea.dto_board.Gorea_Edit_ListTO;
+import com.gorea.dto_board.Gorea_PagingTO;
 import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
 import com.gorea.dto_board.Gorea_EditTip_BoardTO;
 import com.gorea.repository_contents.Gorea_EditDAO;
@@ -40,20 +40,24 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class Gorea_Edit_Controller {
-	@Autowired
-	private Gorea_EditDAO dao;
 
 	@Value("${spring.servlet.multipart.location}")
 	private String uploadDir;
+	
+	@Autowired
+	private Gorea_EditDAO dao;
 
 	@Autowired
 	private Gorea_EditRecommend_BoardTO to;
 
 	/* editRecommend */
 	@RequestMapping("/korean/editRecommend_list.do")
-	public String editRecommendList(Model model, @RequestParam(defaultValue = "1") int cpage,
+	public String editRecommendList(Model model, 
+			@RequestParam(defaultValue = "1") int cpage,
 	        @RequestParam(defaultValue = "8") int pageSize) {
-	    // cpage가 0 이하이면 1로 설정
+	    System.out.println("EditRecommend list 호출 성공");
+		
+		// cpage가 0 이하이면 1로 설정
 	    cpage = (cpage <= 0) ? 1 : cpage;
 
 	    if (cpage <= 0) {
@@ -73,7 +77,7 @@ public class Gorea_Edit_Controller {
 	        System.out.printf("결과 : %s ", firstImageUrl);
 	    }
 
-	    Gorea_Edit_ListTO paging = createPagingModel(lists, cpage);
+	    Gorea_PagingTO paging = createPagingModel(lists, cpage);
 	    model.addAttribute("paging", paging);
 
 	    // 페이지 번호를 추가하는 부분
@@ -93,8 +97,8 @@ public class Gorea_Edit_Controller {
 	 * @param cpage  현재 페이지 번호
 	 * @return 페이징 모델
 	 */
-	private Gorea_Edit_ListTO createPagingModel(List<Gorea_EditRecommend_BoardTO> lists, int cpage) {
-	    Gorea_Edit_ListTO paging = new Gorea_Edit_ListTO();
+	private Gorea_PagingTO createPagingModel(List<Gorea_EditRecommend_BoardTO> lists, int cpage) {
+	    Gorea_PagingTO paging = new Gorea_PagingTO();
 	    paging.setLists(lists != null ? lists : new ArrayList<>());
 	    paging.setTotalRecord(dao.getTotalRowCount());
 	    paging.setCpage(cpage);  // 추가: cpage 값을 설정

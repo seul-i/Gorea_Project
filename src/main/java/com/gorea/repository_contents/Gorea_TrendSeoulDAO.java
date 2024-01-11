@@ -21,12 +21,9 @@ public class Gorea_TrendSeoulDAO {
 	@Autowired
 	private TrendMapperInter mapper;
 	
-	@Autowired
-	private Geocoding geocoding;
-	
-	public List<Gorea_TrendSeoul_ListTO> trendSeoul_List() {
+	public List<Gorea_TrendSeoul_ListTO> trendSeoul_List(int offset, int pageSize) {
 		
-		List<Gorea_TrendSeoul_ListTO> boardList = mapper.trendSeoul_List();
+		List<Gorea_TrendSeoul_ListTO> boardList = mapper.trendSeoul_List(offset, pageSize);
 		
 		for (Gorea_TrendSeoul_ListTO board : boardList) {
 			String content = board.getSeoulContent();
@@ -37,11 +34,11 @@ public class Gorea_TrendSeoulDAO {
 		return boardList;
 	}
 	
-//	public int getTotalRowCount() {
-//	    int totalRowCount = mapper.get_trendSeoulTotalCount();
-//	    System.out.println("토탈" + totalRowCount);
-//	    return totalRowCount;
-//	}
+	public int getTotalRowCount() {
+	    int totalRowCount = mapper.get_trendSeoulTotalCount();
+	    System.out.println("토탈" + totalRowCount);
+	    return totalRowCount;
+	}
 	
 	public void trendSeoul_Write() {}
 	

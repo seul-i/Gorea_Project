@@ -40,39 +40,7 @@ public interface UserMapper {
 				"FROM user " +
 				"WHERE username = #{username}")
 	Gorea_UserTO login(String username);
-	
-	/* editRecommend */
-	
-	// editrecoList
-	@Select("SELECT editrecoSeq, filename, editrecoSubject, editrecoSubtitle, editrecoContent, uid FROM editrecommend ORDER BY editrecoSeq DESC LIMIT #{firstRow}, #{pageSize}")
-	List<Gorea_EditRecommend_BoardTO> editRecommend_List(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 
-    @Select("SELECT COUNT(*) FROM editrecommend")
-    int getTotalRowCount();
-	
-	// editrecoWriteOk
-	@Insert("insert into editrecommend values ( 0, #{editrecoSubject}, #{editrecoSubtitle}, #{editrecoContent}, 0, #{editrecoWdate}, #{uid}, #{filename} )")
-	int editRecommend_Write_Ok(Gorea_EditRecommend_BoardTO to);
-
-	// editrecoView
-	@Select("select editrecoSubject, editrecoSubtitle, editrecoHit, editrecoContent, editrecoWdate from editrecommend where editrecoSeq=#{editrecoSeq}")
-	Gorea_EditRecommend_BoardTO editRecommend_View(Gorea_EditRecommend_BoardTO to);
-	
-	// editrecoModify
-	@Select("select editrecoSubject, editrecoSubtitle, editrecoContent, uid, filename from editrecommend where editrecoSeq=#{editrecoSeq}")
-	Gorea_EditRecommend_BoardTO editRecommend_Modify(Gorea_EditRecommend_BoardTO to);
-	
-	// editrecoDeleteOk
-	@Delete("delete from editrecommend where editrecoSeq=#{editrecoSeq}")
-	int editRecommend_Delete_Ok(Gorea_EditRecommend_BoardTO to);
-	
-	// editrecoModifyOk
-	@Update("update editrecommend set editrecoSubject=#{editrecoSubject}, editrecoSubtitle=#{editrecoSubtitle}, editrecoContent=#{editrecoContent}, filename=#{filename} where editrecoSeq=#{editrecoSeq}")
-	int editRecommend_Modify_Ok(Gorea_EditRecommend_BoardTO to);
-
-	// editrecoViewHit
-	@Update("update editrecommend set editrecoHit=editrecoHit+1 where editrecoSeq=#{editrecoSeq}")
-	int editRecommend_ViewHit(Gorea_EditRecommend_BoardTO to);
 }
 
 

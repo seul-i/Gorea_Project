@@ -59,8 +59,13 @@ header .logo span {
      border-radius: 10px; */
 }
 
+.category{
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
 .post-title {
-    font-size: 24px;
+    font-size: 36px;
     font-weight: bolder;
     color: #333;
     margin-bottom: 10px;
@@ -77,6 +82,7 @@ header .logo span {
 }
 
 .post-info-left, .post-info-right {
+	font-size: 14px;
     display: flex;
     align-items: center;
 }

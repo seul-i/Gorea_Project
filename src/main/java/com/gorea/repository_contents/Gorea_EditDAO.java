@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gorea.mapper.EditMapperInter;
-import com.gorea.dto_board.Gorea_Edit_ListTO;
+import com.gorea.dto_board.Gorea_PagingTO;
 import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
 import com.gorea.dto_board.Gorea_EditTip_BoardTO;
 
@@ -26,16 +26,8 @@ public class Gorea_EditDAO {
 	 * @return 에디터 추천 목록
 	 */
 	public List<Gorea_EditRecommend_BoardTO> editRecommend_List(int offset, int pageSize) {
+		
 	    List<Gorea_EditRecommend_BoardTO> lists = mapper.editRecommend_List(offset, pageSize);
-
-	    // 각 항목의 부제(subtitle)을 가공하는 부분
-	    for (Gorea_EditRecommend_BoardTO to : lists) {
-	        String subtitle = to.getEditrecoSubtitle();
-	        // Jsoup을 사용하여 HTML 태그 제거 등의 가공 가능
-	        // Document document = Jsoup.parse(subtitle);
-	        // String textContent = document.text();
-	        // to.setGo_editreco_subtitle(textContent);
-	    }
 
 	    return lists;
 	}

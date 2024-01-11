@@ -13,6 +13,9 @@ import lombok.ToString;
 @ToString
 @Repository
 public class Gorea_EditRecommend_BoardTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String editrecoSeq;
 	private String editrecoSubject;
 	private String editrecoSubtitle;

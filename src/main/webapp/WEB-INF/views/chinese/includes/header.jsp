@@ -53,9 +53,12 @@
 	                	<li>
 	                		<select name="languages" id="lang" onchange="location.href=this.value">
 	                			<option value="#">汉语</option>
-	                			<option value="/korean/main.do">韩国语</option>
-	   							<option value="/english/main.do">英语</option>
-	   							<option value="/japanese/main.do">日语</option>
+<!-- 	                			<option value="/korean/main.do">韩国语</option> -->
+<!-- 	   							<option value="/english/main.do">英语</option> -->
+<!-- 	   							<option value="/japanese/main.do">日语</option> -->
+	   							<option value="/korean/trend_seoul.do">韩国语</option>
+								<option value="/english/trend_seoul.do">英语</option>
+								<option value="/japanese/trend_seoul.do">日语</option>
 	                		</select>
 	                	</li>
 	                	<li>

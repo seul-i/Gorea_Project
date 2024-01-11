@@ -1,5 +1,7 @@
 package com.gorea.dto_board;
 
+import java.io.Serializable;
+
 import org.springframework.stereotype.Repository;
 
 import lombok.Getter;
@@ -10,7 +12,9 @@ import lombok.ToString;
 @Setter
 @ToString
 @Repository
-public class Gorea_TrendSeoul_ListTO {
+public class Gorea_TrendSeoul_ListTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	private String seoulSeq;         // 글 번호
 	private String userSeq;          // 글 작성자 정보

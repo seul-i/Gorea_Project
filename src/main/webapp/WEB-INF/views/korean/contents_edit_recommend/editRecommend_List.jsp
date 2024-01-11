@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.gorea.dto_board.Gorea_EditRecommend_BoardTO"%>
-<%@ page import="com.gorea.dto_board.Gorea_Edit_ListTO"%>
+<%@ page import="com.gorea.dto_board.Gorea_PagingTO"%>
 
 <c:set var="paging" value="${paging}" />
 <c:set var="lists" value="${paging.lists}" />

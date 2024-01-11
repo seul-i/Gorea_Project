@@ -2,21 +2,38 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<!DOCTYPE html>
+<c:set var="language" value="${language}" />
+<c:set var="googlemap" value="${googlemap}"/>
 <c:set var="seq" value="${param.seoulSeq}" />
 <c:set var="to" value="${requestScope.to}" />
+
+<!DOCTYPE html>
 
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>게시판 뷰</title>
     <link rel="stylesheet" type="text/css" href="/css/trendseoul/view.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_q0lUg_FtwRv09Y4bdwoxyXOwC0Fs3tA&libraries=places&callback=initMap" defer></script>
+    
+    <c:choose>
+    	<c:when test="${language eq 'korean'}">
+    		 <script src="https://maps.googleapis.com/maps/api/js?key=${googlemap}&libraries=places&callback=initMap&language=ko" defer></script>
+    	</c:when>
+	    <c:when test="${language eq 'english'}">
+	        <script src="https://maps.googleapis.com/maps/api/js?key=${googlemap}&libraries=places&callback=initMap&language=en" defer></script>
+	    </c:when>
+	    <c:when test="${language eq 'japanese'}">
+	        <script src="https://maps.googleapis.com/maps/api/js?key=${googlemap}&libraries=places&callback=initMap&language=ja" defer></script>
+	    </c:when>
+	    <c:when test="${language eq 'chinese'}">
+	        <script src="https://maps.googleapis.com/maps/api/js?key=${googlemap}&libraries=places&callback=initMap&language=zh-CN" defer></script>
+	    </c:when>
+	</c:choose>
     
     <script src="/js/map/map.js"></script>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/views/korean/includes/header.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/${language}/includes/header.jsp"></jsp:include>
     <main>
         <section>
             <div class="container">
@@ -104,7 +121,7 @@
                 <div class="post-actions" style="text-align: right; margin-top: 10px;">
                     <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='trend_delete_ok.do?seoulSeq=${seq}'" />
                     <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='trend_modify.do?seoulSeq=${seq}'" />
-                     <input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='trend_seoul.do'" />
+                     <input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='/trend_seoul.do'" />
                 </div>
             </div>
         </section>
