@@ -1,8 +1,573 @@
 package com.gorea.controller_contents;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.gorea.dto_board.Gorea_CumuPagingTO;
+import com.gorea.dto_board.Gorea_Free_BoardTO;
+import com.gorea.repository_contents.Gorea_FreeBoardDAO;
+
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class Gorea_FreeBoard_Controller {
+	@Value("${spring.servlet.multipart.location}")
+    private String uploadDir;
+
+	@Autowired
+	private Gorea_FreeBoardDAO dao;
+	
+//	@GetMapping("/{language}/freeboard.do")
+//	public String list(@PathVariable String language, @RequestParam(value = "searchType", required = false) String searchType,
+//	                   @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+//	                   HttpServletRequest request, Model model, @RequestParam(defaultValue = "1") int cpage,
+//	       	        @RequestParam(defaultValue = "20") int pageSize) {
+//	    System.out.println("list 호출 성공");
+//	    
+//	    cpage = (cpage <= 0) ? 1 : cpage;
+//	    
+//	    if (cpage <= 0) {
+//	        // cpage가 0 이하인 경우, 1페이지로 리다이렉트
+//	        return "redirect:/{language}/freeboard.do?cpage=1";
+//	    }
+//	    
+//	    int offset = (cpage - 1) * pageSize;
+//
+//	    List<Gorea_Free_BoardTO> lists = new ArrayList<Gorea_Free_BoardTO>();
+//	    
+//	    if(language.equals("korean")) {
+//	    	if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+//		        lists = dao.searchFree(searchType, searchKeyword, offset, pageSize);
+//		        Gorea_CumuPagingTO paging = createPagingModel(lists, cpage);
+//		        
+//		        model.addAttribute("paging", paging);
+//		    	
+//		    	// 페이지 번호를 추가하는 부분
+//			    List<Integer> pageNumbers = new ArrayList<>();
+//			    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+//			        pageNumbers.add(i);
+//			    }
+//			    model.addAttribute("pageNumbers", pageNumbers);
+//		    } else {
+//		        lists = dao.free_List(offset, pageSize);
+//		        Gorea_CumuPagingTO paging = createPagingModel(lists, cpage);
+//		        
+//		        model.addAttribute("paging", paging);
+//		    	
+//		    	// 페이지 번호를 추가하는 부분
+//			    List<Integer> pageNumbers = new ArrayList<>();
+//			    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+//			        pageNumbers.add(i);
+//			    }
+//			    model.addAttribute("pageNumbers", pageNumbers);
+//		    }
+//
+//		    if (lists == null || lists.isEmpty()) {
+//		        lists = new ArrayList<>();
+//		    }
+//	      }else if(language.equals("english")) {
+//	    	  if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+//	  	        lists = dao.searchFree(searchType, searchKeyword,offset, pageSize);
+//	  	        Gorea_CumuPagingTO paging = createPagingModel(lists, cpage);
+//	  	        
+//	  	        model.addAttribute("paging", paging);
+//		    	
+//		    	// 페이지 번호를 추가하는 부분
+//			    List<Integer> pageNumbers = new ArrayList<>();
+//			    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+//			        pageNumbers.add(i);
+//			    }
+//			    model.addAttribute("pageNumbers", pageNumbers);
+//	  	    } else {
+//	  	        lists = dao.free_List(offset, pageSize);
+//	  	        Gorea_CumuPagingTO paging = createPagingModel(lists, cpage);
+//	  	        
+//	  	        model.addAttribute("paging", paging);
+//		    	
+//		    	// 페이지 번호를 추가하는 부분
+//			    List<Integer> pageNumbers = new ArrayList<>();
+//			    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+//			        pageNumbers.add(i);
+//			    }
+//			    model.addAttribute("pageNumbers", pageNumbers);
+//	  	    }
+//
+//	  	    if (lists == null || lists.isEmpty()) {
+//	  	        lists = new ArrayList<>();
+//	  	    }
+//	      }else if(language.equals("japanese")) {
+//	    	  if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+//	  	        lists = dao.searchFree(searchType, searchKeyword, offset, pageSize);
+//	  	        Gorea_CumuPagingTO paging = createPagingModel(lists, cpage);
+//	  	        
+//	  	        model.addAttribute("paging", paging);
+//		    	
+//		    	// 페이지 번호를 추가하는 부분
+//			    List<Integer> pageNumbers = new ArrayList<>();
+//			    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+//			        pageNumbers.add(i);
+//			    }
+//			    model.addAttribute("pageNumbers", pageNumbers);
+//	  	    } else {
+//	  	        lists = dao.free_List(offset, pageSize);
+//	  	        Gorea_CumuPagingTO paging = createPagingModel(lists, cpage);
+//	  	        
+//	  	      model.addAttribute("paging", paging);
+//		    	
+//		    	// 페이지 번호를 추가하는 부분
+//			    List<Integer> pageNumbers = new ArrayList<>();
+//			    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+//			        pageNumbers.add(i);
+//			    }
+//			    model.addAttribute("pageNumbers", pageNumbers);
+//	  	    }
+//
+//	  	    if (lists == null || lists.isEmpty()) {
+//	  	        lists = new ArrayList<>();
+//	  	    }
+//	      }else if(language.equals("chinese")) {
+//	    	  if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+//	  	        lists = dao.searchFree(searchType, searchKeyword,offset, pageSize);
+//	  	        Gorea_CumuPagingTO paging = createPagingModel(lists, cpage);
+//	  	        
+//	  	        model.addAttribute("paging", paging);
+//		    	
+//		    	// 페이지 번호를 추가하는 부분
+//			    List<Integer> pageNumbers = new ArrayList<>();
+//			    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+//			        pageNumbers.add(i);
+//			    }
+//			    model.addAttribute("pageNumbers", pageNumbers);
+//	  	    } else {
+//	  	        lists = dao.free_List(offset, pageSize);
+//	  	        Gorea_CumuPagingTO paging = createPagingModel(lists, cpage);
+//	  	        
+//	  	        model.addAttribute("paging", paging);
+//		    	
+//		    	// 페이지 번호를 추가하는 부분
+//			    List<Integer> pageNumbers = new ArrayList<>();
+//			    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+//			        pageNumbers.add(i);
+//			    }
+//			    model.addAttribute("pageNumbers", pageNumbers);
+//	  	    }
+//
+//	  	    if (lists == null || lists.isEmpty()) {
+//	  	        lists = new ArrayList<>();
+//	  	    }
+//	      }
+//	    
+//	    model.addAttribute("lists", lists);
+//	    model.addAttribute("language", language);
+//
+//	    
+//	    return "korean/contents_free/free";
+//	}
+	
+	@GetMapping("/{language}/freeboard.do")
+	public String list(@PathVariable String language, 
+	                   @RequestParam(value = "searchType", required = false) String searchType,
+	                   @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+	                   HttpServletRequest request, Model model, 
+	                   @RequestParam(defaultValue = "1") int cpage,
+	                   @RequestParam(defaultValue = "7") int pageSize) {
+	    System.out.println("list 호출 성공");
+
+	    cpage = (cpage <= 0) ? 1 : cpage;
+	    int offset = (cpage - 1) * pageSize;
+	    List<Gorea_Free_BoardTO> lists = new ArrayList<Gorea_Free_BoardTO>();
+	    int totalRowCount = 0;
+
+	    if(language.equals("korean")) {
+	    	if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+	    		lists = dao.searchFree(searchType, searchKeyword, offset, pageSize);
+	    		totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+	    	} else {
+	    		lists = dao.free_List(offset, pageSize);
+	    		totalRowCount = dao.getTotalRowCount();
+	    	}
+	    }else if(language.equals("english")) {
+	    	if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+		        lists = dao.searchFree(searchType, searchKeyword, offset, pageSize);
+		        totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+		    } else {
+		        lists = dao.free_List(offset, pageSize);
+		        totalRowCount = dao.getTotalRowCount();
+		    }
+	    }else if(language.equals("japanese")) {
+	    	if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+		        lists = dao.searchFree(searchType, searchKeyword, offset, pageSize);
+		        totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+		    } else {
+		        lists = dao.free_List(offset, pageSize);
+		        totalRowCount = dao.getTotalRowCount();
+		    }
+	    }else if(language.equals("chinese")) {
+	    	if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+		        lists = dao.searchFree(searchType, searchKeyword, offset, pageSize);
+		        totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+		    } else {
+		        lists = dao.free_List(offset, pageSize);
+		        totalRowCount = dao.getTotalRowCount();
+		    }
+	    }
+	    
+	    Gorea_CumuPagingTO paging = createPagingModel(totalRowCount, cpage, pageSize);
+	    
+	    model.addAttribute("paging", paging);
+	    model.addAttribute("lists", lists);
+	    model.addAttribute("language", language);
+
+	    List<Integer> pageNumbers = new ArrayList<>();
+	    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+	        pageNumbers.add(i);
+	    }
+	    model.addAttribute("pageNumbers", pageNumbers);
+
+	    return "contents/contents_free/freeboard"; // 언어에 따른 경로 반환
+	}
+
+	
+	@GetMapping("/{language}/freeboard_write.do")
+    public ModelAndView gowrite(@PathVariable String language, HttpServletRequest request, Model model) {
+		ModelAndView modelAndView = new ModelAndView("contents/contents_free/free_write");
+		model.addAttribute("language", language);
+		return modelAndView;
+    }
+	
+	@PostMapping("/{language}/freeboard_write_ok.do")
+	public ModelAndView write_ok(@PathVariable String language, HttpServletRequest request, MultipartFile upload) {
+		
+		Gorea_Free_BoardTO to = new Gorea_Free_BoardTO();
+		
+		int flag = 2;
+		
+		to.setFreeTitle(request.getParameter( "freeTitle" ));
+		to.setFreeContent(request.getParameter("freeContent"));
+		
+		ModelAndView modelAndView = new ModelAndView("contents/contents_free/free_write_ok");
+		
+		if(language.equals("korean")) {
+			flag = dao.free_Write_Ok(to);
+	         System.out.println(to);
+	      }else if(language.equals("english")) {
+	    	  flag = dao.free_Write_Ok(to);
+	      }else if(language.equals("japanese")) {
+	    	  flag = dao.free_Write_Ok(to);
+	      }else if(language.equals("chinese")) {
+	    	 flag = dao.free_Write_Ok(to);
+	      }
+		
+		modelAndView.addObject("language", language);
+		modelAndView.addObject("flag", flag);
+
+		return modelAndView;
+	}
+	
+	@GetMapping("/{language}/freeboard_view.do")
+	public ModelAndView view(@RequestParam("freeSeq") String freeSeqStr, @PathVariable String language, HttpServletRequest request, @RequestParam(value = "cpage", required = false) String cpage,
+            @RequestParam(value = "searchType", required = false) String searchType,
+            @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
+		
+		int freeSeq;
+        try {
+            freeSeq = Integer.parseInt(freeSeqStr.trim());
+        } catch (NumberFormatException e) {
+            // freeSeq 파라미터가 유효하지 않을 때의 처리
+            return new ModelAndView("errorPage");
+        }
+		
+		Gorea_Free_BoardTO to = new Gorea_Free_BoardTO();
+		
+		to.setFreeSeq(Integer.toString(freeSeq));
+		Gorea_Free_BoardTO prevPost = dao.getPreviousPost(freeSeq);
+		Gorea_Free_BoardTO nextPost = dao.getNextPost(freeSeq);
+	    System.out.println("## seq : " + request.getParameter("freeSeq"));
+	    
+	    if(language.equals("korean")) {
+	    	to = dao.free_View(to);
+	      }else if(language.equals("english")) {
+	    	  to = dao.free_View(to);
+	      }else if(language.equals("japanese")) {
+	    	  to = dao.free_View(to);
+	      }else if(language.equals("chinese")) {
+	    	  to = dao.free_View(to);
+	      }
+	    
+	    ModelAndView modelAndView = new ModelAndView("contents/contents_free/free_view");
+	    
+	    // 게시글 내용 정화
+	    String unsafeContent = to.getFreeContent();
+
+	    // 이미지 태그에 대한 Safelist 설정을 조정합니다.
+	    Safelist safelist = Safelist.basic()
+	    	    .addTags("img", "div", "span") // 이미지 및 스타일 관련 태그 추가
+	    	    .addAttributes("img", "src", "alt", "title") // 이미지 태그 속성
+	    	    .addAttributes(":all", "style"); // 모든 태그에 대해 'style' 속성 허용
+
+	    	String safeContent = Jsoup.clean(unsafeContent, safelist);
+	    	to.setFreeContent(safeContent);
+	    	
+	    modelAndView.addObject("language", language);
+	    modelAndView.addObject("to", to);
+	    modelAndView.addObject("cpage", cpage);
+        modelAndView.addObject("searchType", searchType);
+        modelAndView.addObject("searchKeyword", searchKeyword);
+        modelAndView.addObject("prevPost", prevPost);
+        modelAndView.addObject("nextPost", nextPost);
+	    
+	    return modelAndView;
+	}
+	
+	@PostMapping("/increaseLikes")
+	@ResponseBody
+	public ResponseEntity<?> increaseLikes(@RequestParam("freeSeq") String freeSeq) {
+	    try {
+	        dao.increaseLikes(freeSeq);
+
+	        // 새로운 Gorea_Free_BoardTO 객체를 생성하고 freeSeq를 설정
+	        Gorea_Free_BoardTO to = new Gorea_Free_BoardTO();
+	        to.setFreeSeq(freeSeq);
+
+	        // 업데이트된 데이터를 가져옴
+	        Gorea_Free_BoardTO updatedTo = dao.free_View(to);
+	        
+	        // 새로운 추천 수를 반환
+	        return ResponseEntity.ok(updatedTo.getFreeRecomcount());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
+	    }
+	}
+	
+	@GetMapping("/{language}/freeboard_modify.do")
+	public ModelAndView modify(@PathVariable String language, HttpServletRequest request, @RequestParam(value = "cpage", required = false) String cpage,
+            @RequestParam(value = "searchType", required = false) String searchType,
+            @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
+		
+		Gorea_Free_BoardTO to = new Gorea_Free_BoardTO();
+	
+		to.setFreeSeq( request.getParameter("freeSeq") );
+		System.out.println("## seq : " + request.getParameter("freeSeq"));
+		
+		if(language.equals("korean")) {
+	    	to = dao.free_View(to);
+	      }else if(language.equals("english")) {
+	    	  to = dao.free_View(to);
+	      }else if(language.equals("japanese")) {
+	    	  to = dao.free_View(to);
+	      }else if(language.equals("chinese")) {
+	    	  to = dao.free_View(to);
+	      }
+		
+		ModelAndView modelAndView = new ModelAndView("contents/contents_free/free_modify");
+		modelAndView.addObject("to", to);
+		modelAndView.addObject("noticeSeq", to.getFreeSeq());
+		modelAndView.addObject("language", language);
+		
+		modelAndView.addObject("cpage", cpage);
+	    modelAndView.addObject("searchType", searchType);
+	    modelAndView.addObject("searchKeyword", searchKeyword);
+		
+		return modelAndView;
+	}
+	
+	@PostMapping("/{language}/freeboard_modify_ok.do")
+	public ModelAndView modify_ok(@PathVariable String language, HttpServletRequest request, MultipartFile upload, @RequestParam(value = "cpage", required = false) String cpage,
+            @RequestParam(value = "searchType", required = false) String searchType,
+            @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
+		
+		Gorea_Free_BoardTO to = new Gorea_Free_BoardTO();
+		
+		int flag = 1;
+		to.setFreeSeq( request.getParameter("freeSeq") );
+		to.setFreeTitle(request.getParameter( "freeTitle" ));
+		to.setFreeContent(request.getParameter("freeContent"));
+		
+		System.out.println("## seq : " + request.getParameter("freeSeq"));
+		
+		if(language.equals("korean")) {
+			flag = dao.free_Modify_Ok(to);
+	      }else if(language.equals("english")) {
+	    	  flag = dao.free_Modify_Ok(to);
+	      }else if(language.equals("japanese")) {
+	    	  flag = dao.free_Modify_Ok(to);
+	      }else if(language.equals("chinese")) {
+	    	 flag = dao.free_Modify_Ok(to);
+	      }
+		
+		ModelAndView modelAndView = new ModelAndView("contents/contents_free/free_modify_ok");
+		modelAndView.addObject("flag", flag);
+		modelAndView.addObject("language", language);
+		modelAndView.addObject("freeSeq", to.getFreeSeq());
+		
+		modelAndView.addObject("cpage", cpage);
+	    modelAndView.addObject("searchType", searchType);
+	    modelAndView.addObject("searchKeyword", searchKeyword);
+		
+		return modelAndView;
+	}
+	
+	@GetMapping("/{language}/freeboard_delete_ok.do")
+	public ModelAndView delete_ok(@PathVariable String language, @RequestParam(value = "cpage", required = false) String cpage,
+            @RequestParam(value = "searchType", required = false) String searchType,
+            @RequestParam(value = "searchKeyword", required = false) String searchKeyword, HttpServletRequest request) {
+		
+		Gorea_Free_BoardTO to = new Gorea_Free_BoardTO();
+		
+		to.setFreeSeq(request.getParameter("freeSeq"));
+		
+		int flag = 1;
+		
+		if(language.equals("korean")) {
+			flag = dao.free_Delete_Ok(to);
+	      }else if(language.equals("english")) {
+	    	  flag = dao.free_Delete_Ok(to);
+	      }else if(language.equals("japanese")) {
+	    	  flag = dao.free_Delete_Ok(to);
+	      }else if(language.equals("chinese")) {
+	    	 flag = dao.free_Delete_Ok(to);
+	      }
+		
+		ModelAndView modelAndView = new ModelAndView("contents/contents_free/free_delete_ok");
+		modelAndView.addObject("flag", flag);
+		modelAndView.addObject("language", language);
+		
+		modelAndView.addObject("cpage", cpage);
+	    modelAndView.addObject("searchType", searchType);
+	    modelAndView.addObject("searchKeyword", searchKeyword);
+		
+		return modelAndView;
+	}
+	
+	// 이미지 업로드
+    @RequestMapping(value = "/free/imageUpload", method = RequestMethod.POST)
+    public void imageUploadForNotice(HttpServletRequest request, HttpServletResponse response, @RequestParam("upload") MultipartFile upload) {
+        try {
+            if (upload != null && !upload.isEmpty() && upload.getContentType().toLowerCase().startsWith("image/")) {
+                UUID uid = UUID.randomUUID();
+
+                String fileName = upload.getOriginalFilename();
+                String encodedFileName = uid + "_" + fileName;
+                String filePath = uploadDir + File.separator + encodedFileName;
+
+                File uploadFile = new File(uploadDir);
+                System.out.println(uid.toString());
+
+                if (!uploadFile.exists()) {
+                    uploadFile.mkdirs(); // 디렉토리 생성
+                }
+
+                try (OutputStream outputStream = new FileOutputStream(new File(filePath))) {
+                    outputStream.write(upload.getBytes());
+                }
+                // 클라이언트에게 JSON 반환
+                response.setCharacterEncoding("utf-8");
+                response.setContentType("text/html;charset=utf-8");
+                String callback = request.getParameter("CKEditorFuncNum");
+                PrintWriter printWriter = response.getWriter();
+                String fileUrl = "/ckImgSubmitForFree?uid=" + uid + "&fileName=" + fileName;
+                printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
+                printWriter.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/ckImgSubmitForFree")
+    public void ckImgSubmitForNotice(@RequestParam("uid") String uid, @RequestParam("fileName") String fileName,
+                         HttpServletResponse response) {
+        try {
+            String filePath = uploadDir + File.separator + uid + "_" + fileName;
+            File imgFile = new File(filePath);
+
+            if (imgFile.isFile()) {
+                byte[] buf = new byte[1024];
+                int readByte;
+                int length;
+                byte[] imgBuf = null;
+
+                FileInputStream fileInputStream = new FileInputStream(imgFile);
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                ServletOutputStream out = response.getOutputStream();
+
+                while ((readByte = fileInputStream.read(buf)) != -1) {
+                    outputStream.write(buf, 0, readByte);
+                }
+
+                imgBuf = outputStream.toByteArray();
+                length = imgBuf.length;
+                out.write(imgBuf, 0, length);
+                out.flush();
+
+                outputStream.close();
+                fileInputStream.close();
+                out.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+    // list에서 content 첫번째 이미지 썸네일
+	private String extractFirstImageUrl(String content) {
+//	    System.out.println("Content: " + content); // 콘텐츠 출력
+
+	    String imageUrl = "";
+	    Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+	    Matcher matcher = pattern.matcher(content);
+	    if (matcher.find()) {
+	        imageUrl = matcher.group(1);
+//	        System.out.println("Extracted Image URL: " + imageUrl); // 추출된 이미지 URL 출력
+
+	        // URL에서 필요한 부분 추출 및 조정
+	        imageUrl = imageUrl.replace("/ckImgSubmitForFree?uid=", "").replace("&amp;fileName=", "_");
+//	        System.out.println("Formatted Image URL: " + imageUrl); // 조정된 이미지 URL 출력
+	    } else {
+	        System.out.println("No image found"); // 이미지를 찾지 못한 경우
+	    }
+	    return imageUrl;
+	}
+	
+	// 리스트 페이지 페이징 처리
+	private Gorea_CumuPagingTO createPagingModel(int totalRowCount, int cpage, int pageSize) {
+	    Gorea_CumuPagingTO paging = new Gorea_CumuPagingTO();
+	    paging.setTotalRecord(totalRowCount);
+	    paging.setCpage(cpage);
+	    paging.setPageSize(pageSize);
+	    paging.pageSetting();
+	    return paging;
+	}
 
 }
