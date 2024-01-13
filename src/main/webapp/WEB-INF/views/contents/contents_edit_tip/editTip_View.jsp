@@ -1,24 +1,9 @@
-<%@page import="com.gorea.dto_board.Gorea_EditRecommend_BoardTO"%>
+<%@ page import="com.gorea.dto_board.Gorea_EditTip_BoardTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<c:set var="paging" value="${requestScope.paging}" />
-
+<c:set var="seq" value="${param.edittipSeq}" />
 <!DOCTYPE html>
-<%
-    request.setCharacterEncoding("utf-8");
-    String seq = request.getParameter("editrecoSeq");
-    
-    Gorea_EditRecommend_BoardTO to = (Gorea_EditRecommend_BoardTO)request.getAttribute("to");
-    
-    String subject = to.getEditrecoSubject();
-    String subtitle = to.getEditrecoSubtitle();
-    String hit = to.getEditrecoHit(); 
-    String content = to.getEditrecoContent();
-    String wdate = to.getEditrecoWdate();
-    
-%>
-
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -29,11 +14,10 @@
 </head>
 <body>
     
-        <c:import url="includes/${language}Header.jsp" />
-    
+
 	<div class="location">
-		<i class="fa-solid fa-house"></i> <span class="ar">></span> 추천 <span class="ar">></span> <span> <a href="./editRecommend_list.do">에디터
-				추천 장소</a>
+		 추천 <span class="ar">></span> <span>
+			<a href="./editTip_list.do">에디터 추천 장소</a>
 		</span>
 	</div>
     <section class="infor-element">
@@ -41,14 +25,14 @@
         <div class="infor-title">
             <p class="h4">에디터 추천 장소</p>
             
-            <h3 class="h3 textcenter"><%= subject %></h3> 
+            <h3 class="h3 textcenter">${eto.edittipSubject}</h3> 
 
             <div class="post-element">
-                <span>제작일 : <%= wdate %></span> <span>조회수 : <%= hit %></span>
+                <span>제작일 : ${eto.edittipWdate}</span> <span>조회수 : ${eto.edittipHit}</span>
             </div>
 
             <div class="text-area">
-                <img class="blog-image"><%= content %>
+                <img class="blog-image">${eto.edittipContent}
             </div>
 
             <div class="comment-section">
@@ -73,16 +57,13 @@
         <div class="comment-form-btn">
             <button class="btn">댓글 작성</button>
         </div>
-        <div class="post-actions" style="text-align: right; margin-top: 10px;">
-            <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='editRecommend_delete_ok.do?editrecoSeq=<%=seq %>'" />
-            <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='editRecommend_modify.do?editrecoSeq=<%=seq %>'" />
-            <input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='editRecommend_list.do'" />
+        <div style="text-align: right; margin-right:25px; margin-top: 10px;">
+            <button class="w-btn-outline w-btn-blue-outline" type="button" onclick="location.href='editTip_delete_ok.do?edittipSeq=${seq}'"> 삭제 </button>
+            <button class="w-btn-outline w-btn-blue-outline" type="button" onclick="location.href='editTip_modify.do?edittipSeq=${seq}'"> 수정 </button>
+            <button class="w-btn-outline w-btn-blue-outline" type="button" onclick="location.href='editTip_list.do'"> 목록 </button>
         </div>
-        
-        
     </div>
                                
     </section>
-
 </body>
 </html>

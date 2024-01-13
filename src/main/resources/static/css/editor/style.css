@@ -95,10 +95,6 @@ span a {
 	text-decoration: none;
 }
 
-i {
-	color: #333;
-}
-
 .ar {
 	font-weight: bold;
 }
@@ -144,6 +140,7 @@ i {
 
     img {
         max-width: 100%;
+        margin: 0 auto;
         height: auto;
         display: block;
         margin-top: 10px; /* 여기에 조절하고 싶은 간격 값을 넣어주세요. */

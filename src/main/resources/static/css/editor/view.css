@@ -95,11 +95,6 @@
 			color: #aaa;
 		}
 
-		.btn-reply {
-			color: #28a745;
-			border-color: #28a745;
-		}
-
 		.comment-form {
 			display: flex;
 			flex-wrap: wrap;
@@ -117,42 +112,34 @@
 			min-height: 60px;
 		}
 
-		.comment-form button {
-			padding: 10px 20px;
-			border: none;
-			border: 1px solid #ccc;
-			border-radius: 4px;
+		.w-btn-outline {
+			padding: 10px 25px;
+			border-radius: 15px;
+			text-decoration: none;
+			font-weight: 600;
+			transition: 0.25s;
+		}
+
+		.w-btn-outline:hover {
+			letter-spacing: 2px;
+			transform: scale(1.2);
 			cursor: pointer;
 		}
 
-
-		.comment-form-btn button {
-			padding: 10px 20px;
-			border: none;
-			border-radius: 4px;
-			cursor: pointer;
+		.w-btn:active {
+			transform: scale(1.5);
 		}
 
-		.btn {
-			background-color: #007bff;
-			/* 배경색을 원하는 색상으로 설정하세요 */
-			color: #fff;
-			/* 텍스트 색상을 흰색 또는 원하는 색상으로 설정하세요 */
-			border: none;
-			border-radius: 4px;
-			padding: 10px 20px;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
+		.w-btn-outline:active {
+			transform: scale(1.5);
 		}
 
-		.comment-form-btn {
-			display: flex;
-			justify-content: flex-end;
-			/* 내용을 오른쪽으로 정렬 */
-			margin-top: 10px;
+		.w-btn-blue-outline {
+			border: 3px solid #6aafe6;
+			color: #6e6e6e;
 		}
 
-		/* 아래의 CSS 코드를 추가하여 댓글 작성 버튼을 오른쪽으로 정렬합니다. */
-		.comment-form button {
-			margin-left: 10px;
+		.w-btn-blue-outline:hover {
+			background-color: #6aafe6;
+			color: #d4dfe6;
 		}

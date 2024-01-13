@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>게시글 작성</title>
-    <link rel="stylesheet" type="text/css" href="/css/write/write.css">
+    <link rel="stylesheet" type="text/css" href="/css/editor/write.css">
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
 <body>
