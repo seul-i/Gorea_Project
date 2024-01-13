@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+*{
+	box-sizing: border-box;
+}
+.top5container{
+/*	min-height: 100vh;*/
+/*	justify-content: center;*/
+/*	align-items: center;*/
+	max-width: 1800px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    flex-direction: column; 
+}
+
+.card-selectcontent{
+	width:100%;
+	display: flex;
+}
+
+.card-content{
+	width:50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: 30px;
+	float : left;
+}
+
+.card-select{
+	width:50%;
+	float : right;
+}
+
+.card{
+	position: relative;
+	background: #fff;
+	max-width: 250px;
+	width: 250px;
+	height: auto;
+	margin: 25px;
+	box-shadow: 0 5px 25px rgb(1 1 1/ 20%);
+	border-radius: 10px;
+	overflow: hidden; 
+}
+
+.card-image{
+	width:250px;
+    height:200px;
+    overflow:hidden;
+    margin:0 auto;
+}
+
+.card-image img{
+	width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.card-info{
+	position:: relative;
+	color: #222;
+	padding: 5px 15px 15px;
+}
+
+.card-info p{
+	font-size: 1em;
+}
+
+.card-info h4{
+	font-size: 18px;
+	font-weight: 800;
+	margin-bottom: 5px;
+}
+
+.pagination{
+	text-align: center;
+	margin: 30px 30px 60px;
+	user-select: none;
+	justify-content: center;
+}
+
+.pagination li{
+	display: inline-block;
+	margin: 5px;
+	box-shadow: 0 5px 25px rgb(1 1 1/ 10%);
+}
+
+.pagination li a{
+	color: #fff;
+	text-decoration: none;
+	font-size: 1.2em;
+	line-height: 45px;	
+}
+
+.previous-page, .next-page{
+	background: #0AB1CE;
+	width: 80px;
+	border-radius: 45px;
+	cursor: pointer;
+	transition: 0.3s ease;
+}
+
+.previous-page:hover{
+	transform: translateX(-5px);
+}
+
+.next-page:hover{
+	transform: translateX(5px);
+}
+
+.current-page, .dots{
+	background: #ccc;
+	width: 45px;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+.active{
+	background: #0AB1CE;
+}
+
+.disable{
+	background: #ccc;
+}
+
+@media only screen and (max-width: 768px) {
+	
+.pagination li a{
+	color: #fff;
+	text-decoration: none;
+	line-height: 25px;	
+}
+
+.previous-page, .next-page{
+	background: #0AB1CE;
+	width: 60px;
+	border-radius: 45px;
+	cursor: pointer;
+	transition: 0.3s ease;
+}
+
+.previous-page:hover{
+	transform: translateX(-5px);
+}
+
+.next-page:hover{
+	transform: translateX(5px);
+}
+
+.current-page, .dots{
+	background: #ccc;
+	width: 25px;
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+.active{
+	background: #0AB1CE;
+}
+
+.disable{
+	background: #ccc;
+}
+
+}
+	

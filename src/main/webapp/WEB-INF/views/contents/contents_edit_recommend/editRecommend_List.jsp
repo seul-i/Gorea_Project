@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.gorea.dto_board.Gorea_EditRecommend_BoardTO"%>
-<%@ page import="com.gorea.dto_board.Gorea_PagingTO"%>
+<%@ page import="com.gorea.dto_board.Gorea_PagingTO" %>
 
 <c:set var="paging" value="${paging}" />
 <c:set var="lists" value="${paging.lists}" />
@@ -65,8 +65,6 @@
 </head>
 <body>
 
-	<c:import url="includes/${language}Header.jsp" />
-
 	<div class="banner" id="banner">
 		<img src="/img/banner/editrecommendbanner.jpg" alt="banner">
 		<div class="banner-text">
@@ -75,10 +73,7 @@
 	</div>
 
 	<div class="location">
-		<i class="fa-solid fa-house"></i> <span class="ar">></span> 추천 <span
-			class="ar">></span> <span> <a
-			href="/korean/editRecommend_list.do?cpage=${paging.cpage}">에디터 추천
-				장소</a>
+		 추천 <span class="ar">></span> <span> <a href="/korean/editRecommend_list.do?cpage=${paging.cpage}">에디터 추천 장소</a>
 		</span>
 	</div>
 
@@ -185,9 +180,11 @@
 			</c:otherwise>
 		</c:choose>
 
+
 		<!-- 마지막 페이지 버튼 -->
 		<c:choose>
-			<c:when test="${paging.cpage == paging.totalPage}">
+			<c:when
+				test="${paging.cpage == paging.totalPage or paging.totalPage <= 5}">
 				<span class="pagination-item disabled">&gt;&gt;</span>
 			</c:when>
 			<c:otherwise>
@@ -198,6 +195,6 @@
 	</div>
 
 
-		<c:import url="includes/footer.jsp" />
+
 </body>
 </html>
