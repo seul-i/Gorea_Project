@@ -146,7 +146,7 @@
 				<ul class="nav-list">
 					<li><a href="#">我们的首尔</a>
 						<ul class="dropdown-list">
-							<li><a href="#">Best TOP5</a></li>
+							<li><a href="/chinese/BestTop5.do">Best TOP5</a></li>
 	                        <li><a href="#">旅行推荐</a></li>
 	                        <li><a href="/chinese/freeboard.do">自由留言板</a></li>
 	                    </ul>

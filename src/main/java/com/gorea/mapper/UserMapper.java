@@ -1,16 +1,10 @@
 package com.gorea.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
-import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
 import com.gorea.dto_user.Gorea_JoinTO;
 import com.gorea.dto_user.Gorea_UserTO;
 

@@ -110,7 +110,7 @@
 							</c:choose>
 							
 			                <div class='icons' id='likeButton'>
-			                    <i class='fa fa-star-o fa-2x' style='color: #94b8f4; font-size: 1.5em;'></i>
+			                    <i class='fa fa-star-o fa-2x' style='color: grey; font-size: 1.5em;'></i>
 			                    <i class='fa fa-star fa-2x' style='color: #94b8f4; font-size: 1.5em;'></i>
 			                </div>
 			            </div>

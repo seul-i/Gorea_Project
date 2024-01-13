@@ -146,7 +146,7 @@
 				<ul class="nav-list">
 					<li><a href="#">Our Seoul</a>
 						<ul class="dropdown-list">
-							<li><a href="#">Best TOP5</a></li>
+							<li><a href="/english/BestTop5.do">Best TOP5</a></li>
 	                        <li><a href="#">Visitor pick</a></li>
 	                        <li><a href="/english/freeboard.do">Free Board</a></li>
 	                    </ul>

@@ -146,7 +146,7 @@
 				<ul class="nav-list">
 					<li><a href="#">우리들의 서울</a>
 						<ul class="dropdown-list">
-	              			<li><a href="#">Best TOP5</a></li>
+	              			<li><a href="/korean/BestTop5.do">Best TOP5</a></li>
 							<li><a href="#">여행자 추천</a></li>
 	              			<li><a href="/korean/freeboard.do">자유게시판</a></li>
 						</ul>
