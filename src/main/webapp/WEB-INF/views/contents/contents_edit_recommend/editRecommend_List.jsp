@@ -4,6 +4,7 @@
 <%@ page import="com.gorea.dto_board.Gorea_EditRecommend_BoardTO"%>
 <%@ page import="com.gorea.dto_board.Gorea_PagingTO" %>
 
+<c:set var="language" value="${language}" />
 <c:set var="paging" value="${paging}" />
 <c:set var="lists" value="${paging.lists}" />
 
@@ -17,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="/css/footer/footer.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+<script src="https://kit.fontawesome.com/42d55d598f.js" crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -65,6 +67,8 @@
 </head>
 <body>
 
+<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+
 	<div class="banner" id="banner">
 		<img src="/img/banner/editrecommendbanner.jpg" alt="banner">
 		<div class="banner-text">
@@ -73,7 +77,7 @@
 	</div>
 
 	<div class="location">
-		 추천 <span class="ar">></span> <span> <a href="/korean/editRecommend_list.do?cpage=${paging.cpage}">에디터 추천 장소</a>
+		 <i class="fa-solid fa-house"></i> <span class="ar">></span> 추천 <span class="ar">></span> <span> <a href="/korean/editRecommend_list.do?cpage=${paging.cpage}">에디터 추천 장소</a>
 		</span>
 	</div>
 
@@ -184,7 +188,7 @@
 		<!-- 마지막 페이지 버튼 -->
 		<c:choose>
 			<c:when
-				test="${paging.cpage == paging.totalPage or paging.totalPage <= 5}">
+				test="${paging.cpage == paging.totalPage}">
 				<span class="pagination-item disabled">&gt;&gt;</span>
 			</c:when>
 			<c:otherwise>
@@ -193,7 +197,7 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-
+<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 
 
 </body>

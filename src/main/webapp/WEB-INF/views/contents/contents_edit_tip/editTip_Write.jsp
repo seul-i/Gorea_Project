@@ -2,7 +2,7 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Date"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +15,7 @@
 		<h2>게시글 작성</h2>
 		<form class="form-horizontal" method="post"
 			action="./editTip_write_ok.do" enctype="multipart/form-data">
+			<input type="hidden" name="userSeq" value="${userSeq}">
 			<div class="form-group">
 				<input type="text" class="form-control" name="edittipSubject"
 					style="height: 50px" placeholder="제목을 입력해 주세요." /> <input

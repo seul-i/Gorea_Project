@@ -156,8 +156,9 @@ section {
     height: 23rem;
 }
 
-.album-container .album:hover .image img {
-    transform: scale(1.1);
+.album:hover{
+    transform: scale(0.9); /* 1보다 작은 값으로 조절 */
+    transition: transform 0.2s ease-in-out; /* 부드러운 애니메이션을 위한 트랜지션 추가 */
 }
 
 .content-top {
@@ -173,27 +174,28 @@ section {
     display: flex;
 }
 
-.album .image .i .fa-star,
-.album .image .i .fa-star-o {
+.i .fa-star,
+.i .fa-star-o {
     font-size: 24px; /* 원하는 크기로 조절하세요 */
 }
 
 
-.album .image .i .fa-star {
+.i .fa-star {
     color: #94b8f4;
     transition: color 0.2s linear;
     display: none; /* 처음에는 채워진 별을 감춤 */
 }
 
-.album .image .i .fa-star-o {
+.i .fa-star-o {
     color: #94b8f4;
+    display: inline-block; /* 처음에는 빈 별을 보이게 함 */
 }
 
-.album .image:hover .i .fa-star {
+.i:hover .fa-star {
     display: inline-block; /* 마우스를 올리면 채워진 별을 보이게 함 */
 }
 
-.album .image:hover .i .fa-star-o {
+.i:hover .fa-star-o {
     display: none; /* 마우스를 올리면 빈 별을 감춤 */
 }
 

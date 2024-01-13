@@ -2,21 +2,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<c:set var="language" value="${language}" />
 <c:set var="seq" value="${param.edittipSeq}" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>게시판 뷰</title>
-    <link rel="stylesheet" type="text/css" href="/css/editor/style.css">
     <link rel="stylesheet" type="text/css" href="/css/editor/view.css">
     <script src="https://kit.fontawesome.com/42d55d598f.js" crossorigin="anonymous"></script>
 </head>
 <body>
     
-
+	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 	<div class="location">
-		 추천 <span class="ar">></span> <span>
+		 <i class="fa-solid fa-house"></i> <span class="ar">></span> 추천 <span class="ar">></span> <span>
 			<a href="./editTip_list.do">에디터 추천 장소</a>
 		</span>
 	</div>
