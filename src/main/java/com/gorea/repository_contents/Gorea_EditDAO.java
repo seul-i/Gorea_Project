@@ -1,6 +1,8 @@
 package com.gorea.repository_contents;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,8 +24,31 @@ public class Gorea_EditDAO {
 	 */
 	public List<Gorea_EditRecommend_BoardTO> editRecommend_List(int offset, int pageSize) {
 	    List<Gorea_EditRecommend_BoardTO> lists = mapper.editRecommend_List(offset, pageSize);
+	    
+	    for (Gorea_EditRecommend_BoardTO to : lists) {
+	        String content = to.getEditrecoContent();
+	        String firstImageUrl = extractFirstImageUrl(content);
+	        to.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+	    }
 
 	    return lists;
+	}
+	
+	private String extractFirstImageUrl(String content) {
+
+		String imageUrl = "";
+		Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+		Matcher matcher = pattern.matcher(content);
+
+		if (matcher.find()) {
+			imageUrl = matcher.group(1);
+			imageUrl = imageUrl.replace("/ckImgSubmitForEditRecommend?uid=", "").replace("&amp;fileName=", "_");
+			
+
+		} else {
+			System.out.println("No image found");
+		}
+		return imageUrl;
 	}
 
 	/**
