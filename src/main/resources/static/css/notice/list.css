@@ -1,0 +1,290 @@
+* {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 10px;
+        }
+
+        body {
+            font-family: Arial, sans-serif; /* 폰트 스타일을 원하는 대로 설정할 수 있습니다 */
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .board_wrap {
+            width: 60%;
+            margin: 0 auto; 
+            margin-top: 50px;
+            margin-bottom: 50px;
+            height: 100vh;
+        }
+
+        .board_title {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .board_title strong {
+            font-size: 3rem;
+        }
+
+        .board_title p {
+            margin-top: 5px;
+            font-size: 1.3rem;
+        }
+
+        .bt_wrap {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0;
+        }
+
+        .bt_wrap a {
+            display: inline-block;
+            min-width: 80px;
+            margin-left: 10px;
+            padding: 10px;
+            border: 1px solid #000;
+            border-radius: 2px;
+            font-size: 1.3rem;
+        }
+
+        .bt_wrap a:first-child {
+            margin-left: 0;
+        }
+
+        .bt_wrap a.on {
+            background: #000;
+            color: #fff;
+        }
+
+        .board_list {
+            width: 100%;
+            border-top: 2px solid #000;
+        }
+
+        .board_list > div {
+            border-bottom: 1px solid #ddd;
+            font-size: 0;
+        }
+
+        .board_list > div.top {
+            border-bottom: 1px solid #999;
+        }
+
+        .board_list > div:last-child {
+            border-bottom: 1px solid #000;
+        }
+
+        .board_list > div > div {
+            display: inline-block;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+
+        .board_list > div.top > div {
+            font-weight: 600;
+        }
+
+        .board_list .num {
+            width: 10%;
+        }
+
+        .board_list .title {
+            width: 60%;
+            text-align: left;
+        }
+
+        .board_list .top .title {
+            text-align: center;
+        }
+
+        .board_list .writer {
+            width: 10%;
+        }
+
+        .board_list .date {
+            width: 10%;
+        }
+
+        .board_list .count {
+            width: 10%;
+        }
+
+        .board_page {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0;
+        }
+
+        .board_page a {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            box-sizing: border-box;
+            vertical-align: middle;
+            border-left: 0;
+            line-height: 100%;
+        }
+
+        .board_page a.bt {
+            padding-top: 10px;
+            font-size: 1.2rem;
+            letter-spacing: -1px;
+        }
+
+        .board_page a.num {
+            padding-top: 9px;
+            font-size: 1.4rem;
+        }
+
+        .board_page a.num.on {
+            border-color: #000;
+            background: #000;
+            color: #fff;
+        }
+
+        .board_page a:first-child {
+        }
+
+        @media (max-width: 1000px) {
+            .board_wrap {
+                width: 80%;
+                min-width: 320px;
+                padding: 0 30px;
+                box-sizing: border-box;
+            }
+
+            .board_list .num,
+            .board_list .writer {
+                display: none;
+            }
+
+            .board_list .date {
+                width: 30%;
+            }
+
+            .board_list .title {
+                text-indent: 10px;
+            }
+
+            .board_list .top .title {
+                text-indent: 0;
+            }
+
+            .board_page a {
+                width: 26px;
+                height: 26px;
+            }
+
+            .board_page a.bt {
+                padding-top: 7px;
+            }
+            
+            .board_page a.num {
+                padding-top: 6px;
+            }
+	.board_title strong {
+    	font-size: 1.8rem;
+	}
+        }
+        .write_button_container {
+    text-align: right;
+     margin-left: auto;
+}
+
+.write_button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007DC3;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: background-color 0.3s;
+}
+
+/* 검색 컨테이너 스타일 */
+.search_container {
+    padding: 20px;
+    text-align: center;
+}
+
+/* 검색 폼 스타일 */
+.search_container form {
+    display: inline-block;
+}
+
+/* 검색 입력 및 버튼 스타일 */
+.search_container input[type="text"],
+.search_container input[type="submit"],
+.search_container select {
+    padding: 5px 10px;
+    margin: 2px;
+}
+
+/* 검색 버튼 특별 스타일 */
+.search_container input[type="submit"] {
+    background-color: #007DC3;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* 메시지 스타일 */
+.no-content-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    color: red;
+}
+
+.bottom-container {
+     display: flex;
+    justify-content: space-between; /* 좌우 공간을 균등하게 분배 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+    margin-top: 10px;
+}
+
+.pagination-container {
+    flex-grow: 1; /* 공간을 채우도록 함 */
+    text-align: center; /* 내부 요소(페이징)를 중앙 정렬 */
+}
+
+.pagination {
+	margin: 0; /* 기존 마진 제거 */
+	 display: inline-block;
+    text-align: center; /* 가운데 정렬 추가 */
+    font-weight: bolder;
+     flex-grow: 1;
+  }
+
+  .pagination-item {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .pagination-item.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .pagination-item.disabled {
+    color: #333;
+    cursor: pointer;
+    pointer-events: none;
+  }

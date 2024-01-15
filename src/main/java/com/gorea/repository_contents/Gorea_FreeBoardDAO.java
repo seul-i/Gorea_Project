@@ -56,7 +56,6 @@ public class Gorea_FreeBoardDAO {
 	}
 	
 	public int free_Modify_Ok(Gorea_Free_BoardTO to) {
-		System.out.println("## " + to.toString());
 		int flag = 1;
 		int result = mapper.Free_Modify_Ok(to);
 		

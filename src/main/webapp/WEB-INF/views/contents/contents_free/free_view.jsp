@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/css/freeboard/view.css">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
     <div class="containers">
         <div class="post-title"><c:out value="${to.freeTitle}" /></div>
         <div class="post-info">
@@ -98,7 +99,7 @@
 
     <!-- 삭제, 수정, 목록 버튼 그룹 -->
     <div class="right-buttons">
-        <input type="button" value="삭제" class="btn" onclick="location.href='${deleteUrl}'" />
+        <input type="button" value="삭제" class="btn" onclick="confirmDelete('${deleteUrl}')" />
         <input type="button" value="수정" class="btn" onclick="location.href='${modifyUrl}'" />
         <input type="button" value="목록" class="btn" onclick="location.href='${listUrl}'" />
     </div>
@@ -113,6 +114,13 @@ function increaseLikes(freeSeq) {
             document.getElementById('like-count').innerText = likes;
         });
 }
+
+function confirmDelete(deleteUrl) {
+    if (confirm("글을 삭제하시겠습니까?")) {
+        location.href = deleteUrl;
+    }
+}
 </script>
+<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>
 </html>

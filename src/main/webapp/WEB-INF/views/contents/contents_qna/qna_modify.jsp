@@ -1,43 +1,40 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="com.gorea.dto_board.Gorea_Notice_BoardTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="false" %>
 <c:set var="language" value="${language}" />
+<!DOCTYPE html>
 <html>
 <head>
     <title>GO!rea</title>
-    <link rel="stylesheet" type="text/css" href="/css/freeboard/write.css">
+    <link rel="stylesheet" type="text/css" href="/css/qna/modify.css">
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
     <div class="containers">
-        <h2>게시글 작성</h2>
-        <!-- 서버 측 메시지 표시 -->
-        <c:if test="${not empty successMessage}">
-            <div class="success-message">${successMessage}</div>
-        </c:if>
-        <c:if test="${not empty errorMessage}">
-            <div class="error-message">${errorMessage}</div>
-        </c:if>
-        <form class="form-horizontal" name="wfrm" method="post" action="./freeboard_write_ok.do">
+        <h2>문의글 수정</h2>
+        <form action="./qna_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
+            <c:set var="to" value="${requestScope.to}" />
+            <input type="hidden" name="qnaSeq" value="${param.qnaSeq}"/>
             <div class="form-group">
-                <input type="text" class="form-control" name="freeTitle" style="height: 50px" placeholder="제목을 입력해 주세요."/>
+                <input type="text" class="form-control" value="${to.qnaTitle}" name="qnaTitle" style="height: 50px" />
             </div>
             <div class="form-group">
-                <textarea class="form-control" id="freeContent" name="freeContent" placeholder="내용을 입력해 주세요."></textarea>
+                <textarea class="form-control" id="qnaContent" name="qnaContent">${to.qnaContent}</textarea>
             </div>
+
             <div class="btn_wrap">
-                <button type="submit" id="wbtn" class="btn btn-primary">저장하기</button>
+                <button type="submit" class="btn btn-primary" id="mbtn">저장하기</button>
             </div>
         </form>
     </div>
     <script type="text/javascript">
         window.onload = function() {
-            CKEDITOR.replace('freeContent', {
-                filebrowserUploadUrl: '/free/imageUpload',
+            CKEDITOR.replace('qnaContent', {
+                filebrowserUploadUrl: '/qna/imageUpload',
                 height: 700,
                 toolbar: [
-                	{ name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+                    { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
                     { name: 'styles', items: ['Font', 'FontSize' ] },
                     { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting' ] },
                     { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
@@ -50,13 +47,11 @@
                 ]
             });
         };
-        
     </script>
     <script type="text/javascript">
-        // 폼 제출 시에 제목과 내용이 입력되었는지 확인
-        document.getElementById('wbtn').onclick = function() {
-            var title = document.wfrm.freeTitle.value.trim();
-            var content = CKEDITOR.instances.freeContent.getData().trim();
+        document.getElementById('mbtn').onclick = function() {
+            var title = document.mfrm.qnaTitle.value.trim();
+            var content = CKEDITOR.instances.qnaContent.getData().trim();
             
             if (title === "") {
                 alert('제목을 입력하셔야 합니다.');
@@ -68,6 +63,5 @@
             }
         };
     </script>
-    <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>
 </html>
