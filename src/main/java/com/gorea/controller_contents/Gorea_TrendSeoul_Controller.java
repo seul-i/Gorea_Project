@@ -80,64 +80,35 @@ public class Gorea_TrendSeoul_Controller {
 
 	    model.addAttribute("language", language);
 	    
+	    List<Gorea_TrendSeoul_ListTO> boardList = new ArrayList<Gorea_TrendSeoul_ListTO>();
+	    Gorea_PagingTO paging = new Gorea_PagingTO();
+	    
 	    if(language.equals("korean")) {
-	    	List<Gorea_TrendSeoul_ListTO> boardList = listTranslation.trendSeoul_List_KO(offset, pageSize);
-	    	Gorea_PagingTO paging = createPagingModel(boardList, cpage);
-
-	    	model.addAttribute("paging", paging);
-	    	
-	    	// 페이지 번호를 추가하는 부분
-		    List<Integer> pageNumbers = new ArrayList<>();
-		    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
-		        pageNumbers.add(i);
-		    }
-		    model.addAttribute("pageNumbers", pageNumbers);
+	    	boardList = listTranslation.trendSeoul_List_KO(offset, pageSize);
+	    	paging = createPagingModel(boardList, cpage);
 	    	
 	    }else if(language.equals("english")) {
-	    	List<Gorea_TrendSeoul_ListTO> boardList_en = listTranslation.trendSeoul_List_EN(offset, pageSize);				
-			//model.addAttribute("boardList", boardList_en);
-	    	Gorea_PagingTO paging = createPagingModel(boardList_en, cpage);
-	    	System.out.println(paging);
-	    	model.addAttribute("paging", paging);
-	    	
-	    	// 페이지 번호를 추가하는 부분
-		    List<Integer> pageNumbers = new ArrayList<>();
-		    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
-		        pageNumbers.add(i);
-		    }
-		    model.addAttribute("pageNumbers", pageNumbers);
+	    	boardList = listTranslation.trendSeoul_List_EN(offset, pageSize);				
+	    	paging = createPagingModel(boardList, cpage);
 		    
 	    }else if(language.equals("japanese")) {
-	    	List<Gorea_TrendSeoul_ListTO> boardList_jp = listTranslation.trendSeoul_List_JP(offset, pageSize);				
-			//model.addAttribute("boardList", boardList_en);
-	    	Gorea_PagingTO paging = createPagingModel(boardList_jp, cpage);
-	    	System.out.println(paging);
-	    	model.addAttribute("paging", paging);
-	    	
-	    	// 페이지 번호를 추가하는 부분
-		    List<Integer> pageNumbers = new ArrayList<>();
-		    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
-		        pageNumbers.add(i);
-		    }
-		    model.addAttribute("pageNumbers", pageNumbers);
+	    	boardList = listTranslation.trendSeoul_List_JP(offset, pageSize);				
+	    	paging = createPagingModel(boardList, cpage);
 		    
 	    }else if(language.equals("chinese")) {
-	    	List<Gorea_TrendSeoul_ListTO> boardList_chn = listTranslation.trendSeoul_List_CHN(offset, pageSize);				
-			//model.addAttribute("boardList", boardList_en);
-	    	Gorea_PagingTO paging = createPagingModel(boardList_chn, cpage);
-	    	System.out.println(paging);
-	    	model.addAttribute("paging", paging);
-	    	
-	    	// 페이지 번호를 추가하는 부분
-		    List<Integer> pageNumbers = new ArrayList<>();
-		    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
-		        pageNumbers.add(i);
-		    }
-		    model.addAttribute("pageNumbers", pageNumbers);
+	    	boardList = listTranslation.trendSeoul_List_CHN(offset, pageSize);				
+	    	paging = createPagingModel(boardList, cpage);
 	    }
+	    
+	    model.addAttribute("paging", paging);
+	    
+	    List<Integer> pageNumbers = new ArrayList<>();
+	    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+	        pageNumbers.add(i);
+	    }
+	    
+	    model.addAttribute("pageNumbers", pageNumbers);
 
-	    // 동적으로 경로를 설정
-	    //return path + "/contents_trend_seoul/trend_seoul";
 	    return "contents/contents_trend_seoul/trend_seoul";
 	}	
 	
@@ -184,10 +155,37 @@ public class Gorea_TrendSeoul_Controller {
 		return "contents/contents_trend_seoul/trend_view";
 	}
 	
+	@GetMapping("/{language}/trend_view2.do")
+	public String view2(@PathVariable String language, HttpServletRequest request, Model model) {
+		
+		to.setSeoulSeq(request.getParameter("seoulSeq"));
+		System.out.println("## seq : " + request.getParameter("seoulSeq"));
+		
+		model.addAttribute("language", language);
+		model.addAttribute("googlemap",googlemap);
+		
+		if(language.equals("korean")) {
+			to = dao.trendSeoul_View(to);
+			System.out.println(to);			
+			model.addAttribute("to", to);
+		}else if(language.equals("english")) {
+			to = viewTranslation.trendSeoul_View_EN(to);
+			model.addAttribute("to", to);
+		}else if(language.equals("japanese")) {
+			to = viewTranslation.trendSeoul_View_JP(to);
+			model.addAttribute("to", to);
+		}else if(language.equals("chinese")) {
+			to = viewTranslation.trendSeoul_View_CHN(to);
+			model.addAttribute("to", to);
+		}
+		
+		return "contents/contents_trend_seoul/trend_view";
+	}
+	
 	// =======================================================================================
 	
-	@GetMapping("/korean/trend_write.do")
-    public String gowrite(HttpServletRequest request, Model model) {
+	@GetMapping("/{language}/trend_write.do")
+    public String gowrite(@PathVariable String language, HttpServletRequest request, Model model) {
 		return "contents/contents_trend_seoul/trend_write";
     }
 	

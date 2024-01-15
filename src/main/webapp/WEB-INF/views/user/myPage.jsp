@@ -26,6 +26,7 @@
 	        <c:set var="role" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
 	        <c:set var="mail" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userMail}" />
 	        <c:set var="nation" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNation}" />
+	        <c:set var="seq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 	       
 	        <!-- 저장한 변수를 사용자에게 보여주고, data-nickname 속성에도 동일한 값 지정 -->
 	        <h2>유저 정보</h2>
@@ -43,6 +44,7 @@
 	            </c:otherwise>
 	        </c:choose><br/>
 	        mail : <span class="nickname" data-nickname="${mail }">${mail }</span><br/>
+	        Seq : <span class="seq" data-nickname="${seq }">${seq }</span><br/>
 	        nation : 
 	        <c:choose>
 	            <c:when test="${nation eq null}">

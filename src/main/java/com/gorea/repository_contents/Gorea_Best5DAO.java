@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
+import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
 import com.gorea.mapper.Top5MapperInter;
 
 @Repository
@@ -27,6 +28,42 @@ public class Gorea_Best5DAO {
 		
 		return boardList;
 	}
+	
+	public List<Gorea_TrendSeoul_ListTO> trendSeoul_searchList(String locGu, String mainCategory, String subCategory) {
+		
+		List<Gorea_TrendSeoul_ListTO> boardList = mapper.trendSeoul_searchList(locGu,mainCategory,subCategory);
+		
+		for (Gorea_TrendSeoul_ListTO board : boardList) {
+			String content = board.getSeoulContent();
+			String firstImageUrl = extractFirstImageUrl(content);
+			board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+		}
+		
+		return boardList;
+	}
+	
+	public List<Gorea_TrendSeoul_SearchTO> search_locGu() {
+		
+		List<Gorea_TrendSeoul_SearchTO> searchGu = mapper.search_locGu();
+		
+		return searchGu;
+	}
+	
+	public List<Gorea_TrendSeoul_SearchTO> search_mainCategroy() {
+		
+		List<Gorea_TrendSeoul_SearchTO> searchmainCategory = mapper.search_mainCategroy();
+		
+		return searchmainCategory;
+	}
+	
+	public List<Gorea_TrendSeoul_SearchTO> search_subCategroy(String mainCategory) {
+		
+		List<Gorea_TrendSeoul_SearchTO> searchsubCategory = mapper.search_subCategroy(mainCategory);
+		
+		return searchsubCategory;
+	}
+	
+	
 	
     private String extractFirstImageUrl(String content) {
 //	    System.out.println("Content: " + content); // 콘텐츠 출력
