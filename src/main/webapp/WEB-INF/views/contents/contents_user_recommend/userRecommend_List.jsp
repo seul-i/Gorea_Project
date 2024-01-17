@@ -1,34 +1,13 @@
-<%@page import="com.gorea.dto_board.Gorea_Recommend_BoardTO"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-    
-<%
-	List<Gorea_Recommend_BoardTO> lists = (List)request.getAttribute( "lists" );
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.gorea.dto_board.Gorea_Recommend_BoardTO"%>
+<%@ page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
-	StringBuilder sbHtml = new StringBuilder();
-	
-	for( Gorea_Recommend_BoardTO to : lists ){
-		String seq = to.getUserRecomSeq();
-		String deptno = to.getUserRecomboardNo();
-		String title = to.getUserRecomTitle();
-		String content = to.getUserRecomContent();
-		String wdate = to.getUserRecompostDate();
-		String comment = to.getUserRecomCmt();
-		String hit = to.getUserRecomHit();
-		
-		String userNickname = to.getUserNickname();
-		int wgap = to.getWgap();
-		
-		sbHtml.append( "<div>" );
-		sbHtml.append( "	<div class='num'>" + seq + "</div>" );
-		sbHtml.append( "	<div class='title'><a href='./userRecomView.do?seq=" + seq + "'>" + title + "</a></div>" );
-		sbHtml.append( "	<div class='writer'>" + userNickname + "</div>" );
-		sbHtml.append( "	<div class='date'>" + wdate + "</div>" );
-		sbHtml.append( "	<div class='count'>" + hit + "</div>" );
-		sbHtml.append( "</div>" );
-	}
-%>
+<c:set var="language" value="${language}" />
+<c:set var="paging" value="${paging}" />
+<c:set var="boardList" value="${paging.boardList}" />
+<c:set var="lists" value="${requestScope.lists}" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -36,6 +15,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>유저추천</title>
     <link rel="stylesheet" type="text/css" href="/css/userRecommend/board.css">
+    <link rel="stylesheet" type="text/css" href="/css/header/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/footer/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -46,12 +29,13 @@
             font-size: 10px;
         }
 
-        body {
+        .main {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
             font-family: Arial, sans-serif; /* 폰트 스타일을 원하는 대로 설정할 수 있습니다 */
+            margin-top : 30px;
         }
 
         ul, li {
@@ -64,6 +48,7 @@
         }
 
         .board_wrap {
+        	height: 100%;
             width: 1000px;
         }
 
@@ -235,46 +220,162 @@
             .board_page a.num {
                 padding-top: 6px;
             }
-	.board_title strong {
-    	font-size: 1.8rem;
-	}
+	
+			.board_title strong {
+		    	font-size: 1.8rem;
+			}
+			
+			.pagination {
+			    display: flex;
+			    justify-content: center;
+			    align-items: center;
+			    margin-top: 10px; /* 원하는 간격으로 조절 */
+			}
+			
+			.pagination-item {
+			    /* 현재 스타일을 유지하면서 필요한 경우 추가 스타일을 정의합니다. */
+			    margin: 0 5px; /* 페이지 번호 간격을 조절할 수 있습니다. */
+			}
         }
     </style>
+    
+    <script>
+    // 이전 페이지로 이동하는 함수
+    function goToPreviousPage() {
+        var currentPage = ${paging.cpage};
+
+        // 현재 페이지가 1페이지인 경우에는 동작하지 않도록 체크
+        if (currentPage > 1) {
+            // 이동할 URL 생성
+            var url = "/${language}/userRecomList.do?cpage=" + (currentPage - 1);
+
+            // 실제로 페이지 이동
+            window.location.href = url;
+        }
+    }
+    </script>
 </head>
 <body>
-    <div class="board_wrap">
-        <div class="board_title">
-            <strong>유저추천</strong>
-        </div>
-        <div class="board_list_wrap">
-            <div class="board_list">
-                <div class="top">
-                    <div class="num">번호</div>
-                    <div class="title">제목</div>
-                    <div class="writer">글쓴이</div>
-                    <div class="date">작성일</div>
-                    <div class="count">조회</div>
-                </div>
-                <!-- list 부분 -->
-                <%=sbHtml %>
-            </div>
-            <div class="board_page">
-                <a href="#" class="bt first"><<</a>
-                <a href="#" class="bt prev"><</a>
-                <a href="#" class="num on">1</a>
-                <a href="#" class="num">2</a>
-                <a href="#" class="num">3</a>
-                <a href="#" class="num">4</a>
-                <a href="#" class="num">5</a>
-                <a href="#" class="bt next">></a>
-                <a href="#" class="bt last">>></a>
-            </div>
-        </div>
-        <div class="btn_area">
-         <div class="align_right">
-            <input type="button" value="쓰기" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='./userRecomWrite.do'" />
-         </div>
-      </div>
+	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+
+	<div class="main">
+	    <div class="board_wrap">
+	        <div class="board_title">
+	            <strong>유저추천</strong>
+	        </div>
+	        <div class="board_list_wrap">
+	            <div class="board_list">
+	                <div class="top">
+	                    <div class="num">번호</div>
+	                    <div class="title">제목</div>
+	                    <div class="writer">글쓴이</div>
+	                    <div class="date">작성일</div>
+	                    <div class="count">조회</div>
+	                </div>
+	                <!-- list 부분 -->
+	                <c:if test="${not empty lists}">
+	                <c:forEach var="to" items="${lists}">
+	                    <div>
+	                        <div class='num'><c:out value="${to.userRecomSeq}" /></div>
+	                        <div class='title'><a href='/${language}/userRecomView.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomTitle}" /></a></div>
+	                        <div class='writer'><c:out value="${to.userNickname}" /></div>
+	                        <div class='date'><c:out value="${to.userRecompostDate}" /></div>
+	                        <div class='count'><c:out value="${to.userRecomHit}" /></div>
+	                    </div>
+	                </c:forEach>
+	                </c:if>
+	            </div>
+	            
+	        <div class="pagination">
+			<!-- 처음 페이지 버튼 -->
+			<c:choose>
+				<c:when test="${paging.cpage == 1}">
+					<span class="pagination-item disabled">&lt;&lt;</span>
+				</c:when>
+				<c:otherwise>
+					<a href="/${language}/userRecomList.do?cpage=1"
+						class="pagination-item">&lt;&lt;</a>
+				</c:otherwise>
+			</c:choose>
+	
+			<!-- 이전 페이지 버튼 -->
+			<c:choose>
+				<c:when test="${paging.cpage == 1}">
+					<span class="pagination-item disabled">&lt;</span>
+				</c:when>
+				<c:otherwise>
+					<a href="/${language}/userRecomList.do?cpage=${paging.cpage - 1}"
+						class="pagination-item">&lt;</a>
+				</c:otherwise>
+			</c:choose>
+	
+			<!-- 페이지 번호 -->
+			<c:choose>
+				<c:when test="${paging.totalPage <= 5}">
+					<!-- 페이지 개수가 5 이하인 경우 -->
+					<c:forEach var="i" begin="${1}" end="${paging.totalPage}"
+						varStatus="loop">
+						<c:choose>
+							<c:when test="${i == paging.cpage}">
+								<span class="pagination-item active">${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="/${language}/userRecomList.do?cpage=${i}"
+									class="pagination-item">${i}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<!-- 페이지 개수가 5 초과인 경우 -->
+					<c:forEach var="i" begin="${paging.firstPage}"
+						end="${paging.lastPage}" varStatus="loop">
+						<c:choose>
+							<c:when test="${i == paging.cpage}">
+								<span class="pagination-item active">${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="/${language}/userRecomList.do?cpage=${i}"
+									class="pagination-item">${i}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+	
+			<!-- 다음 페이지 버튼 -->
+			<c:choose>
+				<c:when test="${paging.cpage == paging.totalPage}">
+					<span class="pagination-item disabled">&gt;</span>
+				</c:when>
+				<c:otherwise>
+					<a href="$/${language}/userRecomList.do?cpage=${paging.cpage + 1}"
+						class="pagination-item">&gt;</a>
+				</c:otherwise>
+			</c:choose>
+	
+			<!-- 마지막 페이지 버튼 -->
+			<c:choose>
+				<c:when test="${paging.cpage == paging.totalPage}">
+					<span class="pagination-item disabled">&gt;&gt;</span>
+				</c:when>
+				<c:otherwise>
+					<a href="$/${language}/userRecomList.do?cpage=${paging.totalPage}"
+						class="pagination-item">&gt;&gt;</a>
+				</c:otherwise>
+			</c:choose>
+			</div>
+	            
+	        </div>
+	        <div class="btn_area">
+	            <div class="align_right">
+	                <input type="button" value="쓰기" class="btn_write btn_txt01" style="cursor: pointer;" onclick="location.href='./userRecomWrite.do'" />
+	            </div>
+	        </div>
+	    </div>
     </div>
+    
+    <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+    
 </body>
 </html>

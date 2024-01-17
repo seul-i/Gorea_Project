@@ -118,7 +118,7 @@
 		// 함수 ---------------------------------------------------------------------------------------
 		const readServer = function( cseq , userNickname, replyContent, replypostDate, grp, grpl ) {
 			$.ajax({
-				url: '/gorea_replyList.do',
+				url: '/korean/gorea_replyList.do',
 				type: 'get',
 				data : {
 					pseq : $('#pseq').val(),
@@ -226,7 +226,7 @@
 		
 		const writeOkServer = function(){
 			$.ajax({
-				url: './gorea_replyWriteOk.do',
+				url: '/korean/gorea_replyWriteOk.do',
 				type: 'post',
 				data: {
 					pseq: $( '#pseq' ).val(),
@@ -248,7 +248,7 @@
 		
 		const reWriteOkServer = function( grp, replyContent ) {
 			$.ajax({
-				url: '/gorea_rereply_Wtire_Ok.do',
+				url: '/korean/gorea_rereply_Wtire_Ok.do',
 				type: 'post',
 				data:{
 					pseq: $( '#pseq' ).val(),
@@ -274,7 +274,7 @@
 		
 		const deleteOkServer = function( grp ) {
 			$.ajax({
-				url: './gorea_replyDeleteOk.do',
+				url: '/korean/gorea_replyDeleteOk.do',
 				type: 'post',
 				data:{
 					pseq: $('#pseq').val(),
@@ -293,7 +293,7 @@
 		
 		const modifyOkServer = function( cseq ){
 			$.ajax({
-				url: './gorea_replyModifyOk.do',
+				url: '/korean/gorea_replyModifyOk.do',
 				type: 'post',
 				data:{
 					pseq: $( '#pseq' ).val(),
@@ -313,7 +313,7 @@
 		
 		const reDeleteOkServer = function( cseq ){
 			$.ajax({
-				url: './gorea_rereply_Delete_Ok.do',
+				url: '/korean/gorea_rereply_Delete_Ok.do',
 				type: 'post',
 				data:{
 					goreaboardNo: $( '#goreaboardNo' ).val(),
@@ -358,7 +358,7 @@
         <input type="hidden" id="goreaboardNo" value=<%=goreaboardNo %> />
         <input type="hidden" id="pseq" value=<%=seq %> />
         <div class="post-actions" style="text-align: right; margin-top: 10px;">
-        	<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='userRecomList.do'" />
+        	<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='/korean/userRecomList.do'" />
             
             <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='userRecomModify.do?seq=<%=seq %>'" />
             <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='userRecomDeleteOk.do?seq=<%=seq %>'" />

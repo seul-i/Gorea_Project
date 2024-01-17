@@ -14,7 +14,7 @@ import com.gorea.dto_board.Gorea_Recommend_BoardTO;
 @Mapper
 public interface UserRecomMapperInter {
 	// list
-	@Select( "select us.userRecomSeq, us.userSeq , us.userRecomboardNo, us.userRecomTitle, date_format( us.userRecompostDate, '%Y.%m.%d %H:%i') userRecompostDate, us.userRecomHit , us.userRecomContent ,  us.userRecomCmt, us.userRecomRecomcount, u.userNickname from UserRecommend us join user u on us.userSeq = u.userSeq" )
+	@Select( "select us.userRecomSeq, us.userSeq , us.userRecomboardNo, us.userRecomTitle, date_format( us.userRecompostDate, '%Y /%m /%d') userRecompostDate, us.userRecomHit , us.userRecomContent ,  us.userRecomCmt, us.userRecomRecomcount, u.userNickname from UserRecommend us join user u on us.userSeq = u.userSeq" )
 	List<Gorea_Recommend_BoardTO> userRecom_list(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 	
 	@Select( "select count(*) from UserRecommend" )
