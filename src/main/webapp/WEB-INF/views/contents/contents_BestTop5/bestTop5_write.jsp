@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="language" value="${language}" />
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 
 <!DOCTYPE html>
 <html>
@@ -17,22 +18,25 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
 
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-		<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 		
 		<link rel="stylesheet" type="text/css" href="/css/top5/top5write.css" />
-    <style>
-      
-    </style>
+		
+	    
 			
 	</head>
 	
 	<body>
 		
 		<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
-			
-<%-- 			<a href="/${language}/BestTop5_modal.do">글쓰기</a> --%>
-			
+		
+		<div class="banner" id="banner">
+        	<img src="/img/banner/edittipbanner.jpg" alt="banner">
+        	<div class="banner-text">
+            <h1>에디터 꿀팁</h1>
+        	</div>
+    	</div>	
+	
 			<!-- Moa Modal--> 
 			<div class="modal fade" id="moaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-xl" role="document">
@@ -80,23 +84,22 @@
 							<div class="top5container">
 								<div class= "card-content" >
 									<c:forEach var="boardList" items="${boardList}">
-										<div class="card" onclick="toggleButtons(this)">
+									
+										<div class="card">
 											<div class="card-image">
-												<img id="${boardList.seoulSeq}" src="${boardList.firstImageUrl}" draggable="true" ondragstart="drag(event)" alt="">
+												<img id="${boardList.seoulSeq}" src="${boardList.firstImageUrl}" alt="">
 											</div>
 												
 											<div class="card-info">
 												<p>${boardList.mainCategory}/${boardList.subCategory}</p>
 												<h4>${boardList.seoulTitle}</h4>
 											</div>
-												
-											<div class="overlay" onclick="toggleButtons(this)">
-												<div class="buttons">
-													<button onclick="buttonClicked(1)">선택하기</button>
-													<button onclick="buttonClicked(2)" data-toggle="modal" data-target="#ModalinModal">상세보기</button>
-				
-												</div>
+											
+											<div class="buttons">
+												<button class="select-button" id="" data-dismiss="modal">선택하기</button>
+												<button onclick="openNewWindow('${boardList.seoulSeq}')">상세보기</button>
 											</div>
+											
 										</div>
 									</c:forEach>
 								</div>
@@ -112,46 +115,163 @@
 				</div>
 			</div>
 		</div>
-			  
-			<script type="text/javascript">
+		
+		
+		<div style="height:100px"></div>
+		
+		<form method="post" action="./bestTop5_write_ok.do">
+			<input type="hidden" name="userSeq" value="${userSeq}">
+			<div class="row" id="place1">
+				<div class="col-sm-1">
+				<input type="hidden" value="" name="seoulSeq1">
+				<input type="hidden" value="" name="popularSeq1"></div>
+				<div class="col-sm-3" style="height: 300px">
+					<img src="/img/trendseoul/noimg.png" data-toggle="modal" data-target="#moaModal" style="width: 100%; height:100%;">
+				</div>
+				<div class="col-sm-7" style="display: grid; align-items: center">
+					<div class="form-group">
+						<h4>PlaceName / mainCategory / subCategory </h4><br/>
+						<label for="comment">Comment:</label>
+						<textarea class="form-control" rows="5" id="comment" name="comment1"></textarea>
+					</div>
+				</div>
+				<div class="col-sm-1"></div>
+			</div>	
+			<hr>
 			
-				////////////////////////////////// 검색 박스 비동기 처리 //////////////////////////////////////////////////////////////////////////
+			<div class="row" id="place2">
+				<div class="col-sm-1">
+				<input type="hidden" value="" name="seoulSeq2">
+				<input type="hidden" value="" name="popularSeq2"></div>
+				<div class="col-sm-3" style="height: 300px">
+					<img src="/img/trendseoul/noimg.png" data-toggle="modal" data-target="#moaModal" style="width: 100%; height:100%;">
+				</div>
+				<div class="col-sm-7" style="display: grid; align-items: center">
+					<div class="form-group">
+						<h4>장소명 / 카테고리1 / 카테고리2 </h4><br/>
+						<label for="comment">Comment:</label>
+						<textarea class="form-control" rows="5" id="comment" name="comment2"></textarea>
+					</div>
+				</div>
+				<div class="col-sm-1"></div>
+			</div>
+			<hr>
+			
+			<div class="row" id="place3">
+				<div class="col-sm-1">
+				<input type="hidden" value="" name="seoulSeq3">
+				<input type="hidden" value="" name="popularSeq3"></div>
+				<div class="col-sm-3" style="height: 300px">
+					<img src="/img/trendseoul/noimg.png" data-toggle="modal" data-target="#moaModal" style="width: 100%; height:100%;">
+				</div>
+				<div class="col-sm-7" style="display: grid; align-items: center">
+					<div class="form-group">
+						<h4>장소명 / 카테고리1 / 카테고리2 </h4><br/>
+						<label for="comment">Comment:</label>
+						<textarea class="form-control" rows="5" id="comment" name="comment3"></textarea>
+					</div>
+				</div>
+				<div class="col-sm-1"></div>
+			</div>
+			<hr>
+			
+			<div class="row" id="place4">
+				<div class="col-sm-1">
+				<input type="hidden" value="" name="seoulSeq4">
+				<input type="hidden" value="" name="popularSeq4"></div>
+				<div class="col-sm-3" style="height: 300px">
+					<img src="/img/trendseoul/noimg.png" data-toggle="modal" data-target="#moaModal" style="width: 100%; height:100%;">
+				</div>
+				<div class="col-sm-7" style="display: grid; align-items: center">
+					<div class="form-group">
+						<h4>장소명 / 카테고리1 / 카테고리2 </h4><br/>
+						<label for="comment">Comment:</label>
+						<textarea class="form-control" rows="5" id="comment" name="comment4"></textarea>
+					</div>
+				</div>
+				<div class="col-sm-1"></div>
+			</div>
+			<hr>
+			
+			<div class="row" id="place5">
+				<div class="col-sm-1">
+				<input type="hidden" value="" name="seoulSeq5">
+				<input type="hidden" value="" name="popularSeq5"></div>
+				<div class="col-sm-3" style="height: 300px">
+					<img src="/img/trendseoul/noimg.png" data-toggle="modal" data-target="#moaModal" style="width: 100%; height:100%;">
+				</div>
+				<div class="col-sm-7" style="display: grid; align-items: center">
+					<div class="form-group">
+						<h4>장소명 / 카테고리1 / 카테고리2 </h4><br/>
+						<label for="comment">Comment:</label>
+						<textarea class="form-control" rows="5" id="comment" name="comment5"></textarea>
+					</div>
+				</div>
+				<div class="col-sm-1"></div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-4"></div>
+				<div class="col-sm-5"></div>
+					<div class="col-sm-2">
+						<button type="submit" class="btn btn-primary btn-block" style="margin-bottom : 20px; height: 50px">작성하기</button>
+					</div>
+				<div class="col-sm-1"></div>
+			</div>
+			
+		</form>
+			  
+	<script type="text/javascript">
 				
-				$(document).ready(function () {
-				    $("#mainCategorySelect").change(function () {
-				        var selectedMainCategory = $(this).val();
+	////////////////////////////////// 비동기 처리 //////////////////////////////////////////////////////////////////////////
+				
+	$(document).ready(function () {
+					
+		initializePagination();
+					
+		$("#mainCategorySelect").change(function () {
+			var selectedMainCategory = $(this).val();
+			var language = '${language}';
 				        
-				        var language = '${language}';
-				        
-				        $.ajax({
-				        	url: "/"+language+"/categorySearch.do",
-				        	type: "GET",
-				        	dataType : 'json',
-				            data: {
-				                mainCategory: selectedMainCategory
-				            },
-				            success: function (data) {
+				$.ajax({
+					url: "/"+language+"/categorySearch.do",
+					type: "GET",
+					dataType : 'json',
+					data: {
+						mainCategory: selectedMainCategory
+					},
+					
+					success: function (data) {
 				            	
-				            	// 서버에서 받은 데이터로 옵션을 업데이트
-				                var subCategorySelect = $("select[name='subCategory']");
-				                subCategorySelect.empty(); // 기존 옵션 제거
-				                subCategorySelect.append("<option value='#'>Sub_Category</option>");
+						// 서버에서 json 출력 데이터 업데이트 , 기존 데이터 empty 
+						var subCategorySelect = $("select[name='subCategory']");
+						subCategorySelect.empty(); 
+						subCategorySelect.append("<option value='#'>Sub_Category</option>");
 
-				                // 서버에서 받은 데이터로 옵션 추가
-				                $.each(data, function(index, item) {
-				                    subCategorySelect.append("<option value='" + item.subCategory + "'>" + item.subCategory + "</option>");
+						// 서버에서 받은 데이터로 옵션 추가
+						$.each(data, function(index, item) {
+							subCategorySelect.append("<option value='" + item.subCategory + "'>" + item.subCategory + "</option>");
 				                });
-				            },
-				            error: function (error) {
-				                console.log("Error:", error);
-				            }
-				        });
-				    });
+						},
+						
+					error: function (error) {
+						console.log("Error:", error);
+					}
+				});
+		});
 				    
 				    $('#btn').click(function(){
+				    	
+				    	var btnValue = $(".select-button").attr("id");
 				        var selectedseoulLocGu = $("select[name='seoulLocGu']").val();
 				        var selectedMainCategory = $("select[name='mainCategory']").val();
 				        var selectedsubCategory = $("select[name='subCategory']").val();
+				        
+				        console.log(btnValue);
+				        console.log(selectedseoulLocGu);
+				        console.log(selectedMainCategory);
+				        console.log(selectedsubCategory);
+				        
 				        var language = '${language}';
 
 				        $.ajax({
@@ -164,20 +284,24 @@
 				                subCategory: selectedsubCategory
 				            },
 				            success: function (data) {
-				                if (data && data.length > 0) {
-				                    var cardContent = $(".top5container .card-content");
-				                    cardContent.empty();
+				            	
+				                	if (data && data.length > 0) {
+				                    	var cardContent = $(".top5container .card-content");
+				                    	cardContent.empty();
 
 				                    for (var i = 0; i < data.length; i++) {
-				                        var card = $("<div class='card' onclick='toggleButtons(this)'>");
-				                        card.append("<div class='card-image'><img id='" + data[i].seoulSeq + "' src='" + data[i].firstImageUrl + "' draggable='true' ondragstart='drag(event)' alt=''></div>");
+				                        var card = $("<div class='card'>");
+				                        card.append("<div class='card-image'><img id='" + data[i].seoulSeq + "' src='" + data[i].firstImageUrl + "'alt=''></div>");
 				                        card.append("<div class='card-info'><p>" + data[i].mainCategory + "/" + data[i].subCategory + "</p><h4>" + data[i].seoulTitle + "</h4></div>");
-				                        card.append("<div class='overlay' onclick='toggleButtons(this)'><div class='buttons'><button onclick='buttonClicked(1)'>선택하기</button><button onclick='buttonClicked(2)' data-toggle='modal' data-target='#ModalinModal'>상세보기</button></div></div>");
+				                        card.append("<div class='buttons'><button class='select-button' id='" + btnValue + "' data-dismiss='modal'>선택하기</button><button onclick='openNewWindow(" + data[i].seoulSeq + ")'>상세보기</button></div></div>");
+
 
 				                        cardContent.append(card);
 				                    }
 
 				                    initializePagination();
+				                    selectedPlace();
+				                    
 				                } else {
 				                    alert("검색 결과가 없습니다");
 				                }
@@ -187,46 +311,166 @@
 				            }
 				        });
 				        
-				        
 				    });
+				    
+				    selectedPlace();
 
 				});
 		
-				////////////////////////////////// card div 클릭시 버튼 //////////////////////////////////////////////////////////////////////////
 				
-				var allCards = document.querySelectorAll('.card');
-				
-				function toggleButtons(card) {
-				    // 순회하며 다른 card 초기화
-					allCards.forEach(function (otherCard) {
-						if (otherCard !== card) {
-					        var buttons = otherCard.querySelector('.buttons');
-					        var overlay = otherCard.querySelector('.overlay');
-					        buttons.style.display = 'none';
-					        overlay.style.display = 'none';
-						}
-					});
-				
-				    var buttons = card.querySelector('.buttons');
-				    var overlay = card.querySelector('.overlay');
-				    buttons.style.display = (buttons.style.display === 'none' || buttons.style.display === '') ? 'block' : 'block';
-				    overlay.style.display = (overlay.style.display === 'none' || overlay.style.display === '') ? 'flex' : 'none';
-				}
-				
+				// x (닫기) 를 눌렀을때 데이터 , 페이징 처리 초기화
 				document.querySelector('.close[data-dismiss="modal"]').addEventListener('click', function() {
-				    // 모든 카드 초기화
-				    allCards.forEach(function (card) {
-				        var buttons = card.querySelector('.buttons');
-				        var overlay = card.querySelector('.overlay');
-				        buttons.style.display = 'none';
-				        overlay.style.display = 'none';
-				    });
+					
+					initializeList();
 				    
 				    initializePagination();
 				});
-		
-				function buttonClicked(buttonNumber) {
-	
+				
+				// 해당 링크로 이동하는 함수
+				function openNewWindow(seoulSeq) {
+					
+					var language = '${language}';
+					
+					console.log(language);
+					
+			        var url = '/'+language+'/trend_view.do?seoulSeq=' + seoulSeq;
+			        
+			        console.log(url);
+			        
+			        window.open(url, '_blank');
+			    }
+				
+				// Ajax 비동기 출력 데이터 초기화 함수
+				function initializeList(){
+					
+					var selectedseoulLocGu = "";
+			        var selectedMainCategory = "";
+			        var selectedsubCategory = "";
+
+			        var language = '${language}';
+
+			        $.ajax({
+			            url: "/"+language+"/listSearch.do",
+			            type: "GET",
+			            dataType: 'json',
+			            data: {
+			                locGu: selectedseoulLocGu,
+			                mainCategory: selectedMainCategory,
+			                subCategory: selectedsubCategory
+			            },
+			            success: function (data) {
+
+			                    var cardContent = $(".top5container .card-content");
+			                    cardContent.empty();
+
+			                    for (var i = 0; i < data.length; i++) {
+			                        var card = $("<div class='card'>");
+			                        card.append("<div class='card-image'><img id='" + data[i].seoulSeq + "' src='" + data[i].firstImageUrl + "'alt=''></div>");
+			                        card.append("<div class='card-info'><p>" + data[i].mainCategory + "/" + data[i].subCategory + "</p><h4>" + data[i].seoulTitle + "</h4></div>");
+			                        card.append("<div class='buttons'><button class='select-button' id='' data-dismiss='modal'>선택하기</button><button onclick='openNewWindow(" + data[i].seoulSeq + ")'>상세보기</button></div></div>");
+
+			                        
+			                        
+			                        cardContent.append(card);
+			                    }
+			                    
+			                 	// 각 선택 요소의 값을 첫 번째 옵션 값으로 설정
+			                    $('select[name="seoulLocGu"]').val($('select[name="seoulLocGu"] option:first').val());
+			                    $('select[name="mainCategory"]').val($('select[name="mainCategory"] option:first').val());
+			                    $('select[name="subCategory"]').val($('select[name="subCategory"] option:first').val());
+
+			                    initializePagination();
+			                    
+			                    selectedPlace();
+
+			            },
+			            error: function (error) {
+			                console.log("Error:", error);
+			            }
+			        });
+					
+				}
+				
+				// modal에서 선택한 데이터를 넘겨받는 함수
+				function selectedPlace(){
+					
+					$(".row .col-sm-3 img").on("click", function () {
+
+				        var card = $(this).closest(".row");
+				        var placeId = card.attr("id");
+
+				        // 출력 확인을 위한 콘솔 로그
+				        console.log("Place ID: " + placeId);
+
+				        // 모달 안의 버튼에 place1 아이디 값을 넣어줌
+				        $("#moaModal .select-button").attr("id", placeId);
+				    });
+					
+					$(".select-button").click(function() {
+						// Find the parent card element
+					    var card = $(this).closest('.card');
+					    var modalId = 'moaModal';
+
+					    var seoulSeq = card.find('img').attr('id');
+					    var imageUrl = card.find('img').attr('src');
+					    var mainCategory = card.find('.card-info p').text();
+					    var subCategory = mainCategory.split('/')[1].trim();
+					    mainCategory = mainCategory.split('/')[0].trim();
+					    var title = card.find('.card-info h4').text();
+					    var buttonId = $(this).attr('id');
+					    
+					    
+
+					    console.log("seoulSeq: " + seoulSeq);
+					    console.log("firstImageUrl: " + imageUrl);
+					    console.log("mainCategory: " + mainCategory);
+					    console.log("subCategory: " + subCategory);
+					    console.log("seoulTitle: " + title);
+					    console.log("buttonId: " + buttonId);
+					    
+			            if (buttonId === "place1") {
+			            	
+			            	$("#place1 input").attr("value", seoulSeq);
+			                $('#place1 img').attr("src", imageUrl);
+			                $('#place1 h4').text(title + " / " + mainCategory + " / " + subCategory);
+			                
+			                
+			            } else if (buttonId === "place2") {
+			            	
+			            	$("#place2 input").attr("value", seoulSeq);
+			            	$('#place2 img').attr("src", imageUrl);
+			                $('#place2 h4').text(title + " / " + mainCategory + " / " + subCategory);
+
+
+			            }else if(buttonId ==="place3"){
+			            	
+			            	$("#place3 input").attr("value", seoulSeq);
+			            	$('#place3 img').attr("src", imageUrl);
+			                $('#place3 h4').text(title + " / " + mainCategory + " / " + subCategory);
+
+
+			            }else if(buttonId ==="place4"){
+			            	
+			            	$("#place4 input").attr("value", seoulSeq);
+			            	$('#place4 img').attr("src", imageUrl);
+			                $('#place4 h4').text(title + " / " + mainCategory + " / " + subCategory);
+
+
+			            }else if(buttonId ==="place5"){
+			            	
+			            	$("#place5 input").attr("value", seoulSeq);
+			            	$('#place5 img').attr("src", imageUrl);
+			                $('#place5 h4').text(title + " / " + mainCategory + " / " + subCategory);
+			                
+
+			            }else{
+			            	
+			            }
+			            
+			            initializeList();
+
+			        });
+ 
 				}
 				
 				//////////////////////////////////// 페이징 네이션 처리 부분 //////////////////////////////////////////////////////////////////////////
@@ -309,18 +553,9 @@
 				    
 				})
 				
-				};
-				
-				$(document).ready(function () {
-					initializePagination();
-				});
-							
+				};	
 			
 			</script>
-			  
-			<a class="dropdown-item" href="#" data-toggle="modal" data-target="#moaModal">
-				선택하기
-			</a>
 		
 		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 		

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class Gorea_BEST5_BoardTO {
-
+public class Gorea_BEST5_WriteTO {
+	private String top5Seq;
+    private String userSeq;
 }

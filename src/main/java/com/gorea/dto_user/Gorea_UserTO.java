@@ -1,5 +1,7 @@
 package com.gorea.dto_user;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,7 +9,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Gorea_UserTO {
+public class Gorea_UserTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private Long userSeq;
 	// go_user_id
 	private String username;
