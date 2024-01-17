@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="EUC-KR">
+    <meta charset="UTF-8">
     <title>Go!rea</title>
     <link rel="stylesheet" type="text/css" href="/css/editor/list1.css">
     
@@ -20,13 +20,13 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
     $(document).ready(function () {
-        // ¾Ù¹ü Å¬¸¯ ÀÌº¥Æ® Ã³¸®
+        // ì•¨ë²” í´ë¦­ ì´ë²¤íŠ¸ ì²˜ë¦¬
         $('.album').on('click', function () {
             var seq = $(this).data('seq');
             window.location.href = '/korean/editTip_view.do?edittipSeq=' + seq;
         });
 
-        // ¸¶¿ì½º ¿Ã·Á³õ¾ÒÀ» ¶§ Æ÷ÀÎÅÍ ¸ğ¾çÀ¸·Î º¯°æ
+        // ë§ˆìš°ìŠ¤ ì˜¬ë ¤ë†“ì•˜ì„ ë•Œ í¬ì¸í„° ëª¨ì–‘ìœ¼ë¡œ ë³€ê²½
         $('.album').hover(
             function () {
                 $(this).css('cursor', 'pointer');
@@ -44,16 +44,16 @@
         }
     });
 
-     	// ÀÌÀü ÆäÀÌÁö·Î ÀÌµ¿ÇÏ´Â ÇÔ¼ö
+     	// ì´ì „ í˜ì´ì§€ë¡œ ì´ë™í•˜ëŠ” í•¨ìˆ˜
         function goToPreviousPage() {
             var currentPage = ${paging.cpage};
 
-            // ÇöÀç ÆäÀÌÁö°¡ 1ÆäÀÌÁöÀÎ °æ¿ì¿¡´Â µ¿ÀÛÇÏÁö ¾Êµµ·Ï Ã¼Å©
+            // í˜„ì¬ í˜ì´ì§€ê°€ 1í˜ì´ì§€ì¸ ê²½ìš°ì—ëŠ” ë™ì‘í•˜ì§€ ì•Šë„ë¡ ì²´í¬
             if (currentPage > 1) {
-                // ÀÌµ¿ÇÒ URL »ı¼º
+                // ì´ë™í•  URL ìƒì„±
                 var url = "/korean/editTip_list.do?cpage=" + (currentPage - 1);
 
-                // ½ÇÁ¦·Î ÆäÀÌÁö ÀÌµ¿
+                // ì‹¤ì œë¡œ í˜ì´ì§€ ì´ë™
                 window.location.href = url;
             }
         }
@@ -64,12 +64,12 @@
     <div class="banner" id="banner">
         <img src="/img/banner/edittipbanner.jpg" alt="banner">
         <div class="banner-text">
-            <h1>¿¡µğÅÍ ²ÜÆÁ</h1>
+            <h1>ì—ë””í„° ê¿€íŒ</h1>
         </div>
     </div>
 
     <div class="location">
-        <i class="fa-solid fa-house"></i> <span class="ar">></span> ÃßÃµ <span class="ar">></span> <span> <a href="./editTip_list.do?cpage=${paging.cpage}">¿¡µğÅÍ ²ÜÆÁ</a>
+        <i class="fa-solid fa-house"></i> <span class="ar">></span> ì¶”ì²œ <span class="ar">></span> <span> <a href="./editTip_list.do?cpage=${paging.cpage}">ì—ë””í„° ê¿€íŒ</a>
         </span>
     </div>
 
@@ -104,11 +104,11 @@
 	
 	<div style="text-align: right; margin-right: 25px;">
 		<button class="w-btn-outline w-btn-blue-outline" type="button"
-			onclick="location.href='editTip_write.do'">±Û¾²±â</button>
+			onclick="location.href='editTip_write.do'">ê¸€ì“°ê¸°</button>
 	</div>
     
     <div class="pagination">
-		<!-- Ã³À½ ÆäÀÌÁö ¹öÆ° -->
+		<!-- ì²˜ìŒ í˜ì´ì§€ ë²„íŠ¼ -->
 		<c:choose>
 			<c:when test="${paging.cpage == 1}">
 				<span class="pagination-item disabled">&lt;&lt;</span>
@@ -119,7 +119,7 @@
 			</c:otherwise>
 		</c:choose>
 
-		<!-- ÀÌÀü ÆäÀÌÁö ¹öÆ° -->
+		<!-- ì´ì „ í˜ì´ì§€ ë²„íŠ¼ -->
 		<c:choose>
 			<c:when test="${paging.cpage == 1}">
 				<span class="pagination-item disabled">&lt;</span>
@@ -130,10 +130,10 @@
 			</c:otherwise>
 		</c:choose>
 
-		<!-- ÆäÀÌÁö ¹øÈ£ -->
+		<!-- í˜ì´ì§€ ë²ˆí˜¸ -->
 		<c:choose>
 			<c:when test="${paging.totalPage <= 5}">
-				<!-- ÆäÀÌÁö °³¼ö°¡ 5 ÀÌÇÏÀÎ °æ¿ì -->
+				<!-- í˜ì´ì§€ ê°œìˆ˜ê°€ 5 ì´í•˜ì¸ ê²½ìš° -->
 				<c:forEach var="i" begin="${1}" end="${paging.totalPage}"
 					varStatus="loop">
 					<c:choose>
@@ -148,7 +148,7 @@
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
-				<!-- ÆäÀÌÁö °³¼ö°¡ 5 ÃÊ°úÀÎ °æ¿ì -->
+				<!-- í˜ì´ì§€ ê°œìˆ˜ê°€ 5 ì´ˆê³¼ì¸ ê²½ìš° -->
 				<c:forEach var="i" begin="${paging.firstPage}"
 					end="${paging.lastPage}" varStatus="loop">
 					<c:choose>
@@ -164,7 +164,7 @@
 			</c:otherwise>
 		</c:choose>
 
-		<!-- ´ÙÀ½ ÆäÀÌÁö ¹öÆ° -->
+		<!-- ë‹¤ìŒ í˜ì´ì§€ ë²„íŠ¼ -->
 		<c:choose>
 			<c:when test="${paging.cpage == paging.totalPage}">
 				<span class="pagination-item disabled">&gt;</span>
@@ -176,7 +176,7 @@
 		</c:choose>
 
 
-		<!-- ¸¶Áö¸· ÆäÀÌÁö ¹öÆ° -->
+		<!-- ë§ˆì§€ë§‰ í˜ì´ì§€ ë²„íŠ¼ -->
 		<c:choose>
 			<c:when
 				test="${paging.cpage == paging.totalPage}">

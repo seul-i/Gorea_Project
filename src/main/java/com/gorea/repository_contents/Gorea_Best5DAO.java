@@ -7,9 +7,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gorea.dto_board.Gorea_BEST5_WriteTO;
 import com.gorea.dto_board.Gorea_BEST5_BoardTO;
-import com.gorea.dto_board.Gorea_BEST5_CommentTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
 import com.gorea.mapper.Top5MapperInter;
@@ -70,21 +68,12 @@ public class Gorea_Best5DAO {
 		return searchsubCategory;
 	}
 	
-	// BestTop5 어떤 사용자가 어떤 글을 작성했는지 insert 
-	public Gorea_BEST5_WriteTO best5_write_ok(Gorea_BEST5_WriteTO bto) {
-		
-		mapper.best5_Write_Ok(bto);
-		
-		bto = mapper.best5_top5Seq(bto);
-		
-		return bto;
-	}
 	
-	public int best5_writeComment_ok(Gorea_BEST5_CommentTO cto) {
+	public int besttop5_Write_Ok(Gorea_BEST5_BoardTO to) {
 		
 		int flag = 1;
 		
-		int result = mapper.best5_WriteComment_Ok(cto);
+		int result = mapper.besttop5_Write_Ok(to);
 		
 		if( result == 1 ) {
 			flag = 0;
@@ -95,19 +84,19 @@ public class Gorea_Best5DAO {
 	
 	
 
-	public List<Gorea_BEST5_BoardTO> best5_top5_boardList() {
-			
-		List<Gorea_BEST5_BoardTO> boardList = mapper.best5_top5_boardList();
-		
-		System.out.println(boardList);
-		
-		for (Gorea_BEST5_BoardTO board : boardList) {
-			String content = board.getSeoulContent();
-			String firstImageUrl = extractFirstImageUrl(content);
-			board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
-		}	
-		return boardList;
-	}
+//	public List<Gorea_BEST5_BoardTO> best5_top5_boardList() {
+//			
+//		List<Gorea_BEST5_BoardTO> boardList = mapper.best5_top5_boardList();
+//		
+//		System.out.println(boardList);
+//		
+//		for (Gorea_BEST5_BoardTO board : boardList) {
+//			String content = board.getSeoulContent();
+//			String firstImageUrl = extractFirstImageUrl(content);
+//			board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+//		}	
+//		return boardList;
+//	}
 	
 	
     private String extractFirstImageUrl(String content) {

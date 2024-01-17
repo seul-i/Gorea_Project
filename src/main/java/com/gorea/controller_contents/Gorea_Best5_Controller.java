@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gorea.dto_board.Gorea_BEST5_WriteTO;
 import com.gorea.dto_board.Gorea_BEST5_BoardTO;
-import com.gorea.dto_board.Gorea_BEST5_CommentTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
 import com.gorea.repository_contents.Gorea_Best5DAO;
@@ -29,16 +27,16 @@ public class Gorea_Best5_Controller {
 	@Autowired
 	private Gorea_Best5DAO dao;
 
-	@GetMapping("/{language}/BestTop5.do")
+	@GetMapping("/{language}/bestTop5.do")
 	public String best5List(@PathVariable String language, Model model) {
 		
 		model.addAttribute("language",language);
 		
-		List<Gorea_BEST5_BoardTO> boardList = new ArrayList<>();
+		//List<Gorea_BEST5_BoardTO> boardList = new ArrayList<>();
 
 		if(language.equals("korean")) {
 			
-			boardList = dao.best5_top5_boardList();
+			//boardList = dao.best5_top5_boardList();
 
 		}else if(language.equals("english")) {
 			
@@ -48,7 +46,7 @@ public class Gorea_Best5_Controller {
 			
 		}
 		
-		model.addAttribute("boardList",boardList);
+		//model.addAttribute("boardList",boardList);
 		
 		return "contents/contents_BestTop5/bestTop5_List";
 	}
@@ -153,23 +151,22 @@ public class Gorea_Best5_Controller {
 		
 		int flag = 2;
 		
-		Gorea_BEST5_WriteTO bto = new Gorea_BEST5_WriteTO();
-		Gorea_BEST5_CommentTO cto = new Gorea_BEST5_CommentTO();
-		
-		bto.setUserSeq(request.getParameter("userSeq"));
-		
-		bto = dao.best5_write_ok(bto);
-		String top5Seq = bto.getTop5Seq();
+		Gorea_BEST5_BoardTO to = new Gorea_BEST5_BoardTO();
 
-
-		for (int i = 1; i <= 5; i++) {
-			cto.setTop5Seq(top5Seq);
-			cto.setSeoulSeq(request.getParameter("seoulSeq"+i));
-			cto.setTop5Comment(request.getParameter("comment"+i));
+			to.setUserSeq(request.getParameter("userSeq"));
+			to.setSeoulSeq1(request.getParameter("seoulSeq1"));
+			to.setTop5Comment1(request.getParameter("comment1"));
+			to.setSeoulSeq2(request.getParameter("seoulSeq2"));
+			to.setTop5Comment2(request.getParameter("comment2"));
+			to.setSeoulSeq3(request.getParameter("seoulSeq3"));
+			to.setTop5Comment3(request.getParameter("comment3"));
+			to.setSeoulSeq4(request.getParameter("seoulSeq4"));
+			to.setTop5Comment4(request.getParameter("comment4"));
+			to.setSeoulSeq5(request.getParameter("seoulSeq5"));
+			to.setTop5Comment5(request.getParameter("comment5"));
 			
-			flag = dao.best5_writeComment_ok(cto);
-		}
-		
+			flag = dao.besttop5_Write_Ok(to);
+
 		model.addAttribute("flag", flag);
 		
 		return "contents/contents_BestTop5/bestTop5_write_ok";

@@ -9,27 +9,21 @@ import lombok.ToString;
 @ToString
 public class Gorea_BEST5_BoardTO {
 	private String top5Seq;
-    private String userSeq;
-    private String seoulSeq;
-    private String seoulcategoryNo;
-    private String seoulTitle;
-    private String seoulContent;
-    private String seoulLoc;
-    private String seoulLocGu;
-    private String top5Comment;
-    private int top5Hit;
-    private String top5postDate;
+	private String userSeq;
+	private String seoulSeq1;
+	private String top5Comment1;
+	private String seoulSeq2;
+	private String top5Comment2;
+	private String seoulSeq3;
+	private String top5Comment3;
+	private String seoulSeq4;
+	private String top5Comment4;
+	private String seoulSeq5;
+	private String top5Comment5;
+	private String top5Hit;
+	private String top5postDate;
     
     // content 사진
- 	private String uid;
- 	private String filename;
  	private String firstImageUrl;
- 	
- 	// 주소 -> 위도, 경도 변환
-     private Double latitude;
-     private Double longitude;
-     
-     // join
-     private String mainCategory;
-     private String subCategory;
+ 
 }

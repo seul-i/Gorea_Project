@@ -130,7 +130,7 @@
 										<div class="title-content-wrap">
 											<div class="title-wrap">
 												<a
-													href="/${language}/editRecommend_view.do?editrecoSeqSeq=${board.id}">
+													href="/${language}/editRecommend_view.do?editrecoSeq=${board.id}">
 													${board.title} </a>
 											</div>
 											<div class="content-wrap">

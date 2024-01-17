@@ -147,20 +147,20 @@
 			    </div>
 			</div>
 			<div>
-			<c:forEach var="top5Data" items="${boardList}">
-    			<div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">
-			        <p>Top5Seq: ${top5Data.top5Seq}</p>
-			        <p>UserSeq: ${top5Data.userSeq}</p>
-			        <p>SeoulSeq: ${top5Data.seoulSeq}</p>
-			        <p>SeoulCategoryNo: ${top5Data.seoulcategoryNo}</p>
-			        <p>SeoulTitle: ${top5Data.seoulTitle}</p>
-			        <p>SeoulLoc: ${top5Data.seoulLoc}</p>
-			        <p>SeoulLocGu: ${top5Data.seoulLocGu}</p>
-			        <p>Top5Comment: ${top5Data.top5Comment}</p>
-			        <p>Top5Hit: ${top5Data.top5Hit}</p>
-			        <p>Top5PostDate: ${top5Data.top5postDate}</p>
-			    </div>
-			</c:forEach>
+<%-- 			<c:forEach var="top5Data" items="${boardList}"> --%>
+<!--     			<div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;"> -->
+<%-- 			        <p>Top5Seq: ${top5Data.top5Seq}</p> --%>
+<%-- 			        <p>UserSeq: ${top5Data.userSeq}</p> --%>
+<%-- 			        <p>SeoulSeq: ${top5Data.seoulSeq}</p> --%>
+<%-- 			        <p>SeoulCategoryNo: ${top5Data.seoulcategoryNo}</p> --%>
+<%-- 			        <p>SeoulTitle: ${top5Data.seoulTitle}</p> --%>
+<%-- 			        <p>SeoulLoc: ${top5Data.seoulLoc}</p> --%>
+<%-- 			        <p>SeoulLocGu: ${top5Data.seoulLocGu}</p> --%>
+<%-- 			        <p>Top5Comment: ${top5Data.top5Comment}</p> --%>
+<%-- 			        <p>Top5Hit: ${top5Data.top5Hit}</p> --%>
+<%-- 			        <p>Top5PostDate: ${top5Data.top5postDate}</p> --%>
+<!-- 			    </div> -->
+<%-- 			</c:forEach> --%>
 			</div>
 	<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>
