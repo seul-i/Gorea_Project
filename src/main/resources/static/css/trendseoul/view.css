@@ -155,38 +155,38 @@ header .logo span {
 }
 
 
-.comment-section {
+.review-section {
     padding-top: 20px;
 }
 
-.comment {
+.review {
     display: flex;
     flex-direction: column;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
 }
 
-.comment-header {
+.review-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.comment-author {
+.review-author {
     font-weight: bold;
 }
 
-.comment-actions {
+.review-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.comment-timestamp {
+.review-timestamp {
     font-size: 12px;
     color: #aaa;
 }
-.comments-count {
+.reviews-count {
     font-weight: bold;
     font-size: 16px;
     color: #333;
@@ -194,7 +194,7 @@ padding-bottom: 5px;
 border-bottom: 1px solid #eee;
 }
 
-.comment-actions a {
+.review-actions a {
     color: #aaa;
     margin-left: 10px;
     font-size: 12px;
@@ -207,59 +207,75 @@ border-bottom: 1px solid #eee;
     border-color: #28a745;
 }
 
-.comment-form {
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-align-items: center;
-margin-top: 20px;
-}
-.comment-form textarea {
-flex: 1;
-resize: none;
-padding: 10px;
-border-radius: 4px;
-border: 1px solid #ccc;
-min-height: 60px;
+.review-form {
+	margin-top: 20px;
 }
 
-.comment-form button {
-padding: 10px 20px;
-border: none;
-border: 1px solid #ccc;
-border-radius: 4px;
-cursor: pointer;
+.comment-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.sub-comment {
-margin-left: 10px; /* 대댓글 왼쪽 마진을 늘려 오른쪽으로 이동시킵니다. */
-padding-left: 10px; /* 대댓글 내용과 선 사이에 여백을 추가합니다. */
+.review-form textarea {
+	flex: 1;
+	resize: none;
+	padding: 10px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	min-height: 60px;
 }
 
-.comment-form-btn button {
-padding: 20px;
-border: none;
-border-radius: 4px;
-cursor: pointer;
+.review-form button {
+	padding: 10px 20px;
+	border: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.sub-review {
+	margin-left: 10px; /* 대댓글 왼쪽 마진을 늘려 오른쪽으로 이동시킵니다. */
+	padding-left: 10px; /* 대댓글 내용과 선 사이에 여백을 추가합니다. */
+}
+
+.review-form-btn button {
+	padding: 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
 .btn {
-background-color: #007bff; /* 배경색을 원하는 색상으로 설정하세요 */
-color: #fff; /* 텍스트 색상을 흰색 또는 원하는 색상으로 설정하세요 */
-border: none;
-border-radius: 4px;
-padding: 10px 20px;
-cursor: pointer;
-transition: background-color 0.3s ease;
+	background-color: #007bff; /* 배경색을 원하는 색상으로 설정하세요 */
+	color: #fff; /* 텍스트 색상을 흰색 또는 원하는 색상으로 설정하세요 */
+	border: none;
+	border-radius: 4px;
+	padding: 10px 20px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
-.comment-form-btn {
-display: flex;
-justify-content: flex-end; /* 내용을 오른쪽으로 정렬 */
-margin-top: 10px;
+.review-form-btn {
+	display: flex;
+	justify-content: flex-end; /* 내용을 오른쪽으로 정렬 */
+	margin-top: 10px;
+}
+
+.fa-star {
+	color: #FFD43B;
+}
+
+
+.star {
+    display: inline-block;
+    height: 30px; /* Set an appropriate height */
+    background-size: cover;
+    cursor: pointer;
 }
 
 /* 아래의 CSS 코드를 추가하여 댓글 작성 버튼을 오른쪽으로 정렬합니다. */
-.comment-form button {
+.review-form button {
     margin-left: 10px;
 }
 

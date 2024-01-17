@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
+import com.gorea.dto_reply.Gorea_TrendSeoul_ReplyTO;
 
 
 @Mapper
@@ -25,8 +26,7 @@ public interface TrendMapperInter {
 	
 	// trend_seoul_WriteOk
 	// rank -> 일단 값이 없어서 1로 고정시켜서 넣어놓음
-	// userSeq는 db에서 일단 빼놨음
-	@Insert("insert into trendseoul values (0, 7, #{seoulcategoryNo}, 1, #{seoulTitle}, #{seoulsubTitle}, now(), 0, #{seoulContent}, #{seoulLoc}, #{seoulLocGu}, #{seoulSite}, #{seoulusageTime}, #{seoulusageFee}, #{seoulTrafficinfo}, #{seoulNotice}, 0)")
+	@Insert("insert into trendseoul values (0, #{userSeq}, 7, #{seoulcategoryNo}, 1, #{seoulTitle}, #{seoulsubTitle}, now(), 0, #{seoulContent}, #{seoulLoc}, #{seoulLocGu}, #{seoulSite}, #{seoulusageTime}, #{seoulusageFee}, #{seoulTrafficinfo}, #{seoulNotice}, 0)")
 	int trendSeoul_Write_Ok(Gorea_TrendSeoul_BoardTO to);
 	
 	// trend_view
@@ -47,4 +47,29 @@ public interface TrendMapperInter {
 	// trend_delete_ok
 	@Delete("delete from trendseoul where seoulSeq=#{seoulSeq}")
 	int trendSeoul_Delete_Ok(Gorea_TrendSeoul_BoardTO to);
+	
+	// ReviewList
+	@Select("SELECT tr.seoulSeq, tr.seoulReviewSeq, tr.userSeq, tr.comment, tr.seoulScore, DATE_FORMAT(tr.reviewDate, '%Y.%m.%d') AS reviewDate, u.userNickname AS userNickname " +
+	        "FROM trendreview tr " +
+	        "JOIN user u ON tr.userSeq = u.userSeq " +
+	        "WHERE tr.seoulSeq=#{seoulSeq} " +
+	        "ORDER BY tr.seoulReviewSeq DESC")
+	List<Gorea_TrendSeoul_ReplyTO> ReviewList(String seoulSeq);
+	
+	// ReviewWrite_Ok
+	@Insert("insert into trendreview values (0, #{userSeq}, #{seoulSeq}, #{comment}, #{seoulScore}, now() )")
+	int trendSeoul_Review(Gorea_TrendSeoul_ReplyTO rto);
+	
+	// ReviewModify
+	@Select("SELECT seoulReviewSeq, userSeq, comment, seoulScore FROM trendreview WHERE seoulReviewSeq = #{seoulReviewSeq} AND userSeq = #{userSeq}")
+	Gorea_TrendSeoul_ReplyTO ReviewModify(Gorea_TrendSeoul_ReplyTO rto);
+
+	// RevieqModify_Ok
+	@Update("update trendreview set comment=#{comment}, seoulScore=#{seoulScore} where seoulReviewSeq=#{seoulReviewSeq}")
+	int ReviewModify_Ok(Gorea_TrendSeoul_ReplyTO rto);
+	
+	// ReviewDelete
+	@Delete("delete from trendreview where seoulReviewSeq=#{seoulReviewSeq}")
+	int ReviewDelete(String seoulReviewSeq);
+	
 }
