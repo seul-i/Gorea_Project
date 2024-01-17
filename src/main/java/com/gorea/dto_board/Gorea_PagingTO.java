@@ -24,6 +24,7 @@ public class Gorea_PagingTO {
     private List<Gorea_EditRecommend_BoardTO> lists;
     private List<Gorea_EditTip_BoardTO> lists1;
     private List<Gorea_TrendSeoul_ListTO> boardList;
+    private List<Gorea_Recommend_BoardTO> boardList1;
 
     /**
      * 페이지 설정 메소드
