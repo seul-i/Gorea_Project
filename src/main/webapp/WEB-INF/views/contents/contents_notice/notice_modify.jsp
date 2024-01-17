@@ -7,26 +7,26 @@
 <html>
 <head>
 <title>GO!rea</title>
-<link rel="stylesheet" type="text/css" href="/css/freeboard/modify.css">
+<link rel="stylesheet" type="text/css" href="/css/notice/modify.css">
 <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 	<div class="containers">
 		<h2>게시글 수정</h2>
-		<form action="./freeboard_modify_ok.do" method="post" name="mfrm"
+		<form action="./notice_modify_ok.do" method="post" name="mfrm"
 			enctype="multipart/form-data" class="form-horizontal">
 			<c:set var="to" value="${requestScope.to}" />
-			<input type="hidden" name="freeSeq" value="${param.freeSeq}" /> 
+			<input type="hidden" name="noticeSeq" value="${param.noticeSeq}" /> 
 			<input type="hidden" name="cpage" value="${cpage}" /> 
 			<input type="hidden" name="searchType" value="${searchType}" /> 
 			<input type="hidden"name="searchKeyword" value="${searchKeyword}" />
 			<div class="form-group">
-				<input type="text" class="form-control" value="${to.freeTitle}"
-					name="freeTitle" style="height: 50px" />
+				<input type="text" class="form-control" value="${to.noticeTitle}"
+					name="noticeTitle" style="height: 50px" />
 			</div>
 			<div class="form-group">
-				<textarea class="form-control" id="freeContent" name="freeContent">${to.freeContent}</textarea>
+				<textarea class="form-control" id="noticeContent" name="noticeContent">${to.noticeContent}</textarea>
 			</div>
 
 			<div class="btn_wrap">
@@ -36,8 +36,8 @@
 	</div>
 	<script type="text/javascript">
         window.onload = function() {
-            CKEDITOR.replace('freeContent', {
-                filebrowserUploadUrl: '/free/imageUpload',
+            CKEDITOR.replace('noticeContent', {
+                filebrowserUploadUrl: '/notice/imageUpload',
                 height: 700,
                 toolbar: [
                     { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
@@ -56,8 +56,8 @@
     </script>
 	<script type="text/javascript">
         document.getElementById('mbtn').onclick = function() {
-            var title = document.mfrm.freeTitle.value.trim();
-            var content = CKEDITOR.instances.freeContent.getData().trim();
+            var title = document.mfrm.noticeTitle.value.trim();
+            var content = CKEDITOR.instances.noticeContent.getData().trim();
             
             if (title === "") {
                 alert('제목을 입력하셔야 합니다.');

@@ -6,12 +6,12 @@
 <c:set var="flag" value="${requestScope.flag}" />
 <c:set var="cpage" value="${param.cpage}" />
 <c:set var="searchType" value="${param.searchType}" />
-<c:set var="freeSeq" value="${param.freeSeq}" />
+<c:set var="noticeSeq" value="${param.noticeSeq}" />
 <c:set var="searchKeyword" value="${fn:escapeXml(param.searchKeyword)}" />
 
 <!-- URL 기본 구조 설정 및 쿼리 문자열 생성 -->
-<c:url var="finalUrl" value="freeboard_view.do">
-    <c:param name="freeSeq" value="${freeSeq}" />
+<c:url var="finalUrl" value="notice_view.do">
+    <c:param name="noticeSeq" value="${noticeSeq}" />
     <c:param name="cpage" value="${cpage}" />
     <c:param name="searchType" value="${searchType}" />
     <c:param name="searchKeyword" value="${searchKeyword}" />
@@ -23,10 +23,10 @@
         <!-- 글 수정 성공 시 리다이렉트 -->
         <script type="text/javascript">
             window.location.href = "${finalUrl}";
-        </script>
-    </c:when>
-    <c:otherwise>
-        <!-- 글 수정 실패 시 다른 처리 -->
-        <!-- <c:redirect url="errorPage.jsp" /> -->
-    </c:otherwise>
+</script>
+</c:when>
+<c:otherwise>
+<!-- 글 수정 실패 시 다른 처리 -->
+<!-- <c:redirect url="errorPage.jsp" /> -->
+</c:otherwise>
 </c:choose>
