@@ -25,6 +25,8 @@ public class Gorea_RecommendDAO {
 			board.setFirstImageUrl(firstImageUrl);
 		}
 		
+		
+		System.out.println( "lists : " + lists );
 		return lists;
 	}
 	

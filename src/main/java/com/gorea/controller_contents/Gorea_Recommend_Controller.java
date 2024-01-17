@@ -70,6 +70,7 @@ public class Gorea_Recommend_Controller {
 			List<Gorea_Recommend_BoardTO> boardList = listTranslation.userRecommend_List_KO(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList, cpage);
 			
+			model.addAttribute( "lists", boardList );
 			model.addAttribute( "paging", paging );
 			
 			// 페이지 번호를 추가하는 부분
@@ -83,6 +84,7 @@ public class Gorea_Recommend_Controller {
 			List<Gorea_Recommend_BoardTO> boardList_en = listTranslation.userRecommend_List_EN(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList_en, cpage);
 			
+			model.addAttribute( "lists", boardList_en );
 			model.addAttribute( "paging", paging );
 			
 			// 페이지 번호를 추가하는 부분
@@ -96,6 +98,7 @@ public class Gorea_Recommend_Controller {
 			List<Gorea_Recommend_BoardTO> boardList_jp = listTranslation.userRecommend_List_JP(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList_jp, cpage);
 			
+			model.addAttribute( "lists", boardList_jp );
 			model.addAttribute( "paging", paging );
 			
 			// 페이지 번호를 추가하는 부분
@@ -109,6 +112,7 @@ public class Gorea_Recommend_Controller {
 			List<Gorea_Recommend_BoardTO> boardList_chn = listTranslation.userRecommend_List_CHN(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList_chn, cpage);
 			
+			model.addAttribute( "lists", boardList_chn );
 			model.addAttribute( "paging", paging );
 			
 			// 페이지 번호를 추가하는 부분
@@ -119,7 +123,7 @@ public class Gorea_Recommend_Controller {
 		    model.addAttribute("pageNumbers", pageNumbers);
 		}
 		
-		return "contents/contents_user_recommend/userRecommend_List2";
+		return "contents/contents_user_recommend/userRecommend_List";
 	}
 	
 	
