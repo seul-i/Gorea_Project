@@ -1,0 +1,379 @@
+:root {
+	--primary-color: #669ccb;
+	--primary-color-dark: #5681a7;
+	--secondary-color: #e8f1fa;
+	--text-dark: #282d31;
+	--text-light: #767268;
+	--extra-light: #f3f4f6;
+	--white: #ffffff;
+	--max-width: 1200px;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.journey_container,
+.banner_container,
+.edittor_container,
+.main_text,
+.main_text h2,
+.icons li,
+.icons li .contents1_bold,
+.icons li .more {
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+
+.section_container {
+	padding: 12rem 1rem;
+	max-width: var(--max-width);
+	margin: auto;
+}
+
+.section_title {
+	font-size: 2rem;
+	font-weight: 500;
+	color: var(--text-dark);
+	margin-bottom: 1rem;
+	text-align: center;
+}
+
+.section_subtitle {
+	font-size: 1rem;
+	font-style: italic;
+	color: var(--text-dark);
+	text-align: center;
+}
+
+img {
+	width: 100%;
+}
+
+.journey_container {
+	background-color: #fff;
+}
+
+.journey_grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+}
+
+.country_card {
+	background-color :#fff;
+}
+
+.country_name {
+	padding: 1rem;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: var(--text-light);
+	cursor: pointer;
+}
+
+.country_name i {
+	font-size: 1.2rem;
+}
+
+.country_name span {
+	font-style: italic;
+}
+
+.banner_container {
+    background-image: linear-gradient(rgba(35, 71, 103, 0.7),
+        rgba(35, 71, 103, 0.7)),
+        url("/img/main/festival2.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.banner_container .section_container {
+	padding: 10rem 1rem;
+	display: flex;
+	justify-content: center;
+}
+
+.banner_content {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 1.5rem;
+	text-align: center;
+	color: #fff;
+}
+
+.banner_content h2 {
+	font-size: 2rem;
+	font-weight: 400;
+}
+
+.banner_content button {
+	padding: .5rem 2rem;
+	outline: none;
+	border: 2px solid var(--secondary-color);
+	background-color: transparent;
+	color: var(--secondary-color);
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+
+@media (min-width: 640px) {
+	.section_container {
+		justify-content: flex-start;
+	}
+
+	.journey_grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+	}
+
+}
+
+@media (min-width: 786px) {
+  .banner_container .section_container {
+    justify-content: flex-end;
+  }
+
+  .banner_content {
+    align-items: flex-end;
+    text-align: right;
+    max-width: 800px;
+  }
+
+  .icons>li {
+    display: block;
+    text-align: center;
+  }
+
+  .icon_img {
+    text-align: center;
+  }
+
+  .contents1_bold {
+    margin-top: 10px;
+    /* 필요에 따라 조절 */
+  }
+
+  .more {
+    margin-top: 10px;
+    /* 필요에 따라 조절 */
+  }
+}
+
+@media (max-width: 1240px) {
+  .section-inner {
+    padding: 0;
+  }
+}
+
+h2 {
+
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.icon_img img {
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+}
+
+.contents1_bold {
+  font-weight: bold;
+}
+
+.main_text {
+  width: 100%;
+  height: 500px;
+  background: #fff;
+}
+
+.main_text>h2 {
+  margin-top: 12rem;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.main_text>.contents1 {
+  text-align: center;
+}
+
+.icons {
+  display: flex;
+  width: 100%; /* 수정된 부분 */
+  height: 302px;
+  margin: auto;
+}
+
+.icons>li {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #E4E4E4;
+  border-radius: 3px;
+  margin: 10px 10px;
+  text-align: center;
+}
+
+.icons>li>.icon_img {
+  margin-top: 18px;
+}
+
+.icons>li:not(:last-child) {
+  margin-right: 20px;
+}
+
+.icons .contents2 {
+  width: 280px;
+  margin: auto;
+  letter-spacing: -1px;
+}
+
+.more {
+  width: 70px;
+  height: 30px;
+  border: 1px solid rgb(0, 64, 128);
+  background: rgb(0, 64, 128);
+  cursor: pointer;
+  color: #fff;
+  font-size: 10px;
+  margin: 25px auto;
+}
+
+.test {
+	background-color: #fff;
+}
+
+
+
+.icons {
+  list-style-type: none;
+  padding: 0;
+  box-sizing: border-box; /* 추가 */
+}
+
+
+.icons>li {
+	text-align: center;
+}
+
+.icons>li::marker {
+	display: none;
+}
+
+.section_header >h2 {
+	font-size: 2rem;
+	font-weight: 500;
+	color: var(--text-dark);
+	margin-bottom: 1rem;
+	text-align: center;
+    margin-top: 12rem;
+    margin-bottom: 20px;
+
+}
+
+.button {
+  width: 50px;
+  height: 30px;
+  border: 1px solid rgb(128, 128, 128);
+  background: rgb(128, 128, 128);
+  cursor: pointer;
+  color: #fff;
+  font-size: 10px;
+  margin: 25px auto;
+}
+
+.section_nav{
+	display: flex; 
+	justify-content: flex-end;
+	margin-right: 40px;
+}
+
+.buttons-container {
+    display: block;
+    text-align: center; /* 가운데 정렬 스타일 추가 */
+}
+
+.button {
+    /* 버튼에 필요한 스타일을 추가합니다. */
+    background-color: rgb(255, 128, 128);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: inline-block; /* 가운데 정렬을 위해 inline-block으로 설정 */
+}
+
+.country_card {
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(rgb(128, 128, 128), rgb(128, 128, 128));
+    width: 100%; /* 가로 전체 영역 사용 */
+    box-sizing: border-box; /* padding을 포함한 전체 영역 사용 */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 추가 */
+}
+
+.overlay i {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.wrapper .carousel {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: calc((100% / 3) -12px);
+	gap:16px;
+	/* overflow: hidden; */
+}
+
+.wrapper {
+	max-width: 1100px;
+	width: 100%;
+}
+
+.carousel .card {
+	height: 400px;
+	list-style: none;
+	background: #fff;
+	border-radius: 8px;
+	padding-bottom: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.card .img{
+	width:200px;
+	height: 200px;
+	border-radius: 50%;
+}
+
+.card .img img {
+	width: 220px;
+	height: 140px;
+	object-fit: cover;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0 35px;
+}
