@@ -9,12 +9,15 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.gorea.dto_board.Gorea_Free_BoardTO;
 import com.gorea.dto_board.Gorea_Recommend_BoardTO;
+import com.gorea.dto_reply.Gorea_ReplyTO;
 
 @Mapper
 public interface UserRecomMapperInter {
 	// list
-	@Select( "select us.userRecomSeq, us.userSeq , us.userRecomboardNo, us.userRecomTitle, date_format( us.userRecompostDate, '%Y /%m /%d') userRecompostDate, us.userRecomHit , us.userRecomContent ,  us.userRecomCmt, us.userRecomRecomcount, u.userNickname from UserRecommend us join user u on us.userSeq = u.userSeq" )
+	//@Select( "select us.userRecomSeq, us.userSeq , us.userRecomboardNo, us.userRecomTitle, date_format( us.userRecompostDate, '%Y /%m /%d') userRecompostDate, us.userRecomHit , us.userRecomContent ,  us.userRecomCmt, us.userRecomRecomcount, u.userNickname from UserRecommend us join user u on us.userSeq = u.userSeq" )
+	@Select( "select us.userRecomSeq, us.userSeq , us.userRecomboardNo, us.userRecomTitle, date_format( us.userRecompostDate, '%Y /%m /%d') userRecompostDate, us.userRecomHit , us.userRecomContent ,  us.userRecomCmt, us.userRecomcount, u.userNickname from UserRecommend us join user u on us.userSeq = u.userSeq order by us.userRecomSeq desc" )
 	List<Gorea_Recommend_BoardTO> userRecom_list(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 	
 	@Select( "select count(*) from UserRecommend" )
@@ -25,9 +28,17 @@ public interface UserRecomMapperInter {
 	int userRecom_WriteOk( Gorea_Recommend_BoardTO to );
 		
 	// view
-	@Select( "select us.userRecomSeq, us.userSeq, us.userRecomboardNo, us.userRecomTitle, date_format(us.userRecompostDate, '%Y.%m.%d %H:%i') userRecompostDate, us.userRecomHit, us.userRecomContent, us.userRecomCmt, us.userRecomRecomcount, u.userNickname "
+	@Select( "select us.userRecomSeq, us.userSeq, us.userRecomboardNo, us.userRecomTitle, date_format(us.userRecompostDate, '%Y.%m.%d') userRecompostDate, us.userRecomHit, us.userRecomContent, us.userRecomCmt, u.userNickname "
 			+ "from UserRecommend us join user u on us.userSeq = u.userSeq where us.userRecomSeq=#{userRecomSeq}")
 	Gorea_Recommend_BoardTO userRecom_View( Gorea_Recommend_BoardTO to );
+	
+	// 이전 글 가져오기
+    @Select("SELECT * FROM userrecommend WHERE userRecomSeq < #{seq} ORDER BY userRecomSeq DESC LIMIT 1")
+    Gorea_Recommend_BoardTO  getPreviousPost(int userRecomSeq);
+
+    // 다음 글 가져오기
+    @Select("SELECT * FROM userrecommend WHERE userRecomSeq > #{seq} ORDER BY userRecomSeq ASC LIMIT 1")
+    Gorea_Recommend_BoardTO getNextPost(int userRecomSeq);
 		
 	//viewuserRecomHit
 	@Update("update UserRecommend set userRecomHit=userRecomHit+1 where userRecomSeq=#{userRecomSeq}")
@@ -44,4 +55,16 @@ public interface UserRecomMapperInter {
 	// modifyOk
 	@Update( "update UserRecommend set userRecomTitle=#{userRecomTitle}, userRecomContent=#{userRecomContent} where userRecomSeq=#{userRecomSeq}")
 	int userRecom_modifyOk( Gorea_Recommend_BoardTO to );
+	
+	// 댓글 수 증가
+	@Update( "update userrecommend set userRecomCmt=userRecomCmt+1 where userRecomSeq=#{pseq}" )
+	int userRecomCmtUp( Gorea_ReplyTO rto );
+	
+	// 댓글 수 감소
+	@Update( "update userrecommend set userRecomCmt=userRecomCmt-1 where userRecomSeq=#{pseq}" )
+	int userRecomCmtDown( Gorea_ReplyTO rto );
+	
+	// 댓글 수
+	@Select( "select userrecomcmt from userrecommend where userrecomseq=#{userRecomSeq}" )
+	Gorea_Recommend_BoardTO replyCount( Gorea_Recommend_BoardTO to );
 }

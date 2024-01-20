@@ -1,5 +1,7 @@
 package com.gorea.dto_reply;
 
+import org.springframework.stereotype.Repository;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,6 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Repository
 public class Gorea_ReplyTO {
 	private String cseq; // 댓글번호
 	private String goreaboardNo; // 게시판 분류

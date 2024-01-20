@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<c:set var="language" value="${language}" />
 <html>
 <head>
     <title>게시글 작성</title>
@@ -7,7 +9,8 @@
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
 <body>
-    <div class="container">
+	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+    <div class="containers">
         <h2>게시글 작성</h2>
         <form class="form-horizontal" method="post" action="./userRecomWriteOk.do">
             <div class="form-group">
@@ -19,7 +22,7 @@
 
             <div class="btn_wrap">
                 <button type="submit" class="btn btn-primary">저장하기</button>
-                <input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='userRecomList.do'" />
+                <input type="button" value="목록" class="btn btn-primary" style="cursor: pointer;" onclick="location.href='userRecomList.do'" />
             </div>
         </form>
     </div>
@@ -44,5 +47,6 @@
             });
         };
     </script>
+    <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>
 </html>

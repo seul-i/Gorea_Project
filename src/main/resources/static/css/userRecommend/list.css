@@ -1,0 +1,189 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.board_wrap {
+    width: 60%;
+    margin: 0 auto; 
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 100vh;
+}
+
+.board_title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.board_title strong {
+    font-size: 3rem;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid #000;
+}
+
+.board_list > div {
+    border-bottom: 1px solid #ddd;
+    font-size: 0;
+}
+
+.board_list > div.top {
+    border-bottom: 1px solid #999;
+}
+
+.board_list > div:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.board_list > div > div {
+    display: inline-block;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.board_list > div.top > div {
+    font-weight: 600;
+}
+
+.board_list .num, .board_list .writer, .board_list .date {
+    width: 10%;
+}
+
+.board_list .recommend, .board_list .count {
+    width: 8%; /* 조회수와 추천수 너비 조정 */
+}
+
+.board_list .title {
+    width: 54%; /* 제목 너비 조정 */
+    text-align: left; /* 개별 게시글 제목 왼쪽 정렬 */
+}
+
+.board_list .top .title {
+    text-align: center; /* 상단 제목 중앙 정렬 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1000px) {
+    .board_wrap {
+        width: 80%;
+        min-width: 320px;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+
+    .board_list .num, .board_list .writer, .board_list .recommend {
+        display: none;
+    }
+
+    .board_list .date, .board_list .count {
+        width: 30%;
+    }
+
+    .board_list .title {
+        width: 70%;
+    }
+
+    .board_title strong {
+        font-size: 1.8rem;
+    }
+}
+
+.write_button_container {
+    text-align: right;
+     margin-left: auto;
+}
+
+.write_button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007DC3;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: background-color 0.3s;
+}
+
+.search_container {
+    padding: 20px;
+    text-align: center;
+}
+
+.search_container form {
+    display: inline-block;
+}
+
+.search_container input[type="text"],
+.search_container input[type="submit"],
+.search_container select {
+    padding: 5px 10px;
+    margin: 2px;
+}
+
+.search_container input[type="submit"] {
+    background-color: #007DC3;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.bottom-container {
+     display: flex;
+    justify-content: space-between; /* 좌우 공간을 균등하게 분배 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+    margin-top: 10px;
+}
+
+.pagination-container {
+    flex-grow: 1; /* 공간을 채우도록 함 */
+    text-align: center; /* 내부 요소(페이징)를 중앙 정렬 */
+}
+
+.pagination {
+	margin: 0; /* 기존 마진 제거 */
+	 display: inline-block;
+    text-align: center; /* 가운데 정렬 추가 */
+    font-weight: bolder;
+     flex-grow: 1;
+  }
+
+  .pagination-item {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .pagination-item.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .pagination-item.disabled {
+    color: #333;
+    cursor: pointer;
+    pointer-events: none;
+  }

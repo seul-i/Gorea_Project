@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gorea.dto_board.Gorea_Free_BoardTO;
 import com.gorea.dto_board.Gorea_Recommend_BoardTO;
 import com.gorea.mapper.UserRecomMapperInter;
 
@@ -30,6 +31,15 @@ public class Gorea_RecommendDAO {
 		return lists;
 	}
 	
+	
+	// 페이징
+	public Gorea_Recommend_BoardTO getPreviousPost(int userRecomSeq) {
+	    return mapper.getPreviousPost(userRecomSeq);
+	}
+
+	public Gorea_Recommend_BoardTO getNextPost(int userRecomSeq) {
+	    return mapper.getNextPost(userRecomSeq);
+	}
 	
 	public int getTotalRowCount() {
 		int totalRowCount = mapper.get_userRecommentTotalCount();
@@ -58,6 +68,8 @@ public class Gorea_RecommendDAO {
 		mapper.userRecom_Hit(to);
 		
 		to = mapper.userRecom_View(to);
+		
+		System.out.println( "userView에서 댓글수 : " + to.getUserRecomCmt() );
 		
 		// 이미지 URL 추출
 	    String content = to.getUserRecomContent();
@@ -91,12 +103,18 @@ public class Gorea_RecommendDAO {
 		int flag = 1;
 		int result = mapper.userRecom_modifyOk(to);
 		
+		System.out.println( "result는 : " + result );
+		
 		if( result == 1 ) {
 			flag = 0;
 			System.out.println(flag);
 		}
 		
 		return flag;
+	}
+	
+	public Gorea_Recommend_BoardTO replyCount( Gorea_Recommend_BoardTO to ) {
+		return mapper.replyCount(to);
 	}
 	
 	private String extractFirstImageUrl(String content) {
