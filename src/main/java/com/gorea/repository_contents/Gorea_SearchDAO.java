@@ -18,9 +18,9 @@ public class Gorea_SearchDAO {
 	@Autowired
 	private SearchMapper searchMapper;
 
-    public List<Gorea_SearchResultTO> searchAllBoards(String keyword) {
+    public List<Gorea_SearchResultTO> searchAllBoards(String keyword, int offset, int pageSize) {
     	List<Gorea_SearchResultTO> lists = new ArrayList<Gorea_SearchResultTO>();
-    	lists = searchMapper.searchAllBoards(keyword);
+    	lists = searchMapper.searchAllBoards(keyword, offset, pageSize);
     	for(Gorea_SearchResultTO to : lists) {
 			String content = to.getContent();
 			
@@ -32,9 +32,9 @@ public class Gorea_SearchDAO {
 		 return lists;
     }
 
-    public List<Gorea_SearchResultTO> searchFreeBoard(String keyword) {
+    public List<Gorea_SearchResultTO> searchFreeBoard(String keyword, int offset, int pageSize) {
     	List<Gorea_SearchResultTO> lists = new ArrayList<Gorea_SearchResultTO>();
-    	lists = searchMapper.searchFreeBoard(keyword);
+    	lists = searchMapper.searchFreeBoard(keyword, offset, pageSize);
     	for(Gorea_SearchResultTO to : lists) {
 			String content = to.getContent();
 			
@@ -46,9 +46,9 @@ public class Gorea_SearchDAO {
 		 return lists;
     }
 
-    public List<Gorea_SearchResultTO> searchNotice(String keyword) {
+    public List<Gorea_SearchResultTO> searchNotice(String keyword, int offset, int pageSize) {
     	List<Gorea_SearchResultTO> lists = new ArrayList<Gorea_SearchResultTO>();
-    	lists = searchMapper.searchNotice(keyword);
+    	lists = searchMapper.searchNotice(keyword, offset, pageSize);
     	for(Gorea_SearchResultTO to : lists) {
 			String content = to.getContent();
 			
@@ -60,10 +60,10 @@ public class Gorea_SearchDAO {
 		 return lists;
     }
 
-    public List<Gorea_SearchResultTO> searchEditTip(String keyword) {
+    public List<Gorea_SearchResultTO> searchEditTip(String keyword, int offset, int pageSize) {
     	
     	List<Gorea_SearchResultTO> lists = new ArrayList<Gorea_SearchResultTO>();
-    	lists = searchMapper.searchEditTip(keyword);
+    	lists = searchMapper.searchEditTip(keyword, offset, pageSize);
     	for(Gorea_SearchResultTO to : lists) {
 			String content = to.getContent();
 			
@@ -75,9 +75,9 @@ public class Gorea_SearchDAO {
 		 return lists;
     }
 
-    public List<Gorea_SearchResultTO> searchEditRecommend(String keyword) {
+    public List<Gorea_SearchResultTO> searchEditRecommend(String keyword, int offset, int pageSize) {
     	List<Gorea_SearchResultTO> lists = new ArrayList<Gorea_SearchResultTO>();
-    	lists = searchMapper.searchEditRecommend(keyword);
+    	lists = searchMapper.searchEditRecommend(keyword, offset, pageSize);
     	for(Gorea_SearchResultTO to : lists) {
 			String content = to.getContent();
 			
@@ -89,9 +89,9 @@ public class Gorea_SearchDAO {
 		 return lists;
     }
 
-    public List<Gorea_SearchResultTO> searchTrendSeoul(String keyword) {
+    public List<Gorea_SearchResultTO> searchTrendSeoul(String keyword, int offset, int pageSize) {
     	List<Gorea_SearchResultTO> lists = new ArrayList<Gorea_SearchResultTO>();
-    	lists = searchMapper.searchTrendSeoul(keyword);
+    	lists = searchMapper.searchTrendSeoul(keyword, offset, pageSize);
     	for(Gorea_SearchResultTO to : lists) {
 			String content = to.getContent();
 			
