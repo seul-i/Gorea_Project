@@ -1,0 +1,211 @@
+@charset "UTF-8";
+p{	
+    margin-bottom: 0;
+}
+
+.BestTop3place {
+    display: flex;
+    width: 80%;
+    height: 500px;
+    justify-content: center;
+    flex-direction: column;
+    border-bottom: 1px solid #dbdbdb;
+    margin: 0 auto; 
+    margin-bottom: 20px;
+}
+
+.BestTop3Month {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px; 
+    flex-direction: column;
+    align-items: center;
+}
+
+.BestTop3Month h1{
+    font-size: 55px;
+    font-weight: 800;
+}
+
+#start {
+    width: 200px;
+    height: 30px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.BestTop3Imgbox {
+    display: flex;
+    justify-content: center;
+}
+
+.BestTop3Imgbox .rank1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.BestTop3Imgbox .rank2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.BestTop3Imgbox .rank3{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.BestTop3Imgbox .rank1 img{
+    width: 175px;
+    height: 175px;
+    margin: -10px 30px 5px 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.BestTop3Imgbox .rank2 img{
+    width: 175px;
+    height: 175px;;
+    margin: 45px 30px 5px 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.BestTop3Imgbox .rank3 img{
+    width: 175px;
+    height: 175px;
+    margin: 65px 30px 5px 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ranktxt{
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ranktxt i {
+    font-size: 30px; /* 원하는 크기로 조절 */
+}
+
+.ranktxt p {
+    font-size: 16px; 
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+/* 검색 부분 */
+.top5List-search{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.top5List-searchbox{
+    width: 70%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.top5List-searchbox a {
+    font-size: 14px;
+    color: black; 
+    text-decoration: none; 
+    margin-right: 20px; 
+}
+
+.top5List-searchbox a.active {
+    color: #007dc3; 
+    text-decoration: underline; 
+    font-weight: 800;
+}
+
+/* 데이터 출력 캐러셀 부분*/
+
+.top5List-container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.top5Icons{
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+}
+
+.top5Icons img{
+    width:50px;
+    height:50px;
+}
+
+.top5Icons i{
+    font-size: 2.0em;
+}
+
+.carousel {
+    width: 65%;
+    height: 350px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.carousel .carousel-inner img {
+    width: 70%;
+    float: right;
+    height: 370px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.carousel-caption {
+    color:black;
+    text-align: left;
+    left: 0;
+    right: auto;
+    bottom: 0;
+    background-color: white; /* 배경색을 흰색으로 설정 */
+    padding: 15px; /* 내용과 테두리 간격을 조절할 수 있는 패딩 추가 */
+    width:30%;
+    height:100%;
+}
+
+.carousel-caption h1{
+    font-size: 80px;
+    font-weight: 1000;
+    margin-bottom: 30px;
+    color: #007DC3;
+}
+
+.carousel-caption h4{
+    margin-bottom: 55px;
+    font-weight: 700;
+}
+
+.carousel-caption span{
+    color: #ccc;
+}
+
+.carousel-caption p{
+    margin-bottom: 10px;
+}
+
+.carousel-indicators img{
+    width: 70px;
+    height: 50px;
+    display: block;
+}
+
+.carousel-indicators button{
+    width: max-content!important;
+}
+
+.carousel-indicators{
+    position: unset;
+}

@@ -22,8 +22,5 @@ public class Gorea_BEST5_BoardTO {
 	private String top5Comment5;
 	private String top5Hit;
 	private String top5postDate;
-    
-    // content 사진
- 	private String firstImageUrl;
  
 }

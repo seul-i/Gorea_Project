@@ -1,167 +1,277 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="language" value="${language}" />
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Gorea_BestTop5</title>
+<head>
+	<meta charset="UTF-8">
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <!-- 내가 변경한 css가 밑에있어야함 -->
+    <link rel="stylesheet" type="text/css" href="/css/Top5/top5list.css">
+    
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+	<title>Gorea_BestTop5</title>
+
+	<script>
+		// JavaScript로 클릭 이벤트 처리
+		document.addEventListener("DOMContentLoaded", function() {
+		    var searchLinks = document.querySelectorAll('.top5List-searchbox a');
 		
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Noto+Sans+KR:wght@200;500;600&display=swap" rel="stylesheet">
+		    searchLinks.forEach(function(link) {
+		        link.addEventListener('click', function(event) {
+		            // 기본 동작 취소
+		            event.preventDefault();
 		
-		<style>
+		            // 모든 링크에서 'active' 클래스 제거
+		            searchLinks.forEach(function(link) {
+		                link.classList.remove('active');
+		            });
 		
-			@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Noto+Sans+KR:wght@200;500;600&display=swap');
+		            // 클릭한 링크에 'active' 클래스 추가
+		            this.classList.add('active');
+		        });
+		    });
 			
-		    .top5Box {
-		        width: 80%;
-		        height: 350px;
-		        margin: 30px;
-		        background-color: #FFFAFA;
-		        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, .1);
-		        border-radius: 5px;
-		    }
-		    .title-box{
-				display: flex;
-		    	width: 100%;
-		    	height: 50px;
-			    justify-content: space-between;
-			    align-items: center;
-		    }
+		    // 글쓰는 페이지 이동 //////////////
+		    document.getElementById('writeButton').addEventListener('click', function() {
+	            // 페이지 이동
+	            window.location.href = "/${language}/bestTop5_write.do";
+	        });
 		    
-		    .title-box h3{
-				margin-left: 25px;
-				margin-top: 40px;
-				font-family: 'Inter', sans-serif;
-		    }
-		    
-		    .title-box h5{
-				margin-right: 25px;
-				margin-top: 40px;
-				font-family: 'Inter', sans-serif;
-		    }
-		    
-		    .top5list-content{
-		    	display: flex;
-		    	height: 300px;
-		    }
-		    
-		    .top5list-left {
-		    	display: flex;
-		        width: 60px;
-		        height: 300px;
-		        color: black;
-		        align-items: center;
-		    }
-		    
-		    .top5Seq{
-		    	width: 20px;
-		    	display: flex;
-				justify-content : center;
-				margin-left:25px;
-		    }
-		    
-		    .vertical-line {
-		    	width: 40px;
-				height: 70%;
-				float: right;
-				border-right: 0.5px solid #dee2e6;
-			}
-		    
-		    .top5list-center{
-		    	display: flex;
-				width: 80%;
-				align-items: center;
-		    	justify-content : center;
-		    }
-		    
-		    .top5img{
-		    	display: flex;
-		    	width: 200px;
-		    	height: 200px;
-		    	background-color: black;
-		    	margin: 10px;
-		    }
-		    
-		    .top5img img{
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				
-		    }
-		    
-		</style>
+		    // 달력 초기화 과정 ///////////////
+		    var currentDate = new Date();
 	
-	</head>
+		    // 년도와 월을 YYYY-MM 형식으로 만들기
+		    var currentYear = currentDate.getFullYear();
+		    var currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 1을 더하고 두 자리로 만듭니다.
+	
+		    // 초기값 설정
+		    document.getElementById('start').value = currentYear + '-' + currentMonth;
+		});
+	</script>
+
+</head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 	
-		<a href="/${language}/bestTop5_write.do">글쓰기</a><br/>
+	<div class="BestTop3place">
+		<div class="BestTop3Month">
+			<h1>This Month's Best 3</h1>
+			<input type="month" id="start" name="start" min="2023-12" value="2024-01" />
+		</div>
 		
-			<div class="top5Box">
-			
-				<div class="title-box">
-					<h3>김아무개의 추천 장소</h3>
-					<h5>작성날짜 / 조회수</h5>
-				</div>
-				
-				<div class="top5list-content">
-			    	<div class="top5list-left">
-			    	
-			    		<div class="top5Seq">
-			    		1
-			    		</div>
-			    		<div class="vertical-line">
-			    		</div>
-			    	</div>
-			    	
-			    	<div class="top5list-center">
-			    		<div class="top5img">
-				    		<img src="/img/intro/img1.jpg" alt="">
-				    	</div>
-				    	<div class="top5img">
-				    		<img src="/img/intro/img1.jpg" alt="">
-				    	</div>
-				    	<div class="top5img">
-				    		<img src="/img/intro/img1.jpg" alt="">
-				    	</div>
-				    	<div class="top5img">
-				    		<img src="/img/intro/img1.jpg" alt="">
-				    	</div>
-				    	<div class="top5img">
-				    		<img src="/img/intro/img1.jpg" alt="">
-				    	</div>
+		<div class="BestTop3Imgbox">
+			<div class="rank2">
+				<img src="/img/nation-icon/nation-wr.png">
+					<div class="ranktxt">
+						<p>title 들어갈곳</p>
+						<i class="fa-solid fa-crown 2nd" style="color:#bdbcb0"></i>
+						<p>2nd</p>
 					</div>
-			    </div>
-			    
-			    <div id="screenright">
-			    
-			    </div>
 			</div>
-			<div>
-<%-- 			<c:forEach var="top5Data" items="${boardList}"> --%>
-<!--     			<div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;"> -->
-<%-- 			        <p>Top5Seq: ${top5Data.top5Seq}</p> --%>
-<%-- 			        <p>UserSeq: ${top5Data.userSeq}</p> --%>
-<%-- 			        <p>SeoulSeq: ${top5Data.seoulSeq}</p> --%>
-<%-- 			        <p>SeoulCategoryNo: ${top5Data.seoulcategoryNo}</p> --%>
-<%-- 			        <p>SeoulTitle: ${top5Data.seoulTitle}</p> --%>
-<%-- 			        <p>SeoulLoc: ${top5Data.seoulLoc}</p> --%>
-<%-- 			        <p>SeoulLocGu: ${top5Data.seoulLocGu}</p> --%>
-<%-- 			        <p>Top5Comment: ${top5Data.top5Comment}</p> --%>
-<%-- 			        <p>Top5Hit: ${top5Data.top5Hit}</p> --%>
-<%-- 			        <p>Top5PostDate: ${top5Data.top5postDate}</p> --%>
-<!-- 			    </div> -->
-<%-- 			</c:forEach> --%>
+			<div class="rank1">
+				<img src="/img/nation-icon/nation-wr.png">
+					<div class="ranktxt">
+						<p>title 들어갈곳</p>
+						<i class="fa-solid fa-crown 1st" style="color:#ffe307"></i>
+						<p>1st</p>
+					</div>
 			</div>
+			<div class="rank3">
+				<img src="/img/nation-icon/nation-wr.png">
+					<div class="ranktxt">
+						<p>title 들어갈곳</p>
+						<i class="fa-solid fa-crown 3rd" style="color:#A47C5D"></i>
+						<p>3rd</p>
+					</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="top5List-search">
+		<div class="top5List-searchbox">
+		 	<a href="/${language}/bestTop5.do" class="active">최신순</a>
+		 	<a href="/${language}/bestTop5_PS.do">인기순</a>
+			 <form id="myForm" action="/{language}/bestTop5_NS.do" method="GET">
+				<select name="nation" id="nationSelect" style="margin-right:20px" onchange="submitForm()">
+					<option value="전체" selected>All</option>
+	        		<option value="대한민국">한국인</option>
+	        		<option value="미국">American</option>
+	        		<option value="일본">日本人</option>
+	        		<option value="중국">中国人</option>
+	        		<option value="기타국가">Etc</option>
+    			</select>
+			</form>
+		 	<button type="button" class="btn btn-primary" id="writeButton">
+				글 작성하기
+			</button>
+		</div>
+	</div>
+	
+	<c:forEach var="top5ListData" items="${boardList}">
+		<div>
+			<div class="top5List-container">
+				<div class="carousel slide" id="carouselDemo${top5ListData.top5Seq}" data-bs-wrap="true">
+
+					<div class='top5Icons' id='likeButton'>
+						<div style="display: flex; justify-content: center; margin-bottom:10px;">
+							<c:if test="${top5ListData.userNation eq '대한민국'}">
+								<img src="/img/nation-icon/nation-kr.png" alt="">
+							</c:if>
+							<c:if test="${top5ListData.userNation eq '미국'}">
+								<img src="/img/nation-icon/nation-en.png" alt="">
+							</c:if>
+							<c:if test="${top5ListData.userNation eq '일본'}">
+								<img src="/img/nation-icon/nation-jp.png" alt="">
+							</c:if>
+							<c:if test="${top5ListData.userNation eq '중국'}">
+								<img src="/img/nation-icon/nation-chn.png" alt="">
+							</c:if>
+							<c:if test="${top5ListData.userNation eq '기타국가' || empty top5ListData.userNation}}">
+								<img src="/img/nation-icon/nation-wr.png" alt="">
+							</c:if>
+						</div>
+						<div style="display: flex; justify-content: center; margin-bottom:10px;">
+<!-- 							<i class='fa fa-star-o fa-2x' style='color: grey;'></i> -->
+							<i class='fa fa-star fa-2x' style='color: #fff23f;'></i>
+						</div>
+					</div>
+					
+					<a href="#">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="${top5ListData.firstImageUrl1}">
+					            <div class="carousel-caption">
+					                <h1>01</h1>
+					                <h4>'${top5ListData.userNickname}'의 <br/>추천장소</h4>
+					                <h5>${top5ListData.seoulTitle1}</h5>
+					                <p>[${top5ListData.seoulLocGu1}] ${top5ListData.mainCategory1}/${top5ListData.subCategory1}</p>
+					                <span> 1/5 </span>
+					            </div>
+					        </div>
+					
+					        <div class="carousel-item">
+					            <img src="${top5ListData.firstImageUrl2}">
+					            <div class="carousel-caption">
+					                <h1>02</h1>
+					                <h4>'${top5ListData.userNickname}'추천장소</h4>
+					                <h5>${top5ListData.seoulTitle2}</h5>
+					                <p>[${top5ListData.seoulLocGu2}] ${top5ListData.mainCategory2}/${top5ListData.subCategory2}</p>
+					                <span> 2/5 </span>
+					            </div>
+					        </div>
+					
+					        <div class="carousel-item">
+					            <img src="${top5ListData.firstImageUrl3}">
+					            <div class="carousel-caption">
+					                <h1>03</h1>
+					                <h4>'${top5ListData.userNickname}'의 <br/>추천장소</h4>
+					                <h5>${top5ListData.seoulTitle3}</h5>
+					                <p>[${top5ListData.seoulLocGu3}] ${top5ListData.mainCategory3}/${top5ListData.subCategory3}</p>
+					                <span> 3/5 </span>
+					            </div>
+					        </div>
+					        
+					        <div class="carousel-item">
+					            <img src="${top5ListData.firstImageUrl4}">
+					            <div class="carousel-caption">
+					                <h1>04</h1>
+					                <h4>'${top5ListData.userNickname}'의 <br/>추천장소</h4>
+					                <h5>${top5ListData.seoulTitle4}</h5>
+					                <p>[${top5ListData.seoulLocGu4}] ${top5ListData.mainCategory4}/${top5ListData.subCategory4}</p>
+					                <span> 4/5 </span>
+					            </div>
+					        </div>
+					        
+					        <div class="carousel-item">
+					            <img src="${top5ListData.firstImageUrl5}">
+					            <div class="carousel-caption">
+					                <h1>05</h1>
+					                <h4>'${top5ListData.userNickname}'의 추천장소</h4>
+					                <h5>${top5ListData.seoulTitle5}</h5>
+					                <p>[${top5ListData.seoulLocGu5}] ${top5ListData.mainCategory5}/${top5ListData.subCategory5}</p>
+								<span> 5/5 </span>
+								</div>
+							</div>
+					</div>
+					</a>
+			    	
+				
+				    <div class="carousel-indicators">
+				        <button type="button" class="active" data-bs-target="#carouselDemo${top5ListData.top5Seq}" data-bs-slide-to="0">
+				            <img src="${top5ListData.firstImageUrl1}" />
+				        </button>
+				
+				        <button type="button" data-bs-target="#carouselDemo${top5ListData.top5Seq}" data-bs-slide-to="1">
+				            <img src="${top5ListData.firstImageUrl2}" />
+				        </button>
+				
+				        <button type="button" data-bs-target="#carouselDemo${top5ListData.top5Seq}" data-bs-slide-to="2">
+				            <img src="${top5ListData.firstImageUrl3}" />
+				        </button>
+				        
+				        <button type="button" data-bs-target="#carouselDemo${top5ListData.top5Seq}" data-bs-slide-to="3">
+				            <img src="${top5ListData.firstImageUrl4}" />
+				        </button>
+				        
+				        <button type="button" data-bs-target="#carouselDemo${top5ListData.top5Seq}" data-bs-slide-to="4">
+				            <img src="${top5ListData.firstImageUrl5}" />
+				        </button>
+				    </div>
+				    
+				    <div style="height:50px; border-bottom: 1px solid #dbdbdb;"></div>
+				</div>
+			</div>
+		
+			<div style="height:150px"></div>
+		</div>
+	</c:forEach>
+	
+	<script>
+    // language 값을 HTML 속성에 저장
+    var language = "${language}";
+    
+    function submitForm() {
+        var selectedValue = $("#nationSelect").val();
+        
+        if (selectedValue === "전체") {
+            window.location.href = "/" + language + "/bestTop5.do";
+        } else {
+            window.location.href = "/" + language + "/bestTop5_NS.do?nation=" + encodeURIComponent(selectedValue);
+        }
+    }
+    
+    $(document).ready(function() {
+    	
+    	// 현재 URL에서 쿼리 문자열 가져오기
+        var queryString = window.location.search;
+
+        // 쿼리 문자열을 객체로 파싱
+        var queryParams = new URLSearchParams(queryString);
+
+        // 'nation' 파라미터의 값을 가져오기
+        var nationValue = queryParams.get('nation');
+        
+		if(nationValue === null){
+			$("#nationSelect").val("전체");
+		} else{
+			$("#nationSelect").val(nationValue);
+		}
+        // 서버에서 가져온 값으로 select를 선택
+    });
+    
+
+	</script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+		
 	<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+	
 </body>
 </html>

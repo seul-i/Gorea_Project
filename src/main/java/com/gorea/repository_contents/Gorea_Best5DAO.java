@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gorea.dto_board.Gorea_BEST5_BoardTO;
+import com.gorea.dto_board.Gorea_BEST5_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
 import com.gorea.mapper.Top5MapperInter;
@@ -82,22 +83,61 @@ public class Gorea_Best5DAO {
 		return flag;
 	}
 	
+	public List<Gorea_BEST5_ListTO> best5_top5_boardList() {
+			
+		List<Gorea_BEST5_ListTO> boardList = mapper.best5_top5_boardList();
+		
+		for (Gorea_BEST5_ListTO board : boardList) {
+			String content1 = board.getSeoulContent1();
+			String firstImageUrl1 = extractFirstImageUrl(content1);
+			board.setFirstImageUrl1(firstImageUrl1);
+			
+			String content2 = board.getSeoulContent2();
+			String firstImageUrl2 = extractFirstImageUrl(content2);
+			board.setFirstImageUrl2(firstImageUrl2);
+			
+			String content3 = board.getSeoulContent3();
+			String firstImageUrl3 = extractFirstImageUrl(content3);
+			board.setFirstImageUrl3(firstImageUrl3);
+			
+			String content4 = board.getSeoulContent4();
+			String firstImageUrl4 = extractFirstImageUrl(content4);
+			board.setFirstImageUrl4(firstImageUrl4);
+			
+			String content5 = board.getSeoulContent5();
+			String firstImageUrl5 = extractFirstImageUrl(content5);
+			board.setFirstImageUrl5(firstImageUrl5);
+		}	
+		return boardList;
+	}
 	
-
-//	public List<Gorea_BEST5_BoardTO> best5_top5_boardList() {
-//			
-//		List<Gorea_BEST5_BoardTO> boardList = mapper.best5_top5_boardList();
-//		
-//		System.out.println(boardList);
-//		
-//		for (Gorea_BEST5_BoardTO board : boardList) {
-//			String content = board.getSeoulContent();
-//			String firstImageUrl = extractFirstImageUrl(content);
-//			board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
-//		}	
-//		return boardList;
-//	}
-	
+	public List<Gorea_BEST5_ListTO> best5_top5_boardList_NS(String nation) {
+		
+		List<Gorea_BEST5_ListTO> boardList = mapper.best5_top5_boardList_NS(nation);
+		
+		for (Gorea_BEST5_ListTO board : boardList) {
+			String content1 = board.getSeoulContent1();
+			String firstImageUrl1 = extractFirstImageUrl(content1);
+			board.setFirstImageUrl1(firstImageUrl1);
+			
+			String content2 = board.getSeoulContent2();
+			String firstImageUrl2 = extractFirstImageUrl(content2);
+			board.setFirstImageUrl2(firstImageUrl2);
+			
+			String content3 = board.getSeoulContent3();
+			String firstImageUrl3 = extractFirstImageUrl(content3);
+			board.setFirstImageUrl3(firstImageUrl3);
+			
+			String content4 = board.getSeoulContent4();
+			String firstImageUrl4 = extractFirstImageUrl(content4);
+			board.setFirstImageUrl4(firstImageUrl4);
+			
+			String content5 = board.getSeoulContent5();
+			String firstImageUrl5 = extractFirstImageUrl(content5);
+			board.setFirstImageUrl5(firstImageUrl5);
+		}	
+		return boardList;
+	}
 	
     private String extractFirstImageUrl(String content) {
     	// System.out.println("Content: " + content); // 콘텐츠 출력

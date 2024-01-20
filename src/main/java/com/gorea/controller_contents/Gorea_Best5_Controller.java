@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gorea.dto_board.Gorea_BEST5_BoardTO;
+import com.gorea.dto_board.Gorea_BEST5_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
 import com.gorea.repository_contents.Gorea_Best5DAO;
@@ -32,11 +33,11 @@ public class Gorea_Best5_Controller {
 		
 		model.addAttribute("language",language);
 		
-		//List<Gorea_BEST5_BoardTO> boardList = new ArrayList<>();
+		List<Gorea_BEST5_ListTO> boardList = new ArrayList<>();
 
 		if(language.equals("korean")) {
 			
-			//boardList = dao.best5_top5_boardList();
+			boardList = dao.best5_top5_boardList();
 
 		}else if(language.equals("english")) {
 			
@@ -46,7 +47,33 @@ public class Gorea_Best5_Controller {
 			
 		}
 		
-		//model.addAttribute("boardList",boardList);
+		model.addAttribute("boardList",boardList);
+		
+		return "contents/contents_BestTop5/bestTop5_List";
+	}
+	
+	@GetMapping("/{language}/bestTop5_NS.do")
+	public String best5List_Ps(@PathVariable String language, @RequestParam String nation, Model model) {
+		
+		System.out.println(nation);
+		
+		model.addAttribute("language",language);
+		
+		List<Gorea_BEST5_ListTO> boardList = new ArrayList<>();
+
+		if(language.equals("korean")) {
+			
+			boardList = dao.best5_top5_boardList_NS(nation);
+
+		}else if(language.equals("english")) {
+			
+		}else if(language.equals("japanese")) {
+			
+		}else if(language.equals("chinese")) {
+			
+		}
+		
+		model.addAttribute("boardList",boardList);
 		
 		return "contents/contents_BestTop5/bestTop5_List";
 	}
@@ -120,18 +147,12 @@ public class Gorea_Best5_Controller {
 			if(subCategory.equals("#")) {
 				subCategory = "";
 			}
-			
-			System.out.println(subCategory);
 
 			List<Gorea_TrendSeoul_ListTO> searchboardList = new ArrayList<>();
 	
 		    if (language.equals("korean")) {
 		    	
-		    	System.out.println(locGu+mainCategory+subCategory);
-		    	
 		    	searchboardList = dao.trendSeoul_searchList(locGu,mainCategory,subCategory);
-		    	
-		    	System.out.println(searchboardList);
 		        
 		    } else if (language.equals("english")) {
 		        // 처리

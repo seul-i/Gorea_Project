@@ -16,18 +16,25 @@
 <!-- 1. 폰트어썸 CDN / 2. jQuery -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- header / footer CSS -->
 <link rel="stylesheet" type="text/css" href="/css/header/header.css" />
 <link rel="stylesheet" type="text/css" href="/css/footer/footer.css">
+
+<!-- 폰트 cdn -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
 
 <script type="text/javascript">
 		
 			window.onload = function () {
 	        	document.querySelector(".searchBtn").onclick = function () {
 	        		
-					var searchInput = document.tsfrm.querySelector(".search");
+					var searchInput = document.tsfrm.querySelector(".headerSearch-box");
 	
 					if (!searchInput || searchInput.value.trim() === "") {
 						alert("검색어를 입력 하셔야 합니다.");
@@ -43,6 +50,8 @@
 			function changeLanguage(selectElement) {
 		        // 현재 주소 가져오기
 		        const viewUrl = window.location.href;
+		        
+		        console.log(viewUrl);
 
 		        // 현재 주소에서 마지막 부분 추출
 		        const parts = viewUrl.split("/");
@@ -63,47 +72,54 @@
 
 <body>
 	<div class="header-nav">
-		<div class="nav1">
-			<div class="logo">
+		<div class="header-nav1">
+			<div class="header_logo">
 				<a href="/korean/main.do"></a>
 			</div>
 
-			<div class="info-div">
+			<div class="headerInfo-div">
 				<form action="/korean/totalsearch.do" method="get" name="tsfrm">
 					<ul>
 						<!-- 검색 박스 -->
-						<li class="search-box"><input type="text" class="search"
-							name="keyword" required placeholder="Search" /> <span
-							class="search-boxSpan"></span></li>
+						<li class="search-box">
+							<input type="text" class="headerSearch-box"
+							name="keyword" required placeholder="Search" /> 
+						</li>
 
 						<!-- 검색 버튼, 폰트어썸 아이콘 사용 -->
 						<li class="search-button">
 							<button type="submit" class="searchBtn">
-								<i class="fa-solid fa-magnifying-glass" style="font-size: 22px"></i>
+								<i class="fa-solid fa-magnifying-glass"></i>
 							</button>
 						</li>
 
 						<!-- 날씨 -->
-						<li class="weather"><a href="#"> <img
+						<li class="header-weather"><a href="#"> <img
 								src="/img/header/sunny.png" alt="" />
 						</a></li>
 
 						<!-- 언어 선택 -->
-						<li><select id="lang" onchange="changeLanguage(this)">
-								<option value="korean" selected>한국어</option>
-								<option value="english">English</option>
-								<option value="japanese">日本語</option>
-								<option value="chinese">汉语</option>
-						</select></li>
+						<li>
+							<select name="languages" id="lang" onchange="changeLanguage(this)">
+								<option value="#" selected>한국어</option>
+								<option value="/english/">English</option>
+								<option value="/japanese/">日本語</option>
+								<option value="/chinese/">汉语</option>
+							</select>
+						</li>
 
-						<li><c:if test="${empty SPRING_SECURITY_CONTEXT}">
+						<li class="header-login">
+							<c:if test="${empty SPRING_SECURITY_CONTEXT}">
 								<a href="/korean/login.do">Login</a>
-							</c:if> <c:if test="${not empty SPRING_SECURITY_CONTEXT}">
+							</c:if> 
+							
+							<c:if test="${not empty SPRING_SECURITY_CONTEXT}">
 								<c:choose>
+								
 									<c:when test="${role eq 'ROLE_USER'}">
-										<div class="dropdown">
+										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${nickname}">${nickname}</a>
-											<div class="dropdown-options">
+											<div class="headerDropdown-options">
 												<a href="/user/korean/mypage.do">마이 페이지</a> <a
 													href="/logout.do" class="logout">로그아웃</a>
 											</div>
@@ -113,7 +129,7 @@
 									<c:when test="${role eq 'ROLE_ADMIN'}">
 										<div class="dropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
-											<div class="dropdown-options">
+											<div class="headerDropdown-options">
 												<a href="/admin/adminpage.do">관리자 페이지</a> <a
 													href="/logout.do" class="logout">로그아웃</a>
 											</div>
@@ -122,11 +138,19 @@
 
 									<c:otherwise>
 									</c:otherwise>
+									
 								</c:choose>
-							</c:if></li>
+							</c:if>
+						</li>
+						
+						<li class="search-togleBtn">
+							<a href="/korean/totalsearch.do">
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</a>
+						</li>
 
 						<li class="navbar_toggleBtn">
-							<div class="menuBtn">
+							<div class="header-menuBtn">
 								<div class="line1"></div>
 								<div class="line2"></div>
 								<div class="line3"></div>
@@ -137,17 +161,17 @@
 			</div>
 		</div>
 
-		<div class="nav2">
-			<ul class="nav-list">
+		<div class="header-nav2">
+			<ul class="header-nav2List">
 				<li><a href="#">우리들의 서울</a>
-					<ul class="dropdown-list">
+					<ul class="header-dropdownList">
 						<li><a href="/korean/bestTop5.do">Best TOP5</a></li>
-						<li><a href="#">여행자 추천</a></li>
+						<li><a href="/korean/userRecomList.do">여행자 추천</a></li>
 						<li><a href="/korean/freeboard.do">자유게시판</a></li>
 					</ul></li>
 
 				<li><a href="#">에디터 추천</a>
-					<ul class="dropdown-list">
+					<ul class="header-dropdownList">
 						<li><a href="/korean/editRecommend_list.do">에디터 추천장소</a></li>
 						<li><a href="/korean/editTip_list.do">에디터 추천꿀팁</a></li>
 					</ul></li>
@@ -155,7 +179,7 @@
 				<li><a href="/korean/trend_seoul.do">트렌드 서울</a></li>
 
 				<li><a href="#">여행 정보</a>
-					<ul class="dropdown-list">
+					<ul class="header-dropdownList">
 						<li><a href="#">날씨 정보</a></li>
 						<li><a href="#">교통 정보</a></li>
 						<li><a href="#">환율 정보</a></li>
@@ -163,25 +187,113 @@
 					</ul></li>
 
 				<li><a href="#">여행자 지원</a>
-					<ul class="dropdown-list">
+					<ul class="header-dropdownList">
 						<li><a href="#">사이트 소개</a></li>
-						<li><a href="/korean/qna_write.do">문의하기</a></li>
+						<li><a href="/korean/qna_write.do">QnA</a></li>
 						<li><a href="/korean/notice.do">공지사항</a></li>
 					</ul></li>
 			</ul>
 		</div>
 
-		<ul class="nav-links">
-			<li><input type="text" placeholder="Search"
-				style="height: 25px; width: 300px" /> <i
-				class="fa-solid fa-magnifying-glass" style="font-size: 20px"></i></li>
-
-			<li><a href="#">우리들의 서울</a></li>
-			<li><a href="#">에디터 추천</a></li>
-			<li><a href="#">트렌드 서울</a></li>
-			<li><a href="#">여행 정보</a></li>
-			<li><a href="#">여행자 지원</a></li>
-		</ul>
+		
+		<div class="nav-links">		
+			<ul>
+				<li>
+					<c:if test="${empty SPRING_SECURITY_CONTEXT}">
+						<h1><a href="/korean/login.do" class="header-Gologin">Login & SIGN UP</a></h1>
+						<h4>welcome vist Go!rea</h4><br/>
+						
+						<select name="languages" id="lang2" onchange="changeLanguage(this)" style="margin-right:20px">
+							<option value="#" selected>한국어</option>
+							<option value="/english/">English</option>
+							<option value="/japanese/">日本語</option>
+							<option value="/chinese/">汉语</option>
+						</select>
+					</c:if> 
+								
+					<c:if test="${not empty SPRING_SECURITY_CONTEXT}">
+						<c:choose>
+							<c:when test="${role eq 'ROLE_USER'}">
+								<h3 class="nav-id" data-nickname="${nickname}">환영합니다 '<span>${nickname}</span>' 님</h3>
+								
+								<div class="nav-idIfno">
+									<a href="/user/korean/mypage.do" style="font-size:15px; margin-right:20px">마이 페이지</a>
+									<a href="/logout.do" class="logout" style="font-size:15px">로그아웃</a>
+									
+									<select name="languages" id="lang2" onchange="changeLanguage(this)" style="margin-right:20px">
+										<option value="#" selected>한국어</option>
+										<option value="/english/">English</option>
+										<option value="/japanese/">日本語</option>
+										<option value="/chinese/">汉语</option>
+									</select>
+									
+									<img src="/img/header/sunny.png" alt="" />
+									
+								</div>
+							</c:when>
+		
+							<c:when test="${role eq 'ROLE_ADMIN'}">
+								<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
+									<div class="dropdown-options">
+										<a href="/admin/adminpage.do">관리자 페이지</a> 
+										<a href="/logout.do" class="logout">로그아웃</a>
+									</div>
+							</c:when>
+	
+							<c:otherwise>
+							</c:otherwise>
+										
+						</c:choose>
+					</c:if>		
+				</li>
+				
+				<li class="nav-line"><hr/></li>
+				
+				<li>
+					<p>[ 우리들의 서울 ]</p>
+					<div class="nav-IndexInput">
+						<a href="/korean/bestTop5.do">Best TOP5</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/korean/userRecomList.do">여행자 추천</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/korean/freeboard.do">자유게시판</a>
+					</div>
+				</li>
+				<li>
+					<p>[ 에디터 추천 ]</p>
+					<div class="nav-IndexInput">
+						<a href="/korean/editRecommend_list.do">에디터 추천장소</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/korean/editTip_list.do">에디터 추천꿀팁</a>
+					</div>
+				</li>
+				<li>
+					<p>[ 트렌드 서울 ]</p>
+					<div class="nav-IndexInput">
+						<a href="/korean/trend_seoul.do">트렌드 서울</a>
+					</div>
+				</li>
+				<li>
+					<p>[ 여행 정보 ]</p>
+					<div class="nav-IndexInput">
+						<a href="#">날씨 정보</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#">교통 정보</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#">환율 정보</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#">방역 정보</a>
+					</div>
+				</li>
+				<li>
+					<p>[ 여행자 지원 ]</p>
+					<div class="nav-IndexInput">
+						<a href="#">사이트 소개</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/korean/qna_write.do">QnA</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/korean/notice.do">공지사항</a>
+					</div>
+				</li>
+				<li>
+					<div class="nav-footer">
+						<img src="">
+					</div>
+				</li>
+			</ul>
+		</div>
 	</div>
 
 	<script type="text/javascript" src="/js/header/header.js"></script>

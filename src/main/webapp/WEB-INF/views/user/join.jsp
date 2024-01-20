@@ -95,10 +95,11 @@
 					
 					<div class="mb-3">
 						<select id="country" name="userNation">
-    					<option value="대한민국">대한민국 (South Korea)</option>
-    					<option value="미국">미국 (USA)</option>
-    					<option value="일본">일본 (Japan)</option>
-    					<option value="중국">중국 (China)</option>
+	    					<option value="대한민국">대한민국</option>
+	    					<option value="미국">American</option>
+	    					<option value="일본">日本人</option>
+	    					<option value="중국">中国人</option>
+	    					<option value="기타국가">Etc</option>
 						</select>
 					</div>
 					

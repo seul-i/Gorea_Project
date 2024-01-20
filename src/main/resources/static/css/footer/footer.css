@@ -7,6 +7,7 @@ footer {
     text-align: center;
     background-color: #007DC3;
     color: #FFFFFF;
+    font-family: 'Gowun Dodum', sans-serif;	
 }
 
 .footer-container {
@@ -91,6 +92,11 @@ footer {
     gap: 10px;
 }
 
+info li p {
+	display: flex;
+	align-items: center;
+}
+
 .info li a {
     text-decoration: none;
     color: #FFFFFF;
@@ -102,16 +108,17 @@ footer {
     border-top: 1px solid rgba(0, 0, 0, 0.15);
     padding: 20px 0px 30px;
     text-align: center;
+    font-family: 'Gowun Dodum', sans-serif;	
 }
 
 @media (max-width: 991px) {
-    .container {
+    .footer-container {
         grid-template-columns: repeat(2, 1fr); /* 더 작은 화면에서는 2개의 컬럼으로 설정 */
     }
 }
 
 @media (max-width: 768px) {
-    .container {
+    .footer-container {
         grid-template-columns: 1fr; /* 가장 작은 화면에서는 1개의 컬럼으로 설정 */
     }
 }
