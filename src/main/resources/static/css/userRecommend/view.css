@@ -1,17 +1,18 @@
 body {
             font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            background-color: #fff;
             margin: 0;
             padding: 0;
         }
 
-        .container {
-            width: 65%;
+        .containers {
+            width: 55%;
             margin: 5px auto;
             background-color: #fff;
-            padding: 20px;
-            border: 1px solid #eee;
-            border-radius: 10px;
+            padding: 35px;
+            border: 1px solid #aaa;
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
 
         .post-title {
@@ -20,11 +21,22 @@ body {
             margin-bottom: 10px;
         }
 
+        .post-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .post-actions .btn {
+            margin-left: 5px;
+            margin-top: 10px;
+        }
+
         .post-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid silver;
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
@@ -43,7 +55,8 @@ body {
             color: #333;
             line-height: 1.6;
             margin-bottom: 30px;
-            min-height: 200px;
+            margin-top: 30px;
+            min-height: 600px;
         }
 
         .comment-section {
@@ -54,7 +67,7 @@ body {
             display: flex;
             flex-direction: column;
             padding: 10px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid silver;
         }
 
         .comment-header {
@@ -77,12 +90,13 @@ body {
             font-size: 12px;
             color: #aaa;
         }
-	.comments-count {
+
+        .comments-count {
             font-weight: bold;
             font-size: 16px;
             color: #333;
-	padding-bottom: 5px;
-	border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            border-bottom: 1px solid silver;
         }
 
         .comment-actions a {
@@ -90,7 +104,6 @@ body {
             margin-left: 10px;
             font-size: 12px;
             text-decoration: none;
-            color: #aaa;
         }
 
         .btn-reply {
@@ -98,58 +111,86 @@ body {
             border-color: #28a745;
         }
 
-       .comment-form {
+        .comment-form {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .comment-form textarea {
+            flex: 1;
+            resize: none;
+            padding: 8px; /* 버튼과 동일한 패딩 적용 */
+            border-radius: 2px;
+            border: 1px solid #ccc;
+            font-size: 14px; /* 버튼과 동일한 폰트 크기 적용 */
+            height: 45px; /* 버튼과 동일한 높이로 설정 */
+        }
+
+        .comment-form button {
+            padding: 22px 15px; /* 버튼의 내부 패딩 */
+            font-size: 14px; /* 버튼의 폰트 크기 */
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .sub-comment {
+            margin-left: 10px;
+            padding-left: 10px;
+        }
+
+        .comment-form-btn button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 5px;
+        }
+        
+        .post-actions {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-}
-    .comment-form textarea {
-    flex: 1;
-    resize: none;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    min-height: 60px;
-}
-
-   .comment-form button {
-    padding: 10px 20px;
-    border: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.sub-comment {
-        margin-left: 10px; /* 대댓글 왼쪽 마진을 늘려 오른쪽으로 이동시킵니다. */
-        padding-left: 10px; /* 대댓글 내용과 선 사이에 여백을 추가합니다. */
-    }
-
-.comment-form-btn button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn {
-        background-color: #007bff; /* 배경색을 원하는 색상으로 설정하세요 */
-        color: #fff; /* 텍스트 색상을 흰색 또는 원하는 색상으로 설정하세요 */
-        border: none;
-        border-radius: 4px;
-        padding: 10px 20px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-	.comment-form-btn {
-    display: flex;
-    justify-content: flex-end; /* 내용을 오른쪽으로 정렬 */
+    justify-content: space-between; /* 좌우 정렬을 위해 space-between 사용 */
     margin-top: 10px;
 }
 
-        /* 아래의 CSS 코드를 추가하여 댓글 작성 버튼을 오른쪽으로 정렬합니다. */
-        .comment-form button {
-            margin-left: 10px;
+.left-buttons .btn,
+.right-buttons .btn {
+    margin-right: 5px; /* 버튼 사이 간격 */
+}
+
+.right-buttons {
+    display: flex;
+}
+
+        .comment-form-btn {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
         }
+        
+        hr {
+            margin: 0;
+            border: 5px solid;
+            width: calc(100% + 7px);
+            top: 17px;
+            position: absolute;
+            left: 7px;
+            color: blue;
+            opacity: 0.2;
+          }
+          
+          img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto; 
+        margin-top: 10px; /* 여기에 조절하고 싶은 간격 값을 넣어주세요. */
+    }

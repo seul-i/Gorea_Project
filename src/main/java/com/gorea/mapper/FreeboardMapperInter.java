@@ -23,7 +23,7 @@ public interface FreeboardMapperInter {
 	 int free_TotalCount();
 	
 	// Free_WriteOk
-	@Insert("insert into Freeboard values (0, #{freeTitle}, #{freeContent}, 0, now(), DEFAULT )")
+	@Insert("insert into Freeboard values (0, 1, 3, #{freeTitle}, now(), 0, #{freeContent}, 0,  0 )")
 	int Free_Write_Ok(Gorea_Free_BoardTO to);
 	
 	// Free_view_hit
@@ -31,7 +31,8 @@ public interface FreeboardMapperInter {
 	int FreeHit(Gorea_Free_BoardTO to);
 	
 	// Free_view
-	@Select("select freeTitle, freeContent, freeHit, date_format(freepostDate, '%Y.%m.%d') freepostDate, freeRecomcount from Freeboard where freeSeq=#{freeSeq} ")
+	@Select("select fr.freeSeq, fr.userSeq, fr.freeboardNo, fr.freeTitle, fr.freeContent, fr.freeHit, date_format(fr.freepostDate, '%Y.%m.%d') freepostDate, fr.freeRecomcount, u.userNickname "
+			+ "from Freeboard fr join user u on fr.userSeq=u.userSeq where fr.freeSeq=#{freeSeq} ")
 	Gorea_Free_BoardTO Free_View(Gorea_Free_BoardTO to);
 	
 	// 이전 글 가져오기

@@ -12,6 +12,7 @@
 		String pseq = rto.getPseq();
 		String goreaboardNo = rto.getGoreaboardNo();
 		String cseq = rto.getCseq();
+		String userSeq = rto.getUserSeq();
 		String userNickname = rto.getUserNickname();
 		String replyContent = rto.getReplyContent();
 		String replypostDate = rto.getReplypostDate();
@@ -24,6 +25,7 @@
 		obj.put( "pseq", pseq );
 		obj.put( "goreaboardNo", goreaboardNo );
 		obj.put( "cseq", cseq );
+		obj.put( "userSeq", userSeq );
 		obj.put( "userNickname", userNickname );
 		obj.put( "replyContent", replyContent );
 		obj.put( "replypostDate",replypostDate );

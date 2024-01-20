@@ -11,10 +11,18 @@ import lombok.ToString;
 @ToString
 @Repository
 public class Gorea_Free_BoardTO {
-	private String freeSeq;
+	private String freeSeq; // 게시글 번호
 	private String freeTitle;
 	private String freeContent;
 	private String freeHit;
 	private String freepostDate;
-	private String freeRecomcount;
+	private String freeRecomcount; // 추천수
+	private String freeCmt; // 댓글 수
+	
+	//board분류
+	private String freeboardNo;
+	
+	//user
+	private String userSeq;
+	private String userNickname;
 }

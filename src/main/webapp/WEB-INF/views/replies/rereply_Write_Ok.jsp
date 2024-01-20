@@ -8,7 +8,7 @@
 	out.println( "<script type='text/javascript'>" );
 	if( flag == 0 ) {
 		out.println( "alert( '댓글쓰기 성공' );" );
-		out.println( "location.href='userRecomView.do';" );
+		out.println( "location.href='/korean/userRecomView.do';" );
 	} else if( flag == 1 ) {
 		out.println( "alert( '댓글쓰기 실패' );" );
 		out.println( "history.back();" );

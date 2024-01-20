@@ -47,10 +47,6 @@ public class Gorea_ReplyController {
 		rto.setReplyContent( request.getParameter( "replyContent" ) );
 		rto.setGoreaboardNo( request.getParameter( "goreaboardNo" ) );
 		
-		System.out.println( "writeOk dao로 pseq : " + rto.getPseq() );
-		System.out.println( "writeOk dao로 content : " + rto.getReplyContent() );
-		System.out.println( "writeOk dao로 boardNo : " + rto.getGoreaboardNo() );
-		
 		int flag = rdao.reply_writeOk(rto);
 		
 		ModelAndView modelAndView = new ModelAndView( "replies/reply_Write_Ok" );
@@ -65,7 +61,11 @@ public class Gorea_ReplyController {
 		Gorea_ReplyTO rto = new Gorea_ReplyTO();
 		
 		rto.setGoreaboardNo( request.getParameter( "goreaboardNo" ) );
+		rto.setCseq( request.getParameter( "cseq" ) );
+		rto.setPseq( request.getParameter( "pseq" ) );
 		rto.setGrp( Integer.parseInt( request.getParameter( "grp" ) ) );
+		
+		System.out.println( "pseq는 : " + rto.getPseq() );
 		
 		int flag = rdao.reply_deleteOk(rto);
 		
@@ -102,9 +102,11 @@ public class Gorea_ReplyController {
 		rto.setPseq( request.getParameter( "pseq" ) );
 		rto.setGoreaboardNo( request.getParameter( "goreaboardNo" ) );
 		rto.setReplyContent( request.getParameter( "replyContent" ) );
-		rto.setGrp( Integer.parseInt( request.getParameter( "grp" ) ) );
+		rto.setGrp( Integer.parseInt(request.getParameter( "grp" ) ) );
 		
 		int flag = rdao.rereply_WriteOk(rto);
+		
+		System.out.println( "grp는 : " + rto.getGrp() );
 		
 		ModelAndView modelAndView = new ModelAndView( "replies/rereply_Write_Ok" );
 		modelAndView.addObject( "flag", flag );
@@ -112,19 +114,22 @@ public class Gorea_ReplyController {
 		return modelAndView;
 	}
 	
-	@PostMapping( "/korean/gorea_rereply_Delete_Ok.do" )
-	@ResponseBody
-	public ModelAndView rereplyDeleteOk( HttpServletRequest request ) {
+	
+	 @PostMapping( "/korean/gorea_rereply_Delete_Ok.do" ) 
+	 @ResponseBody 
+	 public ModelAndView rereplyDeleteOk( HttpServletRequest request) {  
 		Gorea_ReplyTO rto = new Gorea_ReplyTO();
-		
-		rto.setCseq( request.getParameter( "cseq" ) );
+	  
+		rto.setCseq( request.getParameter( "cseq" ) ); 
 		rto.setGoreaboardNo( request.getParameter( "goreaboardNo" ) );
-		
+		rto.setPseq( request.getParameter( "pseq" ) );
+	  
 		int flag = rdao.rereply_DeleteOk(rto);
-		
+	  
 		ModelAndView modelAndView = new ModelAndView( "replies/rereply_Delete_Ok" );
 		modelAndView.addObject( "flag", flag );
-		
-		return modelAndView;
-	}
+	  
+		return modelAndView;	
+	 }
+	 
 }
