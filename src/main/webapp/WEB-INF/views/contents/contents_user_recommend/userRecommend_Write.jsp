@@ -4,7 +4,7 @@
 <c:set var="language" value="${language}" />
 <html>
 <head>
-    <title>게시글 작성</title>
+    <title>Go!rea</title>
     <link rel="stylesheet" type="text/css" href="/css/userRecommend/write.css">
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
@@ -12,7 +12,7 @@
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
     <div class="containers">
         <h2>게시글 작성</h2>
-        <form class="form-horizontal" method="post" action="./userRecomWriteOk.do">
+        <form class="form-horizontal" name="wfrm" method="post" action="./userRecomWriteOk.do">
             <div class="form-group">
                 <input type="text" class="form-control" id="title" name="title" style="height: 50px" placeholder="제목을 입력해 주세요."/>
             </div>
@@ -21,7 +21,7 @@
             </div>
 
             <div class="btn_wrap">
-                <button type="submit" class="btn btn-primary">저장하기</button>
+                <button type="submit" id="wbtn" class="btn btn-primary">저장하기</button>
                 <input type="button" value="목록" class="btn btn-primary" style="cursor: pointer;" onclick="location.href='userRecomList.do'" />
             </div>
         </form>
@@ -45,6 +45,22 @@
                     { name: 'editing', items: [ 'Scayt' ] }
                 ]
             });
+        };
+    </script>
+    <script type="text/javascript">
+        // 폼 제출 시에 제목과 내용이 입력되었는지 확인
+        document.getElementById('wbtn').onclick = function() {
+            var title = document.wfrm.title.value.trim();
+            var content = CKEDITOR.instances.content.getData().trim();
+            
+            if (title === "") {
+                alert('제목을 입력하셔야 합니다.');
+                return false;
+            }
+            if (content === "") {
+                alert('내용을 입력하셔야 합니다.');
+                return false;
+            }
         };
     </script>
     <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>

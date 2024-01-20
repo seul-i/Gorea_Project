@@ -101,9 +101,8 @@ public class Gorea_RecommendDAO {
 	
 	public int userRecom_modifyOk(Gorea_Recommend_BoardTO to) {
 		int flag = 1;
-		int result = mapper.userRecom_modifyOk(to);
 		
-		System.out.println( "result는 : " + result );
+		int result = mapper.userRecom_modifyOk(to);
 		
 		if( result == 1 ) {
 			flag = 0;

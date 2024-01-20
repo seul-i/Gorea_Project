@@ -137,6 +137,7 @@ public class Gorea_Recommend_Controller {
 	//write
 	@GetMapping( "/{language}/userRecomWrite.do" )
 	public String write( @PathVariable String language, HttpServletRequest request, Model model ) {
+		model.addAttribute("language", language);
 		
 		return "contents/contents_user_recommend/userRecommend_Write";
 	}
@@ -243,15 +244,23 @@ public class Gorea_Recommend_Controller {
 	}
 	
 	
-	@RequestMapping( "/korean/userRecomModify.do" )
-	public String modify( HttpServletRequest request, Model model ) {
+	@RequestMapping( "/{language}/userRecomModify.do" )
+	public String modify(@PathVariable String language, HttpServletRequest request, Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
 		
 		to.setUserRecomSeq( request.getParameter("seq") );
 		
-		System.out.println( "modifyseq : " + request.getParameter("seq") );
+		//System.out.println( "modifyseq : " + to.getUserRecomSeq() );
 		
-		to = dao.userRecom_modify(to);
+		if(language.equals("korean")) {
+	    	to = dao.userRecom_modify(to);
+	      }else if(language.equals("english")) {
+	    	  to = dao.userRecom_modify(to);
+	      }else if(language.equals("japanese")) {
+	    	  to = dao.userRecom_modify(to);
+	      }else if(language.equals("chinese")) {
+	    	  to = dao.userRecom_modify(to);
+	      }
 		
 		model.addAttribute( "to" , to );
 		model.addAttribute( "seq", to.getUserRecomSeq() );
@@ -274,18 +283,10 @@ public class Gorea_Recommend_Controller {
 		System.out.println( "title : " + to.getUserRecomTitle() );
 		System.out.println( "content : " + to.getUserRecomContent() );
 		
-		/*
-		 * if(language.equals("korean")) { flag = dao.userRecom_modifyOk(to); }else
-		 * if(language.equals("english")) { flag = dao.userRecom_modifyOk(to); }else
-		 * if(language.equals("japanese")) { flag = dao.userRecom_modifyOk(to); }else
-		 * if(language.equals("chinese")) { flag = dao.userRecom_modifyOk(to); }
-		 */
-		
 		flag = dao.userRecom_modifyOk(to);
 		
 		System.out.println( "flag는 : " + flag);
 		model.addAttribute( "flag", flag );
-		//model.addAttribute( "language", language );
 		
 		return "contents/contents_user_recommend/userRecommend_Modify_Ok";
 	}

@@ -5,7 +5,7 @@
 
 <c:set var="language" value="${language}" />
 <c:set var="paging" value="${paging}" />
-<c:set var="boardList" value="${paging.boardList}" />
+<c:set var="boardList1" value="${paging.boardList1}" />
 <c:set var="lists" value="${requestScope.lists}" />
 
 <!DOCTYPE html>
@@ -58,6 +58,7 @@
                         등록된 게시글이 없습니다.
                     </div>
                 </c:if>
+                
 	            <c:if test="${not empty lists}">
 	              	<c:forEach var="to" items="${lists}">
 	                    <div>
@@ -70,6 +71,7 @@
 	                    </div>
 	                </c:forEach>
 	            </c:if>
+	            
 	          </div>
 	      	<div class="bottom-container">   
 	        	<div class="pagination">

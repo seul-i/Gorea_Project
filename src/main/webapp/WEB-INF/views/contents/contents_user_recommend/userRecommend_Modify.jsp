@@ -1,17 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@page import="com.gorea.dto_board.Gorea_Recommend_BoardTO"%> --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="false"%>
 <!DOCTYPE html>
-<%-- <%
-	request.setCharacterEncoding("utf-8");
-	
-	Gorea_Recommend_BoardTO to = (Gorea_Recommend_BoardTO)request.getAttribute("to");
-	
-	String seq = request.getParameter("seq");
-	String title = to.getUserRecomTitle();
-	String content = to.getUserRecomContent();
-%> --%>
 <c:set var="language" value="${language}" />
 <html>
 <head>
@@ -20,11 +10,12 @@
 <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
 <body>
-    <div class="container">
+	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+    <div class="containers">
         <h2>게시글 수정</h2>
-        <form action="./userRecomModifyOk.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
+        <form action="/korean/userRecomModifyOk.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
 	        <c:set var="to" value="${requestScope.to}" />
-	        <input type="hidden" name="seq" value="${to.userRecomSeq}" /> 
+	        <input type="hidden" name="seq" value="${param.seq}" /> 
 			<input type="hidden" name="cpage" value="${cpage}" /> 
 			<input type="hidden" name="searchType" value="${searchType}" /> 
 			<input type="hidden"name="searchKeyword" value="${searchKeyword}" />
@@ -38,7 +29,7 @@
 	        <div class="btn_wrap">
 	        	<button type="submit" class="btn btn-primary" id="mbtn">저장하기</button>
 	           	<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='userRecomList.do'" />
-	           	<input type="button" value="취소" class="btn" style="cursor: pointer;" onclick="location.href='userRecomView.do?seq=${to.userRecomSeq}'" />
+	           	<input type="button" value="취소" class="btn" style="cursor: pointer;" onclick="location.href='userRecomView.do?seq=${param.seq}'" />
 	        </div>
     	</form>
     </div>
@@ -77,5 +68,6 @@
             }
         };
     </script>
+    <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>
 </html>
