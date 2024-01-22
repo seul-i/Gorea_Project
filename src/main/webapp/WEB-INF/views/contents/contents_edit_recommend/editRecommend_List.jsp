@@ -11,6 +11,7 @@
 <!-- Login 시에 Security context 에서 가져오는 유저 정보-->
 <c:set var="role"
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
+	
 <c:set var="nickname"
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
  

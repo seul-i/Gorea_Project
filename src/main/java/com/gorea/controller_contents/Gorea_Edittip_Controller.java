@@ -142,7 +142,7 @@ public class Gorea_Edittip_Controller {
 		model.addAttribute("pageNumbers", pageNumbers);	   
 		
 	    
-	    return "contents/contents_edit_tip/editTip_List";
+	    return "contents/contents_edit_tip/editTip_list";
 	}
 	
 	private Gorea_PagingTO createPagingModel1(List<Gorea_EditTip_BoardTO> lists1, int totalRowCount,
@@ -182,7 +182,7 @@ public class Gorea_Edittip_Controller {
 
 	@GetMapping("/korean/editTip_write.do")
 	public String editTip_Write(HttpServletRequest request, Model model) {
-		return "contents/contents_edit_tip/editTip_Write";
+		return "contents/contents_edit_tip/editTip_write";
 	}
 
 	@PostMapping("/korean/editTip_write_ok.do")
@@ -199,7 +199,7 @@ public class Gorea_Edittip_Controller {
 
 		model.addAttribute("flag", flag);
 
-		return "contents/contents_edit_tip/editTip_Write_Ok";
+		return "contents/contents_edit_tip/editTip_write_ok";
 	}
 
 	@GetMapping("/{language}/editTip_view.do")
@@ -236,7 +236,7 @@ public class Gorea_Edittip_Controller {
 		
 		model.addAttribute("eto", eto);
 		
-		return "contents/contents_edit_tip/editTip_View";
+		return "contents/contents_edit_tip/editTip_view";
 	}
 
 	@GetMapping("/{language}/editTip_delete_ok.do")
@@ -268,7 +268,7 @@ public class Gorea_Edittip_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 
-		return "contents/contents_edit_tip/editTip_Delete_Ok";
+		return "contents/contents_edit_tip/editTip_delete_ok";
 	}
 
 	@GetMapping("/korean/editTip_modify.do")
@@ -302,7 +302,7 @@ public class Gorea_Edittip_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 
-		return "contents/contents_edit_tip/editTip_Modify";
+		return "contents/contents_edit_tip/editTip_modify";
 	}
 
 	@PostMapping("/{language}/korean/editTip_modify_ok.do")
@@ -343,7 +343,7 @@ public class Gorea_Edittip_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		
-		return "contents/contents_edit_tip/editTip_Modify_Ok";
+		return "contents/contents_edit_tip/editTip_modify_ok";
 
 	}
 

@@ -141,7 +141,7 @@ public class Gorea_Editreco_Controller {
 		    
 		    model.addAttribute("pageNumbers", pageNumbers);
 		    
-		    return "contents/contents_edit_recommend/editRecommend_List";
+		    return "contents/contents_edit_recommend/editRecommend_list";
 	}
 	
 	private String extractFirstImageUrl(String content) {
@@ -194,7 +194,7 @@ public class Gorea_Editreco_Controller {
 	@GetMapping("/korean/editRecommend_write.do")
 	public String editRecommend_Write(HttpServletRequest request, Model model) {
 		
-		return "contents/contents_edit_recommend/editRecommend_Write";
+		return "contents/contents_edit_recommend/editRecommend_write";
 	}
 
 	@PostMapping("/korean/editRecommend_write_ok.do")
@@ -212,7 +212,7 @@ public class Gorea_Editreco_Controller {
 
 		model.addAttribute("flag", flag);
 
-		return "contents/contents_edit_recommend/editRecommend_Write_Ok";
+		return "contents/contents_edit_recommend/editRecommend_write_ok";
 	}
 
 	@GetMapping("/{language}/editRecommend_view.do")
@@ -249,7 +249,7 @@ public class Gorea_Editreco_Controller {
 		
 			model.addAttribute("to", to);
 		
-		return "contents/contents_edit_recommend/editRecommend_View";
+		return "contents/contents_edit_recommend/editRecommend_view";
 	}
 
 	@GetMapping("/{language}/editRecommend_delete_ok.do")
@@ -281,7 +281,7 @@ public class Gorea_Editreco_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		
-		return "contents/contents_edit_recommend/editRecommend_Delete_Ok";
+		return "contents/contents_edit_recommend/editRecommend_delete_ok";
 	}
 
 	@GetMapping("/{language}/editRecommend_modify.do")
@@ -313,7 +313,7 @@ public class Gorea_Editreco_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 
-	    return "contents/contents_edit_recommend/editRecommend_Modify";
+	    return "contents/contents_edit_recommend/editRecommend_modify";
 	}
 
 
@@ -354,7 +354,7 @@ public class Gorea_Editreco_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		
-		return "contents/contents_edit_recommend/editRecommend_Modify_Ok";
+		return "contents/contents_edit_recommend/editRecommend_modify_ok";
 	}
 
 

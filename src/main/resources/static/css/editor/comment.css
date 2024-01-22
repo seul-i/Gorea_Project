@@ -84,6 +84,26 @@ img {
 
 }
 
+.replyModify-form textarea {
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
+	box-shadow: 0 0 0 0.5px #0003;
+    height: 3.3em;
+    width: 100%;
+    resize: none;
+    margin-bottom: 10px;
+    overflow: hidden;
+
+}
+
+.replyModify-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .comment-container{
 	width: 100%;
 }
@@ -120,6 +140,8 @@ img {
     width: 100%;
     margin-bottom: 12px;
 }
+
+
 
 
 .comment-list .comment {
@@ -200,10 +222,10 @@ img {
 }
 
 
-.comment-container .save {
-    width: 5.5em;
+.comment-list .save {
+	width: 5em;
     height: 3.3em;
-    padding: 6px 14px;
+    padding: 5px 10px;
     border: none;
     margin-left: 10px;
     margin-bottom: 10px;
@@ -230,4 +252,18 @@ img {
     color: aliceblue;
 }
 
+.original-comment {
+    font-size: 16px;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    left: 70px;
+}
+
+
+.replyModify-form .original-comment {
+    text-align: left;
+    /* 다른 .original-comment에 관련된 스타일 속성들 추가 가능 */
+}
 
