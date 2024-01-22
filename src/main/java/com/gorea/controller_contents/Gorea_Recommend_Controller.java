@@ -151,6 +151,8 @@ public class Gorea_Recommend_Controller {
 		
 		to.setUserRecomTitle( request.getParameter( "title" ) );
 		to.setUserRecomContent( request.getParameter( "content" ) );
+		to.setUserSeq( request.getParameter("userSeq") );
+		//System.out.println( "userSeq : " + request.getParameter("userSeq") );
 		
 		if(language.equals("korean")) {
 			flag = dao.userRecom_writeOk(to);
@@ -278,7 +280,7 @@ public class Gorea_Recommend_Controller {
 		
 		to.setUserRecomSeq( request.getParameter("seq") );
 		to.setUserRecomTitle( request.getParameter( "title" ) );
-		to.setUserRecomContent( request.getParameter("content") );
+		to.setUserRecomContent( request.getParameter("content") );;
 		
 		System.out.println( "seq : " + request.getParameter("seq") );
 		System.out.println( "title : " + to.getUserRecomTitle() );

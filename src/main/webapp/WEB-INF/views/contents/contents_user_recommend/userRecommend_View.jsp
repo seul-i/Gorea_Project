@@ -376,10 +376,16 @@
         <!-- 댓글 수 추천 수 공간 -->
         <div class="comments-count" style="display : flex;"><div>추천 5개</div>&nbsp&nbsp<div id="replyCount"></div></div>
         
-        <div class="comment-form" style="display: flex;">
-            <textarea id="replyContent" style="resize: none;" placeholder="댓글을 입력하세요"></textarea>
-            <button class="btn" id="replyWrite">댓글 작성</button>
-        </div>
+        <c:choose>
+        	<c:when test="${not empty userSeq }">
+        		<input type="hidden" name="userSeq" value="${userSeq}"/>
+		        <div class="comment-form" style="display: flex;">
+		            <textarea id="replyContent" style="resize: none;" placeholder="댓글을 입력하세요"></textarea>
+		            <button class="btn" id="replyWrite">댓글 작성</button>
+		        </div>
+	        </c:when>
+        </c:choose>
+        
         <div class="comment-section" id="comment">
      
         </div>
@@ -396,8 +402,11 @@
 	        </div>
 	        <div class="right-buttons">
 	        	<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='/korean/userRecom.do'" />
-	            <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='userRecom_modify.do?seq=${to.userRecomSeq}'" />
-	            <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='userRecom_delete_ok.do?seq=${to.userRecomSeq}'" />
+	            <c:if test="${userSeq eq to.userSeq}">
+		            <!-- userSeq와 게시글 작성자의 userSeq가 일치하는 경우에만 수정 및 삭제 버튼 표시 -->
+		            <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='userRecom_modify.do?seq=${to.userRecomSeq}'" />
+		            <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='userRecom_delete_ok.do?seq=${to.userRecomSeq}'" />
+        		</c:if>
 	        </div>
     	</div>
     </div>

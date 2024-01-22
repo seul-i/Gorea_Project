@@ -149,10 +149,12 @@
 	        <!-- 쓰기 버튼 -->
 	        <br />
 	        <div class="write_button_container">
-	        	<input type="hidden" name="userSeq" value="${userSeq}"/>
-	        	<%-- <c:when test="${ }"> --%>
-		        	<a href="/${language}/userRecom_write.do" class="write_button">글쓰기</a>
-		        <%-- </c:when> --%>
+	        	<c:choose>
+	        		<c:when test="${not empty userSeq }">
+		        		<input type="hidden" name="userSeq" value="${userSeq}"/>
+		        		<a href="/${language}/userRecom_write.do" class="write_button">글쓰기</a>
+	        		</c:when>
+	        	</c:choose>
 		    </div>
 		    <div class="search_container">
            		<form action="userRecom.do" method="get">
