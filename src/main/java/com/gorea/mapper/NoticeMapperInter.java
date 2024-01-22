@@ -21,7 +21,7 @@ public interface NoticeMapperInter {
 	 int Notice_TotalCount();
 	
 	// Notice_WriteOk
-	@Insert("insert into Notice values (0, #{noticeTitle}, #{noticeContent}, 0, now() )")
+	@Insert("insert into Notice values (0, #{userSeq}, 8, #{noticeTitle}, now(), 0, #{noticeContent} )")
 	int Notice_Write_Ok(Gorea_Notice_BoardTO to);
 	
 	// Notice_view_hit

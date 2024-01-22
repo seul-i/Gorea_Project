@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="language" value="${language}" />
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 <!DOCTYPE html>
 
 <html>
@@ -21,6 +22,7 @@
             <div class="error-message">${errorMessage}</div>
         </c:if>
         <form class="form-horizontal" name="wfrm" method="post" action="./notice_write_ok.do">
+        <input type="hidden" name="userSeq" value="${userSeq}">
             <div class="form-group">
                 <input type="text" class="form-control" name="noticeTitle" style="height: 50px" placeholder="제목을 입력해 주세요."/>
             </div>
