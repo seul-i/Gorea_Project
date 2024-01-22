@@ -82,10 +82,6 @@ header .logo span {
     color: var(--pink);
 }
 
-section {
-    padding: 2% 3%;
-}
-
 .heading {
     text-align: center;
     font-size: 4rem;
@@ -311,16 +307,13 @@ section {
 }
 
 .write_button_container {
-    text-align: center;
-    margin-left: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    text-align: right;  
 }
 
 .write_button {
     padding: 6px 14px;
     border: none;
-    margin-top: 10px;
+    margin-right: 10%;
     margin-bottom: 10px;
     cursor: pointer;
     border-radius: 2px;
