@@ -10,7 +10,7 @@
 	if(flag == 0){
 		// 정상
 		out.println("alert('글 삭제 성공');");
-		out.println("location.href = 'userRecomList.do';");
+		out.println("location.href = '/korean/userRecom.do';");
 	} else if(flag == 1) {
 		// 에러
 		out.println("alert('글 삭제 실패.');");
