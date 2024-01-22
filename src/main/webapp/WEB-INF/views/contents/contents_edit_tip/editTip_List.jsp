@@ -9,6 +9,7 @@
 <!-- Login 시에 Security context 에서 가져오는 유저 정보-->
 <c:set var="role"
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
+
 <c:set var="nickname"
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
 	
@@ -72,11 +73,6 @@
         <div class="banner-text">
             <h1>에디터 꿀팁</h1>
         </div>
-    </div>
-
-    <div class="location">
-        <i class="fa-solid fa-house"></i> <span class="ar">></span> 추천 <span class="ar">></span> <span> <a href="./editTip_list.do?cpage=${paging.cpage}">에디터 꿀팁</a>
-        </span>
     </div>
     
     <div class="search_container">
@@ -145,87 +141,42 @@
     	</c:when>
     </c:choose>
     
-    <div class="pagination">
-		<!-- 처음 페이지 버튼 -->
-		<c:choose>
-			<c:when test="${paging.cpage == 1}">
-				<span class="pagination-item disabled">&lt;&lt;</span>
-			</c:when>
-			<c:otherwise>
-				<a href="/korean/editTip_list.do?cpage=1"
-					class="pagination-item">&lt;&lt;</a>
-			</c:otherwise>
-		</c:choose>
+    <div class="pagination-container">
+	<div class="pagination">
+        <!-- 처음 페이지 버튼 -->
+        <c:if test="${paging.cpage > 1}">
+            <a href="/${language}/editTip_list.do?cpage=1<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>" class="pagination-item">&lt;&lt;</a>
+            <a href="/${language}/editTip_list.do?cpage=${paging.cpage - 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>" class="pagination-item">&lt;</a>
+        </c:if>
+        <c:if test="${paging.cpage == 1}">
+            <span class="pagination-item disabled">&lt;&lt;</span>
+            <span class="pagination-item disabled">&lt;</span>
+        </c:if>
 
-		<!-- 이전 페이지 버튼 -->
-		<c:choose>
-			<c:when test="${paging.cpage == 1}">
-				<span class="pagination-item disabled">&lt;</span>
-			</c:when>
-			<c:otherwise>
-				<a href="/korean/editTip_list.do?cpage=${paging.cpage - 1}"
-					class="pagination-item">&lt;</a>
-			</c:otherwise>
-		</c:choose>
+        <!-- 페이지 번호 -->
+        <c:forEach var="i" begin="${paging.firstPage}" end="${paging.lastPage}" varStatus="loop">
+            <c:choose>
+                <c:when test="${i == paging.cpage}">
+                    <span class="pagination-item active">${i}</span>
+                </c:when>
+                <c:otherwise>
+                    <a href="/${language}/editTip_list.do?cpage=${i}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>" class="pagination-item">${i}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
 
-		<!-- 페이지 번호 -->
-		<c:choose>
-			<c:when test="${paging.totalPage <= 5}">
-				<!-- 페이지 개수가 5 이하인 경우 -->
-				<c:forEach var="i" begin="${1}" end="${paging.totalPage}"
-					varStatus="loop">
-					<c:choose>
-						<c:when test="${i == paging.cpage}">
-							<span class="pagination-item active">${i}</span>
-						</c:when>
-						<c:otherwise>
-							<a href="/korean/editTip_list.do?cpage=${i}"
-								class="pagination-item">${i}</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<!-- 페이지 개수가 5 초과인 경우 -->
-				<c:forEach var="i" begin="${paging.firstPage}"
-					end="${paging.lastPage}" varStatus="loop">
-					<c:choose>
-						<c:when test="${i == paging.cpage}">
-							<span class="pagination-item active">${i}</span>
-						</c:when>
-						<c:otherwise>
-							<a href="/korean/editTip_list.do?cpage=${i}"
-								class="pagination-item">${i}</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>
-
-		<!-- 다음 페이지 버튼 -->
-		<c:choose>
-			<c:when test="${paging.cpage == paging.totalPage}">
-				<span class="pagination-item disabled">&gt;</span>
-			</c:when>
-			<c:otherwise>
-				<a href="/korean/editTip_list.do?cpage=${paging.cpage + 1}"
-					class="pagination-item">&gt;</a>
-			</c:otherwise>
-		</c:choose>
-
-
-		<!-- 마지막 페이지 버튼 -->
-		<c:choose>
-			<c:when
-				test="${paging.cpage == paging.totalPage}">
-				<span class="pagination-item disabled">&gt;&gt;</span>
-			</c:when>
-			<c:otherwise>
-				<a href="/korean/editTip_list.do?cpage=${paging.totalPage}"
-					class="pagination-item">&gt;&gt;</a>
-			</c:otherwise>
-		</c:choose>
-	</div>
+        <!-- 다음 페이지 버튼 -->
+        <c:if test="${paging.cpage < paging.totalPage}">
+            <a href="/${language}/editTip_list.do?cpage=${paging.cpage + 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>" class="pagination-item">&gt;</a>
+            <a href="/${language}/editTip_list.do?cpage=${paging.totalPage}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>" class="pagination-item">&gt;&gt;</a>
+        </c:if>
+        <c:if test="${paging.cpage == paging.totalPage}">
+            <span class="pagination-item disabled">&gt;</span>
+            <span class="pagination-item disabled">&gt;&gt;</span>
+        </c:if>
+    </div>
+   </div>
+   
 	<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>
 </html>
