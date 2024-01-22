@@ -184,7 +184,7 @@ public class Gorea_TrendSeoul_Controller {
 	
 	// =======================================================================================
 	
-	@GetMapping("/{language}/trend_write.do")
+	@GetMapping("/korean/trend_write.do")
     public String gowrite(@PathVariable String language, HttpServletRequest request, Model model) {
 		return "contents/contents_trend_seoul/trend_write";
     }

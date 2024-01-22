@@ -113,15 +113,18 @@
 
         <div class="search_container">
            <form action="freeboard.do" method="get">
-    <select name="searchType">
+    <select name="searchType" style="border: 1px solid #ccc;">
         <option value="title">제목</option>
         <option value="titleContent">제목 + 내용</option>
     </select>
-    <input type="text" name="searchKeyword" placeholder="검색어 입력">
+    <input type="text" name="searchKeyword" placeholder="검색어 입력" style="border: 1px solid #ccc;">
     <input type="submit" value="검색">
 </form>
         </div>
     </div>
+   </div>
+   <div style="height:200px">
+   
    </div>
     <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>

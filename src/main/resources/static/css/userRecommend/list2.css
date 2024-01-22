@@ -1,0 +1,249 @@
+		* {
+		    margin: 0;
+		    padding: 0;
+		}
+		
+		body {
+		    font-family: Arial, sans-serif;
+		}
+	
+		html, body {
+			height: auto;
+		}
+		
+		
+		img {
+			width: 100%; 
+			height: 100%; 
+			object-fit: cover;
+		}
+		
+		.board_wrap {
+    		width: 60%;
+    		margin: 0 auto; 
+		    margin-top: 50px;
+    		margin-bottom: 50px;
+    		
+    		display: grid;
+    		grid-template-rows: repeat(auto-fill, minmax(100px, 1fr)); /* 행을 자동으로 추가하고 최소 높이를 150px로 설정 */
+    		gap: 10px;
+		}
+		
+		
+		.board_title {
+    		margin-bottom: 30px;
+    		text-align: center;
+		}
+		
+		
+		.board_title strong {
+    		font-size: 3rem;
+		}
+		
+		
+		.boardList {
+			width: 100%;
+		}
+		
+		.things {
+			display: grid;
+		    grid-template-columns: auto 1fr; /* 첫 번째 열은 자동 크기, 두 번째 열은 나머지 공간을 채움 */
+		    gap: 10px; /* 열 사이의 간격 */
+		    height: 150px;
+		    margin-bottom: 50px;
+		    
+			/* 기존 스타일 */
+		    transition: transform 0.3s ease-in-out, box-shadow 0.3s, border-radius 0.3s; /* 호버 효과를 부드럽게 만들기 위한 transition 속성 */
+		
+		    /* 새로운 호버 스타일 추가 */
+		    position: relative;
+		    cursor: pointer;
+		}
+		
+		.things:hover {
+		    /*transform: scaleX(1.02); /* 호버 시 확대 효과 */
+		    transform: scale(1.005);
+		    transform-origin: 0.1% 0.1%;
+		    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+		    border-radius: 23px;
+		}
+		
+		.thumb {
+		    width: 150px;
+		    height: 100%; /* 부모인 .things의 높이에 맞추기 */
+		    border-radius: 15%;
+		    overflow: hidden;
+		}
+		
+		.info {
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: space-between;
+		    margin-left: 30px;
+		}
+		
+		
+		.category {
+			font-size: 10pt;
+		}
+		
+		
+		.title {
+			font-size: 20pt;
+		}
+		
+		
+		.subtitle { 
+			font-size: 10pt;
+			margin-left: 10px;
+		}
+		
+		
+		.info_bottom_container {
+			display: flex;
+		}
+		
+		
+		.info_bottom {
+			display: flex;
+			width: auto; 
+			flex-grow: 1;
+		}
+		
+		
+		.bottom_left {
+			flex-grow: 1;
+		}
+		
+		.userNickname {
+			font-size: 12pt;
+		}
+		
+		.postdate {
+			font-size: 10pt;
+		}
+		
+		.bottom_right {
+			flex-grow: 1; 
+			text-align: right;
+			margin-right: 12px;
+		}
+		
+		select {
+			width: 100px;
+			height: 25px;
+            padding: 5px;
+            font-size: 12px;
+            margin-bottom: 25px;
+        }
+    
+    
+    /* 반응형 디자인 */
+	@media (max-width: 1000px) {
+	    .board_wrap {
+	        width: 80%;
+	        min-width: 320px;
+	        padding: 0 30px;
+	        box-sizing: border-box;
+	    }
+	
+	    .board_list .num, .board_list .writer, .board_list .recommend {
+	        display: none;
+	    }
+	
+	    .board_list .date, .board_list .count {
+	        width: 30%;
+	    }
+	
+	    .board_list .title {
+	        width: 70%;
+	    }
+	
+	    .board_title strong {
+	        font-size: 1.8rem;
+	    }
+	}  
+        
+	.write_button_container {
+	    text-align: right;
+	    margin-left: auto;
+	}
+	
+	.write_button {
+	    display: inline-block;
+	    padding: 10px 20px;
+	    background-color: #007DC3;
+	    color: white;
+	    text-decoration: none;
+	    font-size: 1rem;
+	    transition: background-color 0.3s;
+	    border-radius: 8px;
+	    height: 40px;
+	}
+	
+	.search_container {
+	    padding: 20px;
+	    text-align: center;
+	}
+	
+	.search_container form {
+	    display: inline-block;
+	}
+	
+	.search_container input[type="text"],
+	.search_container input[type="submit"],
+	.search_container select {
+	    padding: 5px 10px;
+	    margin: 2px;
+	    border: 1px solid #ccc;
+	}
+	
+	.search_container input[type="submit"] {
+	    background-color: #007DC3;
+	    color: white;
+	    border: none;
+	    cursor: pointer;
+	    border: 1px solid #ccc;
+	}
+	
+	.bottom-container {
+	    display: flex;
+	    justify-content: space-between; /* 좌우 공간을 균등하게 분배 */
+	    align-items: center; /* 수직 방향으로 중앙 정렬 */
+	    height:50px;
+	}
+	
+	.pagination-container {
+	    flex-grow: 1; /* 공간을 채우도록 함 */
+	    text-align: center; /* 내부 요소(페이징)를 중앙 정렬 */
+	    height:50px;
+	}
+	
+	.pagination {
+		margin: 0; /* 기존 마진 제거 */
+		display: inline-block;
+	    text-align: center; /* 가운데 정렬 추가 */
+	    font-weight: bolder;
+	    flex-grow: 1;
+	  }
+	
+	  .pagination-item {
+	    margin: 0 5px;
+	    padding: 5px 10px;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    text-decoration: none;
+	    color: #333;
+	    font-weight: bold;
+	  }
+	
+	  .pagination-item.active {
+	    background-color: #007bff;
+	    color: #fff;
+	  }
+	
+	  .pagination-item.disabled {
+	    color: #333;
+	    cursor: pointer;
+	    pointer-events: none;
+	  }
