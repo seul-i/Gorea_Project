@@ -184,7 +184,7 @@ public class Gorea_TrendSeoul_Controller {
 	
 	// =======================================================================================
 	
-	@GetMapping("/korean/trend_write.do")
+	@GetMapping("/{language}/trend_write.do")
     public String gowrite(@PathVariable String language, HttpServletRequest request, Model model) {
 		return "contents/contents_trend_seoul/trend_write";
     }
@@ -193,6 +193,7 @@ public class Gorea_TrendSeoul_Controller {
     public String write_ok(HttpServletRequest request, MultipartFile upload, Model model) {
         int flag = 2;
         
+        to.setUserSeq(request.getParameter("userSeq"));
 //        to.setSeoulboardNo(request.getParameter("seoulboardNo"));
         to.setSeoulcategoryNo(request.getParameter("seoulcategoryNo"));
 //        to.setSeoulRank(request.getParameter("seoulRank"));
@@ -208,6 +209,8 @@ public class Gorea_TrendSeoul_Controller {
         to.setSeoulNotice(request.getParameter("seoulNotice"));
 //        to.setSeoulScore(request.getParameter("seoulScore"));
         
+        System.out.println("userSeq : " + request.getParameter("userSeq"));
+        
         flag = dao.trendSeoul_Write_Ok(to);
         
         model.addAttribute("flag", flag);
@@ -215,8 +218,8 @@ public class Gorea_TrendSeoul_Controller {
         return "contents/contents_trend_seoul/trend_write_ok";
 	}
 	
-	@GetMapping("/korean/trend_modify.do")
-	public String modify(HttpServletRequest request, Model model) {
+	@GetMapping("/{language}/trend_modify.do")
+	public String modify(@PathVariable String language, HttpServletRequest request, Model model) {
 	
 		to.setSeoulSeq( request.getParameter("seoulSeq") );
 		System.out.println("## seq : " + request.getParameter("seoulSeq"));
@@ -225,12 +228,13 @@ public class Gorea_TrendSeoul_Controller {
 		
 		model.addAttribute("to", to);
 		model.addAttribute("seoulSeq", to.getSeoulSeq());
+		model.addAttribute("language", language);
 		
 		return "contents/contents_trend_seoul/trend_modify";
 	}
 	
-	@PostMapping("/korean/trend_modify_ok.do")
-	public String modify_ok(HttpServletRequest request, MultipartFile upload, Model model) {
+	@PostMapping("/{language}/trend_modify_ok.do")
+	public String modify_ok(@PathVariable String language, HttpServletRequest request, MultipartFile upload, Model model) {
 		int flag = 1;
 		
 		to.setSeoulSeq( request.getParameter("seoulSeq") );
@@ -254,6 +258,8 @@ public class Gorea_TrendSeoul_Controller {
 		flag = dao.trendSeoul_Modify_Ok(to);
 
 		model.addAttribute("flag", flag);
+		model.addAttribute("language", language);
+		
 		System.out.println(flag);
 		return "contents/contents_trend_seoul/trend_modify_ok";
 	}
