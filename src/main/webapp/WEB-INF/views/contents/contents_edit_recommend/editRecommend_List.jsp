@@ -8,6 +8,12 @@
 <c:set var="paging" value="${paging}" />
 <c:set var="lists" value="${paging.lists}" />
 
+<!-- Login 시에 Security context 에서 가져오는 유저 정보-->
+<c:set var="role"
+	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
+<c:set var="nickname"
+	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,14 +78,43 @@
 	<div class="banner" id="banner">
 		<img src="/img/banner/editrecommendbanner.jpg" alt="banner">
 		<div class="banner-text">
-			<h1>에디터 추천 장소</h1>
+			<h2>
+            <c:choose>
+                <c:when test="${language eq 'korean'}">에디터 추천 장소</c:when>
+                <c:when test="${language eq 'english'}">Editor's Recommended Places</c:when>
+                <c:when test="${language eq 'japanese'}">エディターおすすめの場所</c:when>
+                <c:when test="${language eq 'chinese'}">编辑推荐的地方</c:when>
+            </c:choose>
+        </h2>
 		</div>
 	</div>
-
-	<div class="location">
-		 <i class="fa-solid fa-house"></i> <span class="ar">></span> 추천 <span class="ar">></span> <span> <a href="/korean/editRecommend_list.do?cpage=${paging.cpage}">에디터 추천 장소</a>
-		</span>
-	</div>
+	
+	<div class="search_container">
+           <form action="editRecommend_list.do" method="get">
+    <select name="searchType">
+        <option value="title">
+                <c:choose>
+                    <c:when test="${language eq 'korean'}">제목</c:when>
+                    <c:when test="${language eq 'english'}">Title</c:when>
+                    <c:when test="${language eq 'japanese'}">タイトル</c:when>
+                    <c:when test="${language eq 'chinese'}">标题</c:when>
+                    <c:otherwise>제목</c:otherwise>
+                </c:choose>
+            </option>
+            <option value="titleContent">
+                <c:choose>
+                    <c:when test="${language eq 'korean'}">제목 + 내용</c:when>
+                    <c:when test="${language eq 'english'}">Title + Content</c:when>
+                    <c:when test="${language eq 'japanese'}">タイトル + 内容</c:when>
+                    <c:when test="${language eq 'chinese'}">标题 + 内容</c:when>
+                    <c:otherwise>제목 + 내용</c:otherwise>
+                </c:choose>
+            </option>
+    </select>
+    <input type="text" name="searchKeyword" placeholder="검색어 입력">
+    <input type="submit" value="검색">
+</form>
+        </div>
 
 	<section class="albums">
 		<div class="album-container">
@@ -89,114 +124,75 @@
 						<div class='album' data-seq='${to.editrecoSeq}'>
 							<div class='image'>
 								<img src='../../upload/${to.firstImageUrl}' alt='' />
+								<!--  
 								<div class='i'>
 									<i class='fa fa-star-o fa-2x'></i> <i class='fa fa-star fa-2x'></i>
 								</div>
+								-->
 							</div>
 							<div class='content'>
 								<div class='title-subtitle'>
-									<div class='title'>${to.editrecoSubject}</div>
+									<div class='title'>
+									<a href='./editRecommend_view.do?editrecoSeq=${to.editrecoSeq}<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
+									${to.editrecoSubject}</a></div>
 									<div class='subtitle'>${to.editrecoSubtitle}</div>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
 				</c:when>
-				<c:otherwise>
-					<div>No data available</div>
-				</c:otherwise>
 			</c:choose>
 		</div>
 	</section>
+		
+	<c:choose>
+		<c:when test="${role eq 'ROLE_ADMIN'}">
+			<div class="write_button_container">
+    		<a href="editRecommend_write.do" class="write_button">글쓰기</a>
+    		</div>
+    	</c:when>
+    </c:choose>
+	
 
-	<div style="text-align: right; margin-right: 25px;">
-		<button class="w-btn-outline w-btn-blue-outline" type="button"
-			onclick="location.href='editRecommend_write.do'">글쓰기</button>
-	</div>
-
-
-
+	<div class="pagination-container">
 	<div class="pagination">
-		<!-- 처음 페이지 버튼 -->
-		<c:choose>
-			<c:when test="${paging.cpage == 1}">
-				<span class="pagination-item disabled">&lt;&lt;</span>
-			</c:when>
-			<c:otherwise>
-				<a href="/korean/editRecommend_list.do?cpage=1"
-					class="pagination-item">&lt;&lt;</a>
-			</c:otherwise>
-		</c:choose>
+        <!-- 처음 페이지 버튼 -->
+        <c:if test="${paging.cpage > 1}">
+            <a href="/${language}/editRecommend_list.do?cpage=1<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>" class="pagination-item">&lt;&lt;</a>
+            <a href="/${language}/editRecommend_list.do?cpage=${paging.cpage - 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>" class="pagination-item">&lt;</a>
+        </c:if>
+        <c:if test="${paging.cpage == 1}">
+            <span class="pagination-item disabled">&lt;&lt;</span>
+            <span class="pagination-item disabled">&lt;</span>
+        </c:if>
 
-		<!-- 이전 페이지 버튼 -->
-		<c:choose>
-			<c:when test="${paging.cpage == 1}">
-				<span class="pagination-item disabled">&lt;</span>
-			</c:when>
-			<c:otherwise>
-				<a href="/korean/editRecommend_list.do?cpage=${paging.cpage - 1}"
-					class="pagination-item">&lt;</a>
-			</c:otherwise>
-		</c:choose>
+        <!-- 페이지 번호 -->
+        <c:forEach var="i" begin="${paging.firstPage}" end="${paging.lastPage}" varStatus="loop">
+            <c:choose>
+                <c:when test="${i == paging.cpage}">
+                    <span class="pagination-item active">${i}</span>
+                </c:when>
+                <c:otherwise>
+                    <a href="/${language}/editRecommend_list.do?cpage=${i}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>" class="pagination-item">${i}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
 
-		<!-- 페이지 번호 -->
-		<c:choose>
-			<c:when test="${paging.totalPage <= 5}">
-				<!-- 페이지 개수가 5 이하인 경우 -->
-				<c:forEach var="i" begin="${1}" end="${paging.totalPage}"
-					varStatus="loop">
-					<c:choose>
-						<c:when test="${i == paging.cpage}">
-							<span class="pagination-item active">${i}</span>
-						</c:when>
-						<c:otherwise>
-							<a href="/korean/editRecommend_list.do?cpage=${i}"
-								class="pagination-item">${i}</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<!-- 페이지 개수가 5 초과인 경우 -->
-				<c:forEach var="i" begin="${paging.firstPage}"
-					end="${paging.lastPage}" varStatus="loop">
-					<c:choose>
-						<c:when test="${i == paging.cpage}">
-							<span class="pagination-item active">${i}</span>
-						</c:when>
-						<c:otherwise>
-							<a href="/korean/editRecommend_list.do?cpage=${i}"
-								class="pagination-item">${i}</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>
-
-		<!-- 다음 페이지 버튼 -->
-		<c:choose>
-			<c:when test="${paging.cpage == paging.totalPage}">
-				<span class="pagination-item disabled">&gt;</span>
-			</c:when>
-			<c:otherwise>
-				<a href="/korean/editRecommend_list.do?cpage=${paging.cpage + 1}"
-					class="pagination-item">&gt;</a>
-			</c:otherwise>
-		</c:choose>
+        <!-- 다음 페이지 버튼 -->
+        <c:if test="${paging.cpage < paging.totalPage}">
+            <a href="/${language}/editRecommend_list.do?cpage=${paging.cpage + 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>" class="pagination-item">&gt;</a>
+            <a href="/${language}/editRecommend_list.do?cpage=${paging.totalPage}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>" class="pagination-item">&gt;&gt;</a>
+        </c:if>
+        <c:if test="${paging.cpage == paging.totalPage}">
+            <span class="pagination-item disabled">&gt;</span>
+            <span class="pagination-item disabled">&gt;&gt;</span>
+        </c:if>
+    </div>
+   </div>
 
 
-		<!-- 마지막 페이지 버튼 -->
-		<c:choose>
-			<c:when
-				test="${paging.cpage == paging.totalPage}">
-				<span class="pagination-item disabled">&gt;&gt;</span>
-			</c:when>
-			<c:otherwise>
-				<a href="/korean/editRecommend_list.do?cpage=${paging.totalPage}"
-					class="pagination-item">&gt;&gt;</a>
-			</c:otherwise>
-		</c:choose>
-	</div>
+
+
 <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 
 
