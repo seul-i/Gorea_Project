@@ -125,7 +125,7 @@
             case "일본":
                 return "/img/comment/nation-jp.png";
             default:
-                return "/img/comment/default.png";
+                return "/img/comment/nation-wr.png";
         }
     }
 
