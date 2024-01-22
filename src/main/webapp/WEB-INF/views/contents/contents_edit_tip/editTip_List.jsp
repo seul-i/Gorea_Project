@@ -6,6 +6,12 @@
 <c:set var="paging" value="${paging}" />
 <c:set var="lists1" value="${paging.lists1}" />
 
+<!-- Login 시에 Security context 에서 가져오는 유저 정보-->
+<c:set var="role"
+	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
+<c:set var="nickname"
+	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,6 +78,33 @@
         <i class="fa-solid fa-house"></i> <span class="ar">></span> 추천 <span class="ar">></span> <span> <a href="./editTip_list.do?cpage=${paging.cpage}">에디터 꿀팁</a>
         </span>
     </div>
+    
+    <div class="search_container">
+           <form action="editTip_list.do" method="get">
+    <select name="searchType">
+        <option value="title">
+                <c:choose>
+                    <c:when test="${language eq 'korean'}">제목</c:when>
+                    <c:when test="${language eq 'english'}">Title</c:when>
+                    <c:when test="${language eq 'japanese'}">タイトル</c:when>
+                    <c:when test="${language eq 'chinese'}">标题</c:when>
+                    <c:otherwise>제목</c:otherwise>
+                </c:choose>
+            </option>
+            <option value="titleContent">
+                <c:choose>
+                    <c:when test="${language eq 'korean'}">제목 + 내용</c:when>
+                    <c:when test="${language eq 'english'}">Title + Content</c:when>
+                    <c:when test="${language eq 'japanese'}">タイトル + 内容</c:when>
+                    <c:when test="${language eq 'chinese'}">标题 + 内容</c:when>
+                    <c:otherwise>제목 + 내용</c:otherwise>
+                </c:choose>
+            </option>
+    </select>
+    <input type="text" name="searchKeyword" placeholder="검색어 입력">
+    <input type="submit" value="검색">
+	</form>
+        </div>
 
     <!-- product section -->
     <section class="albums">
@@ -82,9 +115,11 @@
 						<div class='album' data-seq='${eto.edittipSeq}'>
 							<div class='image'>
 								<img src='../../upload/${eto.firstImageUrl}' alt='' />
+								<!--  
 								<div class='i'>
 									<i class='fa fa-star-o fa-2x'></i> <i class='fa fa-star fa-2x'></i>
 								</div>
+								-->
 							</div>
 							<div class='content'>
 								<div class='title-subtitle'>
@@ -102,10 +137,13 @@
 		</div>
 	</section>
 	
-	<div style="text-align: right; margin-right: 25px;">
-		<button class="w-btn-outline w-btn-blue-outline" type="button"
-			onclick="location.href='editTip_write.do'">글쓰기</button>
-	</div>
+	<c:choose>
+		<c:when test="${role eq 'ROLE_ADMIN'}">
+			<div class="write_button_container">
+    		<a href="editTip_write.do" class="write_button">글쓰기</a>
+    		</div>
+    	</c:when>
+    </c:choose>
     
     <div class="pagination">
 		<!-- 처음 페이지 버튼 -->

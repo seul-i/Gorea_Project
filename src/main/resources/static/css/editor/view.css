@@ -50,13 +50,13 @@ header {
     color: #0037ff;
     font-family: Arial, sans-serif;
     font-weight: bold;
-    margin: 0px;
+    margin-bottom: 10px;
 }
 
 p {
     display: block;
     color: #666;
-    font-size: 14px;
+    font-size: 15px;
     text-align: left;
     line-height: 1.6;
     margin-block-start: 1em;
@@ -127,7 +127,6 @@ img {
     margin: 0 auto;
     height: auto;
     display: block;
-    margin-top: 10px;
 }
 
 .icons i:last-child {
@@ -192,89 +191,17 @@ img {
     min-height: 200px;
 }
 
-.comment-section {
-    padding-top: 20px;
+
+
+.btn {
+	background-color: #007bff; /* 배경색을 원하는 색상으로 설정하세요 */
+	color: #fff; /* 텍스트 색상을 흰색 또는 원하는 색상으로 설정하세요 */
+	border: none;
+	border-radius: 4px;
+	padding: 10px 20px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	margin-left: 10px 
 }
 
-.comment {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
 
-.comment-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.comment-author {
-    font-weight: bold;
-}
-
-.comment-actions,
-.comment-timestamp {
-    font-size: 12px;
-    color: #aaa;
-}
-
-.comments-count {
-    font-weight: bold;
-    font-size: 16px;
-    color: #333;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #eee;
-}
-
-.comment-actions a {
-    margin-left: 10px;
-    text-decoration: none;
-    color: #aaa;
-}
-
-.comment-form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.comment-form textarea {
-    flex: 1;
-    resize: none;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    min-height: 60px;
-}
-
-.w-btn-outline {
-    padding: 10px 25px;
-    border-radius: 15px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.25s;
-}
-
-.w-btn-outline:hover {
-    letter-spacing: 2px;
-    transform: scale(1.2);
-    cursor: pointer;
-}
-
-.w-btn:active,
-.w-btn-outline:active {
-    transform: scale(1.5);
-}
-
-.w-btn-blue-outline {
-    border: 3px solid #6aafe6;
-    color: #6e6e6e;
-}
-
-.w-btn-blue-outline:hover {
-    background-color: #6aafe6;
-    color: #d4dfe6;
-}

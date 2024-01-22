@@ -268,34 +268,64 @@ section {
     cursor: pointer;
   }
   
-  .w-btn-outline {
-    padding: 10px 25px;
-    border-radius: 15px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.25s;
+.search_container {
+	padding: 10px;
+	/* 테두리와 내용 사이의 간격을 조정하세요 */
+	text-align: right;
 }
 
-.w-btn-outline:hover {
-    letter-spacing: 2px;
-    transform: scale(1.2);
+.search_container form {
+	border: none;
+	/* form 요소에는 테두리를 없애줍니다 */
+}
+
+.search_container select,
+.search_container input[type="submit"] {
+	border: 1px solid #000;
+	/* 텍스트 입력 필드와 버튼에 테두리를 추가합니다 */
+	padding: 5px;
+	/* 텍스트 입력 필드와 버튼 내부의 간격을 조정하세요 */
+}
+
+.search_container input[type="text"] {
+	border: none;
+	/* 기존의 테두리를 없애줍니다 */
+	padding: 5px;
+	/* 내부의 간격을 조정하세요 */
+}
+
+
+
+.search_container input[type="text"],
+.search_container input[type="submit"],
+.search_container select {
+	padding: 5px 10px;
+	margin: 2px;
+}
+
+.search_container input[type="submit"] {
+	background-color: #42424a;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.write_button_container {
+    text-align: center;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.write_button {
+    padding: 6px 14px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
     cursor: pointer;
-}
-
-.w-btn:active {
-    transform: scale(1.5);
-}
-
-.w-btn-outline:active {
-    transform: scale(1.5);
-}
-
-.w-btn-blue-outline {
-    border: 3px solid #6aafe6;
-    color: #6e6e6e;
-}
-
-.w-btn-blue-outline:hover {
-    background-color: #6aafe6;
-    color: #d4dfe6;
+    border-radius: 2px;
+    background-color: #42424a;
+    font-size: 12px;
+    font-weight: bold;
+    color: aliceblue;
 }

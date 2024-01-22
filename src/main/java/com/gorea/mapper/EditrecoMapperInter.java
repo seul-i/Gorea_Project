@@ -10,10 +10,10 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
-import com.gorea.dto_board.Gorea_EditTip_BoardTO;
+import com.gorea.dto_reply.Gorea_EditRecommend_ReplyTO;
 
 @Mapper
-public interface EditMapperInter {
+public interface EditrecoMapperInter {
 
 	/* editRecommend */
 	
@@ -21,6 +21,7 @@ public interface EditMapperInter {
 	@Select("SELECT editrecoSeq, userSeq, editrecoboardNo, editrecoSubject, editrecoSubtitle, editrecoContent FROM editrecommend ORDER BY editrecoSeq DESC LIMIT #{firstRow}, #{pageSize}")
 	List<Gorea_EditRecommend_BoardTO> editRecommend_List(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 
+	
     @Select("SELECT COUNT(*) FROM editrecommend")
     int getTotalRowCount();
 	
@@ -47,41 +48,73 @@ public interface EditMapperInter {
 	// editrecoViewHit
 	@Update("update editrecommend set editrecoHit=editrecoHit+1 where editrecoSeq=#{editrecoSeq}")
 	int editRecommend_ViewHit(Gorea_EditRecommend_BoardTO to);
+	
+	// ReplyList
+	@Select("SELECT er.editrecoSeq, er.editrecoCmtSeq, er.userSeq, er.editrecoCmtContent, DATE_FORMAT(er.editrecoCmtWdate, '%Y.%m.%d') AS editrecoCmtWdate, u.userNickname AS userNickname, u.userNation AS userNation " +
+	        "FROM editrecommendreply er " +
+	        "JOIN user u ON er.userSeq = u.userSeq " +
+	        "WHERE er.editrecoSeq=#{editrecoSeq} " +
+	        "ORDER BY er.editrecoCmtSeq DESC")
+	List<Gorea_EditRecommend_ReplyTO> editReply_List(String editrecoSeq);
 
-	
-	/* editTip */
-		    
-	// edittipList
-	@Select("SELECT edittipSeq, userSeq, edittipSubject, edittipSubtitle, edittipContent FROM edittip ORDER BY edittipSeq DESC LIMIT #{firstRow}, #{pageSize}")
-	List<Gorea_EditTip_BoardTO> editTip_List(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
-	
-	@Select("SELECT COUNT(*) FROM edittip")
-    int getTotalCount();
-	
-	// edittipWriteOk
-	@Insert("insert into edittip values ( 0, #{userSeq}, 5, #{edittipSubject}, #{edittipSubtitle}, #{edittipContent}, 0, now() )")
-	int editTip_Write_Ok(Gorea_EditTip_BoardTO eto);
+		
+	// ReplyWrite_Ok
+	@Insert("insert into editrecommendreply values (#{editrecoSeq}, 0, #{userSeq},  #{editrecoCmtContent}, now() )")
+	int EditRecommend_Reply(Gorea_EditRecommend_ReplyTO rto);
+		
+	// ReplyModify
+	@Select("SELECT editrecoCmtSeq, userSeq, editrecoCmtContent FROM editrecommendreply WHERE editrecoCmtSeq = #{editrecoCmtSeq} AND userSeq = #{userSeq}")
+	Gorea_EditRecommend_ReplyTO ReplyModify(Gorea_EditRecommend_ReplyTO rto);
 
-	// edittipView
-	@Select("select edittipSubject, edittipSubtitle, edittipHit, edittipContent, edittipWdate, DATE_FORMAT(edittipWdate, '%Y-%m-%d') AS formattedEdittipWdate, DATEDIFF(NOW(), edittipWdate) from edittip where edittipSeq=#{edittipSeq}")
-	Gorea_EditTip_BoardTO editTip_View(Gorea_EditTip_BoardTO eto);
+	// ReplyModify_Ok
+	@Update("update editrecommendreply set editrecoCmtContent=#{editrecoCmtContent} where editrecoCmtSeq=#{editrecoCmtSeq}")
+	int ReplyModify_Ok(Gorea_EditRecommend_ReplyTO rto);
+		
+	// ReplyDelete
+	@Delete("delete from editrecommendreply where editrecoCmtSeq=#{editrecoCmtSeq}")
+	int ReplyDelete(String editrecoCmtSeq);
 	
-	// edittipModify
-	@Select("select edittipSubject, edittipSubtitle, edittipContent from edittip where edittipSeq=#{edittipSeq}")
-	Gorea_EditTip_BoardTO editTip_Modify(Gorea_EditTip_BoardTO eto);
 	
-	// edittipDeleteOk
-	@Delete("delete from edittip where edittipSeq=#{edittipSeq}")
-	int editTip_Delete_Ok(Gorea_EditTip_BoardTO eto);
-	
-	// edittipModifyOk
-	@Update("update edittip set edittipSubject=#{edittipSubject}, edittipSubtitle=#{edittipSubtitle}, edittipContent=#{edittipContent} where edittipSeq=#{edittipSeq}")
-	int editTip_Modify_Ok(Gorea_EditTip_BoardTO eto);
+	// Editrecommend 게시판 검색
+		@Select("<script>"
+		        + "SELECT editrecoSeq, userSeq, editrecoboardNo, editrecoSubject, editrecoSubtitle, editrecoContent "
+		        + "FROM editrecommend "
+		        + "<where>"
+		        + "  <if test='searchType != null and searchKeyword != null'>"
+		        + "    <choose>"
+		        + "      <when test='searchType.equals(\"title\")'>"
+		        + "        AND editrecoSubject LIKE CONCAT('%', #{searchKeyword}, '%')"
+		        + "      </when>"
+		        + "      <when test='searchType.equals(\"titleContent\")'>"
+		        + "        AND (editrecoSubject LIKE CONCAT('%', #{searchKeyword}, '%') OR editrecoContent LIKE CONCAT('%', #{searchKeyword}, '%'))"
+		        + "      </when>"
+		        + "    </choose>"
+		        + "  </if>"
+		        + "</where>"
+		        + "ORDER BY editrecoSeq DESC LIMIT #{firstRow}, #{pageSize}"
+		        + "</script>")
+		List<Gorea_EditRecommend_BoardTO> searchEditreco(@Param("searchType") String searchType, 
+		                                              @Param("searchKeyword") String searchKeyword,@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 
+
+	@Select("<script>"
+		        + "SELECT COUNT(*) "
+		        + "FROM editrecommend "
+		        + "<where>"
+		        + "  <if test='searchType != null and searchKeyword != null'>"
+		        + "    <choose>"
+		        + "      <when test='searchType.equals(\"title\")'>"
+		        + "        AND editrecoSubject LIKE CONCAT('%', #{searchKeyword}, '%')"
+		        + "      </when>"
+		        + "      <when test='searchType.equals(\"titleContent\")'>"
+		        + "        AND (editrecoSubject LIKE CONCAT('%', #{searchKeyword}, '%') OR editrecoContent LIKE CONCAT('%', #{searchKeyword}, '%'))"
+		        + "      </when>"
+		        + "    </choose>"
+		        + "  </if>"
+		        + "</where>"
+		        + "</script>")
+		int searchTotalCount(@Param("searchType") String searchType, @Param("searchKeyword") String searchKeyword);
 	
-	// edittipViewHit
-	@Update("update edittip set edittipHit=edittipHit+1 where edittipSeq=#{edittipSeq}")
-	int editTip_ViewHit(Gorea_EditTip_BoardTO eto);
 	
 }
 
