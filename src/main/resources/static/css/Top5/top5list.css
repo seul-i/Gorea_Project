@@ -269,3 +269,39 @@ p{
 	}
 	
 }
+
+/*view 부분 디자인*/
+
+
+.close{
+	background-color: #ffffff;
+}
+
+.modal-body {
+    text-align: center;
+}
+
+.modal-body h3{
+	margin-bottom: 15px;
+}
+
+.modal-body img{
+	width: 100%;
+	height: 250px;
+	margin-bottom: 15px;
+}
+
+#comment{
+	margin-bottom: 30px;
+}
+
+.modal-body label{
+	font-size:15px;
+}
+
+.modal-body .top5Map{
+	width: 100%;
+	height: 250px;
+	margin-bottom: 15px;
+	background-color:red;
+}
