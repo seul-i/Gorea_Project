@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -30,6 +31,8 @@ public class Gorea_Main_Controller {
 			
 		}else if(language.equals("chinese")) {
 			
+		}else {
+			return "gorea_accessdeniedPage";
 		}
 		
 		return "gorea_mainPage";

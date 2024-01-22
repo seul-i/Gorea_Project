@@ -209,3 +209,63 @@ p{
 .carousel-indicators{
     position: unset;
 }
+
+@media only screen and (max-width: 992px) {
+	
+	.BestTop3Imgbox .rank1 img{
+	    width: 120px;
+	    height: 120px;
+	    margin: -10px 30px 5px 30px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.BestTop3Imgbox .rank2 img{
+	    width: 120px;
+	    height: 120px;;
+	    margin: 45px 30px 5px 30px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.BestTop3Imgbox .rank3 img{
+	    width: 120px;
+	    height: 120px;
+	    margin: 65px 30px 5px 20px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+}
+
+@media only screen and (max-width: 680px) {
+	
+	.BestTop3Month h1 {
+		font-size: 35px;
+		font-weight: 800;
+	}
+	
+	.BestTop3Imgbox .rank1 img{
+	    width: 80px;
+	    height: 80px;
+	    margin: -10px 30px 5px 30px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.BestTop3Imgbox .rank2 img{
+	    width: 80px;
+	    height: 80px;;
+	    margin: 45px 30px 5px 30px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.BestTop3Imgbox .rank3 img{
+	    width: 80px;
+	    height: 80px;
+	    margin: 65px 30px 5px 20px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+}

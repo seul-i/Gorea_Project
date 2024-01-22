@@ -1,12 +1,26 @@
 @charset "UTF-8";
 
+p{
+	margin-bottom:0;
+}
+
+h3{
+	font-weight: 700;
+}
+
 body {
 	min-height: 100vh;
-	background: #f8f9fa;
+	font-family: 'Gowun Dodum', sans-serif;
+	background: url('/img/login/joinBackimg.jpg');
+	background-size: 100% 100%;
+}
+
+.container{
+	height: 1100px;
 }
 
 .btn-primary2{
-   background-color:  #98c6db;
+   background-color: #007DC3;
    width: 25%;
    margin-left: 5%;
    color : #fff;
@@ -26,7 +40,7 @@ body {
 .input-form input[type="password"],
 .input-form input[type="email"],
 .input-form button {
-	font-size: 1.2em; /* 텍스트 크기 증가 */
+	font-size: 1.0em; /* 텍스트 크기 증가 */
 }
 
 .mb-3{
@@ -34,7 +48,7 @@ body {
 }
 
 .btn-primary{
-	background-color:  #98c6db;
+	background-color: #007DC3;
 }
 
 .input-form {
@@ -54,4 +68,8 @@ body {
    .btn-primary2{
    width: 35%;
    }
+}
+
+.btn-lg{
+	font-size: 1.0em;
 }

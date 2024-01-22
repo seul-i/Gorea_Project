@@ -15,11 +15,7 @@ import com.gorea.login.LoginDetailService;
 import com.gorea.login.LoginFail;
 import com.gorea.login.LoginOauthUserService;
 import com.gorea.login.LoginSuccess;
-
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-
-
+import com.gorea.login.LogoutHandler;
 
 @EnableWebSecurity
 @Configuration
@@ -31,6 +27,8 @@ public class Gorea_LoginSecurity_Config {
 	// 로그인 실패시
 	@Autowired
 	private LoginFail loginFail;
+	@Autowired
+	private LogoutHandler logoutSuccess;
 	
 	@Autowired
 	private LoginDetailService loginDetailService;
@@ -51,33 +49,41 @@ public class Gorea_LoginSecurity_Config {
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		
+		
 		http.csrf(csrf ->csrf.disable()).cors(cors ->cors.disable());
                 
 		http.authorizeHttpRequests(request -> request
 //				.requestMatchers("/adminpage.do").hasRole("ADMIN")
 //              .requestMatchers("/user/**").hasAnyRole("ADMIN, USER")
 				.requestMatchers(new MvcRequestMatcher(null, "/admin/**")).hasRole("ADMIN")
-				.requestMatchers(new MvcRequestMatcher(null, "/Korean/user/**")).hasAnyRole("ADMIN, USER")
-				.requestMatchers(new MvcRequestMatcher(null, "/english/user/**")).hasAnyRole("ADMIN, USER")
-				.requestMatchers(new MvcRequestMatcher(null, "/chniese/user/**")).hasAnyRole("ADMIN, USER")
-				.requestMatchers(new MvcRequestMatcher(null, "/japanese/user/**")).hasAnyRole("ADMIN, USER")
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/user/**")).hasRole("USER")
+				.requestMatchers(new MvcRequestMatcher(null, "/english/user/**")).hasRole("USER")
+				.requestMatchers(new MvcRequestMatcher(null, "/chinese/user/**")).hasRole("USER")
+				.requestMatchers(new MvcRequestMatcher(null, "/japanese/user/**")).hasRole("USER")
+				
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/**write**")).hasAnyRole("ADMIN","USER")
+				.requestMatchers(new MvcRequestMatcher(null, "/english/**write**")).hasAnyRole("ADMIN","USER")
+				.requestMatchers(new MvcRequestMatcher(null, "/chinese/**write**")).hasAnyRole("ADMIN","USER")
+				.requestMatchers(new MvcRequestMatcher(null, "/japanese/**write**")).hasAnyRole("ADMIN","USER")
 				.anyRequest().permitAll()
 
 			)
 			.exceptionHandling(handling ->handling
 					.accessDeniedHandler(customAccessDeniedHandler)
 			)
+			
 			.formLogin(login -> login
 					.loginPage("/korean/login.do")
-				    .loginProcessingUrl("/loginProcKr")
-				    .successHandler(loginSuccess)
-				    .failureHandler(loginFail)
-            )
+					.loginProcessingUrl("/loginProc**")
+					.successHandler(loginSuccess)
+					.failureHandler(loginFail)
+			)
             .logout(logout -> logout
             		.invalidateHttpSession(true)
             	    .deleteCookies("JESSIONID")
-            	    .logoutUrl("/logout.do")
-            	    .logoutSuccessUrl("/korean/main.do")
+            	    .logoutUrl("/logout**.do")
+            	    .logoutSuccessHandler(logoutSuccess)
            
             )
             .rememberMe(me -> me
@@ -87,16 +93,15 @@ public class Gorea_LoginSecurity_Config {
             		.tokenValiditySeconds(60 * 60 * 24 * 7)
             		.userDetailsService(loginDetailService)
             );
+            
 		
 		http.oauth2Login(login -> login
-			    .loginPage("/korean/login.do")
 			    .userInfoEndpoint()
 			        .userService(loginOauthUserService)
 			        .and()
 			    .defaultSuccessUrl("/korean/main.do")
 			);
 		
-        return http.build();
-        
+        return http.build();  
     }
 }

@@ -60,6 +60,13 @@
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 	
+	<div class="commonBanner" id="comBanner">
+        <img src="/img/banner/Top5Banner.jpg" alt="banner">
+        <div class="commonBanner-text">
+            <h1>Best Top5</h1>
+        </div>
+    </div>
+	
 	<div class="BestTop3place">
 		<div class="BestTop3Month">
 			<h1>This Month's Best 3</h1>
@@ -108,7 +115,7 @@
 	        		<option value="기타국가">Etc</option>
     			</select>
 			</form>
-		 	<button type="button" class="btn btn-primary" id="writeButton">
+			<button type="button" class="btn btn-primary" id="writeButton">
 				글 작성하기
 			</button>
 		</div>
@@ -138,7 +145,7 @@
 							</c:if>
 						</div>
 						<div style="display: flex; justify-content: center; margin-bottom:10px;">
-<!-- 							<i class='fa fa-star-o fa-2x' style='color: grey;'></i> -->
+							<i class='fa fa-star-o fa-2x' style='color: grey;'></i>
 							<i class='fa fa-star fa-2x' style='color: #fff23f;'></i>
 						</div>
 					</div>
