@@ -17,13 +17,15 @@
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script type="text/javascript">
 		$( document ).ready( function() {
+			const userSeq = '${userSeq}';
 			
 			// 댓글 작성 버튼
 			$( '#replyWrite' ).on( 'click', function() {
 				console.log( "pseq는 : " + $('#pseq').val() );
 				console.log( "goreaboardNo는 : " + $('#goreaboardNo').val() );
+				console.log( "userSeq는 : " + userSeq );
 				
-				writeOkServer();
+				writeOkServer( userSeq );
 			});
 			
 			// 댓글 삭제 버튼
@@ -83,8 +85,9 @@
 				
 				console.log( "쓰기 grp는 : " + grp);
 				console.log( "쓰기 content는 : " + replyContent );
+				console.log( "쓰기 userSeq는 : " + userSeq );
 				
-				reWriteOkServer( grp, replyContent );
+				reWriteOkServer( grp, replyContent, userSeq );
 			});
 			
 			// 대댓글 작성 취소 버튼
@@ -167,17 +170,20 @@
 								
 								html += '<input type="hidden" id="cseq" value="' + item.cseq + '" />';
 								html += '<input type="hidden" id="grp" value="' + item.grp + '" />';
-								html += 	'<button id="rereplyWrite">답변쓰기</button></span>';
 								
+								 if (!loginUserSeq) {
+							            html += '<button id="rereplyWrite" style="display:none;">답변쓰기</button></span>';
+							        } else {
+							            html += '<button id="rereplyWrite">답변쓰기</button></span>';
 								
-								if (loginUserSeq == item.userSeq) {
-									//html += '<button id="rereplyWrite">답변쓰기</button></span>';
-									html +=     '<div>';
-						            html +=         '<button id="replyModify">댓글 수정</button>';
-						            html +=         '<button id="replyDelete">댓글 삭제</button>';
-						            html +=     '</div>';
-								}
-								
+										if (loginUserSeq == item.userSeq) {
+											//html += '<button id="rereplyWrite">답변쓰기</button></span>';
+											html +=     '<div>';
+								            html +=         '<button id="replyModify">댓글 수정</button>';
+								            html +=         '<button id="replyDelete">댓글 삭제</button>';
+								            html +=     '</div>';
+										}
+							        }
 					            html += '</div>';
 					            
 					            //form과 공간 만들기
@@ -248,16 +254,18 @@
 			});
 		};		
 		
-		const writeOkServer = function(){
+		const writeOkServer = function( userSeq ){
 			$.ajax({
 				url: '/korean/gorea_reply_write_ok.do',
 				type: 'post',
 				data: {
 					pseq: $( '#pseq' ).val(),
 					replyContent: $( '#replyContent' ).val(),
-					goreaboardNo: $( '#goreaboardNo' ).val()
+					goreaboardNo: $( '#goreaboardNo' ).val(),
+					userSeq: userSeq
 				},
 				success: function(response){
+					//console.log( userSeq );
 					alert("작성 성공");
 					$('#replyContent').val('');
 					
@@ -270,7 +278,7 @@
 			});
 		};
 		
-		const reWriteOkServer = function( grp, replyContent ) {
+		const reWriteOkServer = function( grp, replyContent, userSeq ) {
 			$.ajax({
 				url: '/korean/gorea_rereply_wtire_ok.do',
 				type: 'post',
@@ -278,7 +286,8 @@
 					pseq: $( '#pseq' ).val(),
 					replyContent: $( '#rereplyContent' + grp ).val(),
 					goreaboardNo: $( '#goreaboardNo' ).val(),
-					grp: grp
+					grp: grp,
+					userSeq: userSeq
 				},
 				success: function(response){
 					console.log( replyContent );
@@ -354,6 +363,7 @@
 				}
 			});
 		}
+	
 	</script>
 </head>
 <body>
@@ -378,6 +388,8 @@
         
         <c:choose>
         	<c:when test="${not empty userSeq }">
+        		<input type="hidden" id="goreaboardNo" value="${to.userRecomboardNo}" />
+        		<input type="hidden" id="pseq" value="${to.userRecomSeq}" />
         		<input type="hidden" name="userSeq" value="${userSeq}"/>
 		        <div class="comment-form" style="display: flex;">
 		            <textarea id="replyContent" style="resize: none;" placeholder="댓글을 입력하세요"></textarea>
@@ -389,10 +401,6 @@
         <div class="comment-section" id="comment">
      
         </div>
-        <!-- <div class="comment-form">
-            <textarea id="replyContent" style="resize: none;" placeholder="댓글을 입력하세요"></textarea>
-            <button class="btn" id="replyWrite">댓글 작성</button>
-        </div> -->
         
         <input type="hidden" id="goreaboardNo" value="${to.userRecomboardNo}" />
         <input type="hidden" id="pseq" value="${to.userRecomSeq}" />

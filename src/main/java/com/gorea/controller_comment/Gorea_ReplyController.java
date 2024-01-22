@@ -46,6 +46,7 @@ public class Gorea_ReplyController {
 		rto.setPseq( request.getParameter( "pseq" ) );
 		rto.setReplyContent( request.getParameter( "replyContent" ) );
 		rto.setGoreaboardNo( request.getParameter( "goreaboardNo" ) );
+		rto.setUserSeq( request.getParameter( "userSeq" ) );
 		
 		int flag = rdao.reply_writeOk(rto);
 		
@@ -103,6 +104,7 @@ public class Gorea_ReplyController {
 		rto.setGoreaboardNo( request.getParameter( "goreaboardNo" ) );
 		rto.setReplyContent( request.getParameter( "replyContent" ) );
 		rto.setGrp( Integer.parseInt(request.getParameter( "grp" ) ) );
+		rto.setUserSeq( request.getParameter("userSeq") );
 		
 		int flag = rdao.rereply_WriteOk(rto);
 		

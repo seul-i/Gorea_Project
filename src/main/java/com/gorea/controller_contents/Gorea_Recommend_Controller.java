@@ -130,7 +130,7 @@ public class Gorea_Recommend_Controller {
 		
 		model.addAttribute( "language", language );
 		
-		return "contents/contents_user_recommend/userRecommend_List";
+		return "contents/contents_user_recommend/userRecommend_List2";
 	}
 	
 	
