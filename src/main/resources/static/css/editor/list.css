@@ -116,7 +116,7 @@ i {
 }
 
 .album .image img {
-	width: 220px;
+	width: 250px;
 	height: 250px;
 
 }
@@ -294,8 +294,7 @@ i {
 
 
 .write_button_container {
-    text-align: center;
-    margin-left: auto;
+    text-align: right;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -311,6 +310,7 @@ i {
     font-size: 12px;
     font-weight: bold;
     color: aliceblue;
+    margin-right: 10%;
 }
 
 .title>a {
@@ -413,7 +413,6 @@ i {
 	.pagination-item {
 		margin: 0 5px;
 		padding: 5px 10px;
-		border: 1px solid #ccc;
 		border-radius: 5px;
 		text-decoration: none;
 		color: #333;
