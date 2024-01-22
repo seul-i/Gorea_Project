@@ -123,6 +123,7 @@ public class Gorea_Notice_Controller {
 		
 		to.setNoticeTitle(request.getParameter( "noticeTitle" ));
 		to.setNoticeContent(request.getParameter("noticeContent"));
+		to.setUserSeq(request.getParameter("userSeq"));
 		
 		if(language.equals("korean")) {
 			flag = dao.notice_Write_Ok(to);
