@@ -43,6 +43,7 @@
                     html += '<div class="user-meta">';
                     html += '<div class="name">' + edittipCmtContent.userNickname + '</div>';
                     html += '<div class="day">' + edittipCmtContent.edittipCmtWdate + '</div>';
+                    html += '<div class="original-comment">' + edittipCmtContent.edittipCmtContent + '</div>';
                     html += '</div>';
                     html += '</div>';
 
@@ -50,32 +51,24 @@
 
                     if (loginUserSeq == edittipCmtContent.userSeq) {
                         // 수정, 삭제 버튼은 댓글 작성자와 로그인한 사용자가 동일한 경우에만 표시
-                        html += '<div>';
+                        html += '<div class="comment-buttons">';
                         html += '<button class="modify" data-reply="' + edittipCmtContent.edittipCmtSeq + '" data-user-seq="' + edittipCmtContent.userSeq + '">수정</button>';
                         html += '<button class="delete" data-reply="' + edittipCmtContent.edittipCmtSeq + '" data-user-seq="' + edittipCmtContent.userSeq + '">삭제</button>';
                         html += '</div>';
                     }
 
                     html += '</div>';
-
-                    if (edittipCmtContent.isEditing) {
-                        // 수정 중인 경우, 수정 폼 표시
-                        html += '<div class="replyModify-form" id="replyModifyForm_' + edittipCmtContent.edittipCmtSeq + '">';
-                        html += '<input type="hidden" name="edittipCmtSeq" value="' + edittipCmtContent.edittipCmtSeq + '">';
-                        html += '<div class="comment-container">';
-                        html += '<div class="original-comment">' + edittipCmtContent.edittipCmtContent + '</div>'; // 기존 댓글 내용 표시
-                        html += '<textarea style="resize: none;" id="replyModifyComment_' + edittipCmtContent.edittipCmtSeq + '" placeholder="댓글 내용">' + edittipCmtContent.edittipCmtContent + '</textarea>';
-                        html += '<button class="save" data-reply="' + edittipCmtContent.edittipCmtSeq + '">저장</button>';
-                        html += '</div>';
-                        html += '</div>';
-                    } else {
-                        // 수정 중이 아닌 경우, 댓글 내용 표시
-                        html += '<div class="comment">' + edittipCmtContent.edittipCmtContent + '</div>';
-                    }
-
-                    html += '</div>';
+					
+                    // 수정 폼
+                    html += '<div class="replyModify-form" id="replyModifyForm_' + edittipCmtContent.edittipCmtSeq + '" style="display:none;">';
+                    html += '<input type="hidden" name="edittipCmtSeq" value="' + edittipCmtContent.edittipCmtSeq + '">';
+                    html += '<div class="original-comment" style="text-align: left;">' + edittipCmtContent.edittipCmtContent + '</div>'; // 기존 댓글 내용 표시
+                    html += '<textarea style="resize: none;" id="replyModifyComment_' + edittipCmtContent.edittipCmtSeq + '" style=" border: 1px solid #ccc; ">' + edittipCmtContent.edittipCmtContent + '</textarea>';
+                    html += '<button class="save" data-reply="' + edittipCmtContent.edittipCmtSeq + '">저장</button>';
                     html += '</div>';
 
+                    html += '</div>'; // 추가된 부분
+                    
                     replyContainer.append(html);
                 }
 
@@ -89,24 +82,21 @@
                         // 기존 댓글 정보를 가져옴
                         var edittipCmtContent = replyElement.find(".original-comment").text().trim();
 
-                        // 수정 폼 생성
-                        var editForm = '<div class="replyModify-form" id="replyModifyForm_' + edittipCmtSeq + '">';
-                        editForm += '<input type="hidden" name="edittipCmtSeq" value="' + edittipCmtSeq + '">';
-                        editForm += '<div class="comment-container">';
-                        editForm += '<div class="original-comment">' + edittipCmtContent + '</div>'; // 기존 댓글 내용 표시
-                        editForm += '<textarea style="resize: none;" id="replyModifyComment_' + edittipCmtSeq + '" placeholder="댓글 내용">' + edittipCmtContent + '</textarea>';
-                        editForm += '<button class="save" data-reply="' + edittipCmtSeq + '">저장</button>';
-                        editForm += '</div>';
-                        editForm += '</div>';
-
-                        // 기존 댓글을 수정 폼으로 교체
-                        replyElement.html(editForm);
+                     	// 수정 폼 표시
+                        replyElement.find(".comment-buttons").hide(); // 수정, 삭제 버튼 감춤
+                        replyElement.find(".original-comment").hide();
+                        replyElement.find(".replyModify-form").show();
 
                         // 저장 버튼 클릭 이벤트 처리
                         $("#replyModifyForm_" + edittipCmtSeq + " .save").off("click").on("click", function () {
                             var edittipCmtSeq = $(this).data("reply");
                             var edittipCmtContent = $("#replyModifyComment_" + edittipCmtSeq).val();
                             saveReply(edittipCmtSeq, edittipCmtContent);
+                            
+                         // 수정 폼 숨기고 수정, 삭제 버튼 다시 표시
+                            replyElement.find(".comment-buttons").show();
+                            replyElement.find(".original-comment").show();
+                            replyElement.find(".replyModify-form").hide();
                         });
                     } else {
                         alert("댓글을 작성한 사용자만이 수정할 수 있습니다.");
@@ -273,6 +263,8 @@
             <div id="replyContainer"></div>
         </div>
          
+       <c:choose>
+		<c:when test="${role eq 'ROLE_ADMIN'}">
             <div style="text-align: right; margin-top: 10px;">
                 <button class="btn1" type="button"
                     onclick="location.href='editTip_delete_ok.do?edittipSeq=${seq}'">
@@ -283,6 +275,8 @@
                 <button class="btn1" type="button"
                     onclick="location.href='editTip_list.do'">목록</button>
             </div>
+        </c:when>
+  	   </c:choose>
         
     </div>
 </section>
