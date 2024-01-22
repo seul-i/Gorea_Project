@@ -40,12 +40,19 @@
         		deleteOkServer( cseq, grp );
     		});
 			
+			
 			// 댓글 수정 버튼
 			$(document).on('click', '#replyModify', function(){
 				const cseq = $(this).closest('.comment').find('#cseq').val();
 				
+				console.log( "cseq는 : " + cseq );
+				
+				// 모든 댓글 작업 버튼을 숨깁니다.
+			    $('.reply-action-btn').hide();
+				
 				$('#modifyForm' + cseq ).show();
 			});
+			
 			
 			// 수정 확인 버튼
 			$(document).on( 'click', '#replyModifyOk', function(){
@@ -56,21 +63,27 @@
 				modifyOkServer( cseq );
 			});
 			
+			
 			// 수정 취소 버튼
 			$(document).on( 'click', '#replyModifyCancel', function(){
 				const cseq = $(this).closest('.comment').find('#cseq').val();
 				
-				console.log( "cseq는 : " + cseq );
+				// 모든 댓글 작업 버튼을 숨깁니다.
+			    $('.reply-action-btn').show();
 				
 				$('#modifyForm' + cseq ).hide();
 			});
+			
 			
 			// 대댓글 작성 폼 버튼
 			$(document).on( 'click', '#rereplyWrite', function() {
 				const cseq = $(this).closest('.comment').find('#cseq').val();
 				
+				$('.reply-action-btn').hide();
+
 				$( '#rereplyWriteForm' + cseq ).show();
 			});
+			
 			
 			// 대댓글 쓰기 버튼
 			$(document).on( 'click', '#rereplyWriteBtn', function(){
@@ -89,6 +102,8 @@
 				const grp = $(this).closest('.comment').find('#grp').val();
 				
 				console.log( "취소 grp는 : " + grp );
+				
+				$('.reply-action-btn').show();
 				
 				$( '#rereplyWriteForm' + grp ).hide();
 			});
@@ -156,15 +171,15 @@
 								html += '<input type="hidden" id="grp" value="' + item.grp + '" />';
 								
 								 if (!loginUserSeq) {
-							            html += '<button id="rereplyWrite" style="display:none;">답변쓰기</button></span>';
+							            html += '<button class="btn reply-action-btn" id="rereplyWrite" style="display:none;">답변쓰기</button></span>';
 							        } else {
-							            html += '<button id="rereplyWrite">답변쓰기</button></span>';
+							            html += '<button class="btn reply-action-btn" id="rereplyWrite">답변쓰기</button></span>';
 								
 										if (loginUserSeq == item.userSeq) {
 											//html += '<button id="rereplyWrite">답변쓰기</button></span>';
 											html +=     '<div>';
-								            html +=         '<button id="replyModify">댓글 수정</button>';
-								            html +=         '<button id="replyDelete">댓글 삭제</button>';
+								            html +=         '<button class="btn reply-action-btn" id="replyModify">댓글 수정</button>';
+								            html +=         '<button class="btn reply-action-btn" id="replyDelete">댓글 삭제</button>';
 								            html +=     '</div>';
 										}
 							        }
@@ -188,8 +203,8 @@
 					            html +=			'<textarea id="modifyContent' + item.cseq + '" style="resize: none; flex: 1; padding: 10px; border-radius: 4px; border: 1px solid #ccc; min-height: 60px; width: 80%;" placeholder="' + item.replyContent + '"></textarea>';
 					            html += 	'</div>';
 					            html += 	'<div>';
-					            html += 		'<button id="replyModifyOk">확인</button>';
-					            html += 		'<button id="replyModifyCancel">취소</button>';
+					            html += 		'<button class="btn" id="replyModifyOk">확인</button>';
+					            html += 		'<button class="btn" id="replyModifyCancel">취소</button>';
 					            html += 	'</div>';
 					            html += '<hr>';
 					            html += '</div>';
@@ -207,8 +222,8 @@
 					           if (loginUserSeq == item.userSeq) {
 					        	   html += '<input type="hidden" id="cseq" value="' + item.cseq + '" />';
 						           html +=            '<div>';
-						           html +=                '<button id="replyModify">수정</button>';
-						           html +=                '<button id="rereplyDelete">삭제</button>';
+						           html +=                '<button class="btn reply-action-btn" id="replyModify">수정</button>';
+						           html +=                '<button class="btn reply-action-btn" id="rereplyDelete">삭제</button>';
 						           html +=            '</div>';
 					           }
 						            
@@ -221,8 +236,8 @@
 					            html +=			'<textarea id="modifyContent' + item.cseq + '" style="resize: none; flex: 1; padding: 10px; border-radius: 4px; border: 1px solid #ccc; min-height: 60px; width: 80%;" placeholder="' + item.replyContent + '"></textarea>';
 					            html += 	'</div>';
 					            html += 	'<div>';
-					            html += 		'<button id="replyModifyOk">확인</button>';
-					            html += 		'<button id="replyModifyCancel">취소</button>';
+					            html += 		'<button class="btn" id="replyModifyOk">확인</button>';
+					            html += 		'<button class="btn" id="replyModifyCancel">취소</button>';
 					            html += 	'</div>';
 					            html += '<hr>';
 					            html += '</div>';
@@ -368,7 +383,9 @@
             <c:out value = "${to.userRecomContent }" escapeXml="false" />
         </div>
         <!-- 댓글 수 추천 수 공간 -->
-        <div class="comments-count" style="display : flex;"><div>추천 5개</div>&nbsp&nbsp<div id="replyCount"></div></div>
+        <div class="comments-count" style="display : flex;">
+        	<div>추천 5개</div>&nbsp;&nbsp;<div id="replyCount"></div>
+        </div>
         
         <c:choose>
         	<c:when test="${not empty userSeq }">
@@ -382,9 +399,7 @@
 	        </c:when>
         </c:choose>
         
-        <div class="comment-section" id="comment">
-     
-        </div>
+        <div class="comment-section" id="comment"></div>
         
         <input type="hidden" id="goreaboardNo" value="${to.userRecomboardNo}" />
         <input type="hidden" id="pseq" value="${to.userRecomSeq}" />
@@ -396,11 +411,12 @@
 	        	<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='/korean/userRecom.do'" />
 	            <c:if test="${userSeq eq to.userSeq}">
 		            <!-- userSeq와 게시글 작성자의 userSeq가 일치하는 경우에만 수정 및 삭제 버튼 표시 -->
-		            <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='userRecom_modify.do?seq=${to.userRecomSeq}'" />
-		            <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='userRecom_delete_ok.do?seq=${to.userRecomSeq}'" />
+		            <input type="button" value="수정" class="btn reply-action-btn" style="cursor: pointer;" onclick="location.href='userRecom_modify.do?seq=${to.userRecomSeq}'" />
+		            <input type="button" value="삭제" class="btn reply-action-btn" style="cursor: pointer;" onclick="location.href='userRecom_delete_ok.do?seq=${to.userRecomSeq}'" />
         		</c:if>
 	        </div>
     	</div>
+    	
     </div>
 <script>
 	//function increaseLikes(freeSeq) {

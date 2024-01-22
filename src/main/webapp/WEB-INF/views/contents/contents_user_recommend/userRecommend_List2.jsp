@@ -66,8 +66,8 @@
 							</div>
 							<div class="info">
 								<div class="category">카테고리</div>
-								<div class="title"><a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomTitle}" /></a></div>
-								<div class="subtitle"><a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomContent }" /></a></div>
+								<div class="title"><a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomTitle}"/></a></div>
+								<div class="subtitle"><a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomContent }" escapeXml="false" /></a></div>
 								<br>
 								<div class="info_bottom_container">
 									<div class="info_bottom">
@@ -85,30 +85,6 @@
 						</div>
 					</c:forEach>
 				</c:if>
-				
-				<div class="things">
-					<div class="thumb">
-						<img src="./images/3e323ee9-9fff-450e-aabf-b9b006d5620c.jpg" alt="이미지 설명">
-					</div>
-					<div class="info">
-						<div class="category">카테고리</div>
-						<div class="title">제목</div>
-						<div class="subtitle">짧은 내용</div>
-						<br>
-						<div class="info_bottom_container">
-							<div class="info_bottom">
-								<div class="bottom_left">
-									<div class="userNickname">작성자</div>
-									<div class="postdate">작성일</div>
-								</div>
-								<div class="bottom_right">
-									<div class="like">추천</div>
-									<div class="recommend">댓글</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 				
 			</div>
 		
