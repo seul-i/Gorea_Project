@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Go!rea</title>
-    <link rel="stylesheet" type="text/css" href="/css/userRecommend/list.css">
+    <link rel="stylesheet" type="text/css" href="/css/userRecommend/list2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -36,43 +36,61 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
-	<div class="board_wrap">
+    <div class="board_wrap">
+    
 		<div class="board_title">
-	        <strong>유저추천</strong>
-	    </div>
-	    <div class="board_list_wrap">
-	        <div class="board_list">
-	            <div class="top">
-	                <div class="num">번호</div>
-	                <div class="title">제목</div>
-	                <div class="writer">글쓴이</div>
-	                <div class="date">작성일</div>
-	                <div class="recommend">추천수</div>
-	                <div class="count">조회</div>
-	            </div>
-	            
-	            <!-- list 부분 -->
-	            <c:if test="${empty lists}">
-                    <div style="text-align: center; padding: 20px; font-size: 18px;">
+			<strong>유저추천</strong>
+		</div>
+		<div class="board_list_wrap">
+			<div class="boardList">
+			    <select id="selectBar" name="selectBar" value="카테고리">
+			        <option value="option1">Option 1</option>
+			        <option value="option2">Option 2</option>
+			        <option value="option3">Option 3</option>
+			        <!-- Add more options as needed -->
+			    </select>
+				
+				<!-- list 부분 -->
+				<c:if test="${empty lists }">
+					<div style="text-align: center; padding: 20px; font-size: 18px;">
                         등록된 게시글이 없습니다.
                     </div>
-                </c:if>
-                
-	            <c:if test="${not empty lists}">
-	              	<c:forEach var="to" items="${lists}">
-	                    <div>
-	                        <div class='num'>${to.userRecomSeq}</div>
-	                        <div class='title'><a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomTitle}" /></a></div>
-	                        <div class='writer'>${to.userNickname}</div>
-	                        <div class='date'>${to.userRecompostDate}</div>
-	                        <div class='recommend'>${to.userRecomcount }</div>
-	                        <div class='count'><c:out value="${to.userRecomHit}" /></div>
-	                    </div>
-	                </c:forEach>
-	            </c:if>
-	            
-	          </div>
-	      	<div class="bottom-container">   
+				</c:if>
+				
+				<c:if test="${not empty lists }">
+					<c:forEach var="to" items="${lists }">
+						<div class="things">
+							<div class="thumb">
+								<c:choose>
+									<img src='${to.firstImageUrl }' alt=''>
+									<a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'></a>
+								</c:choose>
+							</div>
+							<div class="info">
+								<div class="category">카테고리</div>
+								<div class="title"><a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomTitle}" /></a></div>
+								<div class="subtitle"><a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomContent }" /></a></div>
+								<br>
+								<div class="info_bottom_container">
+									<div class="info_bottom">
+										<div class="bottom_left">
+											<div class="userNickname">${to.userNickname }</div>
+											<div class="postdate">${to.userRecomcount }</div>
+										</div>
+										<div class="bottom_right">
+											<div class="like">추천</div>
+											<div class="hit">${to.userRecomHit}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</c:if>				
+			</div>
+		
+	
+			<div class="bottom-container">   
 	        	<div class="pagination">
 				<!-- 처음 페이지 버튼 -->
 					<c:choose>
@@ -165,7 +183,8 @@
     			<input type="submit" value="검색">
 				</form>
         	</div>
-	    </div>
+        
+        </div>
     </div>
     <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
     
