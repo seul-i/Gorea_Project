@@ -41,12 +41,12 @@ public interface QnAMapperInter {
 	int QnA_Delete_Ok(Gorea_QnA_BoardTO to);
 	
 	// QnAReplyList
-		@Select("SELECT q.qnaSeq, q.qnaCmtSeq, q.userSeq, q.qnaCmtContent, DATE_FORMAT(q.qnaCmtWdate, '%Y.%m.%d') AS qnaCmtWdate, u.userNickname AS userNickname " +
-		        "FROM QnAReply q " +
-		        "JOIN user u ON q.userSeq = u.userSeq " +
-		        "WHERE q.qnaSeq=#{qnaSeq} " +
-		        "ORDER BY Q.qnaCmtSeq DESC")
-		List<Gorea_QnA_ReplyTO> QnAReplyList(String qnaSeq);
+	@Select("SELECT q.qnaSeq, q.qnaCmtSeq, q.userSeq, q.qnaCmtContent, DATE_FORMAT(q.qnaCmtWdate, '%Y.%m.%d') AS qnaCmtWdate, u.userNickname AS userNickname, u.userNation AS userNation " +
+			"FROM QnAReply q " +
+			"JOIN user u ON q.userSeq = u.userSeq " +
+			"WHERE q.qnaSeq=#{qnaSeq} " +
+			"ORDER BY q.qnaCmtSeq DESC")
+			List<Gorea_QnA_ReplyTO> QnAReplyList(String qnaSeq);
 		
 		// QnAReply_Write
 		@Insert("insert into QnAReply values (#{qnaSeq}, 0, #{userSeq}, #{qnaCmtContent}, now() )")

@@ -3,14 +3,6 @@
             padding: 0;
         }
 
-        html {
-            font-size: 10px;
-        }
-
-        body {
-            font-family: Arial, sans-serif; /* 폰트 스타일을 원하는 대로 설정할 수 있습니다 */
-        }
-
         ul, li {
             list-style: none;
         }
@@ -25,7 +17,7 @@
             margin: 0 auto; 
             margin-top: 50px;
             margin-bottom: 50px;
-            height: 100vh;
+            font-size: 10px;
         }
 
         .board_title {
@@ -34,12 +26,12 @@
         }
 
         .board_title strong {
-            font-size: 3rem;
+            font-size: 2rem;
         }
 
         .board_title p {
             margin-top: 5px;
-            font-size: 1.3rem;
+            font-size: 0.9rem;
         }
 
         .bt_wrap {
@@ -55,7 +47,7 @@
             padding: 10px;
             border: 1px solid #000;
             border-radius: 2px;
-            font-size: 1.3rem;
+            font-size: 0.9rem;
         }
 
         .bt_wrap a:first-child {
@@ -89,7 +81,7 @@
             display: inline-block;
             padding: 15px 0;
             text-align: center;
-            font-size: 1.3rem;
+            font-size: 0.9rem;
         }
 
         .board_list > div.top > div {
@@ -154,9 +146,6 @@
             color: #fff;
         }
 
-        .board_page a:first-child {
-        }
-
         @media (max-width: 1000px) {
             .board_wrap {
                 width: 80%;
@@ -195,7 +184,7 @@
                 padding-top: 6px;
             }
 	.board_title strong {
-    	font-size: 1.8rem;
+    	font-size: 1.0rem;
 	}
         }
         .write_button_container {
@@ -209,7 +198,7 @@
     background-color: #007DC3;
     color: white;
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 0.9rem;
     transition: background-color 0.3s;
 }
 
