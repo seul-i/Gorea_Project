@@ -24,7 +24,7 @@ public interface UserRecomMapperInter {
 	int get_userRecommentTotalCount();
 	
 	// writeOk
-	@Insert( "insert into UserRecommend values (0, 1, 2, #{userRecomTitle}, now(), 0, #{userRecomContent}, 0, 0)" )
+	@Insert( "insert into UserRecommend values (0, #{userSeq}, 2, #{userRecomTitle}, now(), 0, #{userRecomContent}, 0, 0)" )
 	int userRecom_WriteOk( Gorea_Recommend_BoardTO to );
 		
 	// view
@@ -57,14 +57,14 @@ public interface UserRecomMapperInter {
 	int userRecom_modifyOk( Gorea_Recommend_BoardTO to );
 	
 	// 댓글 수 증가
-	@Update( "update userrecommend set userRecomCmt=userRecomCmt+1 where userRecomSeq=#{pseq}" )
+	@Update( "update UserRecommend set userRecomCmt=userRecomCmt+1 where userRecomSeq=#{pseq}" )
 	int userRecomCmtUp( Gorea_ReplyTO rto );
 	
 	// 댓글 수 감소
-	@Update( "update userrecommend set userRecomCmt=userRecomCmt-1 where userRecomSeq=#{pseq}" )
+	@Update( "update UserRecommend set userRecomCmt=userRecomCmt-1 where userRecomSeq=#{pseq}" )
 	int userRecomCmtDown( Gorea_ReplyTO rto );
 	
 	// 댓글 수
-	@Select( "select userrecomcmt from userrecommend where userrecomseq=#{userRecomSeq}" )
+	@Select( "select userrecomcmt from UserRecommend where userrecomseq=#{userRecomSeq}" )
 	Gorea_Recommend_BoardTO replyCount( Gorea_Recommend_BoardTO to );
 }

@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>게시판 뷰</title>
     <link rel="stylesheet" type="text/css" href="/css/userRecommend/view.css">
+    <script src="https://kit.fontawesome.com/42d55d598f.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script type="text/javascript">
@@ -115,7 +116,7 @@
 		 
 		const readServer = function( cseq , userNickname, replyContent, replypostDate, grp, grpl, userSeq ) {
 			$.ajax({
-				url: '/korean/gorea_replyList.do',
+				url: '/korean/gorea_reply.do',
 				type: 'get',
 				data : {
 					pseq : $('#pseq').val(),
@@ -130,7 +131,7 @@
 				},
 				dataType: 'json',
 				success: function( data ) {
-					for( var i = 0; i<data.length; i++ ){
+					/* for( var i = 0; i<data.length; i++ ){
 						console.log( "pseq : " + data[i].pseq );
 						console.log( "goreaNo : " + data[i].goreaboardNo );
 						console.log( "cseq : " + data[i].cseq );
@@ -139,17 +140,18 @@
 						console.log( "grp : " + data[i].grp );
 						console.log( "grpl : " + data[i].grpl );
 						console.log( "userSeq : " + data[i].userSeq );
-					}
+					} */
 					
 					$( '.comment-section' ).empty();
 					let html = '';
 					
 					$.each( data, function ( index, item ){
 
-						html += '<div class="comment">';
 						html += '<input type="hidden" id="cseq" value="' + item.cseq + '" />';
 						html += '<input type="hidden" id="grp" value="' + item.grp + '" />';
 						html += '<input type="hidden" id="grpl value="' + item.grpl +'"/>';
+						
+						html += '<div class="comment" style="display:flex; justify-content: space-between; width: 100%;">';
 						
 						var loginUserSeq = "${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}";
 						
@@ -161,16 +163,25 @@
 								html += '<div class="comment-actions">';
 								html += 	'<span class="comment-timestamp">' + item.replypostDate ;
 
+								html += '<input type="hidden" name="userSeq" value="${userSeq}"/>';
+								
+								html += '<input type="hidden" id="cseq" value="' + item.cseq + '" />';
+								html += '<input type="hidden" id="grp" value="' + item.grp + '" />';
+								html += 	'<button id="rereplyWrite">답변쓰기</button></span>';
+								
+								
 								if (loginUserSeq == item.userSeq) {
-									html += '<button id="rereplyWrite">답변쓰기</button></span>';
+									//html += '<button id="rereplyWrite">답변쓰기</button></span>';
 									html +=     '<div>';
 						            html +=         '<button id="replyModify">댓글 수정</button>';
 						            html +=         '<button id="replyDelete">댓글 삭제</button>';
 						            html +=     '</div>';
 								}
+								
 					            html += '</div>';
 					            
-					            html += '<br>';
+					            //form과 공간 만들기
+					            
 					            html += '<div id="rereplyWriteForm' + item.grp + '" style="display : none;">';
 					            html += 	'<div class="reply-body' + item.grp + '">';
 					            html += 		'<textarea id="rereplyContent' + item.grp + '" style="resize:none; flex: 1; padding: 10px; border-radius: 4px; border: 1px solid #ccc; min-height: 60px; width: 80%;" placeholder="대댓글을 입력하세요"></textarea>';
@@ -203,12 +214,13 @@
 					            html +=        '<div class="comment-actions">';
 					            html +=            '<span class="comment-timestamp">' + item.replypostDate + '</span>';
 					            
-					            if (loginUserSeq == item.userSeq) {
-						            html +=            '<div>';
-						            html +=                '<button id="replyModify">수정</button>';
-						            html +=                '<button id="rereplyDelete">삭제</button>';
-						            html +=            '</div>';
-					            }
+					           if (loginUserSeq == item.userSeq) {
+					        	   html += '<input type="hidden" id="cseq" value="' + item.cseq + '" />';
+						           html +=            '<div>';
+						           html +=                '<button id="replyModify">수정</button>';
+						           html +=                '<button id="rereplyDelete">삭제</button>';
+						           html +=            '</div>';
+					           }
 						            
 					            html +=        '</div>';
 					            html +=    '</div>';
@@ -238,7 +250,7 @@
 		
 		const writeOkServer = function(){
 			$.ajax({
-				url: '/korean/gorea_replyWriteOk.do',
+				url: '/korean/gorea_reply_write_ok.do',
 				type: 'post',
 				data: {
 					pseq: $( '#pseq' ).val(),
@@ -260,7 +272,7 @@
 		
 		const reWriteOkServer = function( grp, replyContent ) {
 			$.ajax({
-				url: '/korean/gorea_rereply_Wtire_Ok.do',
+				url: '/korean/gorea_rereply_wtire_ok.do',
 				type: 'post',
 				data:{
 					pseq: $( '#pseq' ).val(),
@@ -286,7 +298,7 @@
 		
 		const deleteOkServer = function( cseq, grp ) {
 			$.ajax({
-				url: '/korean/gorea_replyDeleteOk.do',
+				url: '/korean/gorea_reply_delete_ok.do',
 				type: 'post',
 				data:{
 					pseq: $('#pseq').val(),
@@ -306,7 +318,7 @@
 		
 		const modifyOkServer = function( cseq ){
 			$.ajax({
-				url: '/korean/gorea_replyModifyOk.do',
+				url: '/korean/gorea_reply_modify_ok.do',
 				type: 'post',
 				data:{
 					pseq: $( '#pseq' ).val(),
@@ -326,7 +338,7 @@
 		
 		const reDeleteOkServer = function( cseq ){
 			$.ajax({
-				url: '/korean/gorea_rereply_Delete_Ok.do',
+				url: '/korean/gorea_rereply_delete_ok.do',
 				type: 'post',
 				data:{
 					pseq: $( '#pseq' ).val(),
@@ -363,13 +375,18 @@
         </div>
         <!-- 댓글 수 추천 수 공간 -->
         <div class="comments-count" style="display : flex;"><div>추천 5개</div>&nbsp&nbsp<div id="replyCount"></div></div>
-        <div class="comment-section" id="comment">
-     
-        </div>
-        <div class="comment-form">
+        
+        <div class="comment-form" style="display: flex;">
             <textarea id="replyContent" style="resize: none;" placeholder="댓글을 입력하세요"></textarea>
             <button class="btn" id="replyWrite">댓글 작성</button>
         </div>
+        <div class="comment-section" id="comment">
+     
+        </div>
+        <!-- <div class="comment-form">
+            <textarea id="replyContent" style="resize: none;" placeholder="댓글을 입력하세요"></textarea>
+            <button class="btn" id="replyWrite">댓글 작성</button>
+        </div> -->
         
         <input type="hidden" id="goreaboardNo" value="${to.userRecomboardNo}" />
         <input type="hidden" id="pseq" value="${to.userRecomSeq}" />
@@ -378,9 +395,9 @@
 	        <div class="left-buttons">
 	        </div>
 	        <div class="right-buttons">
-	        	<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='/korean/userRecomList.do'" />
-	            <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='userRecomModify.do?seq=${to.userRecomSeq}'" />
-	            <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='userRecomDeleteOk.do?seq=${to.userRecomSeq}'" />
+	        	<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='/korean/userRecom.do'" />
+	            <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='userRecom_modify.do?seq=${to.userRecomSeq}'" />
+	            <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='userRecom_delete_ok.do?seq=${to.userRecomSeq}'" />
 	        </div>
     	</div>
     </div>

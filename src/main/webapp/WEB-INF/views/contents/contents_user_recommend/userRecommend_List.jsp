@@ -7,6 +7,7 @@
 <c:set var="paging" value="${paging}" />
 <c:set var="boardList1" value="${paging.boardList1}" />
 <c:set var="lists" value="${requestScope.lists}" />
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,8 +16,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Go!rea</title>
     <link rel="stylesheet" type="text/css" href="/css/userRecommend/list.css">
-    <link rel="stylesheet" type="text/css" href="/css/header/header.css">
-	<link rel="stylesheet" type="text/css" href="/css/footer/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -63,7 +62,7 @@
 	              	<c:forEach var="to" items="${lists}">
 	                    <div>
 	                        <div class='num'>${to.userRecomSeq}</div>
-	                        <div class='title'><a href='/${language}/userRecomView.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomTitle}" /></a></div>
+	                        <div class='title'><a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomTitle}" /></a></div>
 	                        <div class='writer'>${to.userNickname}</div>
 	                        <div class='date'>${to.userRecompostDate}</div>
 	                        <div class='recommend'>${to.userRecomcount }</div>
@@ -81,7 +80,7 @@
 							<span class="pagination-item disabled">&lt;&lt;</span>
 						</c:when>
 						<c:otherwise>
-							<a href="/${language}/userRecomList.do?cpage=1" class="pagination-item">&lt;&lt;</a>
+							<a href="/${language}/userRecom.do?cpage=1" class="pagination-item">&lt;&lt;</a>
 						</c:otherwise>
 					</c:choose>
 	
@@ -91,7 +90,7 @@
 							<span class="pagination-item disabled">&lt;</span>
 						</c:when>
 						<c:otherwise>
-							<a href="/${language}/userRecomList.do?cpage=${paging.cpage - 1}" class="pagination-item">&lt;</a>
+							<a href="/${language}/userRecom.do?cpage=${paging.cpage - 1}" class="pagination-item">&lt;</a>
 						</c:otherwise>
 					</c:choose>
 		
@@ -105,7 +104,7 @@
 										<span class="pagination-item active">${i}</span>
 									</c:when>
 									<c:otherwise>
-										<a href="/${language}/userRecomList.do?cpage=${i}" class="pagination-item">${i}</a>
+										<a href="/${language}/userRecom.do?cpage=${i}" class="pagination-item">${i}</a>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -118,7 +117,7 @@
 										<span class="pagination-item active">${i}</span>
 									</c:when>
 									<c:otherwise>
-										<a href="/${language}/userRecomList.do?cpage=${i}" class="pagination-item">${i}</a>
+										<a href="/${language}/userRecom.do?cpage=${i}" class="pagination-item">${i}</a>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -131,7 +130,7 @@
 							<span class="pagination-item disabled">&gt;</span>
 						</c:when>
 						<c:otherwise>
-							<a href="$/${language}/userRecomList.do?cpage=${paging.cpage + 1}"
+							<a href="$/${language}/userRecom.do?cpage=${paging.cpage + 1}"
 								class="pagination-item">&gt;</a>
 						</c:otherwise>
 					</c:choose>
@@ -142,7 +141,7 @@
 							<span class="pagination-item disabled">&gt;&gt;</span>
 						</c:when>
 						<c:otherwise>
-							<a href="$/${language}/userRecomList.do?cpage=${paging.totalPage}" class="pagination-item">&gt;&gt;</a>
+							<a href="/${language}/userRecom.do?cpage=${paging.totalPage}" class="pagination-item">&gt;&gt;</a>
 						</c:otherwise>
 					</c:choose>
 				</div>		           
@@ -150,10 +149,13 @@
 	        <!-- 쓰기 버튼 -->
 	        <br />
 	        <div class="write_button_container">
-		        <a href="userRecomWrite.do" class="write_button">글쓰기</a>
+	        	<input type="hidden" name="userSeq" value="${userSeq}"/>
+	        	<%-- <c:when test="${ }"> --%>
+		        	<a href="/${language}/userRecom_write.do" class="write_button">글쓰기</a>
+		        <%-- </c:when> --%>
 		    </div>
 		    <div class="search_container">
-           		<form action="userRecomList.do" method="get">
+           		<form action="userRecom.do" method="get">
     				<select name="searchType">
         				<option value="title">제목</option>
         				<option value="titleContent">제목 + 내용</option>

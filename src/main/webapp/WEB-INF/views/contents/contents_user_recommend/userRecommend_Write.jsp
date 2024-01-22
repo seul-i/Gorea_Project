@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <c:set var="language" value="${language}" />
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}"/>
 <html>
 <head>
     <title>Go!rea</title>
@@ -12,7 +13,8 @@
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
     <div class="containers">
         <h2>게시글 작성</h2>
-        <form class="form-horizontal" name="wfrm" method="post" action="./userRecomWriteOk.do">
+        <form class="form-horizontal" name="wfrm" method="post" action="/${language}/userRecom_write_ok.do">
+        	<input type="hidden" name="userSeq" value="${userSeq}"/>
             <div class="form-group">
                 <input type="text" class="form-control" id="title" name="title" style="height: 50px" placeholder="제목을 입력해 주세요."/>
             </div>
@@ -22,7 +24,7 @@
 
             <div class="btn_wrap">
                 <button type="submit" id="wbtn" class="btn btn-primary">저장하기</button>
-                <input type="button" value="목록" class="btn btn-primary" style="cursor: pointer;" onclick="location.href='userRecomList.do'" />
+                <input type="button" value="목록" class="btn btn-primary" style="cursor: pointer;" onclick="location.href='userRecom.do'" />
             </div>
         </form>
     </div>

@@ -3,6 +3,7 @@
 <%@ page session="false"%>
 <!DOCTYPE html>
 <c:set var="language" value="${language}" />
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 <html>
 <head>
 <title>GO!rea</title>
@@ -13,12 +14,13 @@
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
     <div class="containers">
         <h2>게시글 수정</h2>
-        <form action="/korean/userRecomModifyOk.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
+        <form action="/korean/userRecom_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
 	        <c:set var="to" value="${requestScope.to}" />
 	        <input type="hidden" name="seq" value="${param.seq}" /> 
 			<input type="hidden" name="cpage" value="${cpage}" /> 
 			<input type="hidden" name="searchType" value="${searchType}" /> 
 			<input type="hidden"name="searchKeyword" value="${searchKeyword}" />
+			<input type="hidden" name="userSeq" value="${userSeq}"/>
 	        <div class="form-group">
 	            <input type="text" class="form-control" value="${to.userRecomTitle }" name="title" style="height: 50px" />
 	        </div>
@@ -28,8 +30,8 @@
 	
 	        <div class="btn_wrap">
 	        	<button type="submit" class="btn btn-primary" id="mbtn">저장하기</button>
-	           	<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='userRecomList.do'" />
-	           	<input type="button" value="취소" class="btn" style="cursor: pointer;" onclick="location.href='userRecomView.do?seq=${param.seq}'" />
+	           	<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='userRecom.do'" />
+	           	<input type="button" value="취소" class="btn" style="cursor: pointer;" onclick="location.href='userRecom_view.do?seq=${param.seq}'" />
 	        </div>
     	</form>
     </div>

@@ -52,7 +52,7 @@ public class Gorea_Recommend_Controller {
 	@Autowired 
 	private Gorea_Content_ViewTranslationG viewTranslation;
 	
-	@GetMapping("/{language}/userRecomList.do")
+	@GetMapping("/{language}/userRecom.do")
 	public String list( @PathVariable String language,
 			@RequestParam(value="searchType", required=false) String searchType,
 			@RequestParam(value = "searchKeyword", required = false) String searchKeyword,
@@ -135,7 +135,7 @@ public class Gorea_Recommend_Controller {
 	
 	
 	//write
-	@GetMapping( "/{language}/userRecomWrite.do" )
+	@GetMapping( "/{language}/userRecom_write.do" )
 	public String write( @PathVariable String language, HttpServletRequest request, Model model ) {
 		model.addAttribute("language", language);
 		
@@ -143,7 +143,7 @@ public class Gorea_Recommend_Controller {
 	}
 	
 	
-	@PostMapping( "/{language}/userRecomWriteOk.do" )
+	@PostMapping( "/{language}/userRecom_write_ok.do" )
 	public String writeOk(@PathVariable String language, HttpServletRequest request, MultipartFile upload, Model model ) {
 		int flag = 2;
 		
@@ -165,12 +165,13 @@ public class Gorea_Recommend_Controller {
 		
 		model.addAttribute("language", language);
 		model.addAttribute( "flag", flag );
+		System.out.println( "language : " + language );
 		
 		return "contents/contents_user_recommend/userRecommend_Write_Ok";
 	}
 	
 	
-	@GetMapping("/{language}/userRecomView.do")
+	@GetMapping("/{language}/userRecom_view.do")
 	public String view( @RequestParam("seq") String userRecomSeqStr, @PathVariable String language, HttpServletRequest request, Model model, @RequestParam(value = "cpage", required = false) String cpage,
 			@RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
@@ -228,7 +229,7 @@ public class Gorea_Recommend_Controller {
 	}
 	
 	
-	@RequestMapping( "/korean/userRecomDeleteOk.do" )
+	@RequestMapping( "/korean/userRecom_delete_ok.do" )
 	public String deleteOk( HttpServletRequest request , Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
 		
@@ -244,7 +245,7 @@ public class Gorea_Recommend_Controller {
 	}
 	
 	
-	@RequestMapping( "/{language}/userRecomModify.do" )
+	@RequestMapping( "/{language}/userRecom_modify.do" )
 	public String modify(@PathVariable String language, HttpServletRequest request, Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
 		
@@ -268,7 +269,7 @@ public class Gorea_Recommend_Controller {
 		return "contents/contents_user_recommend/userRecommend_Modify";
 	}
 	
-	@RequestMapping( "/korean/userRecomModifyOk.do" )
+	@RequestMapping( "/{language}/userRecom_modify_ok.do" )
 	public String modifyOk(HttpServletRequest request, MultipartFile upload, Model model ) {
 		
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
@@ -292,7 +293,7 @@ public class Gorea_Recommend_Controller {
 	}
 	
 	
-	@GetMapping( "/korean/gorea_replyCount.do" )
+	@GetMapping( "/{language}/gorea_replyCount.do" )
 	public String replyCount( HttpServletRequest request, Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
 		
