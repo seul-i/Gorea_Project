@@ -13,8 +13,11 @@ import lombok.ToString;
 public class Gorea_QnA_BoardTO {
 	
 	private String qnaSeq;
+	private String userSeq;
+	private String qnaboardNo;
+	private String qnaCategory;
 	private String qnaTitle;
-	private String qnaContent;
-	private String qnaHit;
 	private String qnapostDate;
+	private String qnaContent;
+	private String qnaCmt;
 }

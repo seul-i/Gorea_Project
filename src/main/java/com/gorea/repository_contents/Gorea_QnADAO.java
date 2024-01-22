@@ -36,7 +36,6 @@ public class Gorea_QnADAO {
 	
 	public Gorea_QnA_BoardTO qna_View(Gorea_QnA_BoardTO to) {
 		
-		int hitResult = mapper.QnAHit(to);
 		to = mapper.QnA_View(to);
 		
 		return to;

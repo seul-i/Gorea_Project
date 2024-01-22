@@ -20,7 +20,6 @@
             </div>
             <div class="post-info-right">
                 <span class="post-info-item">작성일: <c:out value="${to.qnapostDate}"  escapeXml="false"/></span>
-                <span class="post-info-item">조회수: <c:out value="${to.qnaHit}" escapeXml="false"/></span>
             </div>
         </div>
         <div class="post-content">

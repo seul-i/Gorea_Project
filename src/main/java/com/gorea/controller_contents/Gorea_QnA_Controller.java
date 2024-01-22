@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.gorea.dto_board.Gorea_QnA_BoardTO;
 import com.gorea.repository_contents.Gorea_QnADAO;
@@ -55,6 +54,8 @@ public class Gorea_QnA_Controller {
 		
 		to.setQnaTitle(request.getParameter( "qnaTitle" ));
 		to.setQnaContent(request.getParameter("qnaContent"));
+		to.setQnaCategory(request.getParameter("qnaCategory"));
+		to.setUserSeq(request.getParameter("userSeq"));
 		
 		if(language.equals("korean")) {
 			flag = dao.qna_Write_Ok(to);
