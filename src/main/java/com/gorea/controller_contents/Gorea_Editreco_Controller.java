@@ -141,7 +141,7 @@ public class Gorea_Editreco_Controller {
 		    
 		    model.addAttribute("pageNumbers", pageNumbers);
 		    
-		    return "contents/contents_edit_recommend/editRecommend_list";
+		    return "contents/contents_edit_recommend/editRecommend_list1";
 	}
 	
 	private String extractFirstImageUrl(String content) {
@@ -194,7 +194,7 @@ public class Gorea_Editreco_Controller {
 	@GetMapping("/korean/editRecommend_write.do")
 	public String editRecommend_Write(HttpServletRequest request, Model model) {
 		
-		return "contents/contents_edit_recommend/editRecommend_write";
+		return "contents/contents_edit_recommend/editRecommend_write1";
 	}
 
 	@PostMapping("/korean/editRecommend_write_ok.do")
@@ -212,7 +212,7 @@ public class Gorea_Editreco_Controller {
 
 		model.addAttribute("flag", flag);
 
-		return "contents/contents_edit_recommend/editRecommend_write_ok";
+		return "contents/contents_edit_recommend/editRecommend_write_ok1";
 	}
 
 	@GetMapping("/{language}/editRecommend_view.do")
@@ -249,7 +249,7 @@ public class Gorea_Editreco_Controller {
 		
 			model.addAttribute("to", to);
 		
-		return "contents/contents_edit_recommend/editRecommend_view";
+		return "contents/contents_edit_recommend/editRecommend_view1";
 	}
 
 	@GetMapping("/{language}/editRecommend_delete_ok.do")
@@ -281,7 +281,7 @@ public class Gorea_Editreco_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		
-		return "contents/contents_edit_recommend/editRecommend_delete_ok";
+		return "contents/contents_edit_recommend/editRecommend_delete_ok1";
 	}
 
 	@GetMapping("/{language}/editRecommend_modify.do")
@@ -313,7 +313,7 @@ public class Gorea_Editreco_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 
-	    return "contents/contents_edit_recommend/editRecommend_modify";
+	    return "contents/contents_edit_recommend/editRecommend_modify1";
 	}
 
 
@@ -354,7 +354,7 @@ public class Gorea_Editreco_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		
-		return "contents/contents_edit_recommend/editRecommend_modify_ok";
+		return "contents/contents_edit_recommend/editRecommend_modify_ok1";
 	}
 
 

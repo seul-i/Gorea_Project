@@ -11,7 +11,6 @@
 <!-- Login 시에 Security context 에서 가져오는 유저 정보-->
 <c:set var="role"
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
-	
 <c:set var="nickname"
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
  
@@ -118,41 +117,40 @@
         </div>
 
 	<section class="albums">
-		<div class="album-container">
-			<c:choose>
-				<c:when test="${not empty lists}">
-					<c:forEach var="to" items="${lists}">
-						<div class='album' data-seq='${to.editrecoSeq}'>
-							<div class='image'>
-								<img src='../../upload/${to.firstImageUrl}' alt='' />
-								<!--  
-								<div class='i'>
-									<i class='fa fa-star-o fa-2x'></i> <i class='fa fa-star fa-2x'></i>
-								</div>
-								-->
-							</div>
-							<div class='content'>
-								<div class='title-subtitle'>
-									<div class='title'>
-									<a href='./editRecommend_view.do?editrecoSeq=${to.editrecoSeq}<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
-									${to.editrecoSubject}</a></div>
-									<div class='subtitle'>${to.editrecoSubtitle}</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-				</c:when>
-			</c:choose>
-		</div>
-	</section>
-		
-	<c:choose>
-		<c:when test="${role eq 'ROLE_ADMIN'}">
-			<div class="write_button_container">
-    		<a href="editRecommend_write.do" class="write_button">글쓰기</a>
-    		</div>
-    	</c:when>
-    </c:choose>
+    <div class="album-container">
+        <c:choose>
+            <c:when test="${not empty lists}">
+                <c:forEach var="to" items="${lists}">
+                    <div class='album' data-seq='${to.editrecoSeq}'>
+                        <div class='image'>
+                            <img src='../../upload/${to.firstImageUrl}' alt='' />
+                        </div>
+                        <div class='content'>
+                            <div class='title-subtitle'>
+                                <div class='title'>
+                                    <a href='./editRecommend_view.do?editrecoSeq=${to.editrecoSeq}<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
+                                        ${to.editrecoSubject}
+                                    </a>
+                                </div>
+                                <div class='subtitle'>${to.editrecoSubtitle}</div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </c:when>
+        </c:choose>
+            </div>
+</section>
+
+        <c:choose>
+            <c:when test="${role eq 'ROLE_ADMIN'}">
+                <div class="write_button_container">
+                    <a href="editRecommend_write.do" class="write_button">글쓰기</a>
+                </div>
+            </c:when>
+        </c:choose>
+
+	
 	
 
 	<div class="pagination-container">
