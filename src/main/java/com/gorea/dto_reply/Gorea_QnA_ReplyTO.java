@@ -15,5 +15,6 @@ public class Gorea_QnA_ReplyTO {
 	
 	// user Table의 nickname
 	private String userNickname;
+	private String userNation;
 	
 }

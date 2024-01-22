@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GO!rea</title>
+    <link rel="stylesheet" type="text/css" href="/css/editor/comment.css">
     <link rel="stylesheet" type="text/css" href="/css/qna/view.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- ============================= 댓글 리스트 ============================= -->
@@ -70,14 +71,15 @@
                     replyContainer.append(html);
                 }
 
-                $('.modify').on('click', function () {
+                $(document).on('click', '.modify', function() {
+                    console.log(".modify clicked"); // 로그 추가
                     var qnaCmtSeq = $(this).data("reply");
-                    var replyElement = $("#qnaCmtContent_" + qnaCmtSeq);
+                    var replyElement = $("#qnaCmtContent" + qnaCmtSeq);
                     var replyUserSeq = $(this).data("user-seq");
                     var loginUserSeq = "${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}";
 
                     if (replyUserSeq == loginUserSeq) {
-                        // 기존 댓글 정보를 가져옴
+                        console.log("Editing comment:", qnaCmtSeq); // 로그 추가
                         var qnaCmtContent = replyElement.find(".original-comment").text().trim();
 
                         // 수정 폼 생성
@@ -87,8 +89,7 @@
                         editForm += '<div class="original-comment">' + qnaCmtContent + '</div>'; // 기존 댓글 내용 표시
                         editForm += '<textarea style="resize: none;" id="replyModifyComment_' + qnaCmtSeq + '" placeholder="댓글 내용">' + qnaCmtContent + '</textarea>';
                         editForm += '<button class="save" data-reply="' + qnaCmtSeq + '">저장</button>';
-                        editForm += '</div>';
-                        editForm += '</div>';
+                        editForm += '</div></div>';
 
                         // 기존 댓글을 수정 폼으로 교체
                         replyElement.html(editForm);
@@ -162,20 +163,21 @@
     });
     
  // ============================= 리뷰 수정 =============================
-    function saveReply(editrecoCmtSeq, editrecoCmtContent) {
-    // 수정할 때 댓글 내용이 비어있는지 체크
-    if (!editrecoCmtContent.trim()) {
+    function saveReply(qnaCmtSeq, qnaCmtContent) {
+    console.log("saveReply called with", qnaCmtSeq, qnaCmtContent); // 로그 추가
+
+    if (!qnaCmtContent.trim()) {
         alert("댓글 내용을 입력하세요.");
         return;
     }
 
     $.ajax({
         type: 'POST',
-        url: "/korean/edit_modify_Ok", // URL 경로 확인 필요
-        contentType: 'application/json', // JSON 형식으로 데이터 전송
+        url: "/korean/qnareplmodifyok", // 경로 확인
+        contentType: 'application/json',
         data: JSON.stringify({
-            editrecoCmtSeq: editrecoCmtSeq,
-            editrecoCmtContent: editrecoCmtContent
+            qnaCmtSeq: qnaCmtSeq, // 키 이름 확인 필요
+            qnaCmtContent: qnaCmtContent // 키 이름 확인 필요
         }),
         success: function (response) {
             alert("댓글 수정 성공");
@@ -219,7 +221,7 @@
     });
 
         $(document).ready(function () {
-            updateCommentList();
+        	updateCommentList();
         });
 
         $(window).on('beforeunload', function () {
