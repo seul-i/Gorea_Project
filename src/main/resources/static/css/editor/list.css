@@ -3,7 +3,6 @@
 }
 
 * {
-	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	outline: none;
@@ -46,9 +45,6 @@ header .logo {
 	font-weight: bold;
 }
 
-section {
-	padding: 2% 5%;
-}
 
 .location {
 	width: 100%;
@@ -86,108 +82,125 @@ i {
 }
 
 .album-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* 수평 가운데 정렬 */
-    align-items: center; /* 수직 가운데 정렬 */
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	/* 왼쪽 정렬 */
+	margin: 0 auto !important;
+	max-width: 1300px;
 
 }
 
-
-.album:hover{
-    transform: scale(0.9); /* 1보다 작은 값으로 조절 */
-    transition: transform 0.2s ease-in-out; /* 부드러운 애니메이션을 위한 트랜지션 추가 */
+.album-container .album {
+	width: 48%;
+	/* 두 개의 앨범을 한 줄에 두기 위해 너비를 48%로 설정 */
+	margin: 1%;
+	/* 여백을 주기 위해 1% 마진 추가 */
+		border-radius: 10px;
 }
 
 .album {
-    width: 850px;
-    height: 230px;
-    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
-    border-radius: 1rem solid rgba(0, 0, 0, .1);
-    position: relative;
-    border: 1px solid #ddd;
-    overflow: hidden;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    display: flex;
-}
-
-.album .image {
-    flex: 0 0 45%;
-    position: relative;
+	width: 48%;
+	/* 48%로 변경 */
+	max-width: 600px;
+	/* 최대 너비 설정 */
+	height: 230px;
+	box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+	border-radius: 1rem solid rgba(0, 0, 0, .1);
+	position: relative;
+	border: 1px solid #ddd;
+	overflow: hidden;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	display: flex;
 }
 
 .album .image img {
-    width: 100%;
-    height: 100%;
+	width: 220px;
+	height: 250px;
+
 }
 
+.album .image img:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-out;
+}
+
+
 .album .content {
-    flex: 1;
-    margin-bottom: 10px;
-    justify-content: flex-start; /* 수정된 부분 */
-    flex-direction: column;
-    justify-content: center;
-    padding: 1.5rem;
+	flex: 1;
+	margin-bottom: 10px;
+	justify-content: flex-start;
+	flex-direction: column;
+	justify-content: center;
+	padding: 1.5rem;
 }
 
 .album .content .title-subtitle {
-    display: flex;
-    margin-bottom: 10px; /* 원하는 만큼의 간격으로 조절하세요 */
-    flex-direction: column;
-    align-items: baseline; /* 추가된 부분 */
+	display: flex;
+	margin-bottom: 10px;
+	/* 원하는 만큼의 간격으로 조절하세요 */
+	flex-direction: column;
+	align-items: baseline;
+	/* 추가된 부분 */
 }
 
 .album .content .title-subtitle .title,
 .album .content .title-subtitle .subtitle {
-    font-family: 'Noto Sans KR', sans-serif; /* 사용할 폰트 설정 */
+	font-family: 'Noto Sans KR', sans-serif;
+	/* 사용할 폰트 설정 */
 }
 
 .album .content .title-subtitle .title {
-    font-size: 22px;
-    font-weight: bolder;
-    margin-top: 10px;
-    margin-bottom: 15px;
+	font-size: 22px;
+	font-weight: bolder;
+	margin-top: 10px;
+	margin-bottom: 15px;
 }
 
 .album .content .title-subtitle .subtitle {
-    font-size: 12px;
-    font-weight: lighter;
-    margin-bottom: 15px;
-    overflow: hidden;
+	font-size: 12px;
+	font-weight: lighter;
+	margin-bottom: 15px;
+	overflow: hidden;
 }
 
 
 .album .image .i {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    z-index: 1;
-    display: flex;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	z-index: 1;
+	display: flex;
 }
 
 .i .fa-star,
 .i .fa-star-o {
-    font-size: 24px; /* 원하는 크기로 조절하세요 */
+	font-size: 24px;
+	/* 원하는 크기로 조절하세요 */
 }
 
 .i .fa-star {
-    color: #94b8f4;
-    transition: color 0.2s linear;
-    display: none; /* 처음에는 채워진 별을 감춤 */
+	color: #94b8f4;
+	transition: color 0.2s linear;
+	display: none;
+	/* 처음에는 채워진 별을 감춤 */
 }
 
 .i .fa-star-o {
-    color: #94b8f4;
-    display: inline-block; /* 처음에는 빈 별을 보이게 함 */
+	color: #94b8f4;
+	display: inline-block;
+	/* 처음에는 빈 별을 보이게 함 */
 }
 
 .i:hover .fa-star {
-    display: inline-block; /* 마우스를 올리면 채워진 별을 보이게 함 */
+	display: inline-block;
+	/* 마우스를 올리면 채워진 별을 보이게 함 */
 }
 
 .i:hover .fa-star-o {
-    display: none; /* 마우스를 올리면 빈 별을 감춤 */
+	display: none;
+	/* 마우스를 올리면 빈 별을 감춤 */
 }
 
 
@@ -241,63 +254,194 @@ i {
 	font-size: 25px;
 }
 
+.pagination-container {
+	flex-grow: 1;
+	/* 공간을 채우도록 함 */
+	text-align: center;
+	/* 내부 요소(페이징)를 중앙 정렬 */
+	margin-bottom: 20px;
+}
+
 .pagination {
-    margin-bottom: 20px;
-    text-align: center; /* 가운데 정렬 추가 */
-    margin-top: 20px; /* 상단 여백 추가 */
-    font-weight: bolder;
-  }
+	margin: 0;
+	/* 기존 마진 제거 */
+	display: inline-block;
+	text-align: center;
+	/* 가운데 정렬 추가 */
+	font-weight: bolder;
+	flex-grow: 1;
+}
 
-  .pagination-item {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #333;
+.pagination-item {
+	margin: 0 5px;
+	padding: 5px 10px;
+	border-radius: 5px;
+	text-decoration: none;
+	color: #333;
+	font-weight: bold;
+}
+
+.pagination-item.active {
+	background-color: #007bff;
+	color: #fff;
+}
+
+.pagination-item.disabled {
+	color: #333;
+	cursor: pointer;
+	pointer-events: none;
+}
+
+
+.write_button_container {
+    text-align: center;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.write_button {
+    padding: 6px 14px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: #42424a;
+    font-size: 12px;
     font-weight: bold;
-  }
-
-  .pagination-item.active {
-    background-color: #007bff;
-    color: #fff;
-  }
-
-  .pagination-item.disabled {
-    color: #333;
-    cursor: pointer;
-  }
-  
-  .w-btn-outline {
-    padding: 10px 25px;
-    border-radius: 15px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.25s;
+    color: aliceblue;
 }
 
-.w-btn-outline:hover {
-    letter-spacing: 2px;
-    transform: scale(1.2);
-    cursor: pointer;
+.title>a {
+	color: #333;
 }
 
-.w-btn:active {
-    transform: scale(1.5);
+.search_container {
+	padding: 10px;
+	/* 테두리와 내용 사이의 간격을 조정하세요 */
+	text-align: right;
 }
 
-.w-btn-outline:active {
-    transform: scale(1.5);
+.search_container form {
+	border: none;
+	/* form 요소에는 테두리를 없애줍니다 */
 }
 
-.w-btn-blue-outline {
-    border: 3px solid #6aafe6;
-    color: #6e6e6e;
+.search_container select,
+.search_container input[type="submit"] {
+	border: 1px solid #000;
+	/* 텍스트 입력 필드와 버튼에 테두리를 추가합니다 */
+	padding: 5px;
+	/* 텍스트 입력 필드와 버튼 내부의 간격을 조정하세요 */
 }
 
-.w-btn-blue-outline:hover {
-    background-color: #6aafe6;
-    color: #d4dfe6;
+.search_container input[type="text"] {
+	border: none;
+	/* 기존의 테두리를 없애줍니다 */
+	padding: 5px;
+	/* 내부의 간격을 조정하세요 */
 }
 
 
+
+.search_container input[type="text"],
+.search_container input[type="submit"],
+.search_container select {
+	padding: 5px 10px;
+	margin: 2px;
+}
+
+.search_container input[type="submit"] {
+	background-color: #42424a;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+/* 작은 화면 (예: 스마트폰) */
+@media only screen and (max-width: 600px) {
+	.album-container .album {
+		width: 100%;
+		/* 한 개의 앨범만 한 줄에 표시 */
+		margin: 2% 0;
+		/* 간격 조절 */
+	}
+
+	.search_container input[type="text"] {
+		width: 100%;
+		/* 검색창을 가득 채우도록 설정 */
+	}
+
+}
+
+
+/* 중간 크기 화면 (예: 태블릿) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+	.album-container .album {
+		width: 48%;
+		/* 두 개의 앨범을 한 줄에 두기 위해 너비를 48%로 설정 */
+		margin: 1%;
+		/* 여백을 주기 위해 1% 마진 추가 */
+	}
+}
+
+/* 큰 화면 (예: 데스크탑) */
+@media only screen and (min-width: 1025px) {
+	.album-container .album {
+		width: 48%;
+		/* 두 개의 앨범을 한 줄에 두기 위해 너비를 48%로 설정 */
+		margin: 1%;
+		/* 여백을 주기 위해 1% 마진 추가 */
+	}
+
+	.search_container form {
+		position: relative;
+		top: 0;
+		left: 0;
+		margin-bottom: 50px;
+	}
+
+
+	.pagination {
+		margin-bottom: 20px;
+		text-align: center;
+		margin-top: 20px;
+		font-weight: bolder;
+	}
+
+	.pagination-item {
+		margin: 0 5px;
+		padding: 5px 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		text-decoration: none;
+		color: #333;
+		font-weight: bold;
+	}
+
+	.pagination-item.active {
+		background-color: #007bff;
+		color: #fff;
+	}
+
+	.pagination-item.disabled {
+		color: #333;
+		cursor: pointer;
+	}
+}
+
+/* 미디어 쿼리: 화면 크기가 768px 미만일 때 스타일 조정 */
+@media only screen and (max-width: 767px) {
+	.pagination {
+		text-align: center;
+		margin: 10px 0;
+	}
+
+	.pagination-item {
+		margin: 0 3px;
+		padding: 3px 8px;
+		font-size: 12px;
+	}
+
+}
