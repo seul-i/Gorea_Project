@@ -160,7 +160,7 @@
 				<li><a href="#">우리들의 서울</a>
 					<ul class="header-dropdownList">
 						<li><a href="/korean/bestTop5.do">Best TOP5</a></li>
-						<li><a href="/korean/userRecomList.do">여행자 추천</a></li>
+						<li><a href="/korean/userRecom.do">여행자 추천</a></li>
 						<li><a href="/korean/freeboard.do">자유게시판</a></li>
 					</ul></li>
 
@@ -247,7 +247,7 @@
 					<p>[ 우리들의 서울 ]</p>
 					<div class="nav-IndexInput">
 						<a href="/korean/bestTop5.do">Best TOP5</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/korean/userRecomList.do">여행자 추천</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/korean/userRecom.do">여행자 추천</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/korean/freeboard.do">자유게시판</a>
 					</div>
 				</li>

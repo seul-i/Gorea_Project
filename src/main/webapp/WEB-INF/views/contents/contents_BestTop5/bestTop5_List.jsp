@@ -20,7 +20,7 @@
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 	<title>Gorea_BestTop5</title>
 
-	<script>
+	<script type="text/javascript">
 		// JavaScript로 클릭 이벤트 처리
 		document.addEventListener("DOMContentLoaded", function() {
 		    var searchLinks = document.querySelectorAll('.top5List-searchbox a');
@@ -40,11 +40,33 @@
 		        });
 		    });
 			
-		    // 글쓰는 페이지 이동 //////////////
-		    document.getElementById('writeButton').addEventListener('click', function() {
-	            // 페이지 이동
-	            window.location.href = "/${language}/bestTop5_write.do";
-	        });
+		    
+		    
+		    $(document).ready(function () {
+		    	
+		    	document.getElementById('writeButton').addEventListener('click', function() {
+		      		if (!("${not empty SPRING_SECURITY_CONTEXT}" == "true")) {
+		            	alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+		            	window.location.href = "/${language}/login.do";
+		            		 
+		       		}else{
+		       			window.location.href = "/${language}/bestTop5_write.do";
+					}
+				});
+		    	
+		    	$('.carousel-inner').on('click', function() {
+		      		if (!("${not empty SPRING_SECURITY_CONTEXT}" == "true")) {
+		            	alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+		            	window.location.href = "/${language}/login.do";
+		            		 
+		       		}else{
+		       			var Top5Seq = $(this).data('seq');
+		       			console.log(Top5Seq);
+		       			window.location.href = "/${language}/bestTop5_view.do";
+					}
+				});
+		    	
+		    });
 		    
 		    // 달력 초기화 과정 ///////////////
 		    var currentDate = new Date();
@@ -55,6 +77,7 @@
 	
 		    // 초기값 설정
 		    document.getElementById('start').value = currentYear + '-' + currentMonth;
+		    
 		});
 	</script>
 
@@ -70,72 +93,6 @@
             <h1>Best Top5</h1>
         </div>
     </div>
-    
-    <!-- 모달 ---------------------------------------------------------->
-    
-    <div class="modal fade" id="moaModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="false">
-		<div class="modal-dialog modal-xl" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div><img src="" alt="" ><span>테스트 유저 </span></div>
-						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">x</span>
-						</button>
-				</div>
-				
-				<div class="modal-body">
-					<h3>장소 타이틀1</h3>
-					<img src="" alt="">
-					<div id="comment" class="comment1">
-						'인생에는 적극적인 의미의 즐거움, 행복이란 것이 존재하지 않는다.
-						다만 고통과 권태가 있을 뿐이다.
-						파티와 구경거리와 흥분되는 일들로 가득차 보이는 세상살이도
-						그 이면의 실상을 알고 보면 고통과 권태 사이를 왔다갔다 하는
-						단조로운 시계추의 운동과 다를 바 없는 것이다.
-						세상의 사이비 강단 철학자들은 인생에 진정한 행복과 희망과 가치와
-						보람이 있는 것처럼 열심히 떠들어대지만 나의 철학은 그러한 행복은
-						존재하지 않는다는 것을 명확히 가르침으로써 사람들로 하여금 더 큰
-						불행에 빠지지 않도록 하려는 것을 그 사명으로 한다.
-						인생에는 다만 고통이 있을 뿐이다.
-						가능한 한 그러한 고통을 피해가는 것이 삶의 지혜이고 예지이다.
-						그러므로 고통의 일시적 부재인 소극적 의미의 행복만이 인생에
-						주어질 수 있는 최상의 것이고, 현자의 도리는 바로 그러한 소극적
-						행복만을 추구하는 것이다.'
-					</div>
-					<label> - Map - </label>
-					<div class="top5Map">
-					</div>
-					
-					<hr/>
-					
-					<h3>장소 타이틀1</h3>
-					<img src="" alt="">
-					<div id="comment" class="comment2">
-						'인생에는 적극적인 의미의 즐거움, 행복이란 것이 존재하지 않는다.
-						다만 고통과 권태가 있을 뿐이다.
-						파티와 구경거리와 흥분되는 일들로 가득차 보이는 세상살이도
-						그 이면의 실상을 알고 보면 고통과 권태 사이를 왔다갔다 하는
-						단조로운 시계추의 운동과 다를 바 없는 것이다.
-						세상의 사이비 강단 철학자들은 인생에 진정한 행복과 희망과 가치와
-						보람이 있는 것처럼 열심히 떠들어대지만 나의 철학은 그러한 행복은
-						존재하지 않는다는 것을 명확히 가르침으로써 사람들로 하여금 더 큰
-						불행에 빠지지 않도록 하려는 것을 그 사명으로 한다.
-						인생에는 다만 고통이 있을 뿐이다.
-						가능한 한 그러한 고통을 피해가는 것이 삶의 지혜이고 예지이다.
-						그러므로 고통의 일시적 부재인 소극적 의미의 행복만이 인생에
-						주어질 수 있는 최상의 것이고, 현자의 도리는 바로 그러한 소극적
-						행복만을 추구하는 것이다.'
-					</div>
-					<label> - Map - </label>
-					<div class="top5Map">
-					</div>
-				</div>
-				<div class="modal-footer">
-				</div>
-			</div>
-		</div>
-	</div>
-	
 	
 	<!-- 메인 컨텐츠 부분 ------------------------------------------------->
 	<div class="BestTop3place">
@@ -221,7 +178,7 @@
 						</div>
 					</div>
 					
-					<div class="carousel-inner" data-toggle="modal" data-target="#moaModal">
+					<div class="carousel-inner" data-seq="${top5ListData.top5Seq}">
 						<div class="carousel-item active">
 							<img src="${top5ListData.firstImageUrl1}">
 					            <div class="carousel-caption">
@@ -300,7 +257,8 @@
 				        </button>
 				    </div>
 				    
-				    <div style="height:50px; border-bottom: 1px solid #dbdbdb;"></div>
+				    <div style="height:50px; border-bottom: 1px solid #dbdbdb;">			    
+				    </div>
 				</div>
 			</div>
 		
@@ -308,7 +266,7 @@
 		</div>
 	</c:forEach>
 	
-	<script>
+	<script type="text/javascript">
 
 	
     // language 값을 HTML 속성에 저장
@@ -343,8 +301,6 @@
         // 서버에서 가져온 값으로 select를 선택
         
     });
-    
-
 	</script>
 	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>

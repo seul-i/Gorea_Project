@@ -1,0 +1,42 @@
+@charset "UTF-8";
+p{	
+    margin-bottom: 0;
+}
+
+.top5viewContainer{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.top5viewContent {
+    text-align: center;
+    width: 80%;
+}
+
+.top5viewContent h2{
+	margin-top:50px;
+	margin-bottom: 30px;
+}
+
+.top5viewContent .viewContentImg{
+	width: 100%;
+	height: 250px;
+	margin-bottom: 15px;
+}
+
+#comment{
+	margin-bottom: 30px;
+}
+
+.top5viewContent label{
+	font-size:15px;
+	margin-bottom: 10px;
+}
+
+.top5viewContent .top5Map{
+	width: 100%;
+	height: 200px;
+	margin-bottom: 15px;
+	background-color:grey;
+}

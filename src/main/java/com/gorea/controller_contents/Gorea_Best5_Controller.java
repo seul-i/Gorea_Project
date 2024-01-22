@@ -193,7 +193,25 @@ public class Gorea_Best5_Controller {
 		return "contents/contents_BestTop5/bestTop5_write_ok";
 	}
 	
+	@GetMapping("/{language}/bestTop5_view.do")
+	public String best5View(@PathVariable String language, Model model) {
+		
+		model.addAttribute("language",language);
+		
 
+		if(language.equals("korean")) {
+
+		}else if(language.equals("english")) {
+			
+		}else if(language.equals("japanese")) {
+			
+		}else if(language.equals("chinese")) {
+			
+		}
+		
+		
+		return "contents/contents_BestTop5/bestTop5_view";
+	}
 	
 	
 	

@@ -166,7 +166,7 @@
 				<li><a href="#">Our Seoul</a>
 					<ul class="header-dropdownList">
 						<li><a href="/english/bestTop5.do">Best TOP5</a></li>
-						<li><a href="/english/userRecomList.do">Visitor pick</a></li>
+						<li><a href="/english/userRecom.do">Visitor pick</a></li>
 						<li><a href="/english/freeboard.do">Free Board</a></li>
 					</ul></li>
 
@@ -253,7 +253,7 @@
 					<p>[ Our Seoul ]</p>
 					<div class="nav-IndexInput">
 						<a href="/english/bestTop5.do">Best TOP5</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/english/userRecomList.do">Visitor pick</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/english/userRecom.do">Visitor pick</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/english/freeboard.do">Free Board</a>
 					</div>
 				</li>

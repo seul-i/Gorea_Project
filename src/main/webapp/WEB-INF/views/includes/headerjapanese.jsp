@@ -166,7 +166,7 @@
 				<li><a href="#">僕らのソウル</a>
 					<ul class="header-dropdownList">
 						<li><a href="/japanese/bestTop5.do">Best TOP5</a></li>
-						<li><a href="/japanese/userRecomList.do">旅行者のおすすめ</a></li>
+						<li><a href="/japanese/userRecom.do">旅行者のおすすめ</a></li>
 						<li><a href="/japanese/freeboard.do">フリー掲示板</a></li>
 					</ul></li>
 
@@ -253,7 +253,7 @@
 					<p>[ 僕らのソウル ]</p>
 					<div class="nav-IndexInput">
 						<a href="/japanese/bestTop5.do">Best TOP5</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/japanese/userRecomList.do">旅行者のおすすめ</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/japanese/userRecom.do">旅行者のおすすめ</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/japanese/freeboard.do">フリー掲示板</a>
 					</div>
 				</li>
