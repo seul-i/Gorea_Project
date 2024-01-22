@@ -9,8 +9,6 @@
 <!-- Login 시에 Security context 에서 가져오는 유저 정보-->
 <c:set var="role"
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
-<c:set var="nickname"
-	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
 	
 <c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 
@@ -45,6 +43,7 @@
                     html += '<div class="user-meta">';
                     html += '<div class="name">' + editrecoCmtContent.userNickname + '</div>';
                     html += '<div class="day">' + editrecoCmtContent.editrecoCmtWdate + '</div>';
+                    html += '<div class="original-comment">' + editrecoCmtContent.editrecoCmtContent + '</div>';
                     html += '</div>';
                     html += '</div>';
 
@@ -52,7 +51,7 @@
 
                     if (loginUserSeq == editrecoCmtContent.userSeq) {
                         // 수정, 삭제 버튼은 댓글 작성자와 로그인한 사용자가 동일한 경우에만 표시
-                        html += '<div>';
+                        html += '<div class="comment-buttons">';
                         html += '<button class="modify" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">수정</button>';
                         html += '<button class="delete" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">삭제</button>';
                         html += '</div>';
@@ -60,23 +59,15 @@
 
                     html += '</div>';
 
-                    if (editrecoCmtContent.isEditing) {
-                        // 수정 중인 경우, 수정 폼 표시
-                        html += '<div class="replyModify-form" id="replyModifyForm_' + editrecoCmtContent.editrecoCmtSeq + '">';
-                        html += '<input type="hidden" name="editrecoCmtSeq" value="' + editrecoCmtContent.editrecoCmtSeq + '">';
-                        html += '<div class="comment-container">';
-                        html += '<div class="original-comment">' + editrecoCmtContent.editrecoCmtContent + '</div>'; // 기존 댓글 내용 표시
-                        html += '<textarea style="resize: none;" id="replyModifyComment_' + editrecoCmtContent.editrecoCmtSeq + '" placeholder="댓글 내용">' + editrecoCmtContent.editrecoCmtContent + '</textarea>';
-                        html += '<button class="save" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '">저장</button>';
-                        html += '</div>';
-                        html += '</div>';
-                    } else {
-                        // 수정 중이 아닌 경우, 댓글 내용 표시
-                        html += '<div class="comment">' + editrecoCmtContent.editrecoCmtContent + '</div>';
-                    }
+                    // 수정 폼
+                    html += '<div class="replyModify-form" id="replyModifyForm_' + editrecoCmtContent.editrecoCmtSeq + '" style="display:none;">';
+                    html += '<input type="hidden" name="editrecoCmtSeq" value="' + editrecoCmtContent.editrecoCmtSeq + '">';
+                    html += '<div class="original-comment" style="text-align: left;">' + editrecoCmtContent.editrecoCmtContent + '</div>'; // 기존 댓글 내용 표시
+                    html += '<textarea style="resize: none;" id="replyModifyComment_' + editrecoCmtContent.editrecoCmtSeq + '" style=" border: 1px solid #ccc; ">' + editrecoCmtContent.editrecoCmtContent + '</textarea>';
+                    html += '<button class="save" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '">저장</button>';
+                    html += '</div>';
 
-                    html += '</div>';
-                    html += '</div>';
+                    html += '</div>'; // 추가된 부분
 
                     replyContainer.append(html);
                 }
@@ -91,24 +82,21 @@
                         // 기존 댓글 정보를 가져옴
                         var editrecoCmtContent = replyElement.find(".original-comment").text().trim();
 
-                        // 수정 폼 생성
-                        var editForm = '<div class="replyModify-form" id="replyModifyForm_' + editrecoCmtSeq + '">';
-                        editForm += '<input type="hidden" name="editrecoCmtSeq" value="' + editrecoCmtSeq + '">';
-                        editForm += '<div class="comment-container">';
-                        editForm += '<div class="original-comment">' + editrecoCmtContent + '</div>'; // 기존 댓글 내용 표시
-                        editForm += '<textarea style="resize: none;" id="replyModifyComment_' + editrecoCmtSeq + '" placeholder="댓글 내용">' + editrecoCmtContent + '</textarea>';
-                        editForm += '<button class="save" data-reply="' + editrecoCmtSeq + '">저장</button>';
-                        editForm += '</div>';
-                        editForm += '</div>';
-
-                        // 기존 댓글을 수정 폼으로 교체
-                        replyElement.html(editForm);
+                        // 수정 폼 표시
+                        replyElement.find(".comment-buttons").hide(); // 수정, 삭제 버튼 감춤
+                        replyElement.find(".original-comment").hide();
+                        replyElement.find(".replyModify-form").show();
 
                         // 저장 버튼 클릭 이벤트 처리
                         $("#replyModifyForm_" + editrecoCmtSeq + " .save").off("click").on("click", function () {
                             var editrecoCmtSeq = $(this).data("reply");
                             var editrecoCmtContent = $("#replyModifyComment_" + editrecoCmtSeq).val();
                             saveReply(editrecoCmtSeq, editrecoCmtContent);
+
+                            // 수정 폼 숨기고 수정, 삭제 버튼 다시 표시
+                            replyElement.find(".comment-buttons").show();
+                            replyElement.find(".original-comment").show();
+                            replyElement.find(".replyModify-form").hide();
                         });
                     } else {
                         alert("댓글을 작성한 사용자만이 수정할 수 있습니다.");
@@ -137,7 +125,7 @@
             case "일본":
                 return "/img/comment/nation-jp.png";
             default:
-                return "/img/comment/default.png";
+                return "/img/comment/nation-wr.png";
         }
     }
 
