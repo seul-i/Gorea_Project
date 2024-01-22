@@ -44,8 +44,6 @@
 			$(document).on('click', '#replyModify', function(){
 				const cseq = $(this).closest('.comment').find('#cseq').val();
 				
-				console.log( "cseq는 : " + cseq );
-				
 				$('#modifyForm' + cseq ).show();
 			});
 			
@@ -70,10 +68,6 @@
 			// 대댓글 작성 폼 버튼
 			$(document).on( 'click', '#rereplyWrite', function() {
 				const cseq = $(this).closest('.comment').find('#cseq').val();
-				
-				console.log( "cseq는 : " + cseq );
-				
-				console.log( "rereplyWriteForm" + cseq );
 				
 				$( '#rereplyWriteForm' + cseq ).show();
 			});
@@ -134,16 +128,6 @@
 				},
 				dataType: 'json',
 				success: function( data ) {
-					/* for( var i = 0; i<data.length; i++ ){
-						console.log( "pseq : " + data[i].pseq );
-						console.log( "goreaNo : " + data[i].goreaboardNo );
-						console.log( "cseq : " + data[i].cseq );
-						console.log( "Nick : " + data[i].userNickname );
-						console.log( "replyContent : " + data[i].replyContent );
-						console.log( "grp : " + data[i].grp );
-						console.log( "grpl : " + data[i].grpl );
-						console.log( "userSeq : " + data[i].userSeq );
-					} */
 					
 					$( '.comment-section' ).empty();
 					let html = '';
