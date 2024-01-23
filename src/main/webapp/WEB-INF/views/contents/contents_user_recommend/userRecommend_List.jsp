@@ -22,6 +22,7 @@
 	        $(".things").click(function() {
 	            var seq = $(this).closest(".things").find(".thumb a").attr("href");
 	            window.location.href = seq; // 클릭한 thumb의 링크로 이동
+	            event.stopPropagation();
 	        });
 	    });
 	    
@@ -73,7 +74,7 @@
 							
 							<div class="info">
 								<div class="category">카테고리</div>
-								<div class="title"><c:out value="${to.userRecomTitle}"/></a></div>
+								<div class="title"><c:out value="${to.userRecomTitle}"/></div>
 								<%-- <div class="subtitle"><a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomContent }" escapeXml="false" /></a></div> --%>
 								<br>
 								<div class="info_bottom_container">

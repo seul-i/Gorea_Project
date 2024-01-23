@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>게시판 뷰</title>
+    <title>GO!rea</title>
     <link rel="stylesheet" type="text/css" href="/css/userRecommend/view.css">
     <script src="https://kit.fontawesome.com/42d55d598f.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
@@ -153,7 +153,6 @@
 							            html += '<button class="btn reply-action-btn" id="rereplyWrite">답변쓰기</button></span>';
 								
 										if (loginUserSeq == item.userSeq) {
-											//html += '<button id="rereplyWrite">답변쓰기</button></span>';
 											html +=     '<div>';
 								            html +=         '<button class="btn reply-action-btn" id="replyModify">댓글 수정</button>';
 								            html +=         '<button class="btn reply-action-btn" id="replyDelete">댓글 삭제</button>';
@@ -241,7 +240,6 @@
 					userSeq: userSeq
 				},
 				success: function(response){
-					//console.log( userSeq );
 					alert("작성 성공");
 					$('#replyContent').val('');
 					
@@ -376,18 +374,42 @@
         
         <div class="comment-section" id="comment"></div>
         
-        <input type="hidden" id="goreaboardNo" value="${to.userRecomboardNo}" />
-        <input type="hidden" id="pseq" value="${to.userRecomSeq}" />
+        <c:url var="deleteUrl" value="/${language}/userRecom_delete_ok.do">
+            <c:param name="userRecomSeq" value="${ seq }" />
+            <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${param.cpage}" /></c:if>
+            <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
+            <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>
+        </c:url>
+
+        <c:url var="modifyUrl" value="/${language}/userRecom_modify.do">
+            <c:param name="userRecomSeq" value="${ seq }" />
+            <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${ param.cpage }" /></c:if>
+            <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
+            <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>
+        </c:url>
+
+        <c:url var="listUrl" value="/${language}/userRecom.do">
+            <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${param.cpage}" /></c:if>
+            <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
+            <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>
+        </c:url>
         
-        <div class="post-actions" style="text-align: right; margin-top: 10px;">
+        
+        <div class="post-actions">
 	        <div class="left-buttons">
+	        	<c:if test="${not empty prevPost}">
+		            <input type="button" value="이전글" class="btn" onclick="location.href='userRecom_view.do?seq=${prevPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+		        </c:if>
+		        <c:if test="${not empty nextPost}">
+		            <input type="button" value="다음글" class="btn" onclick="location.href='userRecom_view.do?seq=${nextPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+		        </c:if>
 	        </div>
 	        <div class="right-buttons">
-	        	<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='/korean/userRecom.do'" />
+	        	<input type="button" value="목록" class="btn" onclick="location.href='${listUrl}'" />
 	            <c:if test="${userSeq eq to.userSeq}">
 		            <!-- userSeq와 게시글 작성자의 userSeq가 일치하는 경우에만 수정 및 삭제 버튼 표시 -->
-		            <input type="button" value="수정" class="btn reply-action-btn" style="cursor: pointer;" onclick="location.href='userRecom_modify.do?seq=${to.userRecomSeq}'" />
-		            <input type="button" value="삭제" class="btn reply-action-btn" style="cursor: pointer;" onclick="location.href='userRecom_delete_ok.do?seq=${to.userRecomSeq}'" />
+		            <input type="button" value="수정" class="btn" onclick="location.href='${modifyUrl}'" />
+		            <input type="button" value="삭제" class="btn" onclick="confirmDelete('${deleteUrl}')" />
         		</c:if>
 	        </div>
     	</div>
@@ -401,6 +423,12 @@
             	// 추천 수를 페이지에 표시
             	document.getElementById('like-count').innerText = likes;
         	});
+	}
+	
+	function confirmDelete(deleteUrl) {
+	    if (confirm("글을 삭제하시겠습니까?")) {
+	        location.href = deleteUrl;
+	    }
 	}
 </script>
 <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>

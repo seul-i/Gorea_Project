@@ -31,8 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gorea.dto_board.Gorea_PagingTO;
 import com.gorea.dto_board.Gorea_Recommend_BoardTO;
 import com.gorea.repository_contents.Gorea_RecommendDAO;
-import com.gorea.service_contents.Gorea_Content_ListTranslationG;
-import com.gorea.service_contents.Gorea_Content_ViewTranslationG;
+import com.gorea.service_trans_userrecommend.Gorea_Translate_UserRecom_List_interface;
+import com.gorea.service_trans_userrecommend.Gorea_Translate_UserRecom_View_interface;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,10 +48,10 @@ public class Gorea_Recommend_Controller {
     private String uploadDir;
 	
 	@Autowired
-	private Gorea_Content_ListTranslationG listTranslation;
+	private Gorea_Translate_UserRecom_List_interface listTranslation;
 	
 	@Autowired 
-	private Gorea_Content_ViewTranslationG viewTranslation;
+	private Gorea_Translate_UserRecom_View_interface viewTranslation;
 	
 	@GetMapping("/{language}/userRecom.do")
 	public String list( @PathVariable String language,
@@ -193,7 +193,7 @@ public class Gorea_Recommend_Controller {
 	
 	
 	@GetMapping("/{language}/userRecom_view.do")
-	public String view( @RequestParam("seq") String userRecomSeqStr, @PathVariable String language, HttpServletRequest request, Model model, @RequestParam(value = "cpage", required = false) String cpage,
+	public String view( @RequestParam("userRecomSeq") String userRecomSeqStr, @PathVariable String language, HttpServletRequest request, Model model, @RequestParam(value = "cpage", required = false) String cpage,
 			@RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
 		
@@ -210,7 +210,7 @@ public class Gorea_Recommend_Controller {
 		to.setUserRecomSeq( Integer.toString(userRecomSeq) );
 		Gorea_Recommend_BoardTO prevPost = dao.getPreviousPost(userRecomSeq);
 		Gorea_Recommend_BoardTO nextPost = dao.getNextPost(userRecomSeq);
-		System.out.println( "view controller에서 : " + request.getParameter( "seq" ) );
+		System.out.println( "view controller에서 : " + request.getParameter( "userRecomSeq" ) );
 		
 		if( language.equals("korean")) {
 			to = dao.userRecom_view(to);
@@ -284,10 +284,12 @@ public class Gorea_Recommend_Controller {
 	
 	
 	@RequestMapping( "/{language}/userRecom_modify.do" )
-	public String modify(@PathVariable String language, HttpServletRequest request, Model model ) {
+	public String modify(@PathVariable String language, HttpServletRequest request, @RequestParam(value = "cpage", required = false) String cpage,
+            @RequestParam(value = "searchType", required = false) String searchType,
+            @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
 		
-		to.setUserRecomSeq( request.getParameter("seq") );
+		to.setUserRecomSeq( request.getParameter("userRecomSeq") );
 		
 		//System.out.println( "modifyseq : " + to.getUserRecomSeq() );
 		
@@ -302,7 +304,11 @@ public class Gorea_Recommend_Controller {
 	      }
 		
 		model.addAttribute( "to" , to );
-		model.addAttribute( "seq", to.getUserRecomSeq() );
+		model.addAttribute( "seq", request.getParameter("userRecomSeq") );
+		
+		model.addAttribute("cpage", cpage);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
 		
 		return "contents/contents_user_recommend/userRecommend_Modify";
 	}
@@ -314,11 +320,11 @@ public class Gorea_Recommend_Controller {
 		
 		int flag = 1;
 		
-		to.setUserRecomSeq( request.getParameter("seq") );
+		to.setUserRecomSeq( request.getParameter("userRecomSeq") );
 		to.setUserRecomTitle( request.getParameter( "title" ) );
 		to.setUserRecomContent( request.getParameter("content") );;
 		
-		System.out.println( "seq : " + request.getParameter("seq") );
+		System.out.println( "seq : " + request.getParameter("userRecomSeq") );
 		System.out.println( "title : " + to.getUserRecomTitle() );
 		System.out.println( "content : " + to.getUserRecomContent() );
 		

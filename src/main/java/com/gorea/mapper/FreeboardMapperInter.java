@@ -23,7 +23,7 @@ public interface FreeboardMapperInter {
 	 int free_TotalCount();
 	
 	// Free_WriteOk
-	@Insert("insert into Freeboard values (0, 1, 3, #{freeTitle}, now(), 0, #{freeContent}, 0,  0 )")
+	@Insert("insert into Freeboard values (0, #{userSeq}, 3, #{freeTitle}, now(), 0, #{freeContent}, 0,  0 )")
 	int Free_Write_Ok(Gorea_Free_BoardTO to);
 	
 	// Free_view_hit

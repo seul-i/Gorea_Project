@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <c:set var="language" value="${language}" />
 <c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
+<c:set var="seq" value="${userRecomSeq }" />
 <html>
 <head>
 <title>GO!rea</title>
@@ -16,7 +17,7 @@
         <h2>게시글 수정</h2>
         <form action="/korean/userRecom_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
 	        <c:set var="to" value="${requestScope.to}" />
-	        <input type="hidden" name="seq" value="${param.seq}" /> 
+	        <input type="hidden" name="seq" value="${ param.seq }" /> 
 			<input type="hidden" name="cpage" value="${cpage}" /> 
 			<input type="hidden" name="searchType" value="${searchType}" /> 
 			<input type="hidden"name="searchKeyword" value="${searchKeyword}" />

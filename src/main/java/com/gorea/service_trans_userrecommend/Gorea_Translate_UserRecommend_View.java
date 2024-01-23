@@ -1,4 +1,4 @@
-package com.gorea.service_contents;
+package com.gorea.service_trans_userrecommend;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.gorea.dto_board.Gorea_Recommend_BoardTO;
 
 @Service
-public class Gorea_UserRecommend_ViewTranslation {
+public class Gorea_Translate_UserRecommend_View {
 
 	private String lang_code;
 	

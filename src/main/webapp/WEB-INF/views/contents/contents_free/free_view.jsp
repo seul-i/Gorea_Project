@@ -5,6 +5,7 @@
 <c:set var="seq" value="${param.freeSeq}" />
 <c:set var="to" value="${requestScope.to}" />
 <c:set var="language" value="${language}" />
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -14,107 +15,96 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script type="text/javascript">
-		$( document ).ready( function() {
-			// 댓글 작성 버튼
-			$( '#replyWrite' ).on( 'click', function() {
-				console.log( "pseq는 : " + $('#pseq').val() );
-				console.log( "goreaboardNo는 : " + $('#goreaboardNo').val() );
-				//console.log( "cseq는 : " + $('#cseq').val() );
-				
-				writeOkServer();
-			});
+	$( document ).ready( function() {
+		const userSeq = '${userSeq}';
+		
+		// 댓글 작성 버튼
+		$( '#replyWrite' ).on( 'click', function() {
 			
-			// 댓글 삭제 버튼
-			$(document).on('click', '#replyDelete', function () {
-				const cseq = $(this).closest('.comment').find('#cseq').val();
-				const grp = $(this).closest('.comment').find('#grp').val();
-        		console.log("cseq는 : " + cseq );
-        		console.log( "grp는 : " + grp );
-        		
-        		console.log( "pseq는 : " + $('#pseq').val() );
-        		
-        		deleteOkServer( cseq, grp );
-    		});
-			
-			// 댓글 수정 버튼
-			$(document).on('click', '#replyModify', function(){
-				const cseq = $(this).closest('.comment').find('#cseq').val();
-				
-				console.log( "cseq는 : " + cseq );
-				
-				$('#modifyForm' + cseq ).show();
-			});
-			
-			// 수정 확인 버튼
-			$(document).on( 'click', '#replyModifyOk', function(){
-				const cseq = $(this).closest('.comment').find('#cseq').val();
-				
-				console.log( "cseq는 : " + cseq );
-				
-				modifyOkServer( cseq );
-			});
-			
-			// 수정 취소 버튼
-			$(document).on( 'click', '#replyModifyCancel', function(){
-				const cseq = $(this).closest('.comment').find('#cseq').val();
-				
-				console.log( "cseq는 : " + cseq );
-				
-				$('#modifyForm' + cseq ).hide();
-			});
-			
-			// 대댓글 작성 폼 버튼
-			$(document).on( 'click', '#rereplyWrite', function() {
-				const cseq = $(this).closest('.comment').find('#cseq').val();
-				
-				console.log( "cseq는 : " + cseq );
-				
-				console.log( "rereplyWriteForm" + cseq );
-				
-				$( '#rereplyWriteForm' + cseq ).show();
-			});
-			
-			// 대댓글 쓰기 버튼
-			$(document).on( 'click', '#rereplyWriteBtn', function(){
-				const grp = $(this).closest('.comment').find('#grp').val();
-				const replyContent = $(this).closest('.comment').find('#rereplyContent'+grp).val();
-				
-				console.log( "쓰기 grp는 : " + grp);
-				console.log( "쓰기 content는 : " + replyContent );
-				
-				reWriteOkServer( grp, replyContent );
-			});
-			
-			// 대댓글 작성 취소 버튼
-			$(document).on( 'click', '#rereplyCancelBtn', function(){
-				const grp = $(this).closest('.comment').find('#grp').val();
-				
-				console.log( "취소 grp는 : " + grp );
-				
-				$( '#rereplyWriteForm' + grp ).hide();
-			});
-			
-			// 대댓글 삭제 버튼
-			$(document).on( 'click', '#rereplyDelete', function(){
-				const cseq = $(this).closest('.comment').find('#cseq').val();
-				const grp = $(this).closest('.comment').find('#grp').val();
-				
-				console.log( "대댓글 cseq는 : " + cseq );
-				console.log( "대댓글 grp는 : " + grp );
-				console.log( "대댓글 pseq는 : " + $('#pseq').val() );
-				
-				reDeleteOkServer( cseq );
-			});
-			
-			readServer();
+			writeOkServer( userSeq );
 		});
+		
+		// 댓글 삭제 버튼
+		$(document).on('click', '#replyDelete', function () {
+			const cseq = $(this).closest('.comment').find('#cseq').val();
+			const grp = $(this).closest('.comment').find('#grp').val();
+    		
+    		deleteOkServer( cseq, grp );
+		});
+		
+		
+		// 댓글 수정 버튼
+		$(document).on('click', '#replyModify', function(){
+			const cseq = $(this).closest('.comment').find('#cseq').val();
+			
+		    $('.reply-action-btn').hide();
+			
+			$('#modifyForm' + cseq ).show();
+		});
+		
+		
+		// 수정 확인 버튼
+		$(document).on( 'click', '#replyModifyOk', function(){
+			const cseq = $(this).closest('.comment').find('#cseq').val();
+			
+			modifyOkServer( cseq );
+		});
+		
+		
+		// 수정 취소 버튼
+		$(document).on( 'click', '#replyModifyCancel', function(){
+			const cseq = $(this).closest('.comment').find('#cseq').val();
+			
+		    $('.reply-action-btn').show();
+			
+			$('#modifyForm' + cseq ).hide();
+		});
+		
+		
+		// 대댓글 작성 폼 버튼
+		$(document).on( 'click', '#rereplyWrite', function() {
+			const cseq = $(this).closest('.comment').find('#cseq').val();
+			
+			$('.reply-action-btn').hide();
+
+			$( '#rereplyWriteForm' + cseq ).show();
+		});
+		
+		
+		// 대댓글 쓰기 버튼
+		$(document).on( 'click', '#rereplyWriteBtn', function(){
+			const grp = $(this).closest('.comment').find('#grp').val();
+			const replyContent = $(this).closest('.comment').find('#rereplyContent'+grp).val();
+			
+			reWriteOkServer( grp, replyContent, userSeq );
+		});
+		
+		// 대댓글 작성 취소 버튼
+		$(document).on( 'click', '#rereplyCancelBtn', function(){
+			const grp = $(this).closest('.comment').find('#grp').val();
+			
+			$('.reply-action-btn').show();
+			
+			$( '#rereplyWriteForm' + grp ).hide();
+		});
+		
+		// 대댓글 삭제 버튼
+		$(document).on( 'click', '#rereplyDelete', function(){
+			const cseq = $(this).closest('.comment').find('#cseq').val();
+			const grp = $(this).closest('.comment').find('#grp').val();
+			
+			reDeleteOkServer( cseq );
+		});
+		
+		readServer();
+	});
 		
 		
 		// 함수 ---------------------------------------------------------------------------------------
 		 
-		const readServer = function( cseq , userNickname, replyContent, replypostDate, grp, grpl ) {
+		const readServer = function( cseq , userNickname, replyContent, replypostDate, grp, grpl, userSeq ) {
 			$.ajax({
-				url: '/korean/gorea_replyList.do',
+				url: '/korean/gorea_reply.do',
 				type: 'get',
 				data : {
 					pseq : $('#pseq').val(),
@@ -124,19 +114,24 @@
 					replyContent : replyContent,
 					replypostDate : replypostDate,
 					grp : grp,
-					grpl : grpl
+					grpl : grpl,
+					userSeq : userSeq
 				},
 				dataType: 'json',
 				success: function( data ) {
+					
 					$( '.comment-section' ).empty();
 					let html = '';
 					
 					$.each( data, function ( index, item ){
 
-						html += '<div class="comment">';
 						html += '<input type="hidden" id="cseq" value="' + item.cseq + '" />';
 						html += '<input type="hidden" id="grp" value="' + item.grp + '" />';
 						html += '<input type="hidden" id="grpl value="' + item.grpl +'"/>';
+						
+						html += '<div class="comment" style="display:flex; justify-content: space-between; width: 100%;">';
+						
+						var loginUserSeq = "${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}";
 						
 						if( item.grpl == 0 ){ // 모댓글일 때
 								html += '<div class="comment-header">';
@@ -144,14 +139,29 @@
 								html += '</div>';
 								html += '<div class="comment-body">' + item.replyContent + '</div>';
 								html += '<div class="comment-actions">';
-								html += 	'<span class="comment-timestamp">' + item.replypostDate + '<button id="rereplyWrite">답변쓰기</button></span>';
-					            html +=     '<div>';
-					            html +=         '<button id="replyModify">댓글 수정</button>';
-					            html +=         '<button id="replyDelete">댓글 삭제</button>';
-					            html +=     '</div>';
+								html += 	'<span class="comment-timestamp">' + item.replypostDate ;
+
+								html += '<input type="hidden" name="userSeq" value="${userSeq}"/>';
+								
+								html += '<input type="hidden" id="cseq" value="' + item.cseq + '" />';
+								html += '<input type="hidden" id="grp" value="' + item.grp + '" />';
+								
+								 if (!loginUserSeq) {
+							            html += '<button class="btn reply-action-btn" id="rereplyWrite" style="display:none;">답변쓰기</button></span>';
+							        } else {
+							            html += '<button class="btn reply-action-btn" id="rereplyWrite">답변쓰기</button></span>';
+								
+										if (loginUserSeq == item.userSeq) {
+											html +=     '<div>';
+								            html +=         '<button class="btn reply-action-btn" id="replyModify">댓글 수정</button>';
+								            html +=         '<button class="btn reply-action-btn" id="replyDelete">댓글 삭제</button>';
+								            html +=     '</div>';
+										}
+							        }
 					            html += '</div>';
 					            
-					            html += '<br>';
+					            //form과 공간 만들기
+					            
 					            html += '<div id="rereplyWriteForm' + item.grp + '" style="display : none;">';
 					            html += 	'<div class="reply-body' + item.grp + '">';
 					            html += 		'<textarea id="rereplyContent' + item.grp + '" style="resize:none; flex: 1; padding: 10px; border-radius: 4px; border: 1px solid #ccc; min-height: 60px; width: 80%;" placeholder="대댓글을 입력하세요"></textarea>';
@@ -168,8 +178,8 @@
 					            html +=			'<textarea id="modifyContent' + item.cseq + '" style="resize: none; flex: 1; padding: 10px; border-radius: 4px; border: 1px solid #ccc; min-height: 60px; width: 80%;" placeholder="' + item.replyContent + '"></textarea>';
 					            html += 	'</div>';
 					            html += 	'<div>';
-					            html += 		'<button id="replyModifyOk">확인</button>';
-					            html += 		'<button id="replyModifyCancel">취소</button>';
+					            html += 		'<button class="btn" id="replyModifyOk">확인</button>';
+					            html += 		'<button class="btn" id="replyModifyCancel">취소</button>';
 					            html += 	'</div>';
 					            html += '<hr>';
 					            html += '</div>';
@@ -183,10 +193,15 @@
 					            html +=        '<div class="comment-body">' + item.replyContent + '</div>';
 					            html +=        '<div class="comment-actions">';
 					            html +=            '<span class="comment-timestamp">' + item.replypostDate + '</span>';
-					            html +=            '<div>';
-					            html +=                '<button id="replyModify">수정</button>';
-					            html +=                '<button id="rereplyDelete">삭제</button>';
-					            html +=            '</div>';
+					            
+					           if (loginUserSeq == item.userSeq) {
+					        	   html += '<input type="hidden" id="cseq" value="' + item.cseq + '" />';
+						           html +=            '<div>';
+						           html +=                '<button class="btn reply-action-btn" id="replyModify">수정</button>';
+						           html +=                '<button class="btn reply-action-btn" id="rereplyDelete">삭제</button>';
+						           html +=            '</div>';
+					           }
+						            
 					            html +=        '</div>';
 					            html +=    '</div>';
 					            html += '</div>';
@@ -196,8 +211,8 @@
 					            html +=			'<textarea id="modifyContent' + item.cseq + '" style="resize: none; flex: 1; padding: 10px; border-radius: 4px; border: 1px solid #ccc; min-height: 60px; width: 80%;" placeholder="' + item.replyContent + '"></textarea>';
 					            html += 	'</div>';
 					            html += 	'<div>';
-					            html += 		'<button id="replyModifyOk">확인</button>';
-					            html += 		'<button id="replyModifyCancel">취소</button>';
+					            html += 		'<button class="btn" id="replyModifyOk">확인</button>';
+					            html += 		'<button class="btn" id="replyModifyCancel">취소</button>';
 					            html += 	'</div>';
 					            html += '<hr>';
 					            html += '</div>';
@@ -211,16 +226,17 @@
 					console.log( "error" );
 				}
 			});
-		};		
+		};			
 		
-		const writeOkServer = function(){
+		const writeOkServer = function( userSeq ){
 			$.ajax({
-				url: '/korean/gorea_replyWriteOk.do',
+				url: '/korean/gorea_reply_write_ok.do',
 				type: 'post',
 				data: {
 					pseq: $( '#pseq' ).val(),
 					replyContent: $( '#replyContent' ).val(),
-					goreaboardNo: $( '#goreaboardNo' ).val()
+					goreaboardNo: $( '#goreaboardNo' ).val(),
+					userSeq: userSeq
 				},
 				success: function(response){
 					alert("작성 성공");
@@ -235,20 +251,18 @@
 			});
 		};
 		
-		const reWriteOkServer = function( grp, replyContent ) {
+		const reWriteOkServer = function( grp, replyContent, userSeq ) {
 			$.ajax({
-				url: '/korean/gorea_rereply_Wtire_Ok.do',
+				url: '/korean/gorea_rereply_wtire_ok.do',
 				type: 'post',
 				data:{
 					pseq: $( '#pseq' ).val(),
 					replyContent: $( '#rereplyContent' + grp ).val(),
 					goreaboardNo: $( '#goreaboardNo' ).val(),
-					grp: grp
+					grp: grp,
+					userSeq: userSeq
 				},
 				success: function(response){
-					console.log( replyContent );
-					console.log( $( '#grp' ).val() );
-					
 					alert("작성 성공");
 					$('#replyContent'+grp).val('대댓글을 입력하세요');
 					
@@ -263,7 +277,7 @@
 		
 		const deleteOkServer = function( cseq, grp ) {
 			$.ajax({
-				url: '/korean/gorea_replyDeleteOk.do',
+				url: '/korean/gorea_reply_delete_ok.do',
 				type: 'post',
 				data:{
 					pseq: $('#pseq').val(),
@@ -283,7 +297,7 @@
 		
 		const modifyOkServer = function( cseq ){
 			$.ajax({
-				url: '/korean/gorea_replyModifyOk.do',
+				url: '/korean/gorea_reply_modify_ok.do',
 				type: 'post',
 				data:{
 					pseq: $( '#pseq' ).val(),
@@ -303,7 +317,7 @@
 		
 		const reDeleteOkServer = function( cseq ){
 			$.ajax({
-				url: '/korean/gorea_rereply_Delete_Ok.do',
+				url: '/korean/gorea_rereply_delete_ok.do',
 				type: 'post',
 				data:{
 					pseq: $( '#pseq' ).val(),
@@ -340,13 +354,23 @@
         <!-- 추천 버튼과 추천 수 -->
 		<button onclick="increaseLikes('${seq}')">추천</button>
         <div class="comments-count">추천 <span id="like-count">${to.freeRecomcount}</span>개 댓글 3개</div>
+        
+        <c:choose>
+        	<c:when test="${not empty userSeq }">
+        		<input type="hidden" id="goreaboardNo" value="${to.freeboardNo}" />
+        		<input type="hidden" id="pseq" value="${to.freeSeq}" />
+        		<input type="hidden" name="userSeq" value="${userSeq}"/>
+		        <div class="comment-form" style="display: flex;">
+		            <textarea id="replyContent" style="resize: none;" placeholder="댓글을 입력하세요"></textarea>
+		            <button class="btn" id="replyWrite">댓글 작성</button>
+		        </div>
+	        </c:when>
+        </c:choose>
+        
         <div class="comment-section">            
             <!-- 여기에 추가 댓글 및 대댓글이 들어갑니다 -->
         </div>
-        <div class="comment-form">
-            <textarea id="replyContent" style="resize: none;" placeholder="댓글을 입력하세요"></textarea>
-            <button class="btn" id="replyWrite">댓글 작성</button>
-        </div>
+        
         <c:url var="deleteUrl" value="/${language}/freeboard_delete_ok.do">
             <c:param name="freeSeq" value="${seq}" />
             <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${param.cpage}" /></c:if>
