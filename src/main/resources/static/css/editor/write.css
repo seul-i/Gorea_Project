@@ -1,34 +1,67 @@
 /* style.css 파일 내용 */
-body {
-    font-family: Arial, sans-serif;
-}
-.container {
+
+.containers {
     width: 60%;
     margin: 0 auto;
     padding: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding-bottom: 5px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #ccc;
 }
+
+.stits p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.tith2{
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.stits {
+        float: left; 
+        padding-left: 10px;
+        font-weight: bold;
+        width: 100px; /* 고정된 너비 설정 */
+    }
+
+.form-control{
+    width: 20%; 
+    height: 40px;
+    padding: 10px;
+    margin: 5px 0 12px 0;
+    border: 1px solid #ccc
+}
+
 .form-group {
+    margin-top: 10px;
     margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
 }
 .form-group label {
     font-weight: bold;
 }
 .form-group input[type="text"],
 .form-group textarea {
-    width: 100%;
+    width: 30%;
     padding: 10px;
-    margin: 5px 0 15px 0;
+    margin: 5px 0 12px 0;
     display: inline-block;
     border: 1px solid #ccc;
-    border-radius: 4px;
     box-sizing: border-box;
 }
 .btn_wrap {
-    text-align: right;
-}
+            text-align: center; /* 버튼을 중앙에 정렬 */
+            margin-bottom: 20px;
+        }
 .btn {
-    padding: 10px 20px;
+    padding: 10px 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -37,14 +70,63 @@ body {
     cursor: pointer;
 }
 .btn-primary {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    border-radius: 4px;
+    background-color: #007DC3;
+    color: white;
+    border: 1px solid #007DC3;
 }
 .btn-default {
     background-color: #e7e7e7;
     color: black;
     border: none;
-    border-radius: 4px;
 }
+@media (max-width: 1280px) {
+   .containers {
+      width: 75%;
+      margin: 0 auto;
+      padding: 20px;
+      padding-bottom: 5px;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+   }
+}
+
+@media (max-width: 768px) {
+        /* 예시: 클립보드와 스타일 관련 툴바 숨기기 */
+        .cke_top .cke_toolbar:nth-of-type(1), /* 클립보드 툴바 */
+        .cke_top .cke_toolbar:nth-of-type(3), /* 기타 툴바 요소 */
+        .cke_top .cke_toolbar:nth-of-type(9),
+        .cke_top .cke_toolbar:nth-of-type(10)
+         {
+            display: none;
+        }
+        
+        .containers {
+         width: 100%;
+         margin: 0 auto;
+         padding: 20px;
+         padding-bottom: 5px;
+         margin-top: 30px;
+         margin-bottom: 20px;
+         border-bottom: 1px solid #ccc;
+      }
+      
+      .form-control{
+          width: 40%; 
+          height: 40px;
+          padding: 10px;
+          margin: 5px 0 12px 0;
+      }
+        
+        .form-group input[type="text"],
+      .form-group textarea {
+          width: 40%;
+          padding: 10px;
+          margin: 5px 0 12px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          box-sizing: border-box;
+      }
+}
+    
+    

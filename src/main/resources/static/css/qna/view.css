@@ -22,7 +22,6 @@ body {
         }
 
         .post-actions {
-    display: flex;
     justify-content: space-between; /* 좌우 정렬을 위해 space-between 사용 */
     margin-top: 10px;
 }
@@ -34,6 +33,21 @@ body {
 
 .right-buttons {
     display: flex;
+}
+
+.submitReplyBtn {
+    /* '등록' 버튼과 동일한 스타일 */
+    width: 5.5em;
+    height: 3.3em;
+    padding: 6px 14px;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: #42424a;
+    font-size: 12px;
+    font-weight: bold;
+    color: aliceblue;
 }
 
 .comment-form-btn {
@@ -72,7 +86,6 @@ body {
             margin-bottom: 30px;
             margin-top: 30px;
             min-height: 600px;
-            border-bottom: 1px solid silver;
         }
 
         .comment-section {
@@ -82,8 +95,7 @@ body {
         .comment {
             display: flex;
             flex-direction: column;
-            padding: 10px 0;
-            border-bottom: 1px solid silver;
+            padding: 5px 0;
         }
 
         .comment-header {
@@ -176,6 +188,22 @@ body {
             justify-content: flex-end;
             margin-top: 10px;
         }
+        
+        .post-actions.align-right {
+   		 text-align: right; /* 오른쪽 정렬 */
+		}
+        
+        .close-edit {
+    /* 닫기 버튼에 대한 스타일 */
+    font-size: 12px;
+    height: 24px;
+    border: none;
+    background: none;
+    color: #777;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-right: 10px;
+}
         
         hr {
             margin: 0;
