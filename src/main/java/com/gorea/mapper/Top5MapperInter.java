@@ -6,9 +6,11 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.gorea.dto_board.Gorea_BEST5_BoardTO;
 import com.gorea.dto_board.Gorea_BEST5_ListTO;
+import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
 
@@ -104,5 +106,39 @@ public interface Top5MapperInter {
             "LEFT JOIN BoardNo bn ON bt.top5boardNo = bn.goreaboardNo " +
             "WHERE u.userNation = #{nation}")
     List<Gorea_BEST5_ListTO> best5_top5_boardList_NS(String nation);
-
+    
+    
+    @Update("update besttop5 set top5Hit=top5Hit+1 where top5Seq=#{top5Seq}")
+	int TrendHit(Gorea_BEST5_ListTO to);
+    
+    @Select("SELECT bt.top5Seq, u.userNickname, u.userNation, bt.top5Hit, bt.top5postDate, bt.top5boardNo, " +
+            "ts1.seoulSeq AS seoulSeq1, ts1.seoulTitle AS seoulTitle1, " +
+            "ts1.seoulContent AS seoulContent1, ts1.seoulLoc As seoulLoc1,ts1.seoulLocGu AS seoulLocGu1, ts1.seoulcategoryNo AS seoulcategoryNo1, " +
+            "cn1.mainCategory AS mainCategory1, cn1.subCategory AS subCategory1, bt.top5Comment1, " +
+            "ts2.seoulSeq AS seoulSeq2, ts2.seoulTitle AS seoulTitle2, ts2.seoulContent AS seoulContent2, " +
+            "ts2.seoulLoc As seoulLoc2, ts2.seoulLocGu AS seoulLocGu2, ts2.seoulcategoryNo AS seoulcategoryNo2, cn2.mainCategory AS mainCategory2, " +
+            "cn2.subCategory AS subCategory2, bt.top5Comment2, ts3.seoulSeq AS seoulSeq3, ts3.seoulTitle AS seoulTitle3, " +
+            "ts3.seoulContent AS seoulContent3, ts3.seoulLoc As seoulLoc3, ts3.seoulLocGu AS seoulLocGu3, ts3.seoulcategoryNo AS seoulcategoryNo3, " +
+            "cn3.mainCategory AS mainCategory3, cn3.subCategory AS subCategory3, bt.top5Comment3, ts4.seoulSeq AS seoulSeq4, " +
+            "ts4.seoulTitle AS seoulTitle4, ts4.seoulContent AS seoulContent4,ts4.seoulLoc As seoulLoc4 ,ts4.seoulLocGu AS seoulLocGu4, " +
+            "ts4.seoulcategoryNo AS seoulcategoryNo4, cn4.mainCategory AS mainCategory4, cn4.subCategory AS subCategory4, " +
+            "bt.top5Comment4, ts5.seoulSeq AS seoulSeq5, ts5.seoulTitle AS seoulTitle5, ts5.seoulContent AS seoulContent5, " +
+            "ts5.seoulLoc As seoulLoc5, ts5.seoulLocGu AS seoulLocGu5, ts5.seoulcategoryNo AS seoulcategoryNo5, cn5.mainCategory AS mainCategory5, " +
+            "cn5.subCategory AS subCategory5, bt.top5Comment5, bn.goreaboardNo " +
+            "FROM BestTop5 bt " +
+            "JOIN User u ON bt.userSeq = u.userSeq " +
+            "LEFT JOIN TrendSeoul ts1 ON bt.seoulSeq1 = ts1.seoulSeq " +
+            "LEFT JOIN TrendSeoul ts2 ON bt.seoulSeq2 = ts2.seoulSeq " +
+            "LEFT JOIN TrendSeoul ts3 ON bt.seoulSeq3 = ts3.seoulSeq " +
+            "LEFT JOIN TrendSeoul ts4 ON bt.seoulSeq4 = ts4.seoulSeq " +
+            "LEFT JOIN TrendSeoul ts5 ON bt.seoulSeq5 = ts5.seoulSeq " +
+            "LEFT JOIN CategoryNo cn1 ON ts1.seoulcategoryNo = cn1.categoryNo " +
+            "LEFT JOIN CategoryNo cn2 ON ts2.seoulcategoryNo = cn2.categoryNo " +
+            "LEFT JOIN CategoryNo cn3 ON ts3.seoulcategoryNo = cn3.categoryNo " +
+            "LEFT JOIN CategoryNo cn4 ON ts4.seoulcategoryNo = cn4.categoryNo " +
+            "LEFT JOIN CategoryNo cn5 ON ts5.seoulcategoryNo = cn5.categoryNo " +
+            "LEFT JOIN BoardNo bn ON bt.top5boardNo = bn.goreaboardNo " +
+            "WHERE top5Seq = #{top5Seq}")
+    Gorea_BEST5_ListTO bestTop5_View(Gorea_BEST5_ListTO to);
+    
 }

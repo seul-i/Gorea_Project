@@ -23,7 +23,10 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 
     <!-- ============================= 댓글 리스트 ============================= -->
-    <script>
+    <script type="text/javascript">
+    
+    let language='${language}';
+    
     function updateCommentList() {
         $.ajax({
             type: 'GET',
@@ -52,8 +55,23 @@
                     if (loginUserSeq == editrecoCmtContent.userSeq) {
                         // 수정, 삭제 버튼은 댓글 작성자와 로그인한 사용자가 동일한 경우에만 표시
                         html += '<div class="comment-buttons">';
-                        html += '<button class="modify" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">수정</button>';
-                        html += '<button class="delete" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">삭제</button>';
+                        
+                        if(language === 'korean'){
+							html += '<button class="modify" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">수정</button>';
+							html += '<button class="delete" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">삭제</button>';
+                        }else if(language === 'english'){
+							html += '<button class="modify" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">modify</button>';
+							html += '<button class="delete" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">delete</button>';
+                        }else if(language === 'japanese'){
+							html += '<button class="modify" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">修正する</button>';
+							html += '<button class="delete" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">消去</button>';
+                        }else if(language === 'chinese'){
+							html += '<button class="modify" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">调整</button>';
+							html += '<button class="delete" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">删除</button>';
+                        }else{
+							html += '<button class="modify" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">수정</button>';
+							html += '<button class="delete" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">삭제</button>';
+                        }
                         html += '</div>';
                     }
 
@@ -231,52 +249,174 @@
 <jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 
 <div class="location">
-    <i class="fa-solid fa-house"></i> <span class="ar">></span> 추천 <span class="ar">></span> <span> <a href="./editRecommend_list.do">에디터 추천 장소</a>
-    </span>
-</div>
-<section class="infor-element">
-    <div class="infor-title">
-        <p class="h4">에디터 추천 장소</p>
-        <h3 class="h3 textcenter">${to.editrecoSubject}</h3>
-        <div class="post-element">
-            <span>제작일 : ${to.editrecoWdate}</span> <span>조회수 : ${to.editrecoHit}</span>
-        </div>
-        <div class="text-area">
-            <img class="blog-image">${to.editrecoContent}
-        </div>
-        
-        <form id="replyForm" method="post">
-            <input type="hidden" id="editrecoSeq" value="${param.editrecoSeq}" />
-            <input type="hidden" name="userSeq" value="${userSeq}">
-            <div class="reply-form">
-            
-                <div class="comment-container">
-                    <textarea style="resize: none;" id="editrecoCmtContent" placeholder="댓글을 입력하세요"></textarea>
-                    <button type="button" class="submitReplyBtn" id="submitReplyBtn">등록</button>
-                </div>
-                
-            </div>
-        </form>
-        <div class="reply-section">
-            <div id="replyContainer"></div>
-        </div>
-         
-       <c:choose>
-		<c:when test="${role eq 'ROLE_ADMIN'}">
-            <div style="text-align: right; margin-top: 10px;">
-                <button class="btn1" type="button"
-                    onclick="location.href='editRecommend_delete_ok.do?editrecoSeq=${seq}'">
-                    삭제</button>
-                <button class="btn1" type="button"
-                    onclick="location.href='editRecommend_modify.do?editrecoSeq=${seq}'">
-                    수정</button>
-                <button class="btn1" type="button"
-                    onclick="location.href='editRecommend_list.do'">목록</button>
-            </div>
-        </c:when>
-  	   </c:choose>
-        
-    </div>
-</section>
+		<i class="fa-solid fa-house"></i>
+		<span class="ar">></span>
+		<c:choose>
+			<c:when test="${language eq 'korean'}">
+			
+				추천 <span class="ar">></span> 
+	    		<span> 
+	    			<a href="./editRecommend_list.do">에디터 추천 장소</a>
+	    		</span>
+    		
+			</c:when>
+			<c:when test="${language eq 'english'}">
+			
+				recommend <span class="ar">></span> 
+	    		<span> 
+	    			<a href="./editRecommend_list.do">Editor's Recommended Places</a>
+	    		</span>
+			
+			</c:when>
+			<c:when test="${language eq 'japanese'}">
+			
+				おすすめ <span class="ar">></span> 
+	    		<span> 
+	    			<a href="./editRecommend_list.do">エディターおすすめの場所</a>
+	    		</span>
+			
+			</c:when>
+			<c:when test="${language eq 'chinese'}">
+			
+				
+				建议 <span class="ar">></span> 
+	    		<span> 
+	    			<a href="./editRecommend_list.do">编辑推荐的地方</a>
+	    		</span>
+			
+			</c:when>
+			<c:otherwise>제목</c:otherwise>
+		</c:choose>
+	</div>
+	
+	<section class="infor-element">
+	    <div class="infor-title">
+			<c:choose>
+				<c:when test="${language eq 'korean'}">
+				
+					<p class="h4">에디터 추천 장소</p>
+			        <h3 class="h3 textcenter">${to.editrecoSubject}</h3>
+			        <div class="post-element">
+			            <span>작성일 : ${to.editrecoWdate}</span> <span>조회수 : ${to.editrecoHit}</span>
+			        </div>
+			        
+				</c:when>
+				<c:when test="${language eq 'english'}">
+				
+					<p class="h4">Editor's Recommended Places</p>
+			        <h3 class="h3 textcenter">${to.editrecoSubject}</h3>
+			        <div class="post-element">
+			            <span>Date Created : ${to.editrecoWdate}</span> <span>views : ${to.editrecoHit}</span>
+			        </div>
+				
+				</c:when>
+				<c:when test="${language eq 'japanese'}">
+					
+					<p class="h4">エディターおすすめの場所</p>
+			        <h3 class="h3 textcenter">${to.editrecoSubject}</h3>
+			        <div class="post-element">
+			            <span>作成日 : ${to.editrecoWdate}</span> <span>ヒット : ${to.editrecoHit}</span>
+			        </div>
+				
+				</c:when>
+				<c:when test="${language eq 'chinese'}">
+				
+					<p class="h4">编辑推荐的地方</p>
+			        <h3 class="h3 textcenter">${to.editrecoSubject}</h3>
+			        <div class="post-element">
+			            <span>创建日期 : ${to.editrecoWdate}</span> <span>意见 : ${to.editrecoHit}</span>
+			        </div>
+				
+				</c:when>
+				<c:otherwise>제목</c:otherwise>
+			</c:choose>
+
+	        <div class="text-area">
+	           	${to.editrecoContent}
+	        </div>
+	        
+	        <form id="replyForm" method="post">
+	            <input type="hidden" id="editrecoSeq" value="${param.editrecoSeq}" />
+	            <input type="hidden" name="userSeq" value="${userSeq}">
+	            <div class="reply-form">
+	            
+	            	<c:choose>
+						<c:when test="${language eq 'korean'}">
+						
+						<div class="comment-container">
+	                    	<textarea style="resize: none;" id="editrecoCmtContent" placeholder="댓글을 입력하세요"></textarea>
+	                    	<button type="button" class="submitReplyBtn" id="submitReplyBtn">등록</button>
+	                	</div>
+			    		
+						</c:when>
+						<c:when test="${language eq 'english'}">
+						
+						<div class="comment-container">
+	                    	<textarea style="resize: none;" id="editrecoCmtContent" placeholder="Please enter your comment"></textarea>
+	                    	<button type="button" class="submitReplyBtn" id="submitReplyBtn">write</button>
+	                	</div>
+						
+						</c:when>
+						<c:when test="${language eq 'japanese'}">
+						
+						<div class="comment-container">
+	                    	<textarea style="resize: none;" id="editrecoCmtContent" placeholder="コメントを入力してください"></textarea>
+	                    	<button type="button" class="submitReplyBtn" id="submitReplyBtn">書く</button>
+	                	</div>
+						
+						</c:when>
+						<c:when test="${language eq 'chinese'}">				
+							
+						<div class="comment-container">
+	                    	<textarea style="resize: none;" id="editrecoCmtContent" placeholder="请输入您的评论"></textarea>
+	                    	<button type="button" class="submitReplyBtn" id="submitReplyBtn">写</button>
+	                	</div>
+						
+						</c:when>
+						<c:otherwise>제목</c:otherwise>
+					</c:choose>
+	            </div>
+	        </form>
+	        
+	        <!-- 댓글 영역 -->
+	        <div class="reply-section">
+	            <div id="replyContainer"></div>
+	        </div>
+	        <c:choose>
+				<c:when test="${role eq 'ROLE_USER'}">
+					<div style="text-align: right; margin-top: 10px;">
+						<button class="btn1" type="button"
+						onclick="location.href='editRecommend_list.do'">
+							<c:choose>
+			                <c:when test="${language eq 'korean'}">목록</c:when>
+			                <c:when test="${language eq 'english'}">List</c:when>
+			                <c:when test="${language eq 'japanese'}">リスト</c:when>
+			                <c:when test="${language eq 'chinese'}">列表</c:when>
+			            	</c:choose>
+						</button>
+					</div>
+				</c:when>
+			</c:choose>
+	         
+			<c:choose>
+				<c:when test="${role eq 'ROLE_ADMIN'}">
+		            <div style="text-align: right; margin-top: 10px;">
+		                <button class="btn1" type="button"
+		                    onclick="location.href='editRecommend_delete_ok.do?editrecoSeq=${seq}'">
+		                    삭제</button>
+		                <button class="btn1" type="button"
+		                    onclick="location.href='editRecommend_modify.do?editrecoSeq=${seq}'">
+		                    수정</button>
+		                <button class="btn1" type="button"
+		                    onclick="location.href='editRecommend_list.do'">목록</button>
+		            </div>
+				</c:when>
+			</c:choose>
+	        
+	    </div>
+	</section>
+
+	<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+
 </body>
 </html>

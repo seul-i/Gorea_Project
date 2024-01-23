@@ -124,8 +124,8 @@
 										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
 											<div class="headerDropdown-options">
-												<a href="/admin/adminpage.do">관리자 페이지</a> <a
-													href="/logoutKr.do" class="logout">로그아웃</a>
+												<a href="/admin/adminpage.do">관리자 페이지</a> 
+												<a href="/logoutKr.do" class="logout">로그아웃</a>
 											</div>
 										</div>
 									</c:when>
@@ -228,9 +228,16 @@
 		
 							<c:when test="${role eq 'ROLE_ADMIN'}">
 								<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
-									<div class="dropdown-options">
-										<a href="/admin/adminpage.do">관리자 페이지</a> 
-										<a href="/logoutKr.do" class="logout">로그아웃</a>
+									<div class="nav-idIfno">
+										<a href="/admin/adminpage.do" style="font-size:15px; margin-right:20px">관리자 페이지</a> 
+										<a href="/logoutKr.do" class="logout" style="font-size:15px">로그아웃</a>
+										
+										<select name="languages" id="lang2" onchange="changeLanguage(this)" style="margin-right:20px">
+											<option value="#" selected>한국어</option>
+											<option value="/english/">English</option>
+											<option value="/japanese/">日本語</option>
+											<option value="/chinese/">汉语</option>
+										</select>
 									</div>
 							</c:when>
 	

@@ -486,7 +486,7 @@ body{
 }
 
 .commonBanner-text h1{
-	font-size: 75px;
+	font-size: 65px;
 	font-weight: 800;
 	margin-left: 180px;
 }
@@ -495,7 +495,7 @@ body{
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	 object-position: center bottom;
+	object-position: center bottom;
 }
 
 @media only screen and (max-width: 1080px) {
@@ -510,7 +510,7 @@ body{
 		position: absolute;
 		bottom: 0.1px;
 		width: 100%;
-		height: 60px;
+		height: 80px;
 		color: white;
 		background-color: rgba(0, 0, 0, 0.3);
 	    backdrop-filter: blur(5px);

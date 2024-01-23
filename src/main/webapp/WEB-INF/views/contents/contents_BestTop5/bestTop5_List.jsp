@@ -60,9 +60,8 @@
 		            	window.location.href = "/${language}/login.do";
 		            		 
 		       		}else{
-		       			var Top5Seq = $(this).data('seq');
-		       			console.log(Top5Seq);
-		       			window.location.href = "/${language}/bestTop5_view.do";
+		       			var top5Seq = $(this).data('seq');
+		       			window.location.href = '/${language}/bestTop5_view.do?top5Seq='+top5Seq;
 					}
 				});
 		    	

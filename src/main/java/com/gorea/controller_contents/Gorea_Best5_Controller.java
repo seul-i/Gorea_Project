@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -27,6 +28,9 @@ public class Gorea_Best5_Controller {
 	
 	@Autowired
 	private Gorea_Best5DAO dao;
+	
+	@Value("${geocoding.api.key}")
+	private String googlemap;
 
 	@GetMapping("/{language}/bestTop5.do")
 	public String best5List(@PathVariable String language, Model model) {
@@ -112,6 +116,34 @@ public class Gorea_Best5_Controller {
 		return "contents/contents_BestTop5/bestTop5_write";
 	}
 	
+	@PostMapping("/{language}/bestTop5_write_ok.do")
+	@Transactional
+	public String best5write_ok(@PathVariable String language, 
+			HttpServletRequest request, Model model) {
+		
+		int flag = 2;
+		
+		Gorea_BEST5_BoardTO to = new Gorea_BEST5_BoardTO();
+
+			to.setUserSeq(request.getParameter("userSeq"));
+			to.setSeoulSeq1(request.getParameter("seoulSeq1"));
+			to.setTop5Comment1(request.getParameter("comment1"));
+			to.setSeoulSeq2(request.getParameter("seoulSeq2"));
+			to.setTop5Comment2(request.getParameter("comment2"));
+			to.setSeoulSeq3(request.getParameter("seoulSeq3"));
+			to.setTop5Comment3(request.getParameter("comment3"));
+			to.setSeoulSeq4(request.getParameter("seoulSeq4"));
+			to.setTop5Comment4(request.getParameter("comment4"));
+			to.setSeoulSeq5(request.getParameter("seoulSeq5"));
+			to.setTop5Comment5(request.getParameter("comment5"));
+			
+			flag = dao.besttop5_Write_Ok(to);
+
+		model.addAttribute("flag", flag);
+		
+		return "contents/contents_BestTop5/bestTop5_write_ok";
+	}
+	
 	// search box 비동기 항목 출력
 	@GetMapping("/{language}/categorySearch.do")
 	@ResponseBody 
@@ -151,9 +183,7 @@ public class Gorea_Best5_Controller {
 			List<Gorea_TrendSeoul_ListTO> searchboardList = new ArrayList<>();
 	
 		    if (language.equals("korean")) {
-		    	
-		    	searchboardList = dao.trendSeoul_searchList(locGu,mainCategory,subCategory);
-		        
+
 		    } else if (language.equals("english")) {
 		        // 처리
 		    } else if (language.equals("japanese")) {
@@ -162,45 +192,26 @@ public class Gorea_Best5_Controller {
 		        // 처리
 		    }
 
+		    searchboardList = dao.trendSeoul_searchList(locGu,mainCategory,subCategory);
+		    
 	    return searchboardList;
 	}
 	
-	@PostMapping("/{language}/bestTop5_write_ok.do")
-	@Transactional
-	public String best5write_ok(@PathVariable String language, 
-			HttpServletRequest request, Model model) {
-		
-		int flag = 2;
-		
-		Gorea_BEST5_BoardTO to = new Gorea_BEST5_BoardTO();
-
-			to.setUserSeq(request.getParameter("userSeq"));
-			to.setSeoulSeq1(request.getParameter("seoulSeq1"));
-			to.setTop5Comment1(request.getParameter("comment1"));
-			to.setSeoulSeq2(request.getParameter("seoulSeq2"));
-			to.setTop5Comment2(request.getParameter("comment2"));
-			to.setSeoulSeq3(request.getParameter("seoulSeq3"));
-			to.setTop5Comment3(request.getParameter("comment3"));
-			to.setSeoulSeq4(request.getParameter("seoulSeq4"));
-			to.setTop5Comment4(request.getParameter("comment4"));
-			to.setSeoulSeq5(request.getParameter("seoulSeq5"));
-			to.setTop5Comment5(request.getParameter("comment5"));
-			
-			flag = dao.besttop5_Write_Ok(to);
-
-		model.addAttribute("flag", flag);
-		
-		return "contents/contents_BestTop5/bestTop5_write_ok";
-	}
-	
 	@GetMapping("/{language}/bestTop5_view.do")
-	public String best5View(@PathVariable String language, Model model) {
+	public String bestTop5_View(@PathVariable String language, HttpServletRequest request, Model model) {
 		
-		model.addAttribute("language",language);
+		Gorea_BEST5_ListTO to = new Gorea_BEST5_ListTO();
 		
+		to.setTop5Seq(request.getParameter("top5Seq"));
+		
+		System.out.println(to.getTop5Seq());
+		
+		model.addAttribute("language", language);
+		model.addAttribute("googlemap",googlemap);
 
 		if(language.equals("korean")) {
-
+			to = dao.bestTop5_View(to);
+			System.out.println(to);
 		}else if(language.equals("english")) {
 			
 		}else if(language.equals("japanese")) {
@@ -209,6 +220,7 @@ public class Gorea_Best5_Controller {
 			
 		}
 		
+		model.addAttribute("to", to);
 		
 		return "contents/contents_BestTop5/bestTop5_view";
 	}
