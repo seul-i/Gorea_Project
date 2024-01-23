@@ -22,7 +22,6 @@
 	        $(".things").click(function() {
 	            var seq = $(this).closest(".things").find(".thumb a").attr("href");
 	            window.location.href = seq; // 클릭한 thumb의 링크로 이동
-	            event.stopPropagation();
 	        });
 	    });
 	    
@@ -69,7 +68,7 @@
 										<img src='/img/userRecom/no-image.png' alt='' >
 									</c:otherwise>
 								</c:choose>
-								<a href='/${language}/userRecom_view.do?seq=<c:out value='${to.userRecomSeq}' />'></a>
+								<a href='/${language}/userRecom_view.do?seq=${to.userRecomSeq}<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'></a>
 							</div>
 							
 							<div class="info">

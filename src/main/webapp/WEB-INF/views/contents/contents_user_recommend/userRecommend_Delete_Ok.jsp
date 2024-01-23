@@ -29,6 +29,9 @@
 <script type='text/javascript'>
     var flag = <c:out value="${flag}" />;
     var redirectUrl = <c:out value="${finalUrl}" />;
+    
+    console.log( 'flag : ', flag );
+    console.log( 'redirectUrl : ', redirectUrl );
 
     if (flag === 0) {
         alert('글 삭제 성공');

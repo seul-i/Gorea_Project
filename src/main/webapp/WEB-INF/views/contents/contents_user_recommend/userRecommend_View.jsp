@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
-<c:set var="seq" value="${ param.userRecomSeq }" />
+<c:set var="seq" value="${ to.userRecomSeq }" />
 <c:set var="to" value="${ requestScope.to }" />
 <c:set var="language" value="${language}" />
 <c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
@@ -375,14 +375,14 @@
         <div class="comment-section" id="comment"></div>
         
         <c:url var="deleteUrl" value="/${language}/userRecom_delete_ok.do">
-            <c:param name="userRecomSeq" value="${ seq }" />
+            <c:param name="userRecomSeq" value="${ param.seq }" />
             <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${param.cpage}" /></c:if>
             <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
             <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>
         </c:url>
 
         <c:url var="modifyUrl" value="/${language}/userRecom_modify.do">
-            <c:param name="userRecomSeq" value="${ seq }" />
+            <c:param name="seq" value="${ param.seq }" />
             <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${ param.cpage }" /></c:if>
             <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
             <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>

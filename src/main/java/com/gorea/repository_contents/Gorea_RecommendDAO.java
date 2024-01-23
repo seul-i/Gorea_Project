@@ -77,6 +77,8 @@ public class Gorea_RecommendDAO {
 	    String content = to.getUserRecomContent();
 	    String firstImageUrl = extractFirstImageUrl(content);
 	    to.setFirstImageUrl(firstImageUrl);
+	    
+	    //System.out.println( to.getUserRecomSeq() );
 		
 		return to;
 	}

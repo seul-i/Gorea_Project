@@ -76,6 +76,8 @@ public class Gorea_Recommend_Controller {
 			List<Gorea_Recommend_BoardTO> boardList = listTranslation.userRecommend_List_KO(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList, cpage);
 			
+			//System.out.println( "lists : " + boardList );
+			
 			model.addAttribute( "lists", boardList );
 			model.addAttribute( "paging", paging );
 			
@@ -172,7 +174,7 @@ public class Gorea_Recommend_Controller {
 		to.setUserRecomContent( request.getParameter( "content" ) );
 		to.setUserSeq( request.getParameter("userSeq") );
 		//System.out.println( "userSeq : " + request.getParameter("userSeq") );
-		
+		System.out.println();
 		if(language.equals("korean")) {
 			flag = dao.userRecom_writeOk(to);
 	         System.out.println(to);
@@ -186,14 +188,14 @@ public class Gorea_Recommend_Controller {
 		
 		model.addAttribute("language", language);
 		model.addAttribute( "flag", flag );
-		System.out.println( "language : " + language );
+		//System.out.println( "language : " + language );
 		
 		return "contents/contents_user_recommend/userRecommend_Write_Ok";
 	}
 	
 	
 	@GetMapping("/{language}/userRecom_view.do")
-	public String view( @RequestParam("userRecomSeq") String userRecomSeqStr, @PathVariable String language, HttpServletRequest request, Model model, @RequestParam(value = "cpage", required = false) String cpage,
+	public String view( @RequestParam("seq") String userRecomSeqStr, @PathVariable String language, HttpServletRequest request, Model model, @RequestParam(value = "cpage", required = false) String cpage,
 			@RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
 		
@@ -210,7 +212,8 @@ public class Gorea_Recommend_Controller {
 		to.setUserRecomSeq( Integer.toString(userRecomSeq) );
 		Gorea_Recommend_BoardTO prevPost = dao.getPreviousPost(userRecomSeq);
 		Gorea_Recommend_BoardTO nextPost = dao.getNextPost(userRecomSeq);
-		System.out.println( "view controller에서 : " + request.getParameter( "userRecomSeq" ) );
+		System.out.println( "view controller에서 : " + request.getParameter( "seq" ) );
+		System.out.println( Integer.toString(userRecomSeq) );
 		
 		if( language.equals("korean")) {
 			to = dao.userRecom_view(to);
@@ -273,11 +276,15 @@ public class Gorea_Recommend_Controller {
 	public String deleteOk( HttpServletRequest request , Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
 		
-		to.setUserRecomSeq( request.getParameter( "seq" ) );
+		to.setUserRecomSeq( request.getParameter( "userRecomSeq" ) );
+		
+		System.out.println( "seq : " + request.getParameter( "userRecomSeq" ) );
 		
 		int flag = dao.userRecom_deleteOk(to);
 		
 		model.addAttribute("flag", flag);
+		
+		System.out.println( "flag : " + flag );
 		
 		return "contents/contents_user_recommend/userRecommend_Delete_Ok";
 	}
@@ -289,7 +296,9 @@ public class Gorea_Recommend_Controller {
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
 		
-		to.setUserRecomSeq( request.getParameter("userRecomSeq") );
+		to.setUserRecomSeq( request.getParameter("seq") );
+		
+		//System.out.println( "1 : " + request.getParameter( "seq" ) );
 		
 		//System.out.println( "modifyseq : " + to.getUserRecomSeq() );
 		
@@ -304,7 +313,8 @@ public class Gorea_Recommend_Controller {
 	      }
 		
 		model.addAttribute( "to" , to );
-		model.addAttribute( "seq", request.getParameter("userRecomSeq") );
+		//model.addAttribute( "seq", request.getParameter("userRecomSeq") );
+		model.addAttribute( "seq", request.getParameter("seq") );
 		
 		model.addAttribute("cpage", cpage);
 		model.addAttribute("searchType", searchType);
