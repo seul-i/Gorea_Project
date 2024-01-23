@@ -5,6 +5,8 @@
 <c:set var="language" value="${language}" />
 <c:set var="paging" value="${paging}" />
 <c:set var="notice" value="${paging.notice}" />
+<c:set var="role"
+	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -104,9 +106,13 @@
         </c:if>
     </div>
     </div>
+    <c:choose>
+	<c:when test="${role eq 'ROLE_ADMIN'}">
     <div class="write_button_container">
         <a href="notice_write.do" class="write_button">글쓰기</a>
     </div>
+    </c:when>
+    </c:choose>
 </div>
 
         <div class="search_container">

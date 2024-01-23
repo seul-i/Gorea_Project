@@ -20,4 +20,6 @@ public class Gorea_QnA_BoardTO {
 	private String qnapostDate;
 	private String qnaContent;
 	private String qnaCmt;
+	
+	private String userNickname;
 }

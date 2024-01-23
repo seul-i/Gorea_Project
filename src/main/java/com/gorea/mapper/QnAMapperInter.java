@@ -25,7 +25,10 @@ public interface QnAMapperInter {
 	int QnA_Write_Ok(Gorea_QnA_BoardTO to);
 	
 	// QnA_view
-	@Select("select qnaTitle, qnaContent, date_format(qnapostDate, '%Y.%m.%d') qnapostDate from QnA where qnaSeq=#{qnaSeq} ")
+	@Select("select q.qnaSeq,  q.qnaTitle, q.userSeq, q.qnaContent, date_format(q.qnapostDate, '%Y.%m.%d') qnapostDate, u.userNickname AS userNickname " +
+			 "FROM QnA q " +
+			 "JOIN user u ON q.userSeq = u.userSeq " +
+			 "where qnaSeq=#{qnaSeq} ")
 	Gorea_QnA_BoardTO QnA_View(Gorea_QnA_BoardTO to);
 	
 	// QnA_Modify

@@ -13,7 +13,10 @@
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 	<div class="containers">
-		<h2>게시글 수정</h2>
+		<div class="tith2">
+            <h2>공지사항 수정</h2> <!-- 제목을 중앙 정렬 -->
+            <!-- 폼과 나머지 내용 -->
+        </div>
 		<form action="./notice_modify_ok.do" method="post" name="mfrm"
 			enctype="multipart/form-data" class="form-horizontal">
 			<c:set var="to" value="${requestScope.to}" />
@@ -22,6 +25,9 @@
 			<input type="hidden" name="searchType" value="${searchType}" /> 
 			<input type="hidden"name="searchKeyword" value="${searchKeyword}" />
 			<div class="form-group">
+			<div class="stits">
+                    <p>제목</p>
+                </div>
 				<input type="text" class="form-control" value="${to.noticeTitle}"
 					name="noticeTitle" style="height: 50px" />
 			</div>

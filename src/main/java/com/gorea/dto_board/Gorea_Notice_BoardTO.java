@@ -19,4 +19,6 @@ public class Gorea_Notice_BoardTO {
 	private String noticepostDate;
 	private String userSeq;
 	private String noticeboardNo;
+	
+	private String userNickname;
 }

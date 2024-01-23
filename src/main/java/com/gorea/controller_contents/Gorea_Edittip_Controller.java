@@ -142,7 +142,7 @@ public class Gorea_Edittip_Controller {
 		model.addAttribute("pageNumbers", pageNumbers);	   
 		
 	    
-	    return "contents/contents_edit_tip/editTip_list1";
+	    return "contents/contents_edit_tip/editTip_list";
 	}
 	
 	private Gorea_PagingTO createPagingModel1(List<Gorea_EditTip_BoardTO> lists1, int totalRowCount,
@@ -180,13 +180,15 @@ public class Gorea_Edittip_Controller {
 	}
 
 
-	@GetMapping("/korean/editTip_write.do")
-	public String editTip_Write(HttpServletRequest request, Model model) {
-		return "contents/contents_edit_tip/editTip_write1";
+	@GetMapping("/{language}/editTip_write.do")
+	public String editTip_Write(@PathVariable String language, HttpServletRequest request, Model model) {
+		
+		model.addAttribute("language", language);
+		return "contents/contents_edit_tip/editTip_write";
 	}
 
-	@PostMapping("/korean/editTip_write_ok.do")
-	public String editTip_Write_Ok(HttpServletRequest request, MultipartFile upload, Model model) {
+	@PostMapping("/{language}/editTip_write_ok.do")
+	public String editTip_Write_Ok(@PathVariable String language,HttpServletRequest request, MultipartFile upload, Model model) {
 		Gorea_EditTip_BoardTO eto = new Gorea_EditTip_BoardTO();
 		int flag = 2;
 		eto.setUserSeq(request.getParameter("userSeq"));
@@ -199,7 +201,7 @@ public class Gorea_Edittip_Controller {
 
 		model.addAttribute("flag", flag);
 
-		return "contents/contents_edit_tip/editTip_write_ok1";
+		return "contents/contents_edit_tip/editTip_write_ok";
 	}
 
 	@GetMapping("/{language}/editTip_view.do")
@@ -236,7 +238,7 @@ public class Gorea_Edittip_Controller {
 		
 		model.addAttribute("eto", eto);
 		
-		return "contents/contents_edit_tip/editTip_view1";
+		return "contents/contents_edit_tip/editTip_view";
 	}
 
 	@GetMapping("/{language}/editTip_delete_ok.do")
@@ -268,10 +270,10 @@ public class Gorea_Edittip_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 
-		return "contents/contents_edit_tip/editTip_delete_ok1";
+		return "contents/contents_edit_tip/editTip_delete_ok";
 	}
 
-	@GetMapping("/korean/editTip_modify.do")
+	@GetMapping("/{language}/editTip_modify.do")
 	public String editTip_Modify(@PathVariable String language, HttpServletRequest request, 
 			@RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
@@ -302,7 +304,7 @@ public class Gorea_Edittip_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 
-		return "contents/contents_edit_tip/editTip_modify1";
+		return "contents/contents_edit_tip/editTip_modify";
 	}
 
 	@PostMapping("/{language}/korean/editTip_modify_ok.do")
@@ -343,7 +345,7 @@ public class Gorea_Edittip_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		
-		return "contents/contents_edit_tip/editTip_modify_ok1";
+		return "contents/contents_edit_tip/editTip_modify_ok";
 
 	}
 

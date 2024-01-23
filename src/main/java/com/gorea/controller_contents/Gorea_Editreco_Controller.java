@@ -141,7 +141,7 @@ public class Gorea_Editreco_Controller {
 		    
 		    model.addAttribute("pageNumbers", pageNumbers);
 		    
-		    return "contents/contents_edit_recommend/editRecommend_list1";
+		    return "contents/contents_edit_recommend/editRecommend_list";
 	}
 	
 	private String extractFirstImageUrl(String content) {
@@ -191,14 +191,15 @@ public class Gorea_Editreco_Controller {
 	// extractFirstImageUrl 메서드
 		
 
-	@GetMapping("/korean/editRecommend_write.do")
-	public String editRecommend_Write(HttpServletRequest request, Model model) {
+	@GetMapping("/{language}/editRecommend_write.do")
+	public String editRecommend_Write(@PathVariable String language, HttpServletRequest request, Model model) {
 		
-		return "contents/contents_edit_recommend/editRecommend_write1";
+		model.addAttribute("language", language);
+		return "contents/contents_edit_recommend/editRecommend_write";
 	}
 
-	@PostMapping("/korean/editRecommend_write_ok.do")
-	public String editRecommend_Write_Ok(HttpServletRequest request, MultipartFile upload, Model model) {
+	@PostMapping("/{language}/editRecommend_write_ok.do")
+	public String editRecommend_Write_Ok(HttpServletRequest request, MultipartFile upload, @PathVariable String language, Model model) {
 		int flag = 2;
 
 		Gorea_EditRecommend_BoardTO to = new Gorea_EditRecommend_BoardTO();
@@ -212,7 +213,7 @@ public class Gorea_Editreco_Controller {
 
 		model.addAttribute("flag", flag);
 
-		return "contents/contents_edit_recommend/editRecommend_write_ok1";
+		return "contents/contents_edit_recommend/editRecommend_write_ok";
 	}
 
 	@GetMapping("/{language}/editRecommend_view.do")
@@ -249,7 +250,7 @@ public class Gorea_Editreco_Controller {
 		
 			model.addAttribute("to", to);
 		
-		return "contents/contents_edit_recommend/editRecommend_view1";
+		return "contents/contents_edit_recommend/editRecommend_view";
 	}
 
 	@GetMapping("/{language}/editRecommend_delete_ok.do")
@@ -281,7 +282,7 @@ public class Gorea_Editreco_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		
-		return "contents/contents_edit_recommend/editRecommend_delete_ok1";
+		return "contents/contents_edit_recommend/editRecommend_delete_ok";
 	}
 
 	@GetMapping("/{language}/editRecommend_modify.do")
@@ -313,7 +314,7 @@ public class Gorea_Editreco_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 
-	    return "contents/contents_edit_recommend/editRecommend_modify1";
+	    return "contents/contents_edit_recommend/editRecommend_modify";
 	}
 
 
@@ -354,7 +355,7 @@ public class Gorea_Editreco_Controller {
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchKeyword", searchKeyword);
 		
-		return "contents/contents_edit_recommend/editRecommend_modify_ok1";
+		return "contents/contents_edit_recommend/editRecommend_modify_ok";
 	}
 
 

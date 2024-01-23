@@ -1,0 +1,265 @@
+.flex {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.reply {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end; /* 수정된 부분 */
+    padding: 10px;
+}
+
+
+img {
+	width: 100%;
+	height: 100%;
+}
+
+.comment-list {
+	background: #fff;
+	border-radius: 4px;
+	box-shadow: 0.2px 2px #0002;
+}
+
+.comment-session {
+	height: auto;
+	margin: 0 auto;
+}
+
+.comment{
+	margin-bottom: 5px;
+}
+
+.comment-list {
+	width: 100%;
+	margin-bottom: 12px;
+}
+
+.comment-list .user {
+	display: flex;
+	padding: 8px;
+	overflow: hidden;
+}
+
+.comment-list .user img {
+	height: 38px;
+	width: 38px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.comment-list .name {
+	font-weight: 500;
+	font-size: 15px;
+}
+
+
+.comment-list .day {
+	font-size: 12px;
+}
+
+.comment-container {
+	padding: 10px;
+	overflow: hidden;
+}
+
+.comment-container .user {
+	display: flex;
+	width: min-content;
+}
+
+.comment-container .image img {
+	width: 24px;
+	height: 24px;
+	margin-right: 10px;
+	border-radius: 50%;
+}
+
+.comment-container textarea {
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
+	box-shadow: 0 0 0 0.5px #0003;
+	width: 50%;
+    height: 3.3em;
+
+}
+
+.replyModify-form textarea {
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
+	box-shadow: 0 0 0 0.5px #0003;
+    height: 3.3em;
+    width: 90%;
+    resize: none;
+    margin-bottom: 10px;
+    overflow: hidden;
+
+}
+
+.replyModify-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-container{
+	width: 100%;
+}
+
+.comment-container textarea:focus {
+	outline-color: #009cff;
+}
+
+.comment-container .submitReplyBtn {
+	width: 5.5em;
+    height: 3.3em;;
+	padding: 6px 14px;
+	border: none;
+	margin-left: 10px;
+    margin-bottom: 10px;
+	cursor: pointer;
+	border-radius: 2px;
+	background-color: #42424a;
+	font-size: 12px;
+	font-weight: bold;
+	color: aliceblue;
+	
+}
+
+.submitReplyBtn {
+    height: auto; /* 수정: 버튼의 높이 자동으로 설정 */
+    padding: 5px 10px; /* 수정: 내부 여백을 추가하여 버튼의 크기를 조절 */
+}
+
+
+.comment-list {
+    display: flex;
+    flex-direction: column; /* 수정된 부분 */
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+
+
+
+.comment-list .comment {
+    font-size: 16px;
+    text-align: left;
+    width: 100%;
+    position: relative;
+}
+
+
+.user-image {
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
+}
+
+.user-meta {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.day {
+	margin-top: 5px;
+}
+
+.modify,
+.delete,
+.comment-container {
+	cursor: pointer;
+}
+
+.comment-container:hover {
+	color: blue;
+}
+
+.modify .delete:hover {
+	color: #000;
+	cursor: pointer;
+}
+
+.comment-container .comment-submit {
+	margin-top: 10px;
+}
+
+.modify, .delete {
+	font-size: 12px;
+	height: 24px;
+    border: none;
+    background: none;
+    color: #777;
+    text-decoration: underline; /* 텍스트에 밑줄 추가 */
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.comment-container textarea{
+	width: 100%;
+	height: 60px;
+	resize: none;
+	margin-bottom: 10px;
+	overflow: hidden; /* 스크롤바를 숨김 */
+}
+
+.comment-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px; 
+}
+
+
+.comment-list .save {
+	width: 5.5em;
+    height: 3.3em;
+    padding: 5px 10px;
+    border: none;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: #42424a;
+    font-size: 12px;
+    font-weight: bold;
+    color: aliceblue;
+}
+
+.btn1{
+	width: 5.5em;
+    height: 3.3em;
+    padding: 6px 14px;
+    border: none;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: #42424a;
+    font-size: 12px;
+    font-weight: bold;
+    color: aliceblue;
+}
+
+.original-comment {
+    font-size: 16px;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+
+.replyModify-form .original-comment {
+    text-align: left;
+    /* 다른 .original-comment에 관련된 스타일 속성들 추가 가능 */
+}
+
