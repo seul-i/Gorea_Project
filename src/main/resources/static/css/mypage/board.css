@@ -1,0 +1,126 @@
+.menu-title {
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.mypage-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* padding-bottom: 80px; */
+}
+
+.board-select {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.board-select #boardType {
+    border: 1px solid #000;
+    border-radius: 3px;
+    padding: 8px;
+}
+
+.board-list {
+    width: 100%;
+    margin-bottom: 50px;
+    color: #999;
+}
+
+.board-list thead {
+    border-top: 2px solid #999;
+    border-bottom: 2px solid #999;
+    background-color: rgb(227, 227, 227);
+    color: #000;
+}
+
+.board-list thead th {
+    padding: 15px 20px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.col-num {
+	width: 150px;	
+}
+
+.col-writer,
+.col-date,
+.col-count {
+    width: 100px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    vertical-align: top;
+}
+
+.board-list .list-title {
+    text-align: center;
+    padding: 0 5px;
+}
+
+.board-list td {
+    padding: 15px 0;
+    text-align: center;
+    border-bottom: 1px solid #999;
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+}
+
+
+.boardList a {
+    display: inline-block; /* 블록 레벨 요소로 만들어줍니다. */
+    text-align: left; /* 텍스트를 왼쪽 정렬합니다. */
+    width: 100%; /* 부모 요소의 전체 너비를 차지하도록 합니다. */
+    box-sizing: border-box; /* padding, border를 포함한 전체 요소의 크기를 정의합니다. */
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.boardList a,
+.boardList a:visited,
+.boardList a:focus,
+.boardList a:active {
+    color: #999; /* 클릭, 방문, 포커스 시에도 색상을 회색으로 유지합니다. */
+    text-decoration: none; /* 데코레이션을 없앱니다. */
+}
+
+
+.pagination-container {
+    flex-grow: 1; /* 공간을 채우도록 함 */
+    text-align: center; /* 내부 요소(페이징)를 중앙 정렬 */
+}
+
+.pagination {
+	margin: 0; /* 기존 마진 제거 */
+	 display: inline-block;
+    text-align: center; /* 가운데 정렬 추가 */
+    font-weight: bolder;
+     flex-grow: 1;
+  }
+
+  .pagination-item {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .pagination-item.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .pagination-item.disabled {
+    color: #333;
+    cursor: pointer;
+    pointer-events: none;
+  }
