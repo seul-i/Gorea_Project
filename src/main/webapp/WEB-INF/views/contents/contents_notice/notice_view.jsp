@@ -57,6 +57,9 @@
       </c:choose>
    </div>
     <div class="containers">
+    <div class="tith2">
+            <h1>공지사항</h1>
+        </div>
         <div class="post-title"><c:out value="${to.noticeTitle}" /></div>
         <div class="post-info">
             <div class="post-info-left">

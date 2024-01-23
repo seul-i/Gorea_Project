@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.gorea.dto_board.Gorea_QnA_BoardTO;
 import com.gorea.dto_reply.Gorea_QnA_ReplyTO;
+import com.gorea.dto_reply.Gorea_ReplyTO;
 import com.gorea.dto_reply.Gorea_TrendSeoul_ReplyTO;
 
 @Mapper
@@ -66,5 +67,8 @@ public interface QnAMapperInter {
 		// QnAReply_Delete
 		@Delete("delete from QnAReply where qnaCmtSeq=#{qnaCmtSeq}")
 		int QnAReply_Delete(String qnaCmtSeq);
+		
+		@Update( "update QnA set qnaCmt=qnaCmt+1 where qnaSeq=#{qnaSeq}" )
+		int QnACmtUp( Gorea_QnA_ReplyTO rto );
 	
 }

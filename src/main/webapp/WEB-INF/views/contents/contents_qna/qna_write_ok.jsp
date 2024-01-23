@@ -7,7 +7,7 @@
     <c:choose>
         <c:when test="${flag == 0}">
             alert('글쓰기 성공');
-            location.href='qna.do';
+            location.href='main.do';
         </c:when>
         <c:when test="${flag == 1}">
             alert('글쓰기 실패');

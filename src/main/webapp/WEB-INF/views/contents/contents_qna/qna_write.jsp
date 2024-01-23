@@ -11,13 +11,52 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
-	
 	<div class="commonBanner" id="comBanner">
         <img src="/img/banner/QnaBanner.jpg" alt="banner">
         <div class="commonBanner-text">
             <h1>QnA</h1>
         </div>
     </div>
+    
+    <div class="location">
+      <i class="fa-solid fa-house"></i>
+      <span class="ar">></span>
+      <c:choose>
+         <c:when test="${language eq 'korean'}">
+         <span> 
+                여행자 지원 >
+             </span>
+             <span> 
+                QnA
+             </span>
+         </c:when>
+         <c:when test="${language eq 'english'}">
+             <span> 
+                여행자 지원 >
+             </span>
+             <span> 
+                QnA
+             </span>
+         </c:when>
+         <c:when test="${language eq 'japanese'}">
+             <span> 
+                여행자 지원 >
+             </span>
+             <span> 
+                QnA
+             </span>
+         </c:when>
+         <c:when test="${language eq 'chinese'}">
+             <span> 
+                여행자 지원 >
+             </span>
+             <span> 
+                QnA
+             </span>
+         </c:when>
+         <c:otherwise>제목</c:otherwise>
+      </c:choose>
+   </div>
     
     <div class="containers">
         <div class="tith2">

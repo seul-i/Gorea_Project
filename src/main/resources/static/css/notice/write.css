@@ -30,7 +30,7 @@
 
 .tith2{
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
     border-bottom: 1px solid black;
 }
 
@@ -80,9 +80,9 @@
     cursor: pointer;
 }
 .btn-primary {
-    background-color: #007DC3;
+    background-color: #42424a;
     color: white;
-    border: 1px solid #007DC3;
+    border: 1px solid #42424a;
 }
 .btn-default {
     background-color: #e7e7e7;

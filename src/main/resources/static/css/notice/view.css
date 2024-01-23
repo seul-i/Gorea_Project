@@ -16,6 +16,12 @@ body {
    /* margin-left 값을 조절하여 왼쪽으로 이동 */
 }
 
+.tith2{
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid black;
+}
+
 
 .containers {
 	width: 60%;
@@ -187,7 +193,7 @@ body {
 }
 
 .btn {
-	background-color: #007bff;
+	background-color: #42424a;
 	color: #fff;
 	border: none;
 	padding: 10px 20px;
