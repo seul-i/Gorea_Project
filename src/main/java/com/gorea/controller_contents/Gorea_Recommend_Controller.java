@@ -10,13 +10,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gorea.dto_board.Gorea_PagingTO;
@@ -84,7 +85,6 @@ public class Gorea_Recommend_Controller {
 		        pageNumbers.add(i);
 		    }
 		    model.addAttribute("pageNumbers", pageNumbers);
-		    model.addAttribute( "paging", paging );
 		
 		} else if( language.equals("english") ) {
 			List<Gorea_Recommend_BoardTO> boardList_en = listTranslation.userRecommend_List_EN(offset, pageSize);
@@ -133,6 +133,24 @@ public class Gorea_Recommend_Controller {
 		
 		return "contents/contents_user_recommend/userRecommend_List2";
 	}
+	
+	//paging
+		private Gorea_PagingTO createPagingModel(List<Gorea_Recommend_BoardTO> boardList, int cpage) {
+		Gorea_PagingTO paging = new Gorea_PagingTO();
+		    
+		paging.setBoardList1( boardList != null ? boardList : new ArrayList<>());
+		paging.setTotalRecord(dao.getTotalRowCount());
+		paging.setCpage(cpage);  // 추가: cpage 값을 설정
+
+		// 수정: pageSetting 호출 전에 cpage 값을 확인하고 필요하다면 수정
+		if (cpage > paging.getTotalPage()) {
+		    cpage = paging.getTotalPage();
+		}
+
+		paging.pageSetting();
+		    
+		return paging;
+		}
 	
 	
 	//write
@@ -232,6 +250,25 @@ public class Gorea_Recommend_Controller {
 	}
 	
 	
+	/*
+	 * @PostMapping("/increaseLikesUserRecommend")
+	 * 
+	 * @ResponseBody public ResponseEntity<?> increaseLikes(@RequestParam("seq")
+	 * String userRecomSeq) { try { dao.increaseLikesUserRecommend(userRecomSeq);
+	 * 
+	 * // 새로운 Gorea_Recommend_BoardTO 객체를 생성하고 userRecomSeq를 설정
+	 * Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
+	 * to.setUserRecomSeq(userRecomSeq);
+	 * 
+	 * // 업데이트된 데이터를 가져옴 Gorea_Recommend_BoardTO updatedTo = dao.userRecom_view(to);
+	 * 
+	 * // 새로운 추천 수를 반환 return ResponseEntity.ok(updatedTo.getUserRecomcount()); }
+	 * catch (Exception e) { e.printStackTrace(); return
+	 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred"
+	 * ); } }
+	 */
+	
+	
 	@RequestMapping( "/korean/userRecom_delete_ok.do" )
 	public String deleteOk( HttpServletRequest request , Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
@@ -310,26 +347,6 @@ public class Gorea_Recommend_Controller {
 		
 		return "contents/contents_user_recommend/replyCount";
 	}
-	
-	
-	//paging
-	private Gorea_PagingTO createPagingModel(List<Gorea_Recommend_BoardTO> boardList, int cpage) {
-	    Gorea_PagingTO paging = new Gorea_PagingTO();
-	    
-	    paging.setBoardList1( boardList != null ? boardList : new ArrayList<>());
-	    paging.setTotalRecord(dao.getTotalRowCount());
-	    paging.setCpage(cpage);  // 추가: cpage 값을 설정
-
-	    // 수정: pageSetting 호출 전에 cpage 값을 확인하고 필요하다면 수정
-	    if (cpage > paging.getTotalPage()) {
-	        cpage = paging.getTotalPage();
-	    }
-
-	    paging.pageSetting();
-	    
-	    return paging;
-	}
-		
 	
 	
 	// 이미지 업로드

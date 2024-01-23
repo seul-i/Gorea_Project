@@ -83,8 +83,8 @@
 											<div class="postdate">${to.userRecompostDate }</div>
 										</div>
 										<div class="bottom_right">
-											<div class="like">추천</div>
-											<div class="hit"><c:out value='${to.userRecomHit}' /></div>
+											<!-- <div class="like">추천</div> -->
+											<div class="hit">조회수 : <c:out value='${to.userRecomHit}' /></div>
 										</div>
 									</div>
 								</div>

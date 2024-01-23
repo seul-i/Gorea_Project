@@ -357,8 +357,9 @@
             <c:out value = "${to.userRecomContent }" escapeXml="false" />
         </div>
         <!-- 댓글 수 추천 수 공간 -->
+        <%-- <button onclick="increaseLikesUserRecommend('${seq}')">추천</button> --%>
         <div class="comments-count" style="display : flex;">
-        	<div>추천 5개</div>&nbsp;&nbsp;<div id="replyCount"></div>
+        	<%-- <div>추천</div><span id="like-count">${to.userRecomcount }</span>&nbsp;&nbsp;<div id="replyCount"></div> --%>
         </div>
         
         <c:choose>
@@ -393,20 +394,14 @@
     	
     </div>
 <script>
-	//function increaseLikes(freeSeq) {
-    	//fetch('/increaseLikes?freeSeq=' + freeSeq, { method: 'POST' })
-        	//.then(response => response.text())
-        	//.then(likes => {
+	function increaseLikesUserRecommend(userRecomSeq) {
+    	fetch('/increaseLikesUserRecommend?userRecomSeq=' + userRecomSeq, { method: 'POST' })
+        	.then(response => response.text())
+        	.then(likes => {
             	// 추천 수를 페이지에 표시
-            	//document.getElementById('like-count').innerText = likes;
-        	//});
-	//}
-
-	//function confirmDelete(deleteUrl) {
-    	//if (confirm("글을 삭제하시겠습니까?")) {
-        	//location.href = deleteUrl;
-    	//}
-	//}
+            	document.getElementById('like-count').innerText = likes;
+        	});
+	}
 </script>
 <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>

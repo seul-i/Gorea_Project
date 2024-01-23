@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gorea.dto_board.Gorea_Free_BoardTO;
 import com.gorea.dto_board.Gorea_Recommend_BoardTO;
 import com.gorea.mapper.UserRecomMapperInter;
 
@@ -74,8 +73,6 @@ public class Gorea_RecommendDAO {
 		
 		to = mapper.userRecom_View(to);
 		
-		System.out.println( "userView에서 댓글수 : " + to.getUserRecomCmt() );
-		
 		// 이미지 URL 추출
 	    String content = to.getUserRecomContent();
 	    String firstImageUrl = extractFirstImageUrl(content);
@@ -84,6 +81,10 @@ public class Gorea_RecommendDAO {
 		return to;
 	}
 	
+	/*
+	 * public void increaseLikesUserRecommend(String userRecomSeq) {
+	 * mapper.increaseLikesUserRecommend(userRecomSeq); }
+	 */
 	
 	public int userRecom_deleteOk( Gorea_Recommend_BoardTO to ) {
 		int flag = 2;

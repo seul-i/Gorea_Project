@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.gorea.dto_board.Gorea_Free_BoardTO;
 import com.gorea.dto_board.Gorea_Recommend_BoardTO;
 import com.gorea.dto_reply.Gorea_ReplyTO;
 
@@ -17,7 +16,7 @@ import com.gorea.dto_reply.Gorea_ReplyTO;
 public interface UserRecomMapperInter {
 	// list
 	//@Select( "select us.userRecomSeq, us.userSeq , us.userRecomboardNo, us.userRecomTitle, date_format( us.userRecompostDate, '%Y /%m /%d') userRecompostDate, us.userRecomHit , us.userRecomContent ,  us.userRecomCmt, us.userRecomRecomcount, u.userNickname from UserRecommend us join user u on us.userSeq = u.userSeq" )
-	@Select( "select us.userRecomSeq, us.userSeq , us.userRecomboardNo, us.userRecomTitle, date_format( us.userRecompostDate, '%Y /%m /%d') userRecompostDate, us.userRecomHit , us.userRecomContent ,  us.userRecomCmt, us.userRecomcount, u.userNickname from UserRecommend us join user u on us.userSeq = u.userSeq order by us.userRecomSeq desc" )
+	@Select( "select us.userRecomSeq, us.userSeq , us.userRecomboardNo, us.userRecomTitle, date_format( us.userRecompostDate, '%Y /%m /%d') userRecompostDate, us.userRecomHit , us.userRecomContent ,  us.userRecomCmt, us.userRecomcount, u.userNickname from UserRecommend us join user u on us.userSeq = u.userSeq order by us.userRecomSeq desc LIMIT #{firstRow}, #{pageSize}" )
 	List<Gorea_Recommend_BoardTO> userRecom_list(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 	
 	@Select( "select count(*) from UserRecommend" )
@@ -31,6 +30,10 @@ public interface UserRecomMapperInter {
 	@Select( "select us.userRecomSeq, us.userSeq, us.userRecomboardNo, us.userRecomTitle, date_format(us.userRecompostDate, '%Y.%m.%d') userRecompostDate, us.userRecomHit, us.userRecomContent, us.userRecomCmt, u.userNickname "
 			+ "from UserRecommend us join user u on us.userSeq = u.userSeq where us.userRecomSeq=#{userRecomSeq}")
 	Gorea_Recommend_BoardTO userRecom_View( Gorea_Recommend_BoardTO to );
+	
+	// 좋아요 업데이트
+	//@Update("UPDATE Freeboard SET freeRecomcount = freeRecomcount + 1 WHERE freeSeq = #{freeSeq}")
+    //int increaseLikes(String freeSeq);
 	
 	// 이전 글 가져오기
     @Select("SELECT * FROM userrecommend WHERE userRecomSeq < #{seq} ORDER BY userRecomSeq DESC LIMIT 1")
