@@ -28,7 +28,7 @@ public class Gorea_Mypage_Controller {
 	private Gorea_MypageDAO mypageDao;
 	
 	// 게시글 관리
-	 @GetMapping("/user/{language}/boardList.do")
+	 @GetMapping("/{language}/userBoardList.do")
 	 public String boardList(@PathVariable String language,
 			 					@RequestParam(required = false) String boardType,
 			 					@RequestParam(required = true) String userSeq,
@@ -74,7 +74,7 @@ public class Gorea_Mypage_Controller {
 	 }
 	 
 	 // 댓글 관리
-	 @GetMapping("/user/{language}/replyList.do")
+	 @GetMapping("/{language}/userReplyList.do")
 	 public String replyList(@PathVariable String language,
 			 				@RequestParam(required = false) String boardType,
 			 				@RequestParam(required = true) String userSeq,
@@ -119,7 +119,7 @@ public class Gorea_Mypage_Controller {
 	 }
 	 
 	 // 1:1 문의내역
-	 @GetMapping("/user/{language}/qnaList.do")
+	 @GetMapping("/{language}/userQnaList.do")
 	 public String boardList(@PathVariable String language,
 			                @RequestParam(required = true) String userSeq,
 			                @RequestParam(defaultValue = "1") int cpage,
@@ -163,7 +163,7 @@ public class Gorea_Mypage_Controller {
  	}
 	 
 	 // 회원 탈퇴
-	 @GetMapping("/user/{language}/userLeave.do")
+	 @GetMapping("/{language}/userDropAccount.do")
 	 public String userLeave(@PathVariable String language, Model model) {
 		 
 		model.addAttribute("language", language);
