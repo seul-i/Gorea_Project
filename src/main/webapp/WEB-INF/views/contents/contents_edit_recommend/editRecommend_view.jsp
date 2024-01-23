@@ -1,6 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.gorea.dto_board.Gorea_EditRecommend_BoardTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 
 <c:set var="language" value="${language}" />
 <c:set var="seq" value="${param.editrecoSeq}" />
@@ -332,7 +334,7 @@
          </c:choose>
 
            <div class="text-area">
-                 ${to.editrecoContent}
+                 ${fn:replace(to.editrecoContent, '&nbsp;', ' ')}
            </div>
            
            <form id="replyForm" method="post">

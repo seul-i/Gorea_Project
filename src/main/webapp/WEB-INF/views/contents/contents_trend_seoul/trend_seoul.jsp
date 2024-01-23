@@ -5,6 +5,19 @@
 <%@ page import="com.gorea.dto_board.Gorea_TrendSeoul_ListTO" %>
 <%@ page import="com.gorea.dto_board.Gorea_PagingTO"%>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Date" %>
+
+<%
+    long startTime = System.currentTimeMillis();
+
+    // JSP 페이지에서 화면 생성 로직
+
+    long endTime = System.currentTimeMillis();
+    long elapsedTime = endTime - startTime;
+
+    // 콘솔에 출력
+    System.out.println("JSP 화면 생성 시간: " + elapsedTime + " 밀리초");
+%>
 
 <c:set var="language" value="${language}" />
 <c:set var="paging" value="${paging}" />

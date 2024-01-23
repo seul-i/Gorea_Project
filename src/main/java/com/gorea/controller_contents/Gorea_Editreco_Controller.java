@@ -17,21 +17,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
-import com.gorea.dto_board.Gorea_EditTip_BoardTO;
 import com.gorea.dto_board.Gorea_PagingTO;
 import com.gorea.repository_contents.Gorea_EditrecoDAO;
-import com.gorea.service_contents.Gorea_Content_ListTranslation;
-import com.gorea.service_contents.Gorea_Content_ViewTranslation;
+import com.gorea.serivce_trans_edit.Gorea_Translate_EditRecom_interface;
 
 import java.util.regex.Matcher;
 import jakarta.servlet.ServletOutputStream;
@@ -47,8 +43,8 @@ public class Gorea_Editreco_Controller {
 	@Value("${spring.servlet.multipart.location}")
 	private String uploadDir;
 	
-	// @Autowired
-	// private Gorea_Content_ListTranslation listTranslation;
+	 @Autowired
+	 private Gorea_Translate_EditRecom_interface service;
 	
 	// @Autowired
 	// private Gorea_Content_ViewTranslation viewTranslation;
@@ -74,59 +70,51 @@ public class Gorea_Editreco_Controller {
 	    model.addAttribute("language", language);
 	    
 	    List<Gorea_EditRecommend_BoardTO> lists = new ArrayList<Gorea_EditRecommend_BoardTO>();
+	    
 	    int totalRowCount = 0;
 	    
 	    if(language.equals("korean")) {
 	      if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-	    	lists = dao.searchEditreco(searchType, searchKeyword, offset, pageSize);
+	    	lists = service.editrecom_List_SearchKO(searchType, searchKeyword, offset, pageSize);
 	    	totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
 	    	
 	      } else {
-	    	  lists = dao.editRecommend_List(offset, pageSize);
+	    	  lists = service.editrecom_List_KO(offset, pageSize);
 	    	  totalRowCount = dao.getTotalRowCount();
 	      }
 
 	    }else if(language.equals("english")) {
 	    	if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-		    	lists = dao.searchEditreco(searchType, searchKeyword, offset, pageSize);
+		    	lists = service.editrecom_List_SearchEN(searchType, searchKeyword, offset, pageSize);
 		    	totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
 		    	
 		      } else {
-		    	  lists = dao.editRecommend_List(offset, pageSize);
+		    	  lists = service.editrecom_List_EN(offset, pageSize);
 		    	  totalRowCount = dao.getTotalRowCount();
 		      }
 	    
 	    }else if(language.equals("japanese")) {
 	    	if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-		    	lists = dao.searchEditreco(searchType, searchKeyword, offset, pageSize);
+		    	lists = service.editrecom_List_SearchJP(searchType, searchKeyword, offset, pageSize);
 		    	totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
 		      } else {
-		    	  lists = dao.editRecommend_List(offset, pageSize);
+		    	  lists = service.editrecom_List_JP(offset, pageSize);
 		    	  totalRowCount = dao.getTotalRowCount();
 		      }
 	    
 	    }else if(language.equals("chinese")) {
 	    	if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-		    	lists = dao.searchEditreco(searchType, searchKeyword, offset, pageSize);
+		    	lists = service.editrecom_List_SearchCHN(searchType, searchKeyword, offset, pageSize);
 		    	totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
 		      } else {
-		    	  lists = dao.editRecommend_List(offset, pageSize);
+		    	  lists = service.editrecom_List_CHN(offset, pageSize);
 		    	  totalRowCount = dao.getTotalRowCount();
 		      }
 	    }else {
 	    	
-	    	return "";  	
+	    	return "gorea_accessdeniedPage";  	
 	    }
 	    
-
-	    for (Gorea_EditRecommend_BoardTO to : lists) {
-	        String content = to.getEditrecoContent();
-	        String firstImageUrl = extractFirstImageUrl(content);
-	        to.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
-	    }
-	    
-	    
-    
 	    Gorea_PagingTO paging = createPagingModel(lists, totalRowCount, cpage, pageSize);
 	    
 		    model.addAttribute("paging", paging);
@@ -142,23 +130,6 @@ public class Gorea_Editreco_Controller {
 		    model.addAttribute("pageNumbers", pageNumbers);
 		    
 		    return "contents/contents_edit_recommend/editRecommend_list";
-	}
-	
-	private String extractFirstImageUrl(String content) {
-
-		String imageUrl = "";
-		Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
-		Matcher matcher = pattern.matcher(content);
-
-		if (matcher.find()) {
-			imageUrl = matcher.group(1);
-			imageUrl = imageUrl.replace("/ckImgSubmitForEditRecommend?uid=", "").replace("&amp;fileName=", "_");
-			
-
-		} else {
-			System.out.println("No image found");
-		}
-		return imageUrl;
 	}
 
 	/**
@@ -220,32 +191,24 @@ public class Gorea_Editreco_Controller {
 	public String editRecommend_View(@RequestParam("editrecoSeq") String editrecoSeqStr,@PathVariable String language, HttpServletRequest request, 
 			@RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
-            @RequestParam(value = "searchKeyword", required = false) String searchKeyword,Model model) {
-		
-		int editrecoSeq;
-        try {
-            editrecoSeq = Integer.parseInt(editrecoSeqStr.trim());
-        } catch (NumberFormatException e) {
-            //editrecoSeq 파라미터가 유효하지 않을 때의 처리
-            return "errorPage";
-        }
-        
+            @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {
+
 		Gorea_EditRecommend_BoardTO to = new Gorea_EditRecommend_BoardTO(); // 객체를 새로 초기화
+		
 		to.setEditrecoSeq(request.getParameter("editrecoSeq"));
 		
 		model.addAttribute("language", language);
 		
 		if(language.equals("korean")) {
-			to = dao.editRecommend_View(to);
-		
+			to = service.editrecom_View_KO(to);
 		}else if(language.equals("english")) {
-			to = dao.editRecommend_View(to);
+			to = service.editrecom_View_EN(to);
 		}else if(language.equals("japanese")) {
-			to = dao.editRecommend_View(to);
+			to = service.editrecom_View_JP(to);
 		}else if(language.equals("chinese")) {
-			to = dao.editRecommend_View(to);
+			to = service.editrecom_View_CHN(to);
 		}else {
-			return "";
+			return "gorea_accessdeniedPage";
 		}
 		
 			model.addAttribute("to", to);

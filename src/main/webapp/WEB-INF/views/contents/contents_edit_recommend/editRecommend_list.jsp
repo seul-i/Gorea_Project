@@ -28,6 +28,7 @@
 <link rel="stylesheet" type="text/css" href="/css/editor/list.css">
 
 <script>
+		let language = '${language}';
         // 이전 페이지로 이동하는 함수
         function goToPreviousPage() {
             var currentPage = ${paging.cpage};
@@ -46,7 +47,7 @@
             // 앨범 클릭 이벤트 처리
             $('.album').on('click', function () {
                 var seq = $(this).data('seq');
-                window.location.href = '/korean/editRecommend_view.do?editrecoSeq=' + seq;
+                window.location.href = '/'+language+'/editRecommend_view.do?editrecoSeq=' + seq;
             });
 
             // 마우스 올려놓았을 때 포인터 모양으로 변경
@@ -181,7 +182,15 @@
                    <c:forEach var="to" items="${lists}">
                        <div class='album' data-seq='${to.editrecoSeq}'>
                            <div class='image'>
+                           
+	                           	<c:choose>
+								    <c:when test="${to.firstImageUrl.startsWith('https://')}">
+								        <img src='${to.firstImageUrl}' alt='' />
+								    </c:when>
+								</c:choose>
+	         					
                                <img src='../../upload/${to.firstImageUrl}' alt='' />
+                               
                            </div>
                            <div class='content'>
                                <div class='title-subtitle'>
@@ -207,9 +216,6 @@
                 </div>
             </c:when>
         </c:choose>
-
-   
-   
 
    <div class="pagination-container">
    <div class="pagination">

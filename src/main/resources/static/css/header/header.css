@@ -11,8 +11,14 @@
     outline: none;
     border: none;
     text-decoration: none;
-    text-transform: capitalize;
     transition: .2s linear;
+}
+
+input{
+	margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit; 
 }
 
 ol, ul {

@@ -3,8 +3,6 @@
 }
 
 .location {
-   width: 100%;
-   max-width: 1200px;
    padding: 10px 0px 20px 20px;
    font-size: 17px;
    color: #666;
@@ -36,7 +34,7 @@ span a {
 .album-container {
    display: flex;
    flex-wrap: wrap;
-   justify-content: center;
+   justify-content: space-between;
    /* 왼쪽 정렬 */
    margin: 0 auto !important;
    max-width: 1300px;
@@ -111,7 +109,7 @@ span a {
 }
 
 .album .content .title-subtitle .subtitle {
-   font-size: 12px;
+   font-size: 14px;
    font-weight: lighter;
    margin-bottom: 15px;
    overflow: hidden;
@@ -174,6 +172,7 @@ span a {
    /* 가운데 정렬 추가 */
    font-weight: bolder;
    flex-grow: 1;
+   font-size: 14px;
 }
 
 .pagination-item {
@@ -204,15 +203,14 @@ span a {
 }
 
 .write_button {
-    padding: 6px 14px;
+    padding: 10px 20px;
     border: none;
     margin-top: 10px;
     margin-bottom: 10px;
     cursor: pointer;
     border-radius: 2px;
     background-color: #42424a;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 0.9rem;
     color: aliceblue;
     margin-right: 5%;
 }
