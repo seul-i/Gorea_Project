@@ -96,7 +96,12 @@
 		.subtitle { 
 			font-size: 10pt;
 			margin-left: 10px;
+			white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    max-width: 100px;  /* 원하는 길이로 변경 */
 		}
+		
 		
 		
 		.info_bottom_container {

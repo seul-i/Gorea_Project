@@ -65,6 +65,24 @@ public interface UserRecomMapperInter {
 	int userRecomCmtDown( Gorea_ReplyTO rto );
 	
 	// 댓글 수
-	@Select( "select userrecomcmt from UserRecommend where userrecomseq=#{userRecomSeq}" )
+	@Select( "select userRecomCmt from UserRecommend where userRecomSeq=#{userRecomSeq}" )
 	Gorea_Recommend_BoardTO replyCount( Gorea_Recommend_BoardTO to );
+	
+	@Select("<script>"
+	        + "SELECT COUNT(*) "
+	        + "FROM UserRecommend "
+	        + "<where>"
+	        + "  <if test='searchType != null and searchKeyword != null'>"
+	        + "    <choose>"
+	        + "      <when test='searchType.equals(\"title\")'>"
+	        + "        AND userRecomTitle LIKE CONCAT('%', #{searchKeyword}, '%')"
+	        + "      </when>"
+	        + "      <when test='searchType.equals(\"titleContent\")'>"
+	        + "        AND (userRecomTitle LIKE CONCAT('%', #{searchKeyword}, '%') OR userRecomContent LIKE CONCAT('%', #{searchKeyword}, '%'))"
+	        + "      </when>"
+	        + "    </choose>"
+	        + "  </if>"
+	        + "</where>"
+	        + "</script>")
+	int searchTotalCount(@Param("searchType") String searchType, @Param("searchKeyword") String searchKeyword);
 }

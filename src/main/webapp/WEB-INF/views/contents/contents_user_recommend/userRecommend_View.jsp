@@ -21,9 +21,6 @@
 			
 			// 댓글 작성 버튼
 			$( '#replyWrite' ).on( 'click', function() {
-				console.log( "pseq는 : " + $('#pseq').val() );
-				console.log( "goreaboardNo는 : " + $('#goreaboardNo').val() );
-				console.log( "userSeq는 : " + userSeq );
 				
 				writeOkServer( userSeq );
 			});
@@ -32,10 +29,6 @@
 			$(document).on('click', '#replyDelete', function () {
 				const cseq = $(this).closest('.comment').find('#cseq').val();
 				const grp = $(this).closest('.comment').find('#grp').val();
-        		console.log("cseq는 : " + cseq );
-        		console.log( "grp는 : " + grp );
-        		
-        		console.log( "pseq는 : " + $('#pseq').val() );
         		
         		deleteOkServer( cseq, grp );
     		});
@@ -45,9 +38,6 @@
 			$(document).on('click', '#replyModify', function(){
 				const cseq = $(this).closest('.comment').find('#cseq').val();
 				
-				console.log( "cseq는 : " + cseq );
-				
-				// 모든 댓글 작업 버튼을 숨깁니다.
 			    $('.reply-action-btn').hide();
 				
 				$('#modifyForm' + cseq ).show();
@@ -58,8 +48,6 @@
 			$(document).on( 'click', '#replyModifyOk', function(){
 				const cseq = $(this).closest('.comment').find('#cseq').val();
 				
-				console.log( "cseq는 : " + cseq );
-				
 				modifyOkServer( cseq );
 			});
 			
@@ -68,7 +56,6 @@
 			$(document).on( 'click', '#replyModifyCancel', function(){
 				const cseq = $(this).closest('.comment').find('#cseq').val();
 				
-				// 모든 댓글 작업 버튼을 숨깁니다.
 			    $('.reply-action-btn').show();
 				
 				$('#modifyForm' + cseq ).hide();
@@ -90,18 +77,12 @@
 				const grp = $(this).closest('.comment').find('#grp').val();
 				const replyContent = $(this).closest('.comment').find('#rereplyContent'+grp).val();
 				
-				console.log( "쓰기 grp는 : " + grp);
-				console.log( "쓰기 content는 : " + replyContent );
-				console.log( "쓰기 userSeq는 : " + userSeq );
-				
 				reWriteOkServer( grp, replyContent, userSeq );
 			});
 			
 			// 대댓글 작성 취소 버튼
 			$(document).on( 'click', '#rereplyCancelBtn', function(){
 				const grp = $(this).closest('.comment').find('#grp').val();
-				
-				console.log( "취소 grp는 : " + grp );
 				
 				$('.reply-action-btn').show();
 				
@@ -112,10 +93,6 @@
 			$(document).on( 'click', '#rereplyDelete', function(){
 				const cseq = $(this).closest('.comment').find('#cseq').val();
 				const grp = $(this).closest('.comment').find('#grp').val();
-				
-				console.log( "대댓글 cseq는 : " + cseq );
-				console.log( "대댓글 grp는 : " + grp );
-				console.log( "대댓글 pseq는 : " + $('#pseq').val() );
 				
 				reDeleteOkServer( cseq );
 			});
@@ -289,9 +266,6 @@
 					userSeq: userSeq
 				},
 				success: function(response){
-					console.log( replyContent );
-					console.log( $( '#grp' ).val() );
-					
 					alert("작성 성공");
 					$('#replyContent'+grp).val('대댓글을 입력하세요');
 					

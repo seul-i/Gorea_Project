@@ -84,6 +84,7 @@ public class Gorea_Recommend_Controller {
 		        pageNumbers.add(i);
 		    }
 		    model.addAttribute("pageNumbers", pageNumbers);
+		    model.addAttribute( "paging", paging );
 		
 		} else if( language.equals("english") ) {
 			List<Gorea_Recommend_BoardTO> boardList_en = listTranslation.userRecommend_List_EN(offset, pageSize);
@@ -237,8 +238,6 @@ public class Gorea_Recommend_Controller {
 		
 		to.setUserRecomSeq( request.getParameter( "seq" ) );
 		
-		System.out.println( "deleteOk : " + request.getParameter( "seq" ));
-		
 		int flag = dao.userRecom_deleteOk(to);
 		
 		model.addAttribute("flag", flag);
@@ -334,7 +333,7 @@ public class Gorea_Recommend_Controller {
 	
 	
 	// 이미지 업로드
-    @RequestMapping(value = "/UserRecom/imageUpload", method = RequestMethod.POST)
+    @RequestMapping(value = "UserRecom/imageUpload", method = RequestMethod.POST)
     public void imageUploadForUserRecom(HttpServletRequest request, HttpServletResponse response, @RequestParam("upload") MultipartFile upload) {
         try {
             if (upload != null && !upload.isEmpty() && upload.getContentType().toLowerCase().startsWith("image/")) {
@@ -403,25 +402,6 @@ public class Gorea_Recommend_Controller {
             e.printStackTrace();
         }
     }
-    
- // list에서 content 첫번째 이미지 썸네일
- 	private String extractFirstImageUrl(String content) {
-// 	    System.out.println("Content: " + content); // 콘텐츠 출력
-
- 	    String imageUrl = "";
- 	    Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
- 	    Matcher matcher = pattern.matcher(content);
- 	    if (matcher.find()) {
- 	        imageUrl = matcher.group(1);
-// 	        System.out.println("Extracted Image URL: " + imageUrl); // 추출된 이미지 URL 출력
-
- 	        // URL에서 필요한 부분 추출 및 조정
- 	        imageUrl = imageUrl.replace("/ckImgSubmitForUserRecom?uid=", "").replace("&amp;fileName=", "_");
-// 	        System.out.println("Formatted Image URL: " + imageUrl); // 조정된 이미지 URL 출력
- 	    } else {
- 	        System.out.println("No image found"); // 이미지를 찾지 못한 경우
- 	    }
- 	    return imageUrl;
- 	}
+ 
     
 }
