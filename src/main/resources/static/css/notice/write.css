@@ -10,6 +10,16 @@
     border-bottom: 1px solid #ccc;
 }
 
+.location {
+   padding: 10px 0px 20px 20px;
+   font-size: 17px;
+   color: #666;
+   box-sizing: border-box;
+   background-size: 21px auto;
+   margin-left: 5%;
+   /* margin-left 값을 조절하여 왼쪽으로 이동 */
+}
+
 .stits p {
     display: block;
     margin-block-start: 1em;
@@ -20,7 +30,7 @@
 
 .tith2{
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
     border-bottom: 1px solid black;
 }
 
@@ -70,9 +80,9 @@
     cursor: pointer;
 }
 .btn-primary {
-    background-color: #007DC3;
+    background-color: #42424a;
     color: white;
-    border: 1px solid #007DC3;
+    border: 1px solid #42424a;
 }
 .btn-default {
     background-color: #e7e7e7;

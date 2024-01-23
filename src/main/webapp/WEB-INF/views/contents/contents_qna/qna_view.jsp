@@ -326,15 +326,47 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+	<div class="location">
+      <i class="fa-solid fa-house"></i>
+      <span class="ar">></span>
+      <c:choose>
+         <c:when test="${language eq 'korean'}">
+             <span> 
+                <a href="./userMypage.do">mypage</a>
+             </span>
+          
+         </c:when>
+         <c:when test="${language eq 'english'}">
+             <span> 
+                <a href="./userMypage.do">mypage</a>
+             </span>
+         
+         </c:when>
+         <c:when test="${language eq 'japanese'}">
+             <span> 
+                <a href="./userMypage.do">mypage</a>
+             </span>
+         
+         </c:when>
+         <c:when test="${language eq 'chinese'}">
+             <span> 
+                <a href="./userMypage.do">mypage</a>
+             </span>
+         
+         </c:when>
+         <c:otherwise>제목</c:otherwise>
+      </c:choose>
+   </div>
 	<div class="containers">
+	<div class="tith2">
+            <h1>QnA</h1>
+        </div>
 		<div class="post-title">
 			<c:out value="${to.qnaTitle}" />
 		</div>
 		<div class="post-info">
 			<div class="post-info-left">
 				<span class="post-info-item">작성자:${to.userNickname}</span>
-			</div>
-			<div class="post-info-right">
 				<span class="post-info-item">작성일: <c:out
 						value="${to.qnapostDate}" escapeXml="false" /></span>
 			</div>

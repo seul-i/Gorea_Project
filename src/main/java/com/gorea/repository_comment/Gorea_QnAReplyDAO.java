@@ -22,6 +22,7 @@ public class Gorea_QnAReplyDAO {
     
     public int QnAReply_Write(Gorea_QnA_ReplyTO rto) {
     	int result = reviewMapper.QnAReply_Write(rto);
+    	result = reviewMapper.QnACmtUp(rto);
     	return result;
     }
     
