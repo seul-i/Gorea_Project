@@ -29,27 +29,6 @@
             window.location.href = url;
         }
     }
-    
-    
-    // ========================= 게시판 선택 =============================
-    // 페이지 로딩 시 실행되는 함수
-    window.onload = function () {
-        // 선택된 게시판 값 가져오기
-        var selectedBoard = document.getElementById("boardType").value;
-
-        // TODO: 서버에 선택된 게시판에 대한 데이터 요청 및 처리
-        // AJAX를 사용하여 서버에 요청하고, 응답을 받아서 화면을 업데이트하는 코드 작성
-    }
-
-    // 게시판 변경 시 실행되는 함수
-    document.getElementById("boardType").addEventListener("change", function () {
-        // 선택된 게시판 값 가져오기
-        var selectedBoard = this.value;
-
-        // TODO: 서버에 선택된 게시판에 대한 데이터 요청 및 처리
-        // AJAX를 사용하여 서버에 요청하고, 응답을 받아서 화면을 업데이트하는 코드 작성
-    });
-    
     </script>
     
 </head>
@@ -58,19 +37,66 @@
  	<div class="commonBanner" id="comBanner">
         <img src="/img/banner/Top5Banner.jpg" alt="banner">
         <div class="commonBanner-text">
-            <h1>마이페이지</h1>
-        </div>
+        	<c:choose>
+                  <c:when test="${language eq 'korean'}"><h1>마이페이지</h1></c:when>
+                  <c:when test="${language eq 'english'}"><h1>MyPage</h1></c:when>
+                  <c:when test="${language eq 'japanese'}"><h1>マイページ</h1></c:when>
+                  <c:when test="${language eq 'chinese'}"><h1>我的页面</h1></c:when>
+          	</c:choose>
+    	</div>
     </div>
 
   	<div class="menuContainer">
        <div class="menuinner">
            <div class="mypage-menuBtn">
-               <a href="mypage.do" class="mypagebtn active userInfo">회원정보</a>
-               <a href="boardList.do?userSeq=${userSeq}" class="mypagebtn active boardList">게시글 관리</a>
-               <a href="replyList.do?userSeq=${userSeq}" class="mypagebtn active replyList">댓글 관리</a>
-               <a href="#" class="mypagebtn active likeList">즐겨찾기</a>
-               <a href="qnaList.do?userSeq=${userSeq }" class="mypagebtn active qna">1:1 문의내역</a>
-               <a href="userLeave.do?userSeq=${userSeq }" class="mypagebtn active bye">회원탈퇴</a>
+              <a href="mypage.do" class="mypagebtn active userInfo">
+                <c:choose>
+                    <c:when test="${language eq 'korean'}">회원정보</c:when>
+                    <c:when test="${language eq 'english'}">User Information</c:when>
+                    <c:when test="${language eq 'japanese'}">ユーザー情報</c:when>
+                    <c:when test="${language eq 'chinese'}">用户信息</c:when>
+                </c:choose>
+            </a>
+            <a href="boardList.do?userSeq=${userSeq}" class="mypagebtn active boardList">
+                <c:choose>
+                    <c:when test="${language eq 'korean'}">게시글 관리</c:when>
+                    <c:when test="${language eq 'english'}">Posts Management</c:when>
+                    <c:when test="${language eq 'japanese'}">投稿の管理</c:when>
+                    <c:when test="${language eq 'chinese'}">管理职位</c:when>
+                </c:choose>
+            </a>
+            <a href="replyList.do?userSeq=${userSeq}" class="mypagebtn active replyList">
+                <c:choose>
+                    <c:when test="${language eq 'korean'}">댓글 관리</c:when>
+                    <c:when test="${language eq 'english'}">Reply Management </c:when>
+                    <c:when test="${language eq 'japanese'}">返信の管理</c:when>
+                    <c:when test="${language eq 'chinese'}">管理回复</c:when>
+                </c:choose>
+            </a>
+            <a href="#" class="mypagebtn active likeList">
+                <c:choose>
+                    <c:when test="${language eq 'korean'}">즐겨찾기</c:when>
+                    <c:when test="${language eq 'english'}">Favorites</c:when>
+                    <c:when test="${language eq 'japanese'}">お気に入りの</c:when>
+                    <c:when test="${language eq 'chinese'}">收藏夹</c:when>
+                </c:choose>
+            </a>
+            <a href="qnaList.do?userSeq=${userSeq}" class="mypagebtn active qna">
+                <c:choose>
+                    <c:when test="${language eq 'korean'}">1:1 문의내역</c:when>
+                    <c:when test="${language eq 'english'}">1:1 Inquiries</c:when>
+                    <c:when test="${language eq 'japanese'}">1:1 お問い合わせ</c:when>
+                    <c:when test="${language eq 'chinese'}">1:1 咨询</c:when>
+                </c:choose>
+            </a>
+            <a href="userLeave.do?userSeq=${userSeq}" class="mypagebtn active bye">
+                 <c:choose>
+                    <c:when test="${language eq 'korean'}">회원탈퇴</c:when>
+                    <c:when test="${language eq 'english'}">Drop Account</c:when>
+                    <c:when test="${language eq 'japanese'}">アカウントを削除する</c:when>
+                    <c:when test="${language eq 'chinese'}">删除帐户</c:when>
+                </c:choose>
+            </a>
            </div>
        </div>
    	</div>
@@ -78,7 +104,14 @@
     <section class="mypage-section">
         <div class="mypage-container">
             <div class="menu-title">
-                <b>게시글 관리</b>
+                <b>
+	                <c:choose>
+	                    <c:when test="${language eq 'korean'}">게시글 관리</c:when>
+	                    <c:when test="${language eq 'english'}">Posts Management</c:when>
+	                    <c:when test="${language eq 'japanese'}">投稿の管理</c:when>
+	                    <c:when test="${language eq 'chinese'}">管理职位</c:when>
+	            	</c:choose>
+                </b>
             </div>
 
 <!-- 
@@ -91,49 +124,111 @@
                 </select>
             </div>  -->
              <div class="board-wrap">
-                <table class="board-list">
-                    <thead>
-                        <th class="col-num">대상 게시판</th>
-                        <th class="col-title">제목</th>
-                        <th class="col-writer">글쓴이</th>
-                        <th class="col-date">작성일</th>
-                        <th class="col-count">조회수</th>
-                    </thead>
-                    
-                    <c:choose>
-                        <c:when test="${not empty lists}">
-                            <c:forEach var="board" items="${lists}">
-                                <tbody>
-                                 <tr class="boardList">
-                                    <td>${board.boardType }</td>
-                                    <td>
-                                        <c:choose>
-											<c:when test="${board.boardType eq '자유게시판'}">
-                                            <a href="/${language}/freeboard_view.do?freeSeq=${board.id}">${board.title}</a>
-                                            </c:when>
-                                            <c:when test="${board.boardType eq '에디터 추천'}">
-                                                <a href="/${language}/editRecommend_view.do?editrecoSeq=${board.id}">${board.title}</a>
-                                            </c:when>
-                                        </c:choose>
-                                        <!-- 여행자 추천, BestTop5 부분 추가 & 에디터 추천 x -->
-                                    </td>
-                                    <td>${board.userNickname }</td>
-                                    <td>${board.postDate }</td>
-                                    <td>${board.hit }</td>
-                                 </tr>
-                                </tbody>
-                            </c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                            <tbody>
-                                <tr>
-                                    <td colspan="5">등록된 게시물이 없습니다.</td>
-                                </tr>
-                            </tbody>
-                        </c:otherwise>
-                    </c:choose>
-                  </table>
-            </div>
+			    <table class="board-list">
+			        <thead>
+			            <th class="col-num">
+			                <c:choose>
+			                    <c:when test="${language eq 'korean'}">대상 게시판</c:when>
+			                    <c:when test="${language eq 'english'}">Target Board</c:when>
+			                    <c:when test="${language eq 'japanese'}">対象掲示板</c:when>
+			                    <c:when test="${language eq 'chinese'}">目标留言板</c:when>
+			                </c:choose>
+			            </th>
+			            <th class="col-title">
+			                <c:choose>
+			                    <c:when test="${language eq 'korean'}">제목</c:when>
+			                    <c:when test="${language eq 'english'}">Title</c:when>
+			                    <c:when test="${language eq 'japanese'}">タイトル</c:when>
+			                    <c:when test="${language eq 'chinese'}">标题</c:when>
+			                </c:choose>
+			            </th>
+			            <th class="col-writer">
+			                <c:choose>
+			                    <c:when test="${language eq 'korean'}">글쓴이</c:when>
+			                    <c:when test="${language eq 'english'}">Writer</c:when>
+			                    <c:when test="${language eq 'japanese'}">作成者</c:when>
+			                    <c:when test="${language eq 'chinese'}">作者</c:when>
+			                </c:choose>
+			            </th>
+			            <th class="col-date">
+			                <c:choose>
+			                    <c:when test="${language eq 'korean'}">작성일</c:when>
+			                    <c:when test="${language eq 'english'}">Date</c:when>
+			                    <c:when test="${language eq 'japanese'}">投稿日</c:when>
+			                    <c:when test="${language eq 'chinese'}">创建日期</c:when>
+			                </c:choose>
+			            </th>
+			            <th class="col-count">
+			                <c:choose>
+			                    <c:when test="${language eq 'korean'}">조회수</c:when>
+			                    <c:when test="${language eq 'english'}">Views</c:when>
+			                    <c:when test="${language eq 'japanese'}">閲覧数</c:when>
+			                    <c:when test="${language eq 'chinese'}">浏览量</c:when>
+			                </c:choose>
+			            </th>
+			        </thead>
+			
+					<!-- 여행자 추천, BestTop5 부분 추가 & 에디터 추천 x -->
+			        <c:choose>
+			            <c:when test="${not empty lists}">
+						    <c:forEach var="board" items="${lists}">
+						        <tbody>
+						            <tr class="boardList">
+						                <td>
+						                    <c:choose>
+						                        <c:when test="${board.boardType eq '자유게시판'}">
+						                            <c:choose>
+						                                <c:when test="${language eq 'korean'}">자유게시판</c:when>
+						                                <c:when test="${language eq 'english'}">Free Board</c:when>
+						                                <c:when test="${language eq 'japanese'}">フリーボード</c:when>
+						                                <c:when test="${language eq 'chinese'}">自由板</c:when>
+						                            </c:choose>
+						                        </c:when>
+						                        <c:when test="${board.boardType eq '에디터 추천'}">
+						                            <c:choose>
+						                                <c:when test="${language eq 'korean'}">에디터 추천</c:when>
+						                                <c:when test="${language eq 'english'}">Editor's Recommend</c:when>
+						                                <c:when test="${language eq 'japanese'}">編集者のおすすめ</c:when>
+						                                <c:when test="${language eq 'chinese'}">编辑推荐</c:when>
+						                            </c:choose>
+						                        </c:when>
+						                    </c:choose>
+						                </td>
+						                <td>
+					                    <c:choose>
+					                        <c:when test="${board.boardType eq '자유게시판'}">
+					                            <a href="/${language}/freeboard_view.do?freeSeq=${board.id}">${board.title}</a>
+					                        </c:when>
+					                        <c:when test="${board.boardType eq '에디터 추천'}">
+					                            <a href="/${language}/editRecommend_view.do?editrecoSeq=${board.id}">${board.title}</a>
+					                        </c:when>
+					                    </c:choose>
+						                </td>
+						                <td>${board.userNickname}</td>
+						                <td>${board.postDate}</td>
+						                <td>${board.hit}</td>
+						            </tr>
+						        </tbody>
+						    </c:forEach>
+						</c:when>
+			            <c:otherwise>
+			                <tbody>
+			                    <tr>
+			                        <td colspan="5">
+			                            <c:choose>
+			                                <c:when test="${language eq 'korean'}">등록된 게시물이 없습니다.</c:when>
+			                                <c:when test="${language eq 'english'}">No registered posts.</c:when>
+			                                <c:when test="${language eq 'japanese'}">登録された投稿はありません。</c:when>
+			                                <c:when test="${language eq 'chinese'}">没有注册的帖子。</c:when>
+			                            </c:choose>
+			                        </td>
+			                    </tr>
+			                </tbody>
+			            </c:otherwise>
+			        </c:choose>
+			    </table>
+			</div>
+
                  <div class="bottom-container">
 					    <div class="pagination-container">
 					        <div class="pagination">

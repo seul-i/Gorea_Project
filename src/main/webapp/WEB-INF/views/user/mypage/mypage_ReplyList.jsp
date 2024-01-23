@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="paging" value="${paging}" />
 <c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
@@ -6,22 +6,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="EUC-KR">
+    <meta charset="UTF-8">
     <title>Go!rea</title>
     <link rel="stylesheet" type="text/css" href="/css/mypage/mypageHeader.css">
     <link rel="stylesheet" type="text/css" href="/css/mypage/qnaList.css">
         <script>
     	
-    // ÀÌÀü ÆäÀÌÁö·Î ÀÌµ¿ÇÏ´Â ÇÔ¼ö
+    // ì´ì „ í˜ì´ì§€ë¡œ ì´ë™í•˜ëŠ” í•¨ìˆ˜
     function goToPreviousPage() {
         var currentPage = ${paging.cpage};
 
-        // ÇöÀç ÆäÀÌÁö°¡ 1ÆäÀÌÁöÀÎ °æ¿ì¿¡´Â µ¿ÀÛÇÏÁö ¾Êµµ·Ï Ã¼Å©
+        // í˜„ì¬ í˜ì´ì§€ê°€ 1í˜ì´ì§€ì¸ ê²½ìš°ì—ëŠ” ë™ì‘í•˜ì§€ ì•Šë„ë¡ ì²´í¬
         if (currentPage > 1) {
-            // ÀÌµ¿ÇÒ URL »ı¼º
+            // ì´ë™í•  URL ìƒì„±
             var url = "/${language}/qnaList.do?cpage=" + (currentPage - 1);
 
-            // ½ÇÁ¦·Î ÆäÀÌÁö ÀÌµ¿
+            // ì‹¤ì œë¡œ í˜ì´ì§€ ì´ë™
             window.location.href = url;
         }
     }
@@ -30,115 +30,229 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
-   		<div class="commonBanner" id="comBanner">
-      	  <img src="/img/banner/Top5Banner.jpg" alt="banner">
-	        <div class="commonBanner-text">
-	            <h1>¸¶ÀÌÆäÀÌÁö</h1>
-	        </div>
-	    </div>
+  	<div class="commonBanner" id="comBanner">
+        <img src="/img/banner/Top5Banner.jpg" alt="banner">
+        <div class="commonBanner-text">
+        	<c:choose>
+                  <c:when test="${language eq 'korean'}"><h1>ë§ˆì´í˜ì´ì§€</h1></c:when>
+                  <c:when test="${language eq 'english'}"><h1>MyPage</h1></c:when>
+                  <c:when test="${language eq 'japanese'}"><h1>ãƒã‚¤ãƒšãƒ¼ã‚¸</h1></c:when>
+                  <c:when test="${language eq 'chinese'}"><h1>æˆ‘çš„é¡µé¢</h1></c:when>
+          	</c:choose>
+    	</div>
+    </div>
  	   <div class="menuContainer">
-       <div class="menuinner">
-           <div class="mypage-menuBtn">
-               <a href="mypage.do" class="mypagebtn active userInfo">È¸¿øÁ¤º¸</a>
-               <a href="boardList.do?userSeq=${userSeq}" class="mypagebtn active boardList">°Ô½Ã±Û °ü¸®</a>
-               <a href="replyList.do?userSeq=${userSeq}" class="mypagebtn active replyList">´ñ±Û °ü¸®</a>
-               <a href="#" class="mypagebtn active likeList">Áñ°ÜÃ£±â</a>
-               <a href="qnaList.do?userSeq=${userSeq }" class="mypagebtn active qna">1:1 ¹®ÀÇ³»¿ª</a>
-               <a href="userLeave.do?userSeq=${userSeq }" class="mypagebtn active bye">È¸¿øÅ»Åğ</a>
-           </div>
-       </div>
-   </div>
+	       <div class="menuinner">
+	           <div class="mypage-menuBtn">
+	              <a href="mypage.do" class="mypagebtn active userInfo">
+	                <c:choose>
+	                    <c:when test="${language eq 'korean'}">íšŒì›ì •ë³´</c:when>
+	                    <c:when test="${language eq 'english'}">User Information</c:when>
+	                    <c:when test="${language eq 'japanese'}">ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±</c:when>
+	                    <c:when test="${language eq 'chinese'}">ç”¨æˆ·ä¿¡æ¯</c:when>
+	                </c:choose>
+	            </a>
+	            <a href="boardList.do?userSeq=${userSeq}" class="mypagebtn active boardList">
+	                <c:choose>
+	                    <c:when test="${language eq 'korean'}">ê²Œì‹œê¸€ ê´€ë¦¬</c:when>
+	                    <c:when test="${language eq 'english'}">Posts Management</c:when>
+	                    <c:when test="${language eq 'japanese'}">æŠ•ç¨¿ã®ç®¡ç†</c:when>
+	                    <c:when test="${language eq 'chinese'}">ç®¡ç†èŒä½</c:when>
+	                </c:choose>
+	            </a>
+	            <a href="replyList.do?userSeq=${userSeq}" class="mypagebtn active replyList">
+	                <c:choose>
+	                    <c:when test="${language eq 'korean'}">ëŒ“ê¸€ ê´€ë¦¬</c:when>
+	                    <c:when test="${language eq 'english'}">Reply Management </c:when>
+	                    <c:when test="${language eq 'japanese'}">è¿”ä¿¡ã®ç®¡ç†</c:when>
+	                    <c:when test="${language eq 'chinese'}">ç®¡ç†å›å¤</c:when>
+	                </c:choose>
+	            </a>
+	            <a href="#" class="mypagebtn active likeList">
+	                <c:choose>
+	                    <c:when test="${language eq 'korean'}">ì¦ê²¨ì°¾ê¸°</c:when>
+	                    <c:when test="${language eq 'english'}">Favorites</c:when>
+	                    <c:when test="${language eq 'japanese'}">ãŠæ°—ã«å…¥ã‚Šã®</c:when>
+	                    <c:when test="${language eq 'chinese'}">æ”¶è—å¤¹</c:when>
+	                </c:choose>
+	            </a>
+	            <a href="qnaList.do?userSeq=${userSeq}" class="mypagebtn active qna">
+	                <c:choose>
+	                    <c:when test="${language eq 'korean'}">1:1 ë¬¸ì˜ë‚´ì—­</c:when>
+	                    <c:when test="${language eq 'english'}">1:1 Inquiries</c:when>
+	                    <c:when test="${language eq 'japanese'}">1:1 ãŠå•ã„åˆã‚ã›</c:when>
+	                    <c:when test="${language eq 'chinese'}">1:1 å’¨è¯¢</c:when>
+	                </c:choose>
+	            </a>
+	            <a href="userLeave.do?userSeq=${userSeq}" class="mypagebtn active bye">
+	                 <c:choose>
+	                    <c:when test="${language eq 'korean'}">íšŒì›íƒˆí‡´</c:when>
+	                    <c:when test="${language eq 'english'}">Drop Account</c:when>
+	                    <c:when test="${language eq 'japanese'}">ã‚¢ã‚«ã‚¦ãƒ³ãƒˆã‚’å‰Šé™¤ã™ã‚‹</c:when>
+	                    <c:when test="${language eq 'chinese'}">åˆ é™¤å¸æˆ·</c:when>
+	                </c:choose>
+	            </a>
+	           </div>
+	       </div>
+   		</div>
     <section class="mypage-section">
         <div class="mypage-container">
             <div class="menu-title">
-                <b>´ñ±Û °ü¸®</b>
+                <b>
+	               	<c:choose>
+	                    <c:when test="${language eq 'korean'}">ëŒ“ê¸€ ê´€ë¦¬</c:when>
+	                    <c:when test="${language eq 'english'}">Reply Management</c:when>
+	                    <c:when test="${language eq 'japanese'}">è¿”ä¿¡ã®ç®¡ç†</c:when>
+	                    <c:when test="${language eq 'chinese'}">ç®¡ç†å›å¤</c:when>
+	                </c:choose>
+                </b>
             </div>
 
-		 <div class="board-wrap">
-                <table class="board-list">
-                    <thead>
-                        <th class="col-num">´ë»ó °Ô½ÃÆÇ</th>
-                        <th class="col-title">³»¿ë</th>
-                        <th class="col-date">ÀÛ¼ºÀÏ</th>
-                    </thead>
-                    <c:choose>
-                        <c:when test="${not empty lists}">
-                            <c:forEach var="reply" items="${lists}">
-                                <tbody>
-                                    <tr class="boardList">
-                                        <td>${reply.boardType}</td>
-                                        <td>
-                                        <c:choose>
-                                            <c:when test="${reply.boardType eq '¿¡µğÅÍ ÃßÃµÀå¼Ò'}">
-                                                <a href="/${language}/editRecommend_view.do?editrecoSeq=${reply.boardID}">${reply.comment}</a>
-                                            </c:when>
-                                             <c:when test="${reply.boardType eq '¿¡µğÅÍ ²ÜÆÁ'}">
-                                                <a href="/${language}/editTip_view.do?editrecoSeq=${reply.boardID}">${reply.comment}</a>
-                                            </c:when>
-                                            <c:when test="${reply.boardType eq 'Æ®·»µå ¼­¿ï'}">
-                                                <a href="/${language}/trend_view.do?seoulSeq=${reply.boardID}">${reply.comment}</a>
-                                            </c:when>
- 											<c:when test="${reply.boardType eq 'ÀÚÀ¯°Ô½ÃÆÇ'}">
-                                                <a href="/${language}/freeboard_view.do?editrecoSeq=${reply.boardID}">${reply.comment}</a>
-                                            </c:when>
-                                        </c:choose>
-                                        <!-- ¿©ÇàÀÚ ÃßÃµ, BestTop5 ºÎºĞ Ãß°¡ÇØ¾ßÇÔ -->
-                                    </td>
-                                        <td>${reply.postDate}</td>
-                                    </tr>
-                                </tbody>
-                            </c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                            <tbody>
-                                <tr>
-                                    <td colspan="3">µî·ÏµÈ ´ñ±ÛÀÌ ¾ø½À´Ï´Ù.</td>
-                                </tr>
-                            </tbody>
-                        </c:otherwise>
-                    </c:choose>
-                </table>
-            </div>
- 					<div class="bottom-container">
-					    <div class="pagination-container">
-					        <div class="pagination">
-					        <!-- Ã³À½ ÆäÀÌÁö ¹öÆ° -->
-					        <c:if test="${paging.cpage > 1}">
-					            <a href="/user/${language}/replyList.do?userSeq=${userSeq }cpage=1" class="pagination-item">&lt;&lt;</a>
-					            <a href="/user/${language}/replyList.do?userSeq=${userSeq }&cpage=${paging.cpage - 1}" class="pagination-item">&lt;</a>
-					        </c:if>
-					        <c:if test="${paging.cpage == 1}">
-					            <span class="pagination-item disabled">&lt;&lt;</span>
-					            <span class="pagination-item disabled">&lt;</span>
-					        </c:if>
-					
-					        <!-- ÆäÀÌÁö ¹øÈ£ -->
-							<c:forEach var="i" begin="${paging.firstPage}" end="${paging.lastPage}" varStatus="loop">
-							    <c:choose>
-							        <c:when test="${i == paging.cpage}">
-							            <span class="pagination-item active">${i}</span>
-							        </c:when>
-							        <c:otherwise>
-							            <a href="/user/${language}/replyList.do?userSeq=${userSeq}&cpage=${i}" class="pagination-item">${i}</a>
-							        </c:otherwise>
-							    </c:choose>
-							</c:forEach>
+		<!-- ì—¬í–‰ì ì¶”ì²œ, BestTop5 ë¶€ë¶„ ì¶”ê°€í•´ì•¼í•¨ -->
+		<div class="board-wrap">
+		    <table class="board-list">
+		        <thead>
+				    <th class="col-num">
+				        <c:choose>
+		                    <c:when test="${language eq 'korean'}">ëŒ€ìƒ ê²Œì‹œíŒ</c:when>
+		                    <c:when test="${language eq 'english'}">Target Board</c:when>
+		                    <c:when test="${language eq 'japanese'}">å¯¾è±¡æ²ç¤ºæ¿</c:when>
+		                    <c:when test="${language eq 'chinese'}">ç›®æ ‡ç•™è¨€æ¿</c:when>
+		                </c:choose>
+				    </th>
+				    <th class="col-title">
+				        <c:choose>
+				            <c:when test="${language eq 'korean'}">ë‚´ìš©</c:when>
+				            <c:when test="${language eq 'english'}">Content</c:when>
+				            <c:when test="${language eq 'japanese'}">å†…å®¹</c:when>
+				            <c:when test="${language eq 'chinese'}">ç»†èŠ‚</c:when>
+				        </c:choose>
+				    </th>
+				    <th class="col-date">
+				         <c:choose>
+		                    <c:when test="${language eq 'korean'}">ì‘ì„±ì¼</c:when>
+		                    <c:when test="${language eq 'english'}">Date</c:when>
+		                    <c:when test="${language eq 'japanese'}">æŠ•ç¨¿æ—¥</c:when>
+		                    <c:when test="${language eq 'chinese'}">åˆ›å»ºæ—¥æœŸ</c:when>
+		                </c:choose>
+				    </th>
+				</thead>
 
-					
-					        <!-- ´ÙÀ½ ÆäÀÌÁö ¹öÆ° -->
-					        <c:if test="${paging.cpage < paging.totalPage}">
-					            <a href="/user/${language}/replyList.do?userSeq=${userSeq}&cpage=${paging.cpage + 1}" class="pagination-item">&gt;</a>
-					            <a href="/user/${language}/replyList.do?userSeq=${userSeq}&cpage=${paging.totalPage}" class="pagination-item">&gt;&gt;</a>
-					        </c:if>
-					        <c:if test="${paging.cpage == paging.totalPage}">
-					            <span class="pagination-item disabled">&gt;</span>
-					            <span class="pagination-item disabled">&gt;&gt;</span>
-					        </c:if>
-					    </div>
-					    </div>
-					</div>
-               	</div>
-                
+		        <c:choose>
+		            <c:when test="${not empty lists}">
+		                <c:forEach var="reply" items="${lists}">
+		                    <tbody>
+		                        <tr class="boardList">
+		                            <td>
+		                                <c:choose>
+		                                    <c:when test="${reply.boardType eq 'ì—ë””í„° ì¶”ì²œì¥ì†Œ'}">
+					                            <c:choose>
+					                                <c:when test="${language eq 'korean'}">ì—ë””í„° ì¶”ì²œ</c:when>
+					                                <c:when test="${language eq 'english'}">Editor's Recommend</c:when>
+					                                <c:when test="${language eq 'japanese'}">ç·¨é›†è€…ã®ãŠã™ã™ã‚</c:when>
+					                                <c:when test="${language eq 'chinese'}">ç¼–è¾‘æ¨è</c:when>
+					                            </c:choose>
+					                        </c:when>
+		                                    <c:when test="${reply.boardType eq 'ì—ë””í„° ê¿€íŒ'}">
+		                                        <c:choose>
+		                                            <c:when test="${language eq 'korean'}">ì—ë””í„° ê¿€íŒ</c:when>
+		                                            <c:when test="${language eq 'english'}">Editor's Tips</c:when>
+		                                            <c:when test="${language eq 'japanese'}">ç·¨é›†è€…ã®ãƒ’ãƒ³ãƒˆ</c:when>
+		                                            <c:when test="${language eq 'chinese'}">ç¼–è¾‘è´´å£«</c:when>
+		                                        </c:choose>
+		                                    </c:when>
+		                                    <c:when test="${reply.boardType eq 'íŠ¸ë Œë“œ ì„œìš¸'}">
+		                                        <c:choose>
+		                                            <c:when test="${language eq 'korean'}">íŠ¸ë Œë“œ ì„œìš¸</c:when>
+		                                            <c:when test="${language eq 'english'}">Trend Seoul</c:when>
+		                                            <c:when test="${language eq 'japanese'}">ãƒˆãƒ¬ãƒ³ãƒ‰ã‚½ã‚¦ãƒ«</c:when>
+		                                            <c:when test="${language eq 'chinese'}">æ½®æµé¦–å°”</c:when>
+		                                        </c:choose>
+		                                    </c:when>
+		                                    <c:when test="${reply.boardType eq 'ììœ ê²Œì‹œíŒ'}">
+		                                       	<c:choose>
+					                                <c:when test="${language eq 'korean'}">ììœ ê²Œì‹œíŒ</c:when>
+					                                <c:when test="${language eq 'english'}">Free Board</c:when>
+					                                <c:when test="${language eq 'japanese'}">ãƒ•ãƒªãƒ¼ãƒœãƒ¼ãƒ‰</c:when>
+					                                <c:when test="${language eq 'chinese'}">è‡ªç”±æ¿</c:when>
+			                           	 		</c:choose>
+		                                    </c:when>
+		                                </c:choose>
+		                                
+		                                
+		                            </td>
+		                            <td>
+		                                <c:choose>
+		                                    <c:when test="${reply.boardType eq 'ì—ë””í„° ì¶”ì²œì¥ì†Œ'}">
+		                                        <a href="/${language}/editRecommend_view.do?editrecoSeq=${reply.boardID}">${reply.comment}</a>
+		                                    </c:when>
+		                                    <c:when test="${reply.boardType eq 'ì—ë””í„° ê¿€íŒ'}">
+		                                        <a href="/${language}/editTip_view.do?editrecoSeq=${reply.boardID}">${reply.comment}</a>
+		                                    </c:when>
+		                                    <c:when test="${reply.boardType eq 'íŠ¸ë Œë“œ ì„œìš¸'}">
+		                                        <a href="/${language}/trend_view.do?seoulSeq=${reply.boardID}">${reply.comment}</a>
+		                                    </c:when>
+		                                    <c:when test="${reply.boardType eq 'ììœ ê²Œì‹œíŒ'}">
+		                                        <a href="/${language}/freeboard_view.do?editrecoSeq=${reply.boardID}">${reply.comment}</a>
+		                                    </c:when>
+		                                </c:choose>
+		                            </td>
+		                            <td>${reply.postDate}</td>
+		                        </tr>
+		                    </tbody>
+		                </c:forEach>
+		            </c:when>
+		            <c:otherwise>
+		                <tbody>
+		                    <tr>
+		                        <td colspan="3">ë“±ë¡ëœ ëŒ“ê¸€ì´ ì—†ìŠµë‹ˆë‹¤.</td>
+		                    </tr>
+		                </tbody>
+		            </c:otherwise>
+		        </c:choose>
+		    </table>
+		</div>
+		
+			<div class="bottom-container">
+			    <div class="pagination-container">
+			        <div class="pagination">
+			        <!-- ì²˜ìŒ í˜ì´ì§€ ë²„íŠ¼ -->
+			        <c:if test="${paging.cpage > 1}">
+			            <a href="/user/${language}/replyList.do?userSeq=${userSeq }cpage=1" class="pagination-item">&lt;&lt;</a>
+			            <a href="/user/${language}/replyList.do?userSeq=${userSeq }&cpage=${paging.cpage - 1}" class="pagination-item">&lt;</a>
+			        </c:if>
+			        <c:if test="${paging.cpage == 1}">
+			            <span class="pagination-item disabled">&lt;&lt;</span>
+			            <span class="pagination-item disabled">&lt;</span>
+			        </c:if>
+			
+			        <!-- í˜ì´ì§€ ë²ˆí˜¸ -->
+					<c:forEach var="i" begin="${paging.firstPage}" end="${paging.lastPage}" varStatus="loop">
+					    <c:choose>
+					        <c:when test="${i == paging.cpage}">
+					            <span class="pagination-item active">${i}</span>
+					        </c:when>
+					        <c:otherwise>
+					            <a href="/user/${language}/replyList.do?userSeq=${userSeq}&cpage=${i}" class="pagination-item">${i}</a>
+					        </c:otherwise>
+					    </c:choose>
+					</c:forEach>
+
+			
+			        <!-- ë‹¤ìŒ í˜ì´ì§€ ë²„íŠ¼ -->
+			        <c:if test="${paging.cpage < paging.totalPage}">
+			            <a href="/user/${language}/replyList.do?userSeq=${userSeq}&cpage=${paging.cpage + 1}" class="pagination-item">&gt;</a>
+			            <a href="/user/${language}/replyList.do?userSeq=${userSeq}&cpage=${paging.totalPage}" class="pagination-item">&gt;&gt;</a>
+			        </c:if>
+			        <c:if test="${paging.cpage == paging.totalPage}">
+			            <span class="pagination-item disabled">&gt;</span>
+			            <span class="pagination-item disabled">&gt;&gt;</span>
+			        </c:if>
+			    </div>
+			    </div>
+			</div>
+          </div>
+               
 		</div>
  	</section> 
  	
