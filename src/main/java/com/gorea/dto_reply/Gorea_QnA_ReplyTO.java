@@ -1,5 +1,10 @@
 package com.gorea.dto_reply;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Gorea_QnA_ReplyTO {
 
 	private String qnaSeq;
@@ -10,5 +15,6 @@ public class Gorea_QnA_ReplyTO {
 	
 	// user Table의 nickname
 	private String userNickname;
+	private String userNation;
 	
 }

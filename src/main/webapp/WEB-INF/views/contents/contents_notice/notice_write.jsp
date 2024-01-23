@@ -13,7 +13,10 @@
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
     <div class="containers">
-        <h2>공지사항 작성</h2>
+        <div class="tith2">
+            <h2>공지사항 작성</h2> <!-- 제목을 중앙 정렬 -->
+            <!-- 폼과 나머지 내용 -->
+        </div>
         <!-- 서버 측 메시지 표시 -->
         <c:if test="${not empty successMessage}">
             <div class="success-message">${successMessage}</div>
@@ -24,16 +27,19 @@
         <form class="form-horizontal" name="wfrm" method="post" action="./notice_write_ok.do">
         <input type="hidden" name="userSeq" value="${userSeq}">
             <div class="form-group">
-                <input type="text" class="form-control" name="noticeTitle" style="height: 50px" placeholder="제목을 입력해 주세요."/>
+            <div class="stits">
+                    <p>제목</p>
+                </div>
+                <input type="text" class="form-control" name="noticeTitle" style="height: 40px" placeholder="제목을 입력해 주세요."/>
             </div>
             <div class="form-group">
                 <textarea class="form-control" id="noticeContent" name="noticeContent" placeholder="내용을 입력해 주세요."></textarea>
+            </div>
             </div>
             <div class="btn_wrap">
                 <button type="submit" id="wbtn" class="btn btn-primary">저장하기</button>
             </div>
         </form>
-    </div>
     <script type="text/javascript">
         window.onload = function() {
             CKEDITOR.replace('noticeContent', {

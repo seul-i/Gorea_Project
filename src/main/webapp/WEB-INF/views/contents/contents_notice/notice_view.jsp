@@ -4,6 +4,8 @@
 <c:set var="seq" value="${param.noticeSeq}" />
 <c:set var="to" value="${requestScope.to}" />
 <c:set var="language" value="${language}" />
+<c:set var="role"
+	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -61,8 +63,12 @@
 
     <!-- 삭제, 수정, 목록 버튼 그룹 -->
     <div class="right-buttons">
+    <c:choose>
+	<c:when test="${role eq 'ROLE_ADMIN'}">
         <input type="button" value="삭제" class="btn" onclick="confirmDelete('${deleteUrl}')" />
         <input type="button" value="수정" class="btn" onclick="location.href='${modifyUrl}'" />
+        </c:when>
+        </c:choose>
         <input type="button" value="목록" class="btn" onclick="location.href='${listUrl}'" />
     </div>
 </div>

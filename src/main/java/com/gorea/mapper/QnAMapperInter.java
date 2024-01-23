@@ -25,7 +25,10 @@ public interface QnAMapperInter {
 	int QnA_Write_Ok(Gorea_QnA_BoardTO to);
 	
 	// QnA_view
-	@Select("select qnaTitle, qnaContent, date_format(qnapostDate, '%Y.%m.%d') qnapostDate from QnA where qnaSeq=#{qnaSeq} ")
+	@Select("select q.qnaSeq,  q.qnaTitle, q.userSeq, q.qnaContent, date_format(q.qnapostDate, '%Y.%m.%d') qnapostDate, u.userNickname AS userNickname " +
+			 "FROM QnA q " +
+			 "JOIN user u ON q.userSeq = u.userSeq " +
+			 "where qnaSeq=#{qnaSeq} ")
 	Gorea_QnA_BoardTO QnA_View(Gorea_QnA_BoardTO to);
 	
 	// QnA_Modify
@@ -41,12 +44,12 @@ public interface QnAMapperInter {
 	int QnA_Delete_Ok(Gorea_QnA_BoardTO to);
 	
 	// QnAReplyList
-		@Select("SELECT q.qnaSeq, q.qnaCmtSeq, q.userSeq, q.qnaCmtContent, DATE_FORMAT(q.qnaCmtWdate, '%Y.%m.%d') AS qnaCmtWdate, u.userNickname AS userNickname " +
-		        "FROM QnAReply q " +
-		        "JOIN user u ON q.userSeq = u.userSeq " +
-		        "WHERE q.qnaSeq=#{qnaSeq} " +
-		        "ORDER BY Q.qnaCmtSeq DESC")
-		List<Gorea_QnA_ReplyTO> QnAReplyList(String qnaSeq);
+	@Select("SELECT q.qnaSeq, q.qnaCmtSeq, q.userSeq, q.qnaCmtContent, DATE_FORMAT(q.qnaCmtWdate, '%Y.%m.%d') AS qnaCmtWdate, u.userNickname AS userNickname, u.userNation AS userNation " +
+			"FROM QnAReply q " +
+			"JOIN user u ON q.userSeq = u.userSeq " +
+			"WHERE q.qnaSeq=#{qnaSeq} " +
+			"ORDER BY q.qnaCmtSeq DESC")
+			List<Gorea_QnA_ReplyTO> QnAReplyList(String qnaSeq);
 		
 		// QnAReply_Write
 		@Insert("insert into QnAReply values (#{qnaSeq}, 0, #{userSeq}, #{qnaCmtContent}, now() )")
