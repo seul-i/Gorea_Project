@@ -43,59 +43,60 @@
     </div>
 	    
  	   <div class="menuContainer">
-	       <div class="menuinner">
-	           <div class="mypage-menuBtn">
-	              <a href="mypage.do" class="mypagebtn active userInfo">
-	                <c:choose>
-	                    <c:when test="${language eq 'korean'}">회원정보</c:when>
-	                    <c:when test="${language eq 'english'}">User Information</c:when>
-	                    <c:when test="${language eq 'japanese'}">ユーザー情報</c:when>
-	                    <c:when test="${language eq 'chinese'}">用户信息</c:when>
-	                </c:choose>
-	            </a>
-	            <a href="boardList.do?userSeq=${userSeq}" class="mypagebtn active boardList">
-	                <c:choose>
-	                    <c:when test="${language eq 'korean'}">게시글 관리</c:when>
-	                    <c:when test="${language eq 'english'}">Posts Management</c:when>
-	                    <c:when test="${language eq 'japanese'}">投稿の管理</c:when>
-	                    <c:when test="${language eq 'chinese'}">管理职位</c:when>
-	                </c:choose>
-	            </a>
-	            <a href="replyList.do?userSeq=${userSeq}" class="mypagebtn active replyList">
-	                <c:choose>
-	                    <c:when test="${language eq 'korean'}">댓글 관리</c:when>
-	                    <c:when test="${language eq 'english'}">Reply Management </c:when>
-	                    <c:when test="${language eq 'japanese'}">返信の管理</c:when>
-	                    <c:when test="${language eq 'chinese'}">管理回复</c:when>
-	                </c:choose>
-	            </a>
-	            <a href="#" class="mypagebtn active likeList">
-	                <c:choose>
-	                    <c:when test="${language eq 'korean'}">즐겨찾기</c:when>
-	                    <c:when test="${language eq 'english'}">Favorites</c:when>
-	                    <c:when test="${language eq 'japanese'}">お気に入りの</c:when>
-	                    <c:when test="${language eq 'chinese'}">收藏夹</c:when>
-	                </c:choose>
-	            </a>
-	            <a href="qnaList.do?userSeq=${userSeq}" class="mypagebtn active qna">
-	                <c:choose>
-	                    <c:when test="${language eq 'korean'}">1:1 문의내역</c:when>
-	                    <c:when test="${language eq 'english'}">1:1 Inquiries</c:when>
-	                    <c:when test="${language eq 'japanese'}">1:1 お問い合わせ</c:when>
-	                    <c:when test="${language eq 'chinese'}">1:1 咨询</c:when>
-	                </c:choose>
-	            </a>
-	            <a href="userLeave.do?userSeq=${userSeq}" class="mypagebtn active bye">
-	                 <c:choose>
-	                    <c:when test="${language eq 'korean'}">회원탈퇴</c:when>
-	                    <c:when test="${language eq 'english'}">Drop Account</c:when>
-	                    <c:when test="${language eq 'japanese'}">アカウントを削除する</c:when>
-	                    <c:when test="${language eq 'chinese'}">删除帐户</c:when>
-	                </c:choose>
-	            </a>
-	           </div>
-	       </div>
-   		</div>
+		    <div class="menuinner">
+		        <div class="mypage-menuBtn">
+		            <a href="userMypage.do" class="mypagebtn active userInfo">
+		                <c:choose>
+		                    <c:when test="${language eq 'korean'}">회원정보</c:when>
+		                    <c:when test="${language eq 'english'}">User Information</c:when>
+		                    <c:when test="${language eq 'japanese'}">ユーザー情報</c:when>
+		                    <c:when test="${language eq 'chinese'}">用户信息</c:when>
+		                </c:choose>
+		            </a>
+		            <a href="userBoardList.do?userSeq=${userSeq}" class="mypagebtn active boardList">
+		                <c:choose>
+		                    <c:when test="${language eq 'korean'}">게시글 관리</c:when>
+		                    <c:when test="${language eq 'english'}">Posts Management</c:when>
+		                    <c:when test="${language eq 'japanese'}">投稿の管理</c:when>
+		                    <c:when test="${language eq 'chinese'}">管理职位</c:when>
+		                </c:choose>
+		            </a>
+		            <a href="userReplyList.do?userSeq=${userSeq}" class="mypagebtn active replyList">
+		                <c:choose>
+		                    <c:when test="${language eq 'korean'}">댓글 관리</c:when>
+		                    <c:when test="${language eq 'english'}">Reply Management</c:when>
+		                    <c:when test="${language eq 'japanese'}">返信の管理</c:when>
+		                    <c:when test="${language eq 'chinese'}">管理回复</c:when>
+		                </c:choose>
+		            </a>
+		            <a href="#" class="mypagebtn active likeList">
+		                <c:choose>
+		                    <c:when test="${language eq 'korean'}">즐겨찾기</c:when>
+		                    <c:when test="${language eq 'english'}">Favorites</c:when>
+		                    <c:when test="${language eq 'japanese'}">お気に入りの</c:when>
+		                    <c:when test="${language eq 'chinese'}">收藏夹</c:when>
+		                </c:choose>
+		            </a>
+		            <a href="userQnaList.do?userSeq=${userSeq}" class="mypagebtn active qna">
+		                <c:choose>
+		                    <c:when test="${language eq 'korean'}">1:1 문의내역</c:when>
+		                    <c:when test="${language eq 'english'}">1:1 Inquiries</c:when>
+		                    <c:when test="${language eq 'japanese'}">1:1 お問い合わせ</c:when>
+		                    <c:when test="${language eq 'chinese'}">1:1 咨询</c:when>
+		                </c:choose>
+		            </a>
+		            <a href="userDropAccount.do?userSeq=${userSeq}" class="mypagebtn active bye">
+		                 <c:choose>
+		                    <c:when test="${language eq 'korean'}">회원탈퇴</c:when>
+		                    <c:when test="${language eq 'english'}">Drop Account</c:when>
+		                    <c:when test="${language eq 'japanese'}">アカウントを削除する</c:when>
+		                    <c:when test="${language eq 'chinese'}">删除帐户</c:when>
+		                </c:choose>
+		            </a>
+		        </div>
+		    </div>
+		</div>
+		
     <section class="mypage-section">
         <div class="mypage-container">
             <div class="menu-title">

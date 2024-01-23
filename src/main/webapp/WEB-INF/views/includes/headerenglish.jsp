@@ -120,7 +120,7 @@
 										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${nickname}">${nickname}</a>
 											<div class="headerDropdown-options">
-												<a href="/english/user/mypage.do">MyPage</a>
+												<a href="/english/userMypage.do">MyPage</a>
 												<a href="/logoutEn.do" class="logout">Logout</a>
 											</div>
 										</div>
@@ -217,7 +217,7 @@
 								<h3 class="nav-id" data-nickname="${nickname}">welcome '<span>${nickname}</span>'</h3>
 								
 								<div class="nav-idIfno">
-									<a href="/english/user/mypage.do" style="font-size:15px; margin-right:20px">MyPage</a>
+									<a href="/english/userMypage.do" style="font-size:15px; margin-right:20px">MyPage</a>
 									<a href="/logoutEn.do" class="logout" style="font-size:15px">Logout</a>
 									
 									<select name="languages" id="lang2" onchange="changeLanguage(this)" style="margin-right:20px">
@@ -234,9 +234,16 @@
 		
 							<c:when test="${role eq 'ROLE_ADMIN'}">
 								<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
-									<div class="dropdown-options">
-										<a href="/admin/adminpage.do">관리자 페이지</a> 
-										<a href="/logoutEn.do" class="logout">로그아웃</a>
+									<div class="nav-idIfno">
+										<a href="/admin/adminpage.do" style="font-size:15px; margin-right:20px">관리자 페이지</a> 
+										<a href="/logoutKr.do" class="logout" style="font-size:15px">로그아웃</a>
+										
+										<select name="languages" id="lang2" onchange="changeLanguage(this)" style="margin-right:20px">
+											<option value="#" selected>한국어</option>
+											<option value="/english/">English</option>
+											<option value="/japanese/">日本語</option>
+											<option value="/chinese/">汉语</option>
+										</select>
 									</div>
 							</c:when>
 	
