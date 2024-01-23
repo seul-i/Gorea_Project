@@ -87,7 +87,7 @@ public class Gorea_Header_Controller {
     }
 	
 	// 마이 페이지 이동
-	@GetMapping("/{language}/user/mypage.do")
+	@GetMapping("/{language}/userMypage.do")
 	public String mypage(@PathVariable String language, Model model) {
 		
 		System.out.println(language);
@@ -105,7 +105,7 @@ public class Gorea_Header_Controller {
 			return "gorea_accessdeniedPage";
 		}
 		
-		return "user/myPage";
+		return "user/mypage/myPage";
 	}
 	
 	// 어드민 페이지 이동

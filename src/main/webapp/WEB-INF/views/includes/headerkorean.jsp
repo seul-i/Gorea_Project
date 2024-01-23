@@ -114,7 +114,7 @@
 										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${shortenedNickname}">${shortenedNickname}</a>
 											<div class="headerDropdown-options">
-												<a href="/korean/user/mypage.do">마이 페이지</a> <a
+												<a href="/korean/userMypage.do">마이 페이지</a> <a
 													href="/logoutKr.do" class="logout">로그아웃</a>
 											</div>
 										</div>
@@ -211,7 +211,7 @@
 								<h3 class="nav-id" data-nickname="${nickname}">환영합니다 '<span>${nickname}</span>' 님</h3>
 								
 								<div class="nav-idIfno">
-									<a href="/korean/user/mypage.do" style="font-size:15px; margin-right:20px">마이 페이지</a>
+									<a href="/korean/userMypage.do" style="font-size:15px; margin-right:20px">마이 페이지</a>
 									<a href="/logoutKr.do" class="logout" style="font-size:15px">로그아웃</a>
 									
 									<select name="languages" id="lang2" onchange="changeLanguage(this)" style="margin-right:20px">

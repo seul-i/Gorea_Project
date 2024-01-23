@@ -42,7 +42,7 @@
  	   <div class="menuContainer">
 		    <div class="menuinner">
 		        <div class="mypage-menuBtn">
-		            <a href="mypage.do" class="mypagebtn active userInfo">
+		            <a href="userMypage.do" class="mypagebtn active userInfo">
 		                <c:choose>
 		                    <c:when test="${language eq 'korean'}">회원정보</c:when>
 		                    <c:when test="${language eq 'english'}">User Information</c:when>
@@ -50,7 +50,7 @@
 		                    <c:when test="${language eq 'chinese'}">用户信息</c:when>
 		                </c:choose>
 		            </a>
-		            <a href="boardList.do?userSeq=${userSeq}" class="mypagebtn active boardList">
+		            <a href="userBoardList.do?userSeq=${userSeq}" class="mypagebtn active boardList">
 		                <c:choose>
 		                    <c:when test="${language eq 'korean'}">게시글 관리</c:when>
 		                    <c:when test="${language eq 'english'}">Posts Management</c:when>
@@ -58,7 +58,7 @@
 		                    <c:when test="${language eq 'chinese'}">管理职位</c:when>
 		                </c:choose>
 		            </a>
-		            <a href="replyList.do?userSeq=${userSeq}" class="mypagebtn active replyList">
+		            <a href="userReplyList.do?userSeq=${userSeq}" class="mypagebtn active replyList">
 		                <c:choose>
 		                    <c:when test="${language eq 'korean'}">댓글 관리</c:when>
 		                    <c:when test="${language eq 'english'}">Reply Management</c:when>
@@ -74,7 +74,7 @@
 		                    <c:when test="${language eq 'chinese'}">收藏夹</c:when>
 		                </c:choose>
 		            </a>
-		            <a href="qnaList.do?userSeq=${userSeq}" class="mypagebtn active qna">
+		            <a href="userQnaList.do?userSeq=${userSeq}" class="mypagebtn active qna">
 		                <c:choose>
 		                    <c:when test="${language eq 'korean'}">1:1 문의내역</c:when>
 		                    <c:when test="${language eq 'english'}">1:1 Inquiries</c:when>
@@ -82,7 +82,7 @@
 		                    <c:when test="${language eq 'chinese'}">1:1 咨询</c:when>
 		                </c:choose>
 		            </a>
-		            <a href="userLeave.do?userSeq=${userSeq}" class="mypagebtn active bye">
+		            <a href="userDropAccount.do?userSeq=${userSeq}" class="mypagebtn active bye">
 		                 <c:choose>
 		                    <c:when test="${language eq 'korean'}">회원탈퇴</c:when>
 		                    <c:when test="${language eq 'english'}">Drop Account</c:when>
