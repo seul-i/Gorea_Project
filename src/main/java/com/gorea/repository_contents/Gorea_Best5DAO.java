@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gorea.dto_board.Gorea_BEST5_BoardTO;
 import com.gorea.dto_board.Gorea_BEST5_ListTO;
+import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
 import com.gorea.mapper.Top5MapperInter;
@@ -137,6 +140,36 @@ public class Gorea_Best5DAO {
 			board.setFirstImageUrl5(firstImageUrl5);
 		}	
 		return boardList;
+	}
+	
+	
+	public Gorea_BEST5_ListTO bestTop5_View(Gorea_BEST5_ListTO to) {
+		
+		int hitResult = mapper.TrendHit(to);
+		to = mapper.bestTop5_View(to);
+		
+		// 이미지 URL 추출
+		String content1 = to.getSeoulContent1();
+		String firstImageUrl1 = extractFirstImageUrl(content1);
+		to.setFirstImageUrl1(firstImageUrl1);
+		
+		String content2 = to.getSeoulContent2();
+		String firstImageUrl2 = extractFirstImageUrl(content2);
+		to.setFirstImageUrl2(firstImageUrl2);
+		
+		String content3 = to.getSeoulContent3();
+		String firstImageUrl3 = extractFirstImageUrl(content3);
+		to.setFirstImageUrl3(firstImageUrl3);
+		
+		String content4 = to.getSeoulContent4();
+		String firstImageUrl4 = extractFirstImageUrl(content4);
+		to.setFirstImageUrl4(firstImageUrl4);
+		
+		String content5 = to.getSeoulContent5();
+		String firstImageUrl5 = extractFirstImageUrl(content5);
+		to.setFirstImageUrl5(firstImageUrl5);
+
+		return to;
 	}
 	
     private String extractFirstImageUrl(String content) {

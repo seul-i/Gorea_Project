@@ -120,18 +120,18 @@
 										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${nickname}">${nickname}</a>
 											<div class="headerDropdown-options">
-												<a href="/user/japanese/mypage.do">マイページ</a>
-	                          					<a href="/logout.do" class="logout">ログアウト</a>
+												<a href="/japanese/user/mypage.do">マイページ</a>
+	                          					<a href="/logoutJp.do" class="logout">ログアウト</a>
 											</div>
 										</div>
 									</c:when>
 
 									<c:when test="${role eq 'ROLE_ADMIN'}">
-										<div class="dropdown">
+										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
 											<div class="headerDropdown-options">
 												<a href="/admin/adminpage.do">관리자 페이지</a>
-												<a href="/logout.do" class="logout">로그아웃</a>
+												<a href="/logoutJp.do" class="logout">로그아웃</a>
 											</div>
 										</div>
 									</c:when>
@@ -166,7 +166,7 @@
 				<li><a href="#">僕らのソウル</a>
 					<ul class="header-dropdownList">
 						<li><a href="/japanese/bestTop5.do">Best TOP5</a></li>
-						<li><a href="/japanese/userRecomList.do">旅行者のおすすめ</a></li>
+						<li><a href="/japanese/userRecom.do">旅行者のおすすめ</a></li>
 						<li><a href="/japanese/freeboard.do">フリー掲示板</a></li>
 					</ul></li>
 
@@ -217,8 +217,8 @@
 								<h3 class="nav-id" data-nickname="${nickname}">いらっしゃいませ '<span>${nickname}</span>' さん</h3>
 								
 								<div class="nav-idIfno">
-									<a href="/user/japanese/mypage.do" style="font-size:15px; margin-right:20px">マイページ</a>
-									<a href="/logout.do" class="logout" style="font-size:15px">ログアウト</a>
+									<a href="/japanese/user/mypage.do" style="font-size:15px; margin-right:20px">マイページ</a>
+									<a href="/logoutJp.do" class="logout" style="font-size:15px">ログアウト</a>
 									
 									<select name="languages" id="lang2" onchange="changeLanguage(this)" style="margin-right:20px">
 										<option value="#">日本語</option>
@@ -236,7 +236,7 @@
 								<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
 									<div class="dropdown-options">
 										<a href="/admin/adminpage.do">관리자 페이지</a> 
-										<a href="/logout.do" class="logout">로그아웃</a>
+										<a href="/logoutJp.do" class="logout">로그아웃</a>
 									</div>
 							</c:when>
 	
@@ -253,7 +253,7 @@
 					<p>[ 僕らのソウル ]</p>
 					<div class="nav-IndexInput">
 						<a href="/japanese/bestTop5.do">Best TOP5</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/japanese/userRecomList.do">旅行者のおすすめ</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/japanese/userRecom.do">旅行者のおすすめ</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/japanese/freeboard.do">フリー掲示板</a>
 					</div>
 				</li>

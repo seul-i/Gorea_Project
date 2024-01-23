@@ -17,33 +17,32 @@ public class LogoutHandler implements LogoutSuccessHandler {
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 
-		String language = determineLanguageFromRequest(request);
-		String redirectUrl;
-
-		if ("korean".equals(language)) {
-			redirectUrl = "/korean/main.do";
-		} else if ("english".equals(language)) {
-			redirectUrl = "/english/main.do";
-		} else if ("japanese".equals(language)) {
-			redirectUrl = "/japanese/main.do";
-		} else if ("chinese".equals(language)) {
-			redirectUrl = "/chinese/main.do";
-		} else {
-			// 기본적으로 설정할 URL
-			redirectUrl = "/korean/main.do";
-		}
-
-		response.sendRedirect(request.getContextPath() + redirectUrl);
-	}
-
-	private String determineLanguageFromRequest(HttpServletRequest request) {
+		String url = request.getRequestURL().toString();
+	    int lastSlashIndex = url.lastIndexOf('/');
+        String path = url.substring(lastSlashIndex + 1);
+        
+        System.out.println("Request Path: " + path);
 		
-		String language = request.getParameter("language");
+        if (path.equals("logoutKr.do")) {
+    		
+        	System.out.println("로그아웃 성공");
+    		response.sendRedirect("/korean/main.do");
 		
-		if (language != null && !language.isEmpty()) {
-			return language;
-		} else {
-			return "korean"; // 기본값 설정
-		}
+		} else if(path.equals("logoutEn.do")) {
+			
+			System.out.println("로그아웃 성공");
+			response.sendRedirect("/english/main.do");
+        	
+        } else if(path.equals("logoutJp.do")) {
+        	
+        	System.out.println("로그아웃 성공");
+    		response.sendRedirect("/japanese/main.do");
+        	
+        } else if(path.equals("logoutChn.do")) {
+        	
+        	System.out.println("로그아웃 성공");
+    		response.sendRedirect("/chinese/main.do");
+        	
+        }
 	}
 }

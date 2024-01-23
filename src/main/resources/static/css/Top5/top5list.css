@@ -100,6 +100,11 @@ p{
 }
 
 /* 검색 부분 */
+
+#nationSelect{
+	text-align:center;
+}
+
 .top5List-search{
     display: flex;
     justify-content: center;
@@ -208,4 +213,76 @@ p{
 
 .carousel-indicators{
     position: unset;
+}
+
+@media only screen and (max-width: 992px) {
+	
+	.BestTop3Imgbox .rank1 img{
+	    width: 120px;
+	    height: 120px;
+	    margin: -10px 30px 5px 30px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.BestTop3Imgbox .rank2 img{
+	    width: 120px;
+	    height: 120px;;
+	    margin: 45px 30px 5px 30px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.BestTop3Imgbox .rank3 img{
+	    width: 120px;
+	    height: 120px;
+	    margin: 65px 30px 5px 20px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+}
+
+@media only screen and (max-width: 680px) {
+	
+	.BestTop3Month h1 {
+		font-size: 35px;
+		font-weight: 800;
+	}
+	
+	.BestTop3Imgbox .rank1 img{
+	    width: 80px;
+	    height: 80px;
+	    margin: -10px 30px 5px 30px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.BestTop3Imgbox .rank2 img{
+	    width: 80px;
+	    height: 80px;;
+	    margin: 45px 30px 5px 30px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+	.BestTop3Imgbox .rank3 img{
+	    width: 80px;
+	    height: 80px;
+	    margin: 65px 30px 5px 20px;
+	    border-radius: 15px;
+	    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	}
+	
+}
+
+/*view 부분 디자인*/
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #28436b;
+    --bs-btn-border-color: #0d6efd;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #ffffff;
+    --bs-btn-active-bg: #28436b;
+    --bs-btn-active-border-color: #ffffff;
 }

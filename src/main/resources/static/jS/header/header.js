@@ -39,8 +39,6 @@ const handleNav = () => {
         navLinks.style.display = 'none';
         body.style.overflow = 'auto';
     }
-
-    console.log(menuBtn.classList.contains("toggle"));
 };
 
 const checkWindowSize = () => {
@@ -52,7 +50,6 @@ const checkWindowSize = () => {
         // 다른 처리가 필요하다면 여기에 추가
     }
 
-    console.log(menuBtn.classList.contains("toggle"));
 };
 
 // 윈도우 크기가 변할 때 checkWindowSize 함수 호출

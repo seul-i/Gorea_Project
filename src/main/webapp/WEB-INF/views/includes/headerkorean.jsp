@@ -8,6 +8,18 @@
 <c:set var="nickname"
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
 
+<c:set var="maxLength" value="6" />
+
+<%-- 닉네임의 길이가 maxLength 이상이면 일부만 표시하고 뒤에 "..."을 붙임 --%>
+<c:choose>
+    <c:when test="${fn:length(nickname) > maxLength}">
+        <c:set var="shortenedNickname" value="${fn:substring(nickname, 0, maxLength)}..." />
+    </c:when>
+    <c:otherwise>
+        <c:set var="shortenedNickname" value="${nickname}" />
+    </c:otherwise>
+</c:choose>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,25 +39,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-
-
-<script type="text/javascript">
-		
-			window.onload = function () {
-	        	document.querySelector(".searchBtn").onclick = function () {
-	        		
-					var searchInput = document.tsfrm.querySelector(".headerSearch-box");
-	
-					if (!searchInput || searchInput.value.trim() === "") {
-						alert("검색어를 입력 하셔야 합니다.");
-						return;
-					}
-					
-				document.tsfrm.submit();
-				};
-				
-			};
-			
+	<script type="text/javascript">
 			
 			function changeLanguage(selectElement) {
 		        // 현재 주소 가져오기
@@ -118,20 +112,20 @@
 								
 									<c:when test="${role eq 'ROLE_USER'}">
 										<div class="headerDropdown">
-											<a href="#" class="mypage-toggle" data-nickname="${nickname}">${nickname}</a>
+											<a href="#" class="mypage-toggle" data-nickname="${shortenedNickname}">${shortenedNickname}</a>
 											<div class="headerDropdown-options">
-												<a href="/user/korean/mypage.do">마이 페이지</a> <a
-													href="/logout.do" class="logout">로그아웃</a>
+												<a href="/korean/user/mypage.do">마이 페이지</a> <a
+													href="/logoutKr.do" class="logout">로그아웃</a>
 											</div>
 										</div>
 									</c:when>
 
 									<c:when test="${role eq 'ROLE_ADMIN'}">
-										<div class="dropdown">
+										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
 											<div class="headerDropdown-options">
-												<a href="/admin/adminpage.do">관리자 페이지</a> <a
-													href="/logout.do" class="logout">로그아웃</a>
+												<a href="/admin/adminpage.do">관리자 페이지</a> 
+												<a href="/logoutKr.do" class="logout">로그아웃</a>
 											</div>
 										</div>
 									</c:when>
@@ -166,7 +160,7 @@
 				<li><a href="#">우리들의 서울</a>
 					<ul class="header-dropdownList">
 						<li><a href="/korean/bestTop5.do">Best TOP5</a></li>
-						<li><a href="/korean/userRecomList.do">여행자 추천</a></li>
+						<li><a href="/korean/userRecom.do">여행자 추천</a></li>
 						<li><a href="/korean/freeboard.do">자유게시판</a></li>
 					</ul></li>
 
@@ -217,8 +211,8 @@
 								<h3 class="nav-id" data-nickname="${nickname}">환영합니다 '<span>${nickname}</span>' 님</h3>
 								
 								<div class="nav-idIfno">
-									<a href="/user/korean/mypage.do" style="font-size:15px; margin-right:20px">마이 페이지</a>
-									<a href="/logout.do" class="logout" style="font-size:15px">로그아웃</a>
+									<a href="/korean/user/mypage.do" style="font-size:15px; margin-right:20px">마이 페이지</a>
+									<a href="/logoutKr.do" class="logout" style="font-size:15px">로그아웃</a>
 									
 									<select name="languages" id="lang2" onchange="changeLanguage(this)" style="margin-right:20px">
 										<option value="#" selected>한국어</option>
@@ -234,9 +228,16 @@
 		
 							<c:when test="${role eq 'ROLE_ADMIN'}">
 								<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
-									<div class="dropdown-options">
-										<a href="/admin/adminpage.do">관리자 페이지</a> 
-										<a href="/logout.do" class="logout">로그아웃</a>
+									<div class="nav-idIfno">
+										<a href="/admin/adminpage.do" style="font-size:15px; margin-right:20px">관리자 페이지</a> 
+										<a href="/logoutKr.do" class="logout" style="font-size:15px">로그아웃</a>
+										
+										<select name="languages" id="lang2" onchange="changeLanguage(this)" style="margin-right:20px">
+											<option value="#" selected>한국어</option>
+											<option value="/english/">English</option>
+											<option value="/japanese/">日本語</option>
+											<option value="/chinese/">汉语</option>
+										</select>
 									</div>
 							</c:when>
 	
@@ -253,7 +254,7 @@
 					<p>[ 우리들의 서울 ]</p>
 					<div class="nav-IndexInput">
 						<a href="/korean/bestTop5.do">Best TOP5</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/korean/userRecomList.do">여행자 추천</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/korean/userRecom.do">여행자 추천</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/korean/freeboard.do">자유게시판</a>
 					</div>
 				</li>

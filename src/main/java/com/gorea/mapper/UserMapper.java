@@ -3,6 +3,7 @@ package com.gorea.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.gorea.dto_user.Gorea_JoinTO;
@@ -12,10 +13,18 @@ import com.gorea.dto_user.Gorea_UserTO;
 public interface UserMapper {
 	
 	// 회원가입
-	@Insert("insert into user (username, password, userLastname, userFirstname, userNickname, userMail, userNation, userPoint) " +
-	        "values (#{username}, #{password}, #{userLastname}, #{userFirstname}, #{userNickname}, #{userMail}, #{userNation}, #{userPoint})")
+	@Insert("insert into User (username, password, userLastname, userFirstname, userNickname, userMail, userNation, userPoint, userRating) " +
+	        "values (#{username}, #{password}, #{userLastname}, #{userFirstname}, #{userNickname}, #{userMail}, #{userNation}, #{userPoint}, '일반사용자')")
 	@Options(useGeneratedKeys = true, keyProperty = "userSeq")
 	int join(Gorea_JoinTO gorea_JoinTO);
+	
+	// ID 중복검사
+	@Select("SELECT COUNT(*) FROM User WHERE username = #{username}")
+	int checkUsername(@Param("username") String username);
+		
+	// 닉네임 중복검사
+	@Select("SELECT COUNT(*) FROM User WHERE userNickname = #{nickname}")
+	int checkUserNickname(@Param("nickname") String nickname);
 	
 	// 로그인
 	@Select("select "+
@@ -31,7 +40,7 @@ public interface UserMapper {
 			"userPoint,"+
 			"userRating,"+
 			"userRole "+
-				"FROM user " +
+				"FROM User " +
 				"WHERE username = #{username}")
 	Gorea_UserTO login(String username);
 

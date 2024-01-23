@@ -10,14 +10,17 @@
 	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+		
     <!-- 내가 변경한 css가 밑에있어야함 -->
     <link rel="stylesheet" type="text/css" href="/css/Top5/top5list.css">
     
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 	<title>Gorea_BestTop5</title>
 
-	<script>
+	<script type="text/javascript">
 		// JavaScript로 클릭 이벤트 처리
 		document.addEventListener("DOMContentLoaded", function() {
 		    var searchLinks = document.querySelectorAll('.top5List-searchbox a');
@@ -37,11 +40,32 @@
 		        });
 		    });
 			
-		    // 글쓰는 페이지 이동 //////////////
-		    document.getElementById('writeButton').addEventListener('click', function() {
-	            // 페이지 이동
-	            window.location.href = "/${language}/bestTop5_write.do";
-	        });
+		    
+		    
+		    $(document).ready(function () {
+		    	
+		    	document.getElementById('writeButton').addEventListener('click', function() {
+		      		if (!("${not empty SPRING_SECURITY_CONTEXT}" == "true")) {
+		            	alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+		            	window.location.href = "/${language}/login.do";
+		            		 
+		       		}else{
+		       			window.location.href = "/${language}/bestTop5_write.do";
+					}
+				});
+		    	
+		    	$('.carousel-inner').on('click', function() {
+		      		if (!("${not empty SPRING_SECURITY_CONTEXT}" == "true")) {
+		            	alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+		            	window.location.href = "/${language}/login.do";
+		            		 
+		       		}else{
+		       			var top5Seq = $(this).data('seq');
+		       			window.location.href = '/${language}/bestTop5_view.do?top5Seq='+top5Seq;
+					}
+				});
+		    	
+		    });
 		    
 		    // 달력 초기화 과정 ///////////////
 		    var currentDate = new Date();
@@ -52,6 +76,7 @@
 	
 		    // 초기값 설정
 		    document.getElementById('start').value = currentYear + '-' + currentMonth;
+		    
 		});
 	</script>
 
@@ -59,7 +84,16 @@
 
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+
+	<!-- 배너 부분 -->
+	<div class="commonBanner" id="comBanner">
+        <img src="/img/banner/Top5Banner.jpg" alt="banner">
+        <div class="commonBanner-text">
+            <h1>Best Top5</h1>
+        </div>
+    </div>
 	
+	<!-- 메인 컨텐츠 부분 ------------------------------------------------->
 	<div class="BestTop3place">
 		<div class="BestTop3Month">
 			<h1>This Month's Best 3</h1>
@@ -108,7 +142,7 @@
 	        		<option value="기타국가">Etc</option>
     			</select>
 			</form>
-		 	<button type="button" class="btn btn-primary" id="writeButton">
+			<button type="button" class="btn btn-primary" id="writeButton">
 				글 작성하기
 			</button>
 		</div>
@@ -138,13 +172,12 @@
 							</c:if>
 						</div>
 						<div style="display: flex; justify-content: center; margin-bottom:10px;">
-<!-- 							<i class='fa fa-star-o fa-2x' style='color: grey;'></i> -->
+							<i class='fa fa-star-o fa-2x' style='color: grey;'></i>
 							<i class='fa fa-star fa-2x' style='color: #fff23f;'></i>
 						</div>
 					</div>
 					
-					<a href="#">
-					<div class="carousel-inner">
+					<div class="carousel-inner" data-seq="${top5ListData.top5Seq}">
 						<div class="carousel-item active">
 							<img src="${top5ListData.firstImageUrl1}">
 					            <div class="carousel-caption">
@@ -200,8 +233,6 @@
 								</div>
 							</div>
 					</div>
-					</a>
-			    	
 				
 				    <div class="carousel-indicators">
 				        <button type="button" class="active" data-bs-target="#carouselDemo${top5ListData.top5Seq}" data-bs-slide-to="0">
@@ -225,7 +256,8 @@
 				        </button>
 				    </div>
 				    
-				    <div style="height:50px; border-bottom: 1px solid #dbdbdb;"></div>
+				    <div style="height:50px; border-bottom: 1px solid #dbdbdb;">			    
+				    </div>
 				</div>
 			</div>
 		
@@ -233,7 +265,9 @@
 		</div>
 	</c:forEach>
 	
-	<script>
+	<script type="text/javascript">
+
+	
     // language 값을 HTML 속성에 저장
     var language = "${language}";
     
@@ -246,7 +280,7 @@
             window.location.href = "/" + language + "/bestTop5_NS.do?nation=" + encodeURIComponent(selectedValue);
         }
     }
-    
+
     $(document).ready(function() {
     	
     	// 현재 URL에서 쿼리 문자열 가져오기
@@ -264,9 +298,8 @@
 			$("#nationSelect").val(nationValue);
 		}
         // 서버에서 가져온 값으로 select를 선택
+        
     });
-    
-
 	</script>
 	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>

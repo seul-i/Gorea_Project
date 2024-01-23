@@ -2,11 +2,11 @@
 	<div class="footer-container">
 		<div class="sec aboutus">
 			<h2>About Us</h2>
-			<p>"Go!rea" invites you to explore beyond the 
+			<span>"Go!rea" invites you to explore beyond the 
 				usual tourist spots like Myeongdong, Dongdaemun, Jongno, and more. 
 				Discover trending travel destinations in Korea that are constantly evolving. 
 				Visit our website for a diverse range of 
-				locations and experience the latest travel trends!</p>
+				locations and experience the latest travel trends!</span>
 		</div>
 		
 		<div class="sec quicklinks">
@@ -24,12 +24,12 @@
 				<ul class="info">
 					<li>
 						<span><i class="fa-solid fab fa-instagram"></i></span>
-						<p>Go!rea_Official</p>
+						<span>Go!rea_Official</span>
 					</li>
 					
 					<li>
 						<span><i class="fa-solid fa-envelope"></i></span>
-						<p><a href="#">gorea@google.com</a></p>
+						<span><a href="#">gorea@google.com</a></span>
 					</li>
 				</ul>
 		</div>
@@ -38,5 +38,5 @@
 
 <!-- CopyRight -->
 <div class="copyrightText">
-	<p>2023-2024 Go!rea WebProject.</p>
+	<span>2023-2024 Go!rea WebProject.</span>
 </div>

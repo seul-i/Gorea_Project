@@ -120,18 +120,18 @@
 										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${nickname}">${nickname}</a>
 											<div class="headerDropdown-options">
-												<a href="/user/chinese/mypage.do">我的页面</a> <a
-													href="/logout.do" class="logout">登出</a>
+												<a href="/chinese/user/mypage.do">我的页面</a> <a
+													href="/logoutChn.do" class="logout">登出</a>
 											</div>
 										</div>
 									</c:when>
 
 									<c:when test="${role eq 'ROLE_ADMIN'}">
-										<div class="dropdown">
+										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
 											<div class="headerDropdown-options">
 												<a href="/admin/adminpage.do">관리자 페이지</a> <a
-													href="/logout.do" class="logout">로그아웃</a>
+													href="/logoutChn.do" class="logout">로그아웃</a>
 											</div>
 										</div>
 									</c:when>
@@ -166,7 +166,7 @@
 				<li><a href="#">我们的首尔</a>
 					<ul class="header-dropdownList">
 						<li><a href="/chinese/bestTop5.do">Best TOP5</a></li>
-						<li><a href="/chinese/userRecomList.do">旅行推荐</a></li>
+						<li><a href="/chinese/userRecom.do">旅行推荐</a></li>
 						<li><a href="/chinese/freeboard.do">自由留言板</a></li>
 					</ul></li>
 
@@ -217,8 +217,8 @@
 								<h3 class="nav-id" data-nickname="${nickname}">欢迎访问 '<span>${nickname}</span>'</h3>
 								
 								<div class="nav-idIfno">
-									<a href="/user/chinese/mypage.do" style="font-size:15px; margin-right:20px">我的页面</a>
-									<a href="/logout.do" class="logout" style="font-size:15px">登出</a>
+									<a href="/chinese/user/mypage.do" style="font-size:15px; margin-right:20px">我的页面</a>
+									<a href="/logoutChn.do" class="logout" style="font-size:15px">登出</a>
 									
 									<select name="languages" id="lang2" onchange="changeLanguage(this)" style="margin-right:20px">
 										<option value="#">汉语</option>
@@ -236,7 +236,7 @@
 								<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
 									<div class="dropdown-options">
 										<a href="/admin/adminpage.do">관리자 페이지</a> 
-										<a href="/logout.do" class="logout">로그아웃</a>
+										<a href="/logoutChn.do" class="logout">로그아웃</a>
 									</div>
 							</c:when>
 	
@@ -253,7 +253,7 @@
 					<p>[ 我们的首尔 ]</p>
 					<div class="nav-IndexInput">
 						<a href="/chinese/bestTop5.do">Best TOP5</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/chinese/userRecomList.do">旅行推荐</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/chinese/userRecom.do">旅行推荐</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/chinese/freeboard.do">自由留言板</a>
 					</div>
 				</li>

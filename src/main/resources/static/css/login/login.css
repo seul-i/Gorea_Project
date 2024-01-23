@@ -6,10 +6,15 @@ img{
 
 html, body {
     height: 100%;
+    font-family: 'Gowun Dodum', sans-serif;	
 }
 
 form{
      width: 80%;
+}
+
+.login_logo{
+	width:150px;	
 }
 
 .login {
@@ -19,7 +24,7 @@ form{
     position: relative;
 }
 .login_box {
-    width: 90%;
+    width: 70%;
     height: 80%;
     position: absolute;
     top: 50%;
@@ -41,6 +46,7 @@ form{
   width: 100%;
   height: 100%  
 }
+
 .left .top_link a {
     color: rgb(0, 0, 0);
     font-weight: 500;
@@ -83,7 +89,7 @@ form{
 .submit {
     border: none;
     border-radius: 8px;
-    background: #98c6db;
+    background: #007DC3;
     width: 100px;
     color: #fff;
     float: right;
@@ -110,17 +116,12 @@ element.style {
 }
 
 .right {
-  background: url('/img/login/login_img.jpg');
+  background: url('/img/login/loginPage Img.jpg');
   background-size: 100% 100%;
   color: #fff;
   position: relative;
 }
 
-.right .right-text{
-  height: 100%;
-  position: relative;
-  transform: translate(10%, 20%);
-}
 .right-text h2{
   display: block;
   width: 100%;
@@ -155,6 +156,10 @@ element.style {
     width: 100%; /* 전체 너비 사용 */
     text-align: center; /* 텍스트 중앙 정렬 */
     margin-bottom: 10px;
+}
+
+.bot_link a {
+	font-size: 18px;
 }
 
 .bot_link2 {
@@ -209,15 +214,19 @@ label {
         width: 100%;
         height: 90%;
     }
+    .submit {
+    width: 50px;
+    font-size: 12px;
 }
 
-.login_logo{
-	width:150px;	
+@media screen and (max-width: 414px) {
+	width: 70px;
+    font-size: 13px;
 }
 
 @media screen and (max-height: 768px){
 	.login_logo, .goMain{
-		display: none;
+		width:120px;
 		
 	}
 	
@@ -227,6 +236,23 @@ label {
 	    justify-content: center;
 	    align-self: center;
 	    height: 100%;
+	    width: 100%;
+	    margin: auto;
+	    margin-top: 30px;
+	}
+}
+
+@media screen and (max-height: 667px){
+	.login_logo, .goMain{
+		width:120px;
+	}
+	
+	.left .contact{
+	  	display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    align-self: center;
+	    height: 85%;
 	    width: 100%;
 	    margin: auto;
 	    margin-top: 30px;
