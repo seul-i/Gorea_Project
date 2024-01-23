@@ -12,6 +12,46 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+	<div class="location">
+      <i class="fa-solid fa-house"></i>
+      <span class="ar">></span>
+      <c:choose>
+         <c:when test="${language eq 'korean'}">
+         
+            여행자 지원 <span class="ar">></span> 
+             <span> 
+                <a href="./notice.do">공지사항</a>
+             </span>
+          
+         </c:when>
+         <c:when test="${language eq 'english'}">
+         
+            recommend <span class="ar">></span> 
+             <span> 
+                <a href="./notice.do">notice</a>
+             </span>
+         
+         </c:when>
+         <c:when test="${language eq 'japanese'}">
+         
+            おすすめ <span class="ar">></span> 
+             <span> 
+                <a href="./notice.do">エディターおすすめの場所</a>
+             </span>
+         
+         </c:when>
+         <c:when test="${language eq 'chinese'}">
+         
+            
+            建议 <span class="ar">></span> 
+             <span> 
+                <a href="./notice.do">编辑推荐的地方</a>
+             </span>
+         
+         </c:when>
+         <c:otherwise>제목</c:otherwise>
+      </c:choose>
+   </div>
 	<div class="containers">
 		<div class="tith2">
             <h2>공지사항 수정</h2> <!-- 제목을 중앙 정렬 -->
