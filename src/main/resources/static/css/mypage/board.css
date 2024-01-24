@@ -6,20 +6,27 @@
 }
 
 .mypage-container {
-    max-width: 1200px;
+    max-width: 65%;
     margin: 0 auto;
     /* padding-bottom: 80px; */
 }
 
-.board-select {
+.board-search {
     text-align: right;
     margin-bottom: 10px;
 }
 
-.board-select #boardType {
-    border: 1px solid #000;
-    border-radius: 3px;
-    padding: 8px;
+.board-search input[type="text"],
+.board-search input[type="submit"] {
+    padding: 5px 10px;
+    margin: 2px;
+}
+
+.board-search input[type="submit"] {
+    background-color: #007DC3;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 .board-list {

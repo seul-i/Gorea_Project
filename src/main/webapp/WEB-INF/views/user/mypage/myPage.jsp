@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="language" value="${language}" />
+<c:set var="uto" value="${requestScope.uto}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,12 +19,7 @@
 	<c:if test="${not empty SPRING_SECURITY_CONTEXT}">
 		<!-- 시큐리티 컨텍스트에서 사용자 정보를 가져옴 -->
 		<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
-		<c:set var="userid" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.username}" />
-		<c:set var="firstname" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userFirstname}" />
-		<c:set var="lastname" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userLastname}" />
-		<c:set var="nickname" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
-		<c:set var="mail" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userMail}" />
-		<c:set var="country" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNation}" />
+	
 		
     	<div class="main">
     		<div class="commonBanner" id="comBanner">
@@ -42,7 +38,7 @@
  	   <div class="menuContainer">
 		    <div class="menuinner">
 		        <div class="mypage-menuBtn">
-		            <a href="userMypage.do" class="mypagebtn active userInfo">
+		            <a href="userMypage.do?userSeq=${userSeq }" class="mypagebtn active userInfo">
 		                <c:choose>
 		                    <c:when test="${language eq 'korean'}">회원정보</c:when>
 		                    <c:when test="${language eq 'english'}">User Information</c:when>
@@ -107,7 +103,8 @@
                        		 </c:choose>
 						</b>
 	            	</div>
-	            	<form name="info_form" method="post">
+	            	<form name="info_form" method="post" action="userInfoModifyOk">
+	            	<input type="hidden" name="userSeq" value="${userSeq}">
 	              	  <div class="info_write">
                   	 	<div class="form-group">
                    	    	<div class="title">
@@ -119,7 +116,7 @@
                        			</c:choose>
                     	    </div>
 	                        <div class="input">
-	                            <input type="text" id="userid" name="userid" value="${userid}" readonly>
+	                            <input type="text" id="userid" name="userid" value="${uto.username }" readonly>
 	                        </div>
 	                    </div>
 	                    <div class="form-group">
@@ -158,7 +155,7 @@
                        			</c:choose>
 	                        </div>
 	                        <div class="input">
-	                            <input type="text" id="lastname" name="lastname" value="${lastname }" readonly>
+	                            <input type="text" id="lastname" name="userLastname" value="${uto.userLastname }">
 	                        </div>
 	                    </div>
 	                    <div class="form-group">
@@ -171,7 +168,7 @@
                        			</c:choose>
 	                        </div>
 	                        <div class="input">
-	                            <input type="text" id="firstname" name="firstnmae" value="${firstname }" readonly>
+	                            <input type="text" id="firstname" name="userFirstname" value="${uto.userFirstname }">
 	                        </div> 
 	                    </div>
 	                    <div class="form-group">
@@ -184,7 +181,7 @@
                        			</c:choose>
 	                        </div>
 	                        <div class="input">
-	                            <input type="text" id="nickname" name="nickname" value="${nickname }" readonly>
+	                            <input type="text" id="nickname" name="userNickname" value="${uto.userNickname }" >
 	                        </div> 
 	                    </div>
 	                    <div class="form-group">
@@ -197,7 +194,7 @@
                        			</c:choose>
 	                        </div>
 	                        <div class="input">
-	                            <input type="email" id="email" name="email" value="${mail }" readonly>
+	                            <input type="email" id="email" name="email" value="${uto.userMail }" readonly>
 	                        </div>  
 	                    </div>    
 	                    <div class="form-group">
@@ -212,8 +209,8 @@
 						        </label>
 						    </div>
 						    <div class="input">
-						        <select id="country" name="country">
-						            <option value="kr" ${country eq '대한민국' ? 'selected' : ''}>
+						        <select id="country" name="userNation">
+						            <option value="대한민국" ${uto.userNation eq '대한민국' ? 'selected' : ''}>
 						                <c:choose>
 						                    <c:when test="${language eq 'korean'}">대한민국</c:when>
 						                    <c:when test="${language eq 'english'}">South Korea</c:when>
@@ -221,7 +218,7 @@
 						                    <c:when test="${language eq 'chinese'}">韩国</c:when>
 						                </c:choose>
 						            </option>
-						            <option value="us" ${country eq '미국' ? 'selected' : ''}>
+						            <option value="미국" ${uto.userNation eq '미국' ? 'selected' : ''}>
 						                <c:choose>
 						                    <c:when test="${language eq 'korean'}">미국</c:when>
 						                    <c:when test="${language eq 'english'}">United States</c:when>
@@ -229,7 +226,7 @@
 						                    <c:when test="${language eq 'chinese'}">美国</c:when>
 						                </c:choose>
 						            </option>
-						            <option value="jp" ${country eq '일본' ? 'selected' : ''}>
+						            <option value="일본" ${uto.userNation eq '일본' ? 'selected' : ''}>
 						                <c:choose>
 						                    <c:when test="${language eq 'korean'}">일본</c:when>
 						                    <c:when test="${language eq 'english'}">Japan</c:when>
@@ -237,7 +234,7 @@
 						                    <c:when test="${language eq 'chinese'}">日本</c:when>
 						                </c:choose>
 						            </option>
-						            <option value="cn" ${country eq '중국' ? 'selected' : ''}>
+						            <option value="중국" ${uto.userNation eq '중국' ? 'selected' : ''}>
 						                <c:choose>
 						                    <c:when test="${language eq 'korean'}">중국</c:when>
 						                    <c:when test="${language eq 'english'}">China</c:when>

@@ -8,6 +8,7 @@
 <c:set var="nickname"
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
 
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,7 +121,7 @@
 										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${nickname}">${nickname}</a>
 											<div class="headerDropdown-options">
-												<a href="/english/userMypage.do">MyPage</a>
+												<a href="/english/userMypage.do?userSeq=${userSeq }">MyPage</a>
 												<a href="/logoutEn.do" class="logout">Logout</a>
 											</div>
 										</div>
