@@ -31,10 +31,10 @@ public class Gorea_UserTO implements Serializable{
 	private String userRating;
 	private String userRole;
 	
-	public Gorea_UserTO(String username, String password, String userNickname, String userMail) {
-		this.username = username;
-		this.password = password;
-		this.userNickname = userNickname;
-		this.userMail = userMail;
-	}
+//	public Gorea_UserTO(String username, String password, String userNickname, String userMail) {
+//		this.username = username;
+//		this.password = password;
+//		this.userNickname = userNickname;
+//		this.userMail = userMail;
+//	}
 }

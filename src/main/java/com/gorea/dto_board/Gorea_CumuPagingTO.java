@@ -2,6 +2,8 @@ package com.gorea.dto_board;
 
 import java.util.List;
 
+import com.gorea.dto.mypage.Gorea_BoardListTO;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,6 +25,8 @@ public class Gorea_CumuPagingTO {
     
     private List<Gorea_Free_BoardTO> freeboard;
     private List<Gorea_Notice_BoardTO> notice;
+    private List<Gorea_BoardListTO> mypageBoardList;
+    private List<Gorea_BoardListTO> mypageReplyList;
 
     /**
      * 페이지 설정 메소드

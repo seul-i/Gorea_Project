@@ -9,6 +9,7 @@
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
 
 <c:set var="maxLength" value="6" />
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 
 <%-- 닉네임의 길이가 maxLength 이상이면 일부만 표시하고 뒤에 "..."을 붙임 --%>
 <c:choose>
@@ -114,8 +115,8 @@
 										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${shortenedNickname}">${shortenedNickname}</a>
 											<div class="headerDropdown-options">
-												<a href="/korean/userMypage.do">마이 페이지</a> <a
-													href="/logoutKr.do" class="logout">로그아웃</a>
+												<a href="/korean/userMypage.do?userSeq=${userSeq }">마이페이지</a>  
+												<a href="/logoutKr.do" class="logout">로그아웃</a>
 											</div>
 										</div>
 									</c:when>
