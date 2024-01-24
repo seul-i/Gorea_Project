@@ -16,7 +16,7 @@
     <!-- 내가 변경한 css가 밑에있어야함 -->
     <link rel="stylesheet" type="text/css" href="/css/Top5/top5view.css">
     
-    <script src="/js/map/top5Map.js"></script>
+    <script src="../../js/top5Map.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 	<title>Gorea_BestTop5</title>
 

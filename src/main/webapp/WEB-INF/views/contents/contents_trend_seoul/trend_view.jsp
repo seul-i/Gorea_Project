@@ -31,7 +31,7 @@
 	    </c:when>
 	</c:choose>
     
-    <script src="/js/map/map.js"></script>
+    <script src="../../js/map.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     
