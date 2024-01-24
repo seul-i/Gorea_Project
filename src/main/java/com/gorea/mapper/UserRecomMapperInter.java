@@ -29,7 +29,7 @@ public interface UserRecomMapperInter {
 		
 	// view
 	@Select( "select us.userRecomSeq, us.userSeq, us.userRecomboardNo, us.userRecomTitle, date_format(us.userRecompostDate, '%Y.%m.%d') userRecompostDate, us.userRecomHit, us.userRecomContent, us.userRecomCmt, u.userNickname "
-			+ "from UserRecommend us join user u on us.userSeq = u.userSeq where us.userRecomSeq=#{userRecomSeq}")
+			+ "from UserRecommend us join User u on us.userSeq = u.userSeq where us.userRecomSeq=#{userRecomSeq}")
 	Gorea_Recommend_BoardTO userRecom_View( Gorea_Recommend_BoardTO to );
 	
 	// 좋아요 업데이트
