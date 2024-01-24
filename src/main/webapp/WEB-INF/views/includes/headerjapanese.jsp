@@ -305,6 +305,6 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="/js/header/header.js"></script>
+	<script type="text/javascript" src="../../js/header.js"></script>
 </body>
 </html>

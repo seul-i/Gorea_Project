@@ -124,6 +124,6 @@
     </div>
 
 
-	<script type="text/javascript" src="/js/intro/intro.js"></script>
+	<script type="text/javascript" src="../../js/intro.js"></script>
 </body>
 </html>

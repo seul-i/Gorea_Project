@@ -395,7 +395,7 @@
 	</div>
    
    
-   <script type="text/javascript" src="/js/main/main.js"></script>
+   <script type="text/javascript" src="../../js/main.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
    
    <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
