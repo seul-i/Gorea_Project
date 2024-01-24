@@ -20,7 +20,7 @@ public interface ReplyMapper {
 			+ " order by re.grp desc")
 	List<Gorea_ReplyTO> replylist( Gorea_ReplyTO rto );
 	
-	// UserRecommend 댓글 작성 3.userSeq 일단 1로... userNick 일단 gnuke
+	//댓글 작성
 	@Insert( "insert into reply values( 0, #{goreaboardNo}, #{userSeq}, #{replyContent}, now(), 0, 0, #{pseq})" )
 	int replyWriteOk( Gorea_ReplyTO rto );
 	
@@ -37,11 +37,12 @@ public interface ReplyMapper {
 	@Update( "update reply set replyContent=#{replyContent} where goreaboardNo=#{goreaboardNo} and cseq=#{cseq}")
 	int replyModifyOk( Gorea_ReplyTO rto );
 	
-	// 대댓글 작성 3.userSeq 일단 1로... userNick 일단 gnuke
+	// 대댓글 작성
 	@Insert( "insert into reply values( 0, #{goreaboardNo}, #{userSeq}, #{replyContent}, now(), #{grp}, #{grpl}, #{pseq} )" )
 	int rereplyWriteOk( Gorea_ReplyTO rto );
 	
 	// 대댓글 삭제
 	@Delete( "delete from reply where goreaboardNo=#{goreaboardNo} and cseq=#{cseq}" )
 	int rereplyDeleteOk( Gorea_ReplyTO rto );
+	
 }
