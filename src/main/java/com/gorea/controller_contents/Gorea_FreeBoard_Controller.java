@@ -244,7 +244,7 @@ public class Gorea_FreeBoard_Controller {
 	      }
 		
 		model.addAttribute("to", to);
-		model.addAttribute("noticeSeq", to.getFreeSeq());
+		model.addAttribute("freeSeq", to.getFreeSeq());
 		model.addAttribute("language", language);
 		
 		model.addAttribute("cpage", cpage);
