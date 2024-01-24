@@ -51,27 +51,27 @@ public interface EdittipMapperInter {
 	
 	// ReplyList
 	@Select("SELECT et.edittipSeq, et.edittipCmtSeq, et.userSeq, et.edittipCmtContent, DATE_FORMAT(et.edittipCmtWdate, '%Y.%m.%d') AS edittipCmtWdate, u.userNickname AS userNickname, u.userNation AS userNation " +
-		    "FROM edittipreply et " +
-		    "JOIN user u ON et.userSeq = u.userSeq " +
+		    "FROM edittipReply et " +
+		    "JOIN User u ON et.userSeq = u.userSeq " +
 		    "WHERE et.edittipSeq=#{edittipSeq} " +
 		    "ORDER BY et.edittipCmtSeq DESC")
 	List<Gorea_EditTip_ReplyTO> editReply_List(String edittipSeq);
 
 			
 	// ReplyWrite_Ok
-	@Insert("insert into edittipreply values (#{edittipSeq}, 0, #{userSeq}, #{edittipCmtContent}, now() )")
+	@Insert("insert into edittipReply values (#{edittipSeq}, 0, #{userSeq}, #{edittipCmtContent}, now() )")
 	int Edittip_Reply(Gorea_EditTip_ReplyTO rto);
 			
 	// ReplyModify
-	@Select("SELECT edittipCmtSeq, userSeq, edittipCmtContent FROM edittipreply WHERE edittipCmtSeq = #{edittipCmtSeq} AND userSeq = #{userSeq}")
+	@Select("SELECT edittipCmtSeq, userSeq, edittipCmtContent FROM edittipReply WHERE edittipCmtSeq = #{edittipCmtSeq} AND userSeq = #{userSeq}")
 	Gorea_EditTip_ReplyTO ReplyModify(Gorea_EditTip_ReplyTO rto);
 
 	// ReplyModify_Ok
-	@Update("update edittipreply set edittipCmtContent=#{edittipCmtContent} where edittipCmtSeq=#{edittipCmtSeq}")
+	@Update("update edittipReply set edittipCmtContent=#{edittipCmtContent} where edittipCmtSeq=#{edittipCmtSeq}")
 	int ReplyModify_Ok(Gorea_EditTip_ReplyTO rto);
 			
 	// ReplyDelete
-	@Delete("delete from edittipreply where edittipCmtSeq=#{edittipCmtSeq}")
+	@Delete("delete from edittipReply where edittipCmtSeq=#{edittipCmtSeq}")
 	int ReplyDelete(String edittipCmtSeq);
 	
 	// Edittip 게시판 검색

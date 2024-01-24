@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
 import com.gorea.dto_board.Gorea_PagingTO;
+import com.gorea.dto_user.Gorea_UserTO;
 import com.gorea.repository_contents.Gorea_EditrecoDAO;
 import com.gorea.serivce_trans_edit.Gorea_Translate_EditRecom_interface;
 
@@ -45,10 +46,7 @@ public class Gorea_Editreco_Controller {
 	
 	 @Autowired
 	 private Gorea_Translate_EditRecom_interface service;
-	
-	// @Autowired
-	// private Gorea_Content_ViewTranslation viewTranslation;
-	
+
 	
 	/* editRecommend */
 	@GetMapping("/{language}/editRecommend_list.do")
@@ -69,7 +67,7 @@ public class Gorea_Editreco_Controller {
 	    
 	    model.addAttribute("language", language);
 	    
-	    List<Gorea_EditRecommend_BoardTO> lists = new ArrayList<Gorea_EditRecommend_BoardTO>();
+	    List<Gorea_EditRecommend_BoardTO> lists = new ArrayList<Gorea_EditRecommend_BoardTO>();	    
 	    
 	    int totalRowCount = 0;
 	    
@@ -162,15 +160,14 @@ public class Gorea_Editreco_Controller {
 	// extractFirstImageUrl 메서드
 		
 
-	@GetMapping("/{language}/editRecommend_write.do")
-	public String editRecommend_Write(@PathVariable String language, HttpServletRequest request, Model model) {
-		
-		model.addAttribute("language", language);
+	@GetMapping("/korean/editRecommend_write.do")
+	public String editRecommend_Write(HttpServletRequest request, Model model) {
+
 		return "contents/contents_edit_recommend/editRecommend_write";
 	}
 
-	@PostMapping("/{language}/editRecommend_write_ok.do")
-	public String editRecommend_Write_Ok(HttpServletRequest request, MultipartFile upload, @PathVariable String language, Model model) {
+	@PostMapping("/korean/editRecommend_write_ok.do")
+	public String editRecommend_Write_Ok(HttpServletRequest request, MultipartFile upload, Model model) {
 		int flag = 2;
 
 		Gorea_EditRecommend_BoardTO to = new Gorea_EditRecommend_BoardTO();
@@ -216,8 +213,8 @@ public class Gorea_Editreco_Controller {
 		return "contents/contents_edit_recommend/editRecommend_view";
 	}
 
-	@GetMapping("/{language}/editRecommend_delete_ok.do")
-	public String editRecommend_Delete_Ok(@PathVariable String language, @RequestParam(value = "cpage", required = false) String cpage,
+	@GetMapping("/korean/editRecommend_delete_ok.do")
+	public String editRecommend_Delete_Ok(@RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, 
             HttpServletRequest request, Model model) {
@@ -228,18 +225,10 @@ public class Gorea_Editreco_Controller {
 
 		int flag = 1;
 		
-		if(language.equals("korean")) {
-			flag = dao.editRecommend_Delete_Ok(to);
-	      }else if(language.equals("english")) {
-	    	  flag = dao.editRecommend_Delete_Ok(to);
-	      }else if(language.equals("japanese")) {
-	    	  flag = dao.editRecommend_Delete_Ok(to);
-	      }else if(language.equals("chinese")) {
-	    	 flag = dao.editRecommend_Delete_Ok(to);
-	      }
+
+		flag = dao.editRecommend_Delete_Ok(to);
 
 		model.addAttribute("flag", flag);
-		model.addAttribute("language", language);
 		
 		model.addAttribute("cpage", cpage);
 		model.addAttribute("searchType", searchType);
@@ -248,8 +237,8 @@ public class Gorea_Editreco_Controller {
 		return "contents/contents_edit_recommend/editRecommend_delete_ok";
 	}
 
-	@GetMapping("/{language}/editRecommend_modify.do")
-	public String editRecommend_Modify(@PathVariable String language, HttpServletRequest request, 
+	@GetMapping("/korean/editRecommend_modify.do")
+	public String editRecommend_Modify(HttpServletRequest request, 
 			@RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {
@@ -257,21 +246,11 @@ public class Gorea_Editreco_Controller {
 	    // 객체 생성 및 초기화
 	    Gorea_EditRecommend_BoardTO to = new Gorea_EditRecommend_BoardTO();
 	    to.setEditrecoSeq(request.getParameter("editrecoSeq"));
-	    System.out.println("## seq : " + request.getParameter("editrecoSeq"));
-
-	    if(language.equals("korean")) {
-	    	to = dao.editRecommend_Modify(to);
-	      }else if(language.equals("english")) {
-	    	  to = dao.editRecommend_Modify(to);
-	      }else if(language.equals("japanese")) {
-	    	  to = dao.editRecommend_Modify(to);
-	      }else if(language.equals("chinese")) {
-	    	  to = dao.editRecommend_Modify(to);
-	      }
+	    
+	    to = dao.editRecommend_Modify(to);
 		
 		model.addAttribute("to", to);
 		model.addAttribute("editrecoSeq", to.getEditrecoSeq());
-		model.addAttribute("language", language);
 		
 		model.addAttribute("cpage", cpage);
 		model.addAttribute("searchType", searchType);
@@ -281,8 +260,8 @@ public class Gorea_Editreco_Controller {
 	}
 
 
-	@PostMapping("/{language}/editRecommend_modify_ok.do")
-	public String editRecommend_Modify_Ok(@PathVariable String language, HttpServletRequest request, 
+	@PostMapping("/korean/editRecommend_modify_ok.do")
+	public String editRecommend_Modify_Ok(HttpServletRequest request, 
 			MultipartFile upload, @RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {
@@ -294,24 +273,10 @@ public class Gorea_Editreco_Controller {
 		to.setEditrecoSubject(request.getParameter("editrecoSubject"));
 		to.setEditrecoSubtitle(request.getParameter("editrecoSubtitle"));
 		to.setEditrecoContent(request.getParameter("editrecoContent"));
-		
-		System.out.println("## seq : " + request.getParameter("editrecoSeq"));
 
-		if(language.equals("korean")) {
 			flag = dao.editRecommend_Modify_Ok(to);
-	    
-		}else if(language.equals("english")) {  
-			flag = dao.editRecommend_Modify_Ok(to);
-			
-	    }else if(language.equals("japanese")) { 
-	    	flag = dao.editRecommend_Modify_Ok(to);
-	    	
-	    }else if(language.equals("chinese")) {
-	    	flag = dao.editRecommend_Modify_Ok(to);
-	      }
 
 		model.addAttribute("flag", flag);
-		model.addAttribute("language", language);
 		model.addAttribute("editrecoSeq", to.getEditrecoSeq());
 		
 		model.addAttribute("cpage", cpage);

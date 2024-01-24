@@ -17,11 +17,11 @@ import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
 @Mapper
 public interface Top5MapperInter {
 	
-	@Select("select ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, cn.mainCategory, cn.subCategory from trendseoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc")
+	@Select("select ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, cn.mainCategory, cn.subCategory from TrendSeoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc")
 	List<Gorea_TrendSeoul_ListTO> trendSeoul_List();
 	
 	@Select("SELECT ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, cn.mainCategory, cn.subCategory "
-	        + "FROM trendseoul ts "
+	        + "FROM TrendSeoul ts "
 	        + "JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo "
 	        + "WHERE ts.seoulLocGu LIKE CONCAT('%', #{locGu}, '%') "  // 변경된 부분
 	        + "AND cn.mainCategory LIKE CONCAT('%', #{mainCategory}, '%') "  // 변경된 부분
@@ -31,7 +31,7 @@ public interface Top5MapperInter {
 	                                                    @Param("mainCategory") String mainCategory, 
 	                                                    @Param("subCategory") String subCategory);
 	
-	@Select("select distinct seoulLocGu from trendseoul order by seoulSeq asc")
+	@Select("select distinct seoulLocGu from TrendSeoul order by seoulSeq asc")
 	List<Gorea_TrendSeoul_SearchTO> search_locGu();
 	
 	@Select("select distinct mainCategory from CategoryNo")
@@ -108,7 +108,7 @@ public interface Top5MapperInter {
     List<Gorea_BEST5_ListTO> best5_top5_boardList_NS(String nation);
     
     
-    @Update("update besttop5 set top5Hit=top5Hit+1 where top5Seq=#{top5Seq}")
+    @Update("update BestTop5 set top5Hit=top5Hit+1 where top5Seq=#{top5Seq}")
 	int TrendHit(Gorea_BEST5_ListTO to);
     
     @Select("SELECT bt.top5Seq, u.userNickname, u.userNation, bt.top5Hit, bt.top5postDate, bt.top5boardNo, " +

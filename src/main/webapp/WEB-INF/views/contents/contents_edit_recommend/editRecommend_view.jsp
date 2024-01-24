@@ -71,9 +71,8 @@
                      html += '<button class="modify" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">调整</button>';
                      html += '<button class="delete" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">删除</button>';
                         }else{
-                     html += '<button class="modify" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">수정</button>';
-                     html += '<button class="delete" data-reply="' + editrecoCmtContent.editrecoCmtSeq + '" data-user-seq="' + editrecoCmtContent.userSeq + '">삭제</button>';
-                        }
+
+                     }
                         html += '</div>';
                     }
 
@@ -154,7 +153,15 @@
             $("#submitReplyBtn").click(function () {
                 var editrecoCmtContentValue = $("#editrecoCmtContent").val().trim();
                 if (!editrecoCmtContentValue) {
-                    alert("댓글 내용을 입력하세요.");
+                	if(language === 'korean'){
+                        alert("댓글 내용을 입력하세요.");
+                	}else if(language === 'english'){
+                		alert("Write your comment");
+                	}else if(language === 'japanese'){
+                		alert("コメントを書いてください");
+                	}else if(language === 'chinese'){
+                		alert("写下您的评论");
+                	}
                     return;
                 }
 
@@ -167,14 +174,22 @@
                         userSeq: "${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}"
                     },
                     success: function (response) {
-                        alert("작성 성공");
+                    	if(language === 'korean'){
+                    		alert("작성 성공");
+                    	}else if(language === 'english'){
+                    		alert("Writing success");
+                    	}else if(language === 'japanese'){
+                    		alert("書き込み成功");
+                    	}else if(language === 'chinese'){
+                    		alert("写作成功");
+                    	}
                         $("#editrecoCmtContent").val("");
                         updateCommentList();
                     },
                     error: function (xhr, status, error) {
                         console.error("AJAX 오류: " + status + ", " + error);
                         console.log(xhr.responseText);
-                        alert("댓글 서버 전송 실패");
+                        alert("Server error writeAjax");
                     }
                 });
             });
@@ -184,8 +199,16 @@
         function saveReply(editrecoCmtSeq, editrecoCmtContent) {
            // 수정할 때 댓글 내용이 비어있는지 체크
             if (!editrecoCmtContent.trim()) {
-                alert("댓글 내용을 입력하세요.");
-                return;
+            	if(language === 'korean'){
+                    alert("댓글 내용을 입력하세요.");
+            	}else if(language === 'english'){
+            		alert("Write your comment");
+            	}else if(language === 'japanese'){
+            		alert("コメントを書いてください");
+            	}else if(language === 'chinese'){
+            		alert("写下您的评论");
+            	}
+            	return;
             }
             
             $.ajax({
@@ -196,7 +219,15 @@
                     editrecoCmtContent: editrecoCmtContent
                 },
                 success: function (response) {
-                    alert("댓글 수정 성공");
+					if(language === 'korean'){
+						alert("댓글 수정 성공");
+                	}else if(language === 'english'){
+                		alert("Comment edit successful");
+                	}else if(language === 'japanese'){
+                		alert("コメント編集が成功しました");
+                	}else if(language === 'chinese'){
+                		alert("评论编辑成功");
+                	}
                     updateCommentList();
                 },
                 error: function (xhr, textStatus, errorThrown) {
@@ -224,15 +255,34 @@
                 success: function (response) {
                     if (response > 0) {
                         updateCommentList();
-                        alert('댓글 삭제 성공');
+                        if(language === 'korean'){
+                        	alert('댓글 삭제 성공');
+                    	}else if(language === 'english'){
+                    		alert('Successfully deleted comment');
+                    	}else if(language === 'japanese'){
+                    		alert('コメントが正常に削除されました');
+                    	}else if(language === 'chinese'){
+                    		alert('成功删除评论');
+                    	}
+                       
                     } else {
                         console.error("error");
-                        alert('댓글 삭제 실패');
+                        if(language === 'korean'){
+                        	alert('댓글 삭제 실패');
+                    	}else if(language === 'english'){
+                    		alert('Failed to delete comment');
+                    	}else if(language === 'japanese'){
+                    		alert('コメントの削除に失敗しました');
+                    	}else if(language === 'chinese'){
+                    		alert('删除评论失败');
+                    	}
+                       
                     }
                 },
                 error: function () {
                     console.error("error");
-                    alert("서버와 통신 중 오류 발생");
+                    
+                    alert("Server system error");
                 }
             });
         });
@@ -250,7 +300,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 
-<div class="location">
+	<div class="location">
       <i class="fa-solid fa-house"></i>
       <span class="ar">></span>
       <c:choose>
@@ -302,6 +352,10 @@
                      <span>작성일 : ${to.editrecoWdate}</span> <span>조회수 : ${to.editrecoHit}</span>
                  </div>
                  
+                 <div class="text-area">
+                 	${fn:replace(to.editrecoContent, '&nbsp;', ' ')}
+				</div>
+                 
             </c:when>
             <c:when test="${language eq 'english'}">
             
@@ -310,6 +364,10 @@
                  <div class="post-element">
                      <span>Date Created : ${to.editrecoWdate}</span> <span>views : ${to.editrecoHit}</span>
                  </div>
+                 
+                 <div class="text-area">
+                 	${fn:replace(to.editrecoContent, '&nbsp;', ' ')}
+				</div>
             
             </c:when>
             <c:when test="${language eq 'japanese'}">
@@ -319,6 +377,10 @@
                  <div class="post-element">
                      <span>作成日 : ${to.editrecoWdate}</span> <span>ヒット : ${to.editrecoHit}</span>
                  </div>
+                 
+                 <div class="text-area">
+                 	${fn:replace(to.editrecoContent, '。', '.')}
+           		</div>
             
             </c:when>
             <c:when test="${language eq 'chinese'}">
@@ -328,59 +390,63 @@
                  <div class="post-element">
                      <span>创建日期 : ${to.editrecoWdate}</span> <span>意见 : ${to.editrecoHit}</span>
                  </div>
+                 
+                 <div class="text-area">
+                	 ${fn:replace(to.editrecoContent, '。', '.')}
+          		 </div>
             
             </c:when>
             <c:otherwise>제목</c:otherwise>
          </c:choose>
 
-           <div class="text-area">
-                 ${fn:replace(to.editrecoContent, '&nbsp;', ' ')}
-           </div>
-           
-           <form id="replyForm" method="post">
-               <input type="hidden" id="editrecoSeq" value="${param.editrecoSeq}" />
-               <input type="hidden" name="userSeq" value="${userSeq}">
-               <div class="reply-form">
-               
-                  <c:choose>
-                  <c:when test="${language eq 'korean'}">
-                  
-                  <div class="comment-container">
-                          <textarea style="resize: none;" id="editrecoCmtContent" placeholder="댓글을 입력하세요"></textarea>
-                          <button type="button" class="submitReplyBtn" id="submitReplyBtn">등록</button>
-                      </div>
-                   
-                  </c:when>
-                  <c:when test="${language eq 'english'}">
-                  
-                  <div class="comment-container">
-                          <textarea style="resize: none;" id="editrecoCmtContent" placeholder="Please enter your comment"></textarea>
-                          <button type="button" class="submitReplyBtn" id="submitReplyBtn">write</button>
-                      </div>
-                  
-                  </c:when>
-                  <c:when test="${language eq 'japanese'}">
-                  
-                  <div class="comment-container">
-                          <textarea style="resize: none;" id="editrecoCmtContent" placeholder="コメントを入力してください"></textarea>
-                          <button type="button" class="submitReplyBtn" id="submitReplyBtn">書く</button>
-                      </div>
-                  
-                  </c:when>
-                  <c:when test="${language eq 'chinese'}">            
-                     
-                  <div class="comment-container">
-                          <textarea style="resize: none;" id="editrecoCmtContent" placeholder="请输入您的评论"></textarea>
-                          <button type="button" class="submitReplyBtn" id="submitReplyBtn">写</button>
-                      </div>
-                  
-                  </c:when>
-                  <c:otherwise>제목</c:otherwise>
-               </c:choose>
-               </div>
-           </form>
-           
-           <!-- 댓글 영역 -->
+			<form id="replyForm" method="post">
+				<input type="hidden" id="editrecoSeq" value="${param.editrecoSeq}" />
+				<input type="hidden" name="userSeq" value="${userSeq}">
+				<div class="reply-form">
+
+					<c:choose>
+						<c:when test="${language eq 'korean'}">
+
+							<div class="comment-container">
+								<textarea style="resize: none;" id="editrecoCmtContent"
+									placeholder="댓글을 입력하세요"></textarea>
+								<button type="button" class="submitReplyBtn" id="submitReplyBtn">등록</button>
+							</div>
+
+						</c:when>
+						<c:when test="${language eq 'english'}">
+
+							<div class="comment-container">
+								<textarea style="resize: none;" id="editrecoCmtContent"
+									placeholder="Please enter your comment"></textarea>
+								<button type="button" class="submitReplyBtn" id="submitReplyBtn">write</button>
+							</div>
+
+						</c:when>
+						<c:when test="${language eq 'japanese'}">
+
+							<div class="comment-container">
+								<textarea style="resize: none;" id="editrecoCmtContent"
+									placeholder="コメントを入力してください"></textarea>
+								<button type="button" class="submitReplyBtn" id="submitReplyBtn">書く</button>
+							</div>
+
+						</c:when>
+						<c:when test="${language eq 'chinese'}">
+
+							<div class="comment-container">
+								<textarea style="resize: none;" id="editrecoCmtContent"
+									placeholder="请输入您的评论"></textarea>
+								<button type="button" class="submitReplyBtn" id="submitReplyBtn">写</button>
+							</div>
+
+						</c:when>
+						<c:otherwise>제목</c:otherwise>
+					</c:choose>
+				</div>
+			</form>
+
+			<!-- 댓글 영역 -->
            <div class="reply-section">
                <div id="replyContainer"></div>
            </div>
@@ -404,10 +470,10 @@
             <c:when test="${role eq 'ROLE_ADMIN'}">
                   <div style="text-align: right; margin-top: 10px;">
                       <button class="btn1" type="button"
-                          onclick="location.href='editRecommend_delete_ok.do?editrecoSeq=${seq}'">
+                          onclick="location.href='/korean/editRecommend_delete_ok.do?editrecoSeq=${seq}'">
                           삭제</button>
                       <button class="btn1" type="button"
-                          onclick="location.href='editRecommend_modify.do?editrecoSeq=${seq}'">
+                          onclick="location.href='/korean/editRecommend_modify.do?editrecoSeq=${seq}'">
                           수정</button>
                       <button class="btn1" type="button"
                           onclick="location.href='editRecommend_list.do'">목록</button>

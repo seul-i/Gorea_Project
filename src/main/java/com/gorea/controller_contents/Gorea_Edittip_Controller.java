@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gorea.dto_board.Gorea_EditTip_BoardTO;
 import com.gorea.dto_board.Gorea_PagingTO;
 import com.gorea.repository_contents.Gorea_EdittipDAO;
+import com.gorea.serivce_trans_edit.Gorea_Translate_EditRecom_interface;
 import com.gorea.service_contents.Gorea_Content_ListTranslation;
 import com.gorea.service_contents.Gorea_Content_ViewTranslation;
 
@@ -46,24 +47,16 @@ public class Gorea_Edittip_Controller {
 	@Value("${spring.servlet.multipart.location}")
 	private String uploadDir;
 	
-	// @Autowired
-	// private Gorea_Content_ListTranslation listTranslation;
-	
-	// @Autowired
-	// private Gorea_Content_ViewTranslation viewTranslation;
-	
-	
+	@Autowired
+	private Gorea_Translate_EditRecom_interface service;
+
 	/* editTip */
-	
 	@GetMapping("/{language}/editTip_list.do")
 	public String editTipList(@PathVariable String language, HttpServletRequest request, Model model, 
 			@RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
 			@RequestParam(defaultValue = "1") int cpage,
 	        @RequestParam(defaultValue = "8") int pageSize) {
-		
-		System.out.println("searchType: " + searchType);
-		System.out.println("searchKeyword: " + searchKeyword);
 
 		// cpage가 0 이하이면 1로 설정
 	    cpage = (cpage <= 0) ? 1 : cpage;
@@ -82,50 +75,46 @@ public class Gorea_Edittip_Controller {
 	    
 	    if(language.equals("korean")) {
 	     if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-	    	  lists1 = dao.searchEdittip(searchType, searchKeyword, offset, pageSize);
+	    	  lists1 = service.editTip_List_SearchKO(searchType, searchKeyword, offset, pageSize);
 	    	  totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
 	    }else {
-	    	  lists1 = dao.editTip_List(offset, pageSize);
+	    	  lists1 = service.editTip_List_KO(offset, pageSize);
 	    	  totalRowCount = dao.getTotalRowCount();
 	    } 
 	    
 	    }else if(language.equals("english")) {
 	     if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-	    	  lists1 = dao.searchEdittip(searchType, searchKeyword, offset, pageSize);
+	    	  lists1 = service.editTip_List_SearchEN(searchType, searchKeyword, offset, pageSize);
 		      totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
 		}else {
-		      lists1 = dao.editTip_List(offset, pageSize);
+		      lists1 = service.editTip_List_EN(offset, pageSize);
 		      totalRowCount = dao.getTotalRowCount();
 		}
 	    
 	    }else if(language.equals("japanese")) {
 		 if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-			  lists1 = dao.searchEdittip(searchType, searchKeyword, offset, pageSize);
+			  lists1 = service.editTip_List_SearchJP(searchType, searchKeyword, offset, pageSize);
 			  totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
 		}else {
-			  lists1 = dao.editTip_List(offset, pageSize);
+			  lists1 = service.editTip_List_JP(offset, pageSize);
 			  totalRowCount = dao.getTotalRowCount();
 		}
 		
 	    }else if(language.equals("chinese")) {
 		 if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-			  lists1 = dao.searchEdittip(searchType, searchKeyword, offset, pageSize);
+			  lists1 = service.editTip_List_SearchCHN(searchType, searchKeyword, offset, pageSize);
 			  totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
 		}else {
-			  lists1 = dao.editTip_List(offset, pageSize);
+			  lists1 = service.editTip_List_CHN(offset, pageSize);
 			  totalRowCount = dao.getTotalRowCount();
 		} 	
 		
 	    }else {	
-	    	return "";  	
+	    	
+	    	return "gorea_accessdeniedPage";  	
 	    }
 	    	
 	    	
-	    for (Gorea_EditTip_BoardTO eto : lists1) {
-	 		   String content = eto.getEdittipContent();
-	 		   String firstImageUrl = extractFirstImageUrl1(content);
-	 		   eto.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
-	 	}	
 	    
 	    Gorea_PagingTO paging = createPagingModel1(lists1, totalRowCount, cpage, pageSize);
 		
@@ -163,32 +152,15 @@ public class Gorea_Edittip_Controller {
 		return paging;
 	}
 
-	// extractFirstImageUrl 메서드
-	private String extractFirstImageUrl1(String content) {
 
-		String imageUrl = "";
-		Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
-		Matcher matcher = pattern.matcher(content);
-		if (matcher.find()) {
-			imageUrl = matcher.group(1);
-			imageUrl = imageUrl.replace("/ckImgSubmitForEditTip?uid=", "").replace("&amp;fileName=", "_");
-
-		} else {
-			System.out.println("No image found");
-		}
-		return imageUrl;
-	}
-
-
-	@GetMapping("/{language}/editTip_write.do")
-	public String editTip_Write(@PathVariable String language, HttpServletRequest request, Model model) {
+	@GetMapping("/korean/editTip_write.do")
+	public String editTip_Write(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("language", language);
 		return "contents/contents_edit_tip/editTip_write";
 	}
 
-	@PostMapping("/{language}/editTip_write_ok.do")
-	public String editTip_Write_Ok(@PathVariable String language,HttpServletRequest request, MultipartFile upload, Model model) {
+	@PostMapping("/korean/editTip_write_ok.do")
+	public String editTip_Write_Ok(HttpServletRequest request, MultipartFile upload, Model model) {
 		Gorea_EditTip_BoardTO eto = new Gorea_EditTip_BoardTO();
 		int flag = 2;
 		eto.setUserSeq(request.getParameter("userSeq"));
@@ -209,31 +181,23 @@ public class Gorea_Edittip_Controller {
 			@RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword,Model model) {
-		
-		int edittipSeq;
-		
-		try {
-            edittipSeq = Integer.parseInt(edittipSeqStr.trim());
-        } catch (NumberFormatException e) {
-            //edittipSeq 파라미터가 유효하지 않을 때의 처리
-            return "errorPage";
-        }
 				
 		Gorea_EditTip_BoardTO eto = new Gorea_EditTip_BoardTO(); // 객체를 새로 초기화
+		
 		eto.setEdittipSeq(request.getParameter("edittipSeq"));
 		
 		model.addAttribute("language", language);
 		
 		if(language.equals("korean")) {
-			eto = dao.editTip_View(eto);	
+			eto = service.editTip_View_KO(eto);	
 		}else if(language.equals("english")) {
-			eto = dao.editTip_View(eto);
+			eto = service.editTip_View_EN(eto);
 		}else if(language.equals("japanese")) {
-			eto = dao.editTip_View(eto);
+			eto = service.editTip_View_JP(eto);
 		}else if(language.equals("chinese")) {
-			eto = dao.editTip_View(eto);
+			eto = service.editTip_View_CHN(eto);
 		}else {
-			return "";
+			return "gorea_accessdeniedPage";
 		}
 		
 		model.addAttribute("eto", eto);
@@ -241,8 +205,8 @@ public class Gorea_Edittip_Controller {
 		return "contents/contents_edit_tip/editTip_view";
 	}
 
-	@GetMapping("/{language}/editTip_delete_ok.do")
-	public String editTip_Delete_Ok(@PathVariable String language, @RequestParam(value = "cpage", required = false) String cpage,
+	@GetMapping("/korean/editTip_delete_ok.do")
+	public String editTip_Delete_Ok(@RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, 
             HttpServletRequest request, Model model) {
@@ -252,19 +216,10 @@ public class Gorea_Edittip_Controller {
 		eto.setEdittipSeq(request.getParameter("edittipSeq"));
 
 		int flag = 1;
-		
-		if(language.equals("korean")) {
-			flag = dao.editTip_Delete_Ok(eto);
-	      }else if(language.equals("english")) {
-	    	  flag = dao.editTip_Delete_Ok(eto);
-	      }else if(language.equals("japanese")) {
-	    	  flag = dao.editTip_Delete_Ok(eto);
-	      }else if(language.equals("chinese")) {
-	    	 flag = dao.editTip_Delete_Ok(eto);
-	      }
 
+		flag = dao.editTip_Delete_Ok(eto);
+	     
 		model.addAttribute("flag", flag);
-		model.addAttribute("language", language);
 		
 		model.addAttribute("cpage", cpage);
 		model.addAttribute("searchType", searchType);
@@ -273,8 +228,8 @@ public class Gorea_Edittip_Controller {
 		return "contents/contents_edit_tip/editTip_delete_ok";
 	}
 
-	@GetMapping("/{language}/editTip_modify.do")
-	public String editTip_Modify(@PathVariable String language, HttpServletRequest request, 
+	@GetMapping("/korean/editTip_modify.do")
+	public String editTip_Modify(HttpServletRequest request, 
 			@RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {
@@ -282,23 +237,11 @@ public class Gorea_Edittip_Controller {
 		Gorea_EditTip_BoardTO eto = new Gorea_EditTip_BoardTO();
 		
 		eto.setEdittipSeq(request.getParameter("edittipSeq"));
-		System.out.println("## seq : " + request.getParameter("edittipSeq"));
 
-		if(language.equals("korean")) {
-			eto = dao.editTip_Modify(eto);
-	    }else if(language.equals("english")) {
-	    	  eto = dao.editTip_Modify(eto);
-	    }else if(language.equals("japanese")) {
-	    	  eto = dao.editTip_Modify(eto);
-	    }else if(language.equals("chinese")) {
-	    	  eto = dao.editTip_Modify(eto);
-	    }
-		
+		eto = dao.editTip_Modify(eto);
 
 		model.addAttribute("eto", eto);
 		model.addAttribute("edittipSeq", eto.getEdittipSeq());
-		
-		model.addAttribute("language", language);
 		
 		model.addAttribute("cpage", cpage);
 		model.addAttribute("searchType", searchType);
@@ -307,8 +250,8 @@ public class Gorea_Edittip_Controller {
 		return "contents/contents_edit_tip/editTip_modify";
 	}
 
-	@PostMapping("/{language}/korean/editTip_modify_ok.do")
-	public String editTip_Modify_Ok(@PathVariable String language, HttpServletRequest request, 
+	@PostMapping("/korean/editTip_modify_ok.do")
+	public String editTip_Modify_Ok(HttpServletRequest request, 
 			MultipartFile upload, @RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {
@@ -321,24 +264,9 @@ public class Gorea_Edittip_Controller {
 		eto.setEdittipSubtitle(request.getParameter("edittipSubtitle"));
 		eto.setEdittipContent(request.getParameter("edittipContent"));
 
-		System.out.println("## seq : " + request.getParameter("edittipSeq"));
-		
-		if(language.equals("korean")) {
-			flag = dao.editTip_Modify_Ok(eto);
-	    
-		}else if(language.equals("english")) {  
-			flag = dao.editTip_Modify_Ok(eto);
-			
-	    }else if(language.equals("japanese")) { 
-	    	flag = dao.editTip_Modify_Ok(eto);
-	    	
-	    }else if(language.equals("chinese")) {
-	    	flag = dao.editTip_Modify_Ok(eto);
-	      }
-		
+		flag = dao.editTip_Modify_Ok(eto);
 
 		model.addAttribute("flag", flag);
-		model.addAttribute("language", language);
 		model.addAttribute("edittipSeq", eto.getEdittipSeq());
 		
 		model.addAttribute("cpage", cpage);

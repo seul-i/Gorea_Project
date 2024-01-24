@@ -1,6 +1,8 @@
 package com.gorea.repository_contents;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,14 +18,30 @@ public class Gorea_EdittipDAO {
 	/* editTip */
 	
 	public List<Gorea_EditTip_BoardTO> editTip_List(int offset, int pageSize) {
-	    List<Gorea_EditTip_BoardTO> lists1 = mapper.editTip_List(offset, pageSize);
+		
+	    List<Gorea_EditTip_BoardTO> boardList = mapper.editTip_List(offset, pageSize);
+	    
+	    for (Gorea_EditTip_BoardTO board : boardList) {
+	 		   String content = board.getEdittipContent();
+	 		   String firstImageUrl = extractFirstImageUrl(content);
+	 		   board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+	 	}	
 
-	    return lists1;
+	    return boardList;
 	}
 	
-	public List<Gorea_EditTip_BoardTO> searchEdittip(String searchType, String searchKeyword, int offset, int pageSize) {
-        return mapper.searchEdittip(searchType, searchKeyword, offset, pageSize);
-    }
+	public List<Gorea_EditTip_BoardTO> editTip_serachList(String searchType, String searchKeyword, int offset, int pageSize) {
+		
+		List<Gorea_EditTip_BoardTO> boardList = mapper.searchEdittip(searchType, searchKeyword, offset, pageSize);
+    
+		for (Gorea_EditTip_BoardTO board : boardList) {
+	 		   String content = board.getEdittipContent();
+	 		   String firstImageUrl = extractFirstImageUrl(content);
+	 		   board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+	 	}	
+
+	    return boardList;
+	}
 
 	public int getTotalRowCount() {
 	    int totalCount = mapper.getTotalRowCount();
@@ -54,6 +72,7 @@ public class Gorea_EdittipDAO {
 	    int hitResult = mapper.editTip_ViewHit(eto);
 	    // 상세 정보 조회
 	    eto = mapper.editTip_View(eto);
+	    
 	    return eto;
 	}
 	
@@ -84,6 +103,21 @@ public class Gorea_EdittipDAO {
 		return flag;
 	}
 
+	// extractFirstImageUrl 메서드
+	private String extractFirstImageUrl(String content) {
+
+		String imageUrl = "";
+		Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+		Matcher matcher = pattern.matcher(content);
+		if (matcher.find()) {
+			imageUrl = matcher.group(1);
+			imageUrl = imageUrl.replace("/ckImgSubmitForEditTip?uid=", "").replace("&amp;fileName=", "_");
+
+		} else {
+			System.out.println("No image found");
+		}
+		return imageUrl;
+	}
 
 }
 

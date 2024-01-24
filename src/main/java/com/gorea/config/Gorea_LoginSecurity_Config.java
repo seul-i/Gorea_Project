@@ -62,10 +62,27 @@ public class Gorea_LoginSecurity_Config {
 				.requestMatchers(new MvcRequestMatcher(null, "/chinese/user/**")).hasRole("USER")
 				.requestMatchers(new MvcRequestMatcher(null, "/japanese/user/**")).hasRole("USER")
 				
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/editRecommend_write.do")).hasRole("ADMIN")
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/editRecommend_write_ok.do")).hasRole("ADMIN")
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/editRecommend_modify.do")).hasRole("ADMIN")
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/editRecommend_modify_ok.do")).hasRole("ADMIN")
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/editRecommend_delete_ok.do")).hasRole("ADMIN")
+				
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/editTip_write.do")).hasRole("ADMIN")
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/editTip_write_ok.do")).hasRole("ADMIN")
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/editTip_modify.do")).hasRole("ADMIN")
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/editTip_modify_ok.do")).hasRole("ADMIN")
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/editTip_delete_ok.do")).hasRole("ADMIN")
+				
 				.requestMatchers(new MvcRequestMatcher(null, "/korean/**write**")).hasAnyRole("ADMIN","USER")
 				.requestMatchers(new MvcRequestMatcher(null, "/english/**write**")).hasAnyRole("ADMIN","USER")
 				.requestMatchers(new MvcRequestMatcher(null, "/chinese/**write**")).hasAnyRole("ADMIN","USER")
 				.requestMatchers(new MvcRequestMatcher(null, "/japanese/**write**")).hasAnyRole("ADMIN","USER")
+				
+				.requestMatchers(new MvcRequestMatcher(null, "/korean/**view**")).hasAnyRole("ADMIN","USER")
+				.requestMatchers(new MvcRequestMatcher(null, "/english/**view**")).hasAnyRole("ADMIN","USER")
+				.requestMatchers(new MvcRequestMatcher(null, "/chinese/**view**")).hasAnyRole("ADMIN","USER")
+				.requestMatchers(new MvcRequestMatcher(null, "/japanese/**view**")).hasAnyRole("ADMIN","USER")
 				.anyRequest().permitAll()
 
 			)

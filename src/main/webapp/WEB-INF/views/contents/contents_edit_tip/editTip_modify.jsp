@@ -24,12 +24,12 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/includes/headerkorean.jsp"></jsp:include>
 	<div class="containers">
 		<div class="tith2">
 			<h2>게시글 수정</h2>
 		</div>
-		<form action="./editTip_modify_ok.do" method="post" name="mfrm"
+		<form action="/korean/editTip_modify_ok.do" method="post" name="mfrm"
 			enctype="multipart/form-data" class="form-horizontal">
 			<input type="hidden" name="edittipSeq" value="${seq}" />
 			<div class="form-group">
@@ -51,11 +51,12 @@
 			<div class="form-group">
 				<textarea class="form-control" id="content" name="edittipContent">${eto.edittipContent}</textarea>
 			</div>
+
+			<div class="btn_wrap">
+				<button type="submit" class="btn btn-primary">저장하기</button>
+			</div>
+		</form>
 	</div>
-	<div class="btn_wrap">
-		<button type="submit" class="btn btn-primary">저장하기</button>
-	</div>
-	</form>
 	<script type="text/javascript">
 		window.onload = function() {
 			CKEDITOR.replace('edittipContent', {

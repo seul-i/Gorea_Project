@@ -2,7 +2,6 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Date"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="language" value="${language}" />
 <c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 <!DOCTYPE html>
 <html>
@@ -12,37 +11,36 @@
 <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/includes/headerkorean.jsp"></jsp:include>
 	<div class="containers">
 		<div class="tith2">
 		<h2>에디터 팁 작성</h2>
 		</div>
 		<form class="form-horizontal" method="post"
-			action="./editTip_write_ok.do" enctype="multipart/form-data">
+			action="/korean/editTip_write_ok.do" enctype="multipart/form-data">
 			<input type="hidden" name="userSeq" value="${userSeq}">
 			<div class="form-group">
 				<div class="stits">
                     <p>제목</p>
                 </div>
-				<input type="text" class="form-control" name="edittipSubject"
-					style="height: 50px" placeholder="제목을 입력해 주세요." />
+				<input type="text" class="form-control" name="edittipSubject" placeholder="제목을 입력해 주세요." />
 					</div>
 			<div class="form-group">
 				<div class="stits">
                     <p>부제목</p>
                 </div>
-					<input type="text" class="form-control" name="edittipSubtitle" style="height: 50px" placeholder="부제목을 입력해 주세요." />
+					<input type="text" class="form-control" name="edittipSubtitle" placeholder="부제목을 입력해 주세요." />
 					</div>
 			<div class="form-group">
 				<textarea class="form-control" id="content" name="edittipContent"
 					placeholder="내용을 입력해 주세요."></textarea>
 			</div>
-	</div>
-	<div class="btn_wrap">
+
+			<div class="btn_wrap">
 				<button type="submit" class="btn btn-primary">저장하기</button>
 			</div>
 		</form>
-
+		</div>
 	<script type="text/javascript">
 		window.onload = function() {
 			CKEDITOR.replace('edittipContent', {

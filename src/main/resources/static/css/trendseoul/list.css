@@ -2,17 +2,24 @@
     --pink:#e84393;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    text-transform: capitalize;
-    transition: .2s linear;
+.location {
+   padding: 10px 0px 20px 20px;
+   font-size: 17px;
+   color: #666;
+   box-sizing: border-box;
+   background-size: 21px auto;
+   margin-left: 5%;
+   /* margin-left 값을 조절하여 왼쪽으로 이동 */
 }
 
+span a {
+   font-weight: bold;
+   color: #333;
+}
+
+.ar {
+   font-weight: bold;
+}
 
 main {
 	font-size: 62.5%;
@@ -60,6 +67,7 @@ main {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
+    justify-content: space-between;
 /*    height: 100vh;*/
 }
 
@@ -195,51 +203,96 @@ main {
     font-size: 25px;
 }
 
-.writeBtn {
-    text-align: right;
-    margin-top: 10px;
-    margin-right: 50px;
-    margin-bottom: 50px; /* 추가된 부분: 아래로 20px 간격을 둡니다. */
+.search_container {
+   padding: 10px 0px 10px 10px;
+   /* 테두리와 내용 사이의 간격을 조정하세요 */
+   text-align: right;
+   margin-right: 5%;
 }
 
-.writeBtn a {
-    display: inline-block;
-    font-size: 16px; /* 크기 조절 */
-    font-weight: bold; /* 폰트 두께 조절 */
-    padding: 10px 15px; /* 내부 여백 조절 */
-    background-color: #4CAF50; /* 배경색 지정 */
-    color: white; /* 글자색 지정 */
-    text-decoration: none; /* 밑줄 제거 */
-    border-radius: 5px; /* 버튼 모서리 둥글게 조절 */
-	cursor: pointer; /* 마우스 커서 모양 변경 */
-    margin-right: 10px; /* 오른쪽 마진 추가 */
+.search_container form {
+   border: none;
+   /* form 요소에는 테두리를 없애줍니다 */
+}
+
+.search_container select,
+.search_container input[type="submit"] {
+   border: 1px solid #000;
+   /* 텍스트 입력 필드와 버튼에 테두리를 추가합니다 */
+   padding: 5px;
+   /* 텍스트 입력 필드와 버튼 내부의 간격을 조정하세요 */
+}
+
+
+.search_container input[type="submit"],
+.search_container select {
+   padding: 5px 10px;
+   margin: 2px;
+}
+
+.search_container input[type="submit"] {
+   background-color: #42424a;
+   color: white;
+   border: none;
+   cursor: pointer;
+}
+
+.pagination-container {
+   flex-grow: 1;
+   /* 공간을 채우도록 함 */
+   text-align: center;
+   /* 내부 요소(페이징)를 중앙 정렬 */
+   margin-bottom: 20px;
 }
 
 .pagination {
-    margin-bottom: 20px;
-    text-align: center; /* 가운데 정렬 추가 */
-    margin-top: 20px; /* 상단 여백 추가 */
-    font-weight: bolder;
+   margin: 0;
+   /* 기존 마진 제거 */
+   display: inline-block;
+   text-align: center;
+   /* 가운데 정렬 추가 */
+   font-weight: bolder;
+   flex-grow: 1;
+   font-size: 14px;
 }
 
 .pagination-item {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-  }
+   margin: 0 5px;
+   padding: 5px 10px;
+   border-radius: 5px;
+   text-decoration: none;
+   color: #333;
+   font-weight: bold;
+}
 
 .pagination-item.active {
-    background-color: #007bff;
-    color: #fff;
+   background-color: #007bff;
+   color: #fff;
 }
 
 .pagination-item.disabled {
-    color: #333;
+   color: #333;
+   cursor: pointer;
+   pointer-events: none;
+}
+
+.write_button_container {
+    text-align: right;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.write_button {
+    padding: 10px 20px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
     cursor: pointer;
+    border-radius: 2px;
+    background-color: #42424a;
+    font-size: 0.9rem;
+    color: aliceblue;
+    margin-right: 5%;
 }
   
 @media (max-width: 1200px) {
@@ -261,16 +314,6 @@ main {
     .album-container {
 	    margin-left: 0rem;
 	}
-	
-	.pagination-item {
-    margin: 0 5px;
-    padding: 2px 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-  }
 
 }
 
@@ -295,3 +338,93 @@ main {
 
 .blind{position:absolute;clip:rect(0 0 0 0);margin:-1px;width:1px;height: 1px;overflow:hidden;}
 
+@media only screen and (min-width: 1025px) {
+	.search_container form {
+      position: relative;
+      top: 0;
+      left: 0;
+      margin-top: 15px;
+      margin-bottom: 15px;
+   }
+
+
+   .pagination {
+      margin-bottom: 20px;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bolder;
+   }
+
+   .pagination-item {
+      margin: 0 5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+   }
+
+   .pagination-item.active {
+      background-color: #007bff;
+      color: #fff;
+   }
+
+   .pagination-item.disabled {
+      color: #333;
+      cursor: pointer;
+   }
+}
+
+/* 미디어 쿼리: 화면 크기가 768px 미만일 때 스타일 조정 */
+@media only screen and (max-width: 767px) {
+	
+   .pagination {
+      text-align: center;
+      margin: 10px 0;
+   }
+
+   .pagination-item {
+      margin: 0 3px;
+      padding: 3px 8px;
+      font-size: 12px;
+   }
+	
+	.location {
+    margin-left: 2%;
+	}
+	
+	.search_container {
+    margin-right: 2%;
+	}
+	
+	.write_button {
+    margin-right: 2%;
+	}
+
+}
+
+
+.commonBanner-text h1 {
+    font-size: 45px !important;
+    font-weight: 800;
+    margin-left: 180px;
+}
+
+.noData{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #c5c5c5;
+}
+
+@media only screen and (max-width: 1024px) {
+	
+	.commonBanner-text h1 {
+    font-size: 25px !important;
+    font-weight: 800;
+    margin-left: 180px;
+	}
+}

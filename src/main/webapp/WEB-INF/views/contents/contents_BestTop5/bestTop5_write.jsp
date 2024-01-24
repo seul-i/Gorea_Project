@@ -124,7 +124,7 @@
 			<div class="row" id="place1">
 				<div class="col-sm-1">
 				<input type="hidden" value="" name="seoulSeq1">
-				<input type="hidden" value="" name="popularSeq1"></div>
+				</div>
 				<div class="col-sm-3" style="height: 300px">
 					<img src="/img/trendseoul/noimg.png" data-toggle="modal" data-target="#moaModal" style="width: 100%; height:100%;">
 				</div>
@@ -142,7 +142,7 @@
 			<div class="row" id="place2">
 				<div class="col-sm-1">
 				<input type="hidden" value="" name="seoulSeq2">
-				<input type="hidden" value="" name="popularSeq2"></div>
+				</div>
 				<div class="col-sm-3" style="height: 300px">
 					<img src="/img/trendseoul/noimg.png" data-toggle="modal" data-target="#moaModal" style="width: 100%; height:100%;">
 				</div>
@@ -160,7 +160,7 @@
 			<div class="row" id="place3">
 				<div class="col-sm-1">
 				<input type="hidden" value="" name="seoulSeq3">
-				<input type="hidden" value="" name="popularSeq3"></div>
+				</div>
 				<div class="col-sm-3" style="height: 300px">
 					<img src="/img/trendseoul/noimg.png" data-toggle="modal" data-target="#moaModal" style="width: 100%; height:100%;">
 				</div>
@@ -178,7 +178,7 @@
 			<div class="row" id="place4">
 				<div class="col-sm-1">
 				<input type="hidden" value="" name="seoulSeq4">
-				<input type="hidden" value="" name="popularSeq4"></div>
+				</div>
 				<div class="col-sm-3" style="height: 300px">
 					<img src="/img/trendseoul/noimg.png" data-toggle="modal" data-target="#moaModal" style="width: 100%; height:100%;">
 				</div>
@@ -196,7 +196,7 @@
 			<div class="row" id="place5">
 				<div class="col-sm-1">
 				<input type="hidden" value="" name="seoulSeq5">
-				<input type="hidden" value="" name="popularSeq5"></div>
+				</div>
 				<div class="col-sm-3" style="height: 300px">
 					<img src="/img/trendseoul/noimg.png" data-toggle="modal" data-target="#moaModal" style="width: 100%; height:100%;">
 				</div>

@@ -86,8 +86,6 @@ public class Gorea_EditrecoDAO {
 	    int hitResult = mapper.editRecommend_ViewHit(to);
 	    // 상세 정보 조회
 	    to = mapper.editRecommend_View(to);
-	    
-	    System.out.println(to.getEditrecoContent());
 		
 	    return to;
 	}

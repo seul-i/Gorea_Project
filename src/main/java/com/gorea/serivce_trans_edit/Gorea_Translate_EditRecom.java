@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
+import com.gorea.dto_board.Gorea_EditTip_BoardTO;
 
 import org.json.JSONObject;
 
@@ -88,6 +89,66 @@ public class Gorea_Translate_EditRecom{
             
 
         return to;
+    }
+    
+    public List<Gorea_EditTip_BoardTO> translateTipList(List<Gorea_EditTip_BoardTO> boardList, String lang_code) {
+    	
+        this.lang_code = lang_code;
+
+
+        for (Gorea_EditTip_BoardTO board : boardList) {
+        	
+            try {
+
+                String jsonData1 = translateText(board.getEdittipSubject(), clientId, clientSecret);
+                JSONObject json1 = new JSONObject(jsonData1);
+                String titleText = json1.getJSONObject("message").getJSONObject("result").getString("translatedText");
+                
+                String jsonData2 = translateText(board.getEdittipSubtitle(), clientId, clientSecret);
+                JSONObject json2 = new JSONObject(jsonData2);
+                String subText = json2.getJSONObject("message").getJSONObject("result").getString("translatedText");
+                
+                // 번역된 결과를 다시 설정
+                board.setEdittipSubject(titleText);
+                board.setEdittipSubtitle(subText);
+
+                
+            } catch (UnsupportedEncodingException e) {
+            	
+                System.out.println("에러 : " + e.getMessage());
+            }
+            
+        }
+
+        return boardList;
+    }
+    
+    public Gorea_EditTip_BoardTO translateTipView(Gorea_EditTip_BoardTO eto, String lang_code) {
+    	
+        this.lang_code = lang_code;
+        	
+            try {
+
+                String jsonData1 = translateText(eto.getEdittipSubject(), clientId, clientSecret);
+                JSONObject json1 = new JSONObject(jsonData1);
+                String titleText = json1.getJSONObject("message").getJSONObject("result").getString("translatedText");
+                
+                String jsonData2 = translateText(eto.getEdittipContent(), clientId, clientSecret);
+                JSONObject json2 = new JSONObject(jsonData2);
+                String subContent = json2.getJSONObject("message").getJSONObject("result").getString("translatedText");
+                
+                // 번역된 결과를 다시 설정
+                eto.setEdittipSubject(titleText);
+                eto.setEdittipContent(subContent);
+
+                
+            } catch (UnsupportedEncodingException e) {
+            	
+                System.out.println("에러 : " + e.getMessage());
+            }
+            
+
+        return eto;
     }
     
 	// 텍스트를 파파고 API를 사용하여 번역하는 메서드
