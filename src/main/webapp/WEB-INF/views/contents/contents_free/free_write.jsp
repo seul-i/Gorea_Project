@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <c:set var="language" value="${language}" />
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}"/>
 <html>
 <head>
     <title>GO!rea</title>
@@ -20,6 +21,7 @@
             <div class="error-message">${errorMessage}</div>
         </c:if>
         <form class="form-horizontal" name="wfrm" method="post" action="./freeboard_write_ok.do">
+        	<input type="hidden" name="userSeq" value="${userSeq}"/>
             <div class="form-group">
                 <input type="text" class="form-control" name="freeTitle" style="height: 50px" placeholder="제목을 입력해 주세요."/>
             </div>

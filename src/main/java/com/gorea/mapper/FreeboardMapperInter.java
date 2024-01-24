@@ -11,12 +11,13 @@ import org.apache.ibatis.annotations.Update;
 
 import com.gorea.dto_board.Gorea_Free_BoardTO;
 import com.gorea.dto_board.Gorea_Notice_BoardTO;
+import com.gorea.dto_reply.Gorea_ReplyTO;
 
 @Mapper
 public interface FreeboardMapperInter {
 	
 	// Free_seoul
-	@Select("select freeSeq, freeTitle, freeContent, freeHit, date_format(freepostDate, '%Y.%m.%d') freepostDate, freeRecomcount from Freeboard order by freeSeq desc LIMIT #{firstRow}, #{pageSize}")
+	@Select("select fr.freeSeq, fr.freeTitle, fr.freeContent, fr.freeHit, date_format(fr.freepostDate, '%Y.%m.%d') freepostDate, fr.freeRecomcount, u.userNickname from Freeboard fr join User u on fr.userSeq = u.userSeq order by fr.freeSeq desc LIMIT #{firstRow}, #{pageSize}")
 	ArrayList<Gorea_Free_BoardTO> Free_List(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize); 
 	
 	@Select("SELECT COUNT(*) FROM Freeboard")
@@ -31,7 +32,7 @@ public interface FreeboardMapperInter {
 	int FreeHit(Gorea_Free_BoardTO to);
 	
 	// Free_view
-	@Select("select fr.freeSeq, fr.userSeq, fr.freeboardNo, fr.freeTitle, fr.freeContent, fr.freeHit, date_format(fr.freepostDate, '%Y.%m.%d') freepostDate, fr.freeRecomcount, u.userNickname "
+	@Select("select fr.freeSeq, fr.userSeq, fr.freeboardNo, fr.freeTitle, fr.freeContent, fr.freeHit, date_format(fr.freepostDate, '%Y.%m.%d') freepostDate, fr.freeRecomcount, fr.freeCmt,u.userNickname "
 			+ "from Freeboard fr join user u on fr.userSeq=u.userSeq where fr.freeSeq=#{freeSeq} ")
 	Gorea_Free_BoardTO Free_View(Gorea_Free_BoardTO to);
 	
@@ -58,6 +59,14 @@ public interface FreeboardMapperInter {
 	// free 
 	@Update("UPDATE Freeboard SET freeRecomcount = freeRecomcount + 1 WHERE freeSeq = #{freeSeq}")
     int increaseLikes(String freeSeq);
+	
+	// 댓글 수 증가
+	@Update( "update Freeboard set freeCmt=freeCmt+1 where freeSeq=#{pseq}" )
+	int FreeCmtUp( Gorea_ReplyTO rto );
+		
+	// 댓글 수 감소
+	@Update( "update Freeboard set freeCmt=freeCmt-1 where freeSeq=#{pseq}" )
+	int FreeCmtDown( Gorea_ReplyTO rto );
 	
 	// Free 게시판 검색
 	@Select("<script>"

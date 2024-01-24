@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gorea.dto_reply.Gorea_ReplyTO;
+import com.gorea.mapper.FreeboardMapperInter;
 import com.gorea.mapper.ReplyMapper;
 import com.gorea.mapper.UserRecomMapperInter;
 
@@ -18,7 +19,10 @@ public class Gorea_ReplyDAO {
 	private ReplyMapper rmapper;
 	
 	@Autowired
-	private UserRecomMapperInter mapper;
+	private UserRecomMapperInter userrecommapper;
+	
+	@Autowired
+	private FreeboardMapperInter freemapper;
 	
 	public List<Gorea_ReplyTO> reply_list( Gorea_ReplyTO rto ){
 		
@@ -34,13 +38,14 @@ public class Gorea_ReplyDAO {
 		int flag = 1;
 		
 		int result = rmapper.replyWriteOk(rto);
-		System.out.println( rto.getPseq() );
 		
 		if( result == 1 ) {
 			
 			rmapper.replyGrpCheck(rto);
 			
-			mapper.userRecomCmtUp( rto );
+			userrecommapper.userRecomCmtUp( rto );
+			
+			freemapper.FreeCmtUp(rto);
 			
 			flag = 0;
 		}
@@ -58,7 +63,9 @@ public class Gorea_ReplyDAO {
 		
 		if( result == 1 ) {
 			
-			mapper.userRecomCmtDown(rto);
+			userrecommapper.userRecomCmtDown(rto);
+			
+			freemapper.FreeCmtDown(rto);
 			
 			flag = 0;
 		}
@@ -79,6 +86,7 @@ public class Gorea_ReplyDAO {
 		return flag;
 	}
 	
+	
 	public int rereply_WriteOk( Gorea_ReplyTO rto ) {
 		int flag = 1;
 		
@@ -87,7 +95,9 @@ public class Gorea_ReplyDAO {
 		int result = rmapper.rereplyWriteOk(rto);
 		
 		if( result == 1 ) {
-			mapper.userRecomCmtUp(rto);
+			userrecommapper.userRecomCmtUp(rto);
+			
+			freemapper.FreeCmtUp(rto);
 			
 			flag = 0;
 		}
@@ -104,7 +114,9 @@ public class Gorea_ReplyDAO {
 	  
 		if( result == 1 ) {
 		
-			mapper.userRecomCmtDown(rto);
+			userrecommapper.userRecomCmtDown(rto);
+			
+			freemapper.FreeCmtDown(rto);
 			
 			flag = 0; 
 			

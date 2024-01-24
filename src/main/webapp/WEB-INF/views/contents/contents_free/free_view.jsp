@@ -15,89 +15,89 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 	<script type="text/javascript">
-	$( document ).ready( function() {
-		const userSeq = '${userSeq}';
-		
-		// 댓글 작성 버튼
-		$( '#replyWrite' ).on( 'click', function() {
+		$( document ).ready( function() {
+			const userSeq = '${userSeq}';
 			
-			writeOkServer( userSeq );
-		});
-		
-		// 댓글 삭제 버튼
-		$(document).on('click', '#replyDelete', function () {
-			const cseq = $(this).closest('.comment').find('#cseq').val();
-			const grp = $(this).closest('.comment').find('#grp').val();
-    		
-    		deleteOkServer( cseq, grp );
-		});
-		
-		
-		// 댓글 수정 버튼
-		$(document).on('click', '#replyModify', function(){
-			const cseq = $(this).closest('.comment').find('#cseq').val();
+			// 댓글 작성 버튼
+			$( '#replyWrite' ).on( 'click', function() {
+				
+				writeOkServer( userSeq );
+			});
 			
-		    $('.reply-action-btn').hide();
+			// 댓글 삭제 버튼
+			$(document).on('click', '#replyDelete', function () {
+				const cseq = $(this).closest('.comment').find('#cseq').val();
+				const grp = $(this).closest('.comment').find('#grp').val();
+        		
+        		deleteOkServer( cseq, grp );
+    		});
 			
-			$('#modifyForm' + cseq ).show();
-		});
-		
-		
-		// 수정 확인 버튼
-		$(document).on( 'click', '#replyModifyOk', function(){
-			const cseq = $(this).closest('.comment').find('#cseq').val();
 			
-			modifyOkServer( cseq );
-		});
-		
-		
-		// 수정 취소 버튼
-		$(document).on( 'click', '#replyModifyCancel', function(){
-			const cseq = $(this).closest('.comment').find('#cseq').val();
+			// 댓글 수정 버튼
+			$(document).on('click', '#replyModify', function(){
+				const cseq = $(this).closest('.comment').find('#cseq').val();
+				
+			    $('.reply-action-btn').hide();
+				
+				$('#modifyForm' + cseq ).show();
+			});
 			
-		    $('.reply-action-btn').show();
 			
-			$('#modifyForm' + cseq ).hide();
-		});
-		
-		
-		// 대댓글 작성 폼 버튼
-		$(document).on( 'click', '#rereplyWrite', function() {
-			const cseq = $(this).closest('.comment').find('#cseq').val();
+			// 수정 확인 버튼
+			$(document).on( 'click', '#replyModifyOk', function(){
+				const cseq = $(this).closest('.comment').find('#cseq').val();
+				
+				modifyOkServer( cseq );
+			});
 			
-			$('.reply-action-btn').hide();
+			
+			// 수정 취소 버튼
+			$(document).on( 'click', '#replyModifyCancel', function(){
+				const cseq = $(this).closest('.comment').find('#cseq').val();
+				
+			    $('.reply-action-btn').show();
+				
+				$('#modifyForm' + cseq ).hide();
+			});
+			
+			
+			// 대댓글 작성 폼 버튼
+			$(document).on( 'click', '#rereplyWrite', function() {
+				const cseq = $(this).closest('.comment').find('#cseq').val();
+				
+				$('.reply-action-btn').hide();
 
-			$( '#rereplyWriteForm' + cseq ).show();
-		});
-		
-		
-		// 대댓글 쓰기 버튼
-		$(document).on( 'click', '#rereplyWriteBtn', function(){
-			const grp = $(this).closest('.comment').find('#grp').val();
-			const replyContent = $(this).closest('.comment').find('#rereplyContent'+grp).val();
+				$( '#rereplyWriteForm' + cseq ).show();
+			});
 			
-			reWriteOkServer( grp, replyContent, userSeq );
-		});
-		
-		// 대댓글 작성 취소 버튼
-		$(document).on( 'click', '#rereplyCancelBtn', function(){
-			const grp = $(this).closest('.comment').find('#grp').val();
 			
-			$('.reply-action-btn').show();
+			// 대댓글 쓰기 버튼
+			$(document).on( 'click', '#rereplyWriteBtn', function(){
+				const grp = $(this).closest('.comment').find('#grp').val();
+				const replyContent = $(this).closest('.comment').find('#rereplyContent'+grp).val();
+				
+				reWriteOkServer( grp, replyContent, userSeq );
+			});
 			
-			$( '#rereplyWriteForm' + grp ).hide();
-		});
-		
-		// 대댓글 삭제 버튼
-		$(document).on( 'click', '#rereplyDelete', function(){
-			const cseq = $(this).closest('.comment').find('#cseq').val();
-			const grp = $(this).closest('.comment').find('#grp').val();
+			// 대댓글 작성 취소 버튼
+			$(document).on( 'click', '#rereplyCancelBtn', function(){
+				const grp = $(this).closest('.comment').find('#grp').val();
+				
+				$('.reply-action-btn').show();
+				
+				$( '#rereplyWriteForm' + grp ).hide();
+			});
 			
-			reDeleteOkServer( cseq );
+			// 대댓글 삭제 버튼
+			$(document).on( 'click', '#rereplyDelete', function(){
+				const cseq = $(this).closest('.comment').find('#cseq').val();
+				const grp = $(this).closest('.comment').find('#grp').val();
+				
+				reDeleteOkServer( cseq );
+			});
+			
+			readServer();
 		});
-		
-		readServer();
-	});
 		
 		
 		// 함수 ---------------------------------------------------------------------------------------
@@ -226,7 +226,7 @@
 					console.log( "error" );
 				}
 			});
-		};			
+		};		
 		
 		const writeOkServer = function( userSeq ){
 			$.ajax({
@@ -253,7 +253,7 @@
 		
 		const reWriteOkServer = function( grp, replyContent, userSeq ) {
 			$.ajax({
-				url: '/korean/gorea_rereply_wtire_ok.do',
+				url: '/korean/gorea_rereply_write_ok.do',
 				type: 'post',
 				data:{
 					pseq: $( '#pseq' ).val(),
@@ -333,6 +333,7 @@
 				}
 			});
 		}
+	
 	</script>
 </head>
 <body>
@@ -353,7 +354,7 @@
         </div>
         <!-- 추천 버튼과 추천 수 -->
 		<button onclick="increaseLikes('${seq}')">추천</button>
-        <div class="comments-count">추천 <span id="like-count">${to.freeRecomcount}</span>개 댓글 3개</div>
+        <div class="comments-count">추천 <span id="like-count">${to.freeRecomcount}</span>개 댓글 <span id="reply-count">${to.freeCmt}</span>개</div>
         
         <c:choose>
         	<c:when test="${not empty userSeq }">
@@ -406,8 +407,10 @@
     <input type="hidden" id="pseq" value="${to.freeSeq}" />
     <!-- 삭제, 수정, 목록 버튼 그룹 -->
     <div class="right-buttons">
-        <input type="button" value="삭제" class="btn" onclick="confirmDelete('${deleteUrl}')" />
-        <input type="button" value="수정" class="btn" onclick="location.href='${modifyUrl}'" />
+        <c:if test="${userSeq eq to.userSeq}">
+        	<input type="button" value="수정" class="btn" onclick="location.href='${modifyUrl}'" />
+        	<input type="button" value="삭제" class="btn" onclick="confirmDelete('${deleteUrl}')" />
+        </c:if>
         <input type="button" value="목록" class="btn" onclick="location.href='${listUrl}'" />
     </div>
 </div>

@@ -43,6 +43,7 @@
 		
 		.boardList {
 			width: 100%;
+			
 		}
 		
 		.things {
@@ -103,6 +104,11 @@
 		}
 		
 		
+		.hit img{
+			height : 20px;
+			width : 20px;
+			overflow:hidden;
+		}
 		
 		.info_bottom_container {
 			display: flex;
@@ -206,13 +212,12 @@
 	    display: flex;
 	    justify-content: space-between; /* 좌우 공간을 균등하게 분배 */
 	    align-items: center; /* 수직 방향으로 중앙 정렬 */
-	    height:50px;
+	    height:10px;
 	}
 	
 	.pagination-container {
 	    flex-grow: 1; /* 공간을 채우도록 함 */
 	    text-align: center; /* 내부 요소(페이징)를 중앙 정렬 */
-	    height:50px;
 	}
 	
 	.pagination {

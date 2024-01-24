@@ -126,6 +126,11 @@ public class Gorea_FreeBoard_Controller {
 		
 		to.setFreeTitle(request.getParameter( "freeTitle" ));
 		to.setFreeContent(request.getParameter("freeContent"));
+		to.setUserSeq( request.getParameter("userSeq") );
+		
+		System.out.println( request.getParameter("userSeq") );
+		System.out.println( request.getParameter( "freeTitle" ) );
+		System.out.println( request.getParameter("freeContent") );
 		
 		if(language.equals("korean")) {
 			flag = dao.free_Write_Ok(to);

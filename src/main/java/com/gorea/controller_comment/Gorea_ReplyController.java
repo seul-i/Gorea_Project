@@ -38,7 +38,7 @@ public class Gorea_ReplyController {
 	}
 	
 	// 작성
-	@PostMapping( "/korean/gorea_reply_write_ok.do" )
+	@PostMapping( "/{language}/gorea_reply_write_ok.do" )
 	@ResponseBody
 	public ModelAndView replyWriteOk( HttpServletRequest request ) {
 		Gorea_ReplyTO rto = new Gorea_ReplyTO();
@@ -56,7 +56,7 @@ public class Gorea_ReplyController {
 		return modelAndView;
 	}
 	
-	@PostMapping( "/korean/gorea_reply_delete_ok.do" )
+	@PostMapping( "/{language}/gorea_reply_delete_ok.do" )
 	@ResponseBody
 	public ModelAndView replyDeleteOk( HttpServletRequest request ) {
 		Gorea_ReplyTO rto = new Gorea_ReplyTO();
@@ -77,7 +77,7 @@ public class Gorea_ReplyController {
 	}
 	
 	
-	@PostMapping( "/korean/gorea_reply_modify_ok.do" )
+	@PostMapping( "/{language}/gorea_reply_modify_ok.do" )
 	@ResponseBody
 	public ModelAndView replyModifyOk( HttpServletRequest request ) {
 		Gorea_ReplyTO rto = new Gorea_ReplyTO();
@@ -95,7 +95,7 @@ public class Gorea_ReplyController {
 	}
 	
 	
-	@PostMapping( "/korean/gorea_rereply_wtire_ok.do" )
+	@PostMapping( "/{language}/gorea_rereply_write_ok.do" )
 	@ResponseBody
 	public ModelAndView rereplyWriteOk( HttpServletRequest request ) {
 		Gorea_ReplyTO rto = new Gorea_ReplyTO();
@@ -117,7 +117,7 @@ public class Gorea_ReplyController {
 	}
 	
 	
-	 @PostMapping( "/korean/gorea_rereply_delete_ok.do" ) 
+	 @PostMapping( "/{language}/gorea_rereply_delete_ok.do" ) 
 	 @ResponseBody 
 	 public ModelAndView rereplyDeleteOk( HttpServletRequest request) {  
 		Gorea_ReplyTO rto = new Gorea_ReplyTO();

@@ -27,7 +27,7 @@
 <c:set var="finalUrl" value="${redirectUrl}${not empty queryParams ? '?' : ''}${queryParams}" />
 
 <script type='text/javascript'>
-    var flag = <c:out value="${flag}" />;
+    /* var flag = <c:out value="${flag}" />;
     var redirectUrl = <c:out value="${finalUrl}" />;
     
     console.log( 'flag : ', flag );
@@ -39,7 +39,17 @@
     } else if (flag === 1) {
         alert('글 삭제 실패');
         history.back();
-    }
+    } */
+    <c:choose>
+    	<c:when test="${flag == 0}">
+    		alert('글 삭제 성공');
+    		location.href='userRecom.do';
+    	</c:when>
+    	<c:when test="${flag == 1}">
+    		alert('글 삭제 성공');
+    		history.back();
+    	</c:when>
+    </c:choose>
 </script>
 
 <!-- 삭제 후 board.do로 리다이렉트 -->

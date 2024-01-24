@@ -44,7 +44,12 @@
 <jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
     <div class="board_wrap">
 		<div class="board_title">
-			<strong>여행자 추천</strong>
+			<c:choose>
+            	<c:when test="${language eq 'korean'}"><strong>여행자 추천</strong></c:when>
+            	<c:when test="${language eq 'english'}"><strong>Visitor's Picks</strong></c:when>
+            	<c:when test="${language eq 'japanese'}"><strong>旅行者のおすすめ</strong></c:when>
+            	<c:when test="${language eq 'chinese'}"><strong>旅客推荐</strong></c:when>
+            </c:choose>
 		</div>
 		<div class="board_list_wrap">
 			<div class="boardList">
@@ -52,7 +57,12 @@
 				<!-- list 부분 -->
 				<c:if test="${empty lists }">
 					<div style="text-align: center; padding: 20px; font-size: 18px;">
-                        등록된 게시글이 없습니다.
+                        <c:choose>
+                        	<c:when test="${language eq 'korean'}"> 등록된 게시글이 없습니다. </c:when>
+                        	<c:when test="${language eq 'english'}"> There are no registered posts. </c:when>
+                        	<c:when test="${language eq 'japanese'}"> 登録された投稿はありません。</c:when>
+                        	<c:when test="${language eq 'chinese'}"> 没有注册的帖子。</c:when>
+                        </c:choose>
                     </div>
 				</c:if>
 				
@@ -72,9 +82,7 @@
 							</div>
 							
 							<div class="info">
-								<div class="category">카테고리</div>
 								<div class="title"><c:out value="${to.userRecomTitle}"/></div>
-								<%-- <div class="subtitle"><a href='/${language}/userRecom_view.do?seq=<c:out value="${to.userRecomSeq}" />'><c:out value="${to.userRecomContent }" escapeXml="false" /></a></div> --%>
 								<br>
 								<div class="info_bottom_container">
 									<div class="info_bottom">
@@ -83,8 +91,7 @@
 											<div class="postdate">${to.userRecompostDate }</div>
 										</div>
 										<div class="bottom_right">
-											<!-- <div class="like">추천</div> -->
-											<div class="hit">조회수 : <c:out value='${to.userRecomHit}' /></div>
+											<div class="hit"><img src='/img/userRecom/hit_pngwing.com.png' alt='hit'> <c:out value='${to.userRecomHit}' /></div>
 										</div>
 									</div>
 								</div>
@@ -155,8 +162,7 @@
 								<span class="pagination-item disabled">&gt;</span>
 							</c:when>
 							<c:otherwise>
-								<a href="$/${language}/userRecom.do?cpage=${paging.cpage + 1}"
-									class="pagination-item">&gt;</a>
+								<a href="$/${language}/userRecom.do?cpage=${paging.cpage + 1}" class="pagination-item">&gt;</a>
 							</c:otherwise>
 						</c:choose>
 			
@@ -170,31 +176,83 @@
 							</c:otherwise>
 						</c:choose>
 					</div>	
-				</div>	           
+				</div>
+				<!-- 쓰기 버튼 -->
+		        <div class="write_button_container">
+		        	<c:choose>
+		        		<c:when test="${not empty userSeq }">
+			        		<c:choose>
+			        			<c:when test="${language eq 'korean' }">
+				        			<input type="hidden" name="userSeq" value="${userSeq}"/>
+				        			<a href="/${language}/userRecom_write.do" class="write_button">글쓰기</a>
+				        		</c:when>
+				        		<c:when test="${language eq 'english' }">
+				        			<input type="hidden" name="userSeq" value="${userSeq}"/>
+				        			<a href="/${language}/userRecom_write.do" class="write_button">write</a>
+				        		</c:when>
+				        		<c:when test="${language eq 'japanese' }">
+				        			<input type="hidden" name="userSeq" value="${userSeq}"/>
+				        			<a href="/${language}/userRecom_write.do" class="write_button">書く</a>
+				        		</c:when>
+				        		<c:when test="${language eq 'chinese' }">
+				        			<input type="hidden" name="userSeq" value="${userSeq}"/>
+				        			<a href="/${language}/userRecom_write.do" class="write_button">写作</a>
+				        		</c:when>
+			        		</c:choose>
+		        		</c:when>
+		        	</c:choose>
+			    </div>           
 	        </div>
 	        
-	        <!-- 쓰기 버튼 -->
-	        <div class="write_button_container">
-	        	<c:choose>
-	        		<c:when test="${not empty userSeq }">
-		        		<input type="hidden" name="userSeq" value="${userSeq}"/>
-		        		<a href="/${language}/userRecom_write.do" class="write_button">글쓰기</a>
-	        		</c:when>
-	        	</c:choose>
-		    </div>
+	        
 		    <div class="search_container">
            		<form action="userRecom.do" method="get">
     				<select name="searchType" style="border: 1px solid #ccc;">
-        				<option value="title">제목</option>
-        				<option value="titleContent">제목 + 내용</option>
+    					<c:choose>
+    						<c:when test="${language eq 'korean'}">
+        						<option value="title">제목</option>
+        						<option value="titleContent">제목 + 내용</option>
+        					</c:when>
+        					<c:when test="${language eq 'english'}">
+        						<option value="title">title</option>
+        						<option value="titleContent">title + content</option>
+        					</c:when>
+        					<c:when test="${language eq 'japanese'}">
+        						<option value="title">タイトル</option>
+        						<option value="titleContent">タイトル + コンテンツ</option>
+        					</c:when>
+        					<c:when test="${language eq 'chinese'}">
+        						<option value="title">标题</option>
+        						<option value="titleContent">标题 + 内容</option>
+        					</c:when>
+        				</c:choose>
     				</select>
-	    			<input type="text" name="searchKeyword" placeholder="검색어 입력" style="border: 1px solid #ccc;">
-	    			<input type="submit" value="검색">
+    				<c:choose>
+    					<c:when test="${language eq 'korean' }">
+	    					<input type="text" name="searchKeyword" placeholder="검색어 입력" style="border: 1px solid #ccc;">
+	    					<input type="submit" value="검색">
+	    				</c:when>
+	    				<c:when test="${language eq 'english' }">
+	    					<input type="text" name="searchKeyword" placeholder="enter..." style="border: 1px solid #ccc;">
+	    					<input type="submit" value="search">
+	    				</c:when>
+	    				<c:when test="${language eq 'japanese' }">
+	    					<input type="text" name="searchKeyword" placeholder="検索語を入力" style="border: 1px solid #ccc;">
+	    					<input type="submit" value="検索">
+	    				</c:when>
+	    				<c:when test="${language eq 'chinese' }">
+	    					<input type="text" name="searchKeyword" placeholder="输入搜索词" style="border: 1px solid #ccc;">
+	    					<input type="submit" value="搜索">
+	    				</c:when>
+	    			</c:choose>
 				</form>
         	</div>
         
         </div>
     </div>
+    <div style="height:200px">
+   
+   </div>
     <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>
 </html>

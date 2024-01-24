@@ -76,7 +76,13 @@ public class Gorea_Recommend_Controller {
 			List<Gorea_Recommend_BoardTO> boardList = listTranslation.userRecommend_List_KO(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList, cpage);
 			
-			//System.out.println( "lists : " + boardList );
+			if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+	    		boardList = dao.searchUserRecom(searchType, searchKeyword, offset, pageSize);
+	    		totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+	    	} else {
+	    		boardList = dao.userRecom_list(offset, pageSize);
+	    		totalRowCount = dao.getTotalRowCount();
+	    	}
 			
 			model.addAttribute( "lists", boardList );
 			model.addAttribute( "paging", paging );
@@ -92,6 +98,14 @@ public class Gorea_Recommend_Controller {
 			List<Gorea_Recommend_BoardTO> boardList_en = listTranslation.userRecommend_List_EN(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList_en, cpage);
 			
+			if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+				boardList_en = dao.searchUserRecom(searchType, searchKeyword, offset, pageSize);
+		        totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+		    } else {
+		    	boardList_en = dao.userRecom_list(offset, pageSize);
+		        totalRowCount = dao.getTotalRowCount();
+		    }
+			
 			model.addAttribute( "lists", boardList_en );
 			model.addAttribute( "paging", paging );
 			
@@ -106,6 +120,14 @@ public class Gorea_Recommend_Controller {
 			List<Gorea_Recommend_BoardTO> boardList_jp = listTranslation.userRecommend_List_JP(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList_jp, cpage);
 			
+			if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+				boardList_jp = dao.searchUserRecom(searchType, searchKeyword, offset, pageSize);
+		        totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+		    } else {
+		    	boardList_jp = dao.userRecom_list(offset, pageSize);
+		        totalRowCount = dao.getTotalRowCount();
+		    }
+			
 			model.addAttribute( "lists", boardList_jp );
 			model.addAttribute( "paging", paging );
 			
@@ -119,6 +141,14 @@ public class Gorea_Recommend_Controller {
 		} else if( language.equals("chinese") ) {
 			List<Gorea_Recommend_BoardTO> boardList_chn = listTranslation.userRecommend_List_CHN(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList_chn, cpage);
+			
+			if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+				boardList_chn = dao.searchUserRecom(searchType, searchKeyword, offset, pageSize);
+		        totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+		    } else {
+		    	boardList_chn = dao.userRecom_list(offset, pageSize);
+		        totalRowCount = dao.getTotalRowCount();
+		    }
 			
 			model.addAttribute( "lists", boardList_chn );
 			model.addAttribute( "paging", paging );
@@ -174,7 +204,7 @@ public class Gorea_Recommend_Controller {
 		to.setUserRecomContent( request.getParameter( "content" ) );
 		to.setUserSeq( request.getParameter("userSeq") );
 		//System.out.println( "userSeq : " + request.getParameter("userSeq") );
-		System.out.println();
+		
 		if(language.equals("korean")) {
 			flag = dao.userRecom_writeOk(to);
 	         System.out.println(to);
@@ -272,7 +302,7 @@ public class Gorea_Recommend_Controller {
 	 */
 	
 	
-	@RequestMapping( "/korean/userRecom_delete_ok.do" )
+	@RequestMapping( "/{language}/userRecom_delete_ok.do" )
 	public String deleteOk( HttpServletRequest request , Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
 		
@@ -330,11 +360,11 @@ public class Gorea_Recommend_Controller {
 		
 		int flag = 1;
 		
-		to.setUserRecomSeq( request.getParameter("userRecomSeq") );
+		to.setUserRecomSeq( request.getParameter("seq") );
 		to.setUserRecomTitle( request.getParameter( "title" ) );
 		to.setUserRecomContent( request.getParameter("content") );;
 		
-		System.out.println( "seq : " + request.getParameter("userRecomSeq") );
+		System.out.println( "seq : " + request.getParameter("seq") );
 		System.out.println( "title : " + to.getUserRecomTitle() );
 		System.out.println( "content : " + to.getUserRecomContent() );
 		

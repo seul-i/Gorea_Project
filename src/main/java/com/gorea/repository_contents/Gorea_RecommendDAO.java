@@ -29,6 +29,9 @@ public class Gorea_RecommendDAO {
 		return lists;
 	}
 	
+	public List<Gorea_Recommend_BoardTO> searchUserRecom( String searchType, String searchKeyword, int offset, int pageSize ){
+		return mapper.searchUserRecom(searchType, searchKeyword, offset, pageSize);
+	}
 	
 	// 페이징
 	public Gorea_Recommend_BoardTO getPreviousPost(int userRecomSeq) {
@@ -124,21 +127,15 @@ public class Gorea_RecommendDAO {
 		return mapper.replyCount(to);
 	}
 	
+	//검색
+	
 	private String extractFirstImageUrl(String content) {
-//	    System.out.println("Content: " + content); // 콘텐츠 출력
-
 	    String imageUrl = "";
 	    Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
 	    Matcher matcher = pattern.matcher(content);
 	    if (matcher.find()) {
 	        imageUrl = matcher.group(1);
-//	        System.out.println("Extracted Image URL: " + imageUrl); // 추출된 이미지 URL 출력
-
-	        // URL에서 필요한 부분 추출 및 조정
 	        imageUrl = imageUrl.replace("/ckImgSubmitForUserRecom?uid=", "/upload/").replace("&amp;fileName=", "_");
-//	        System.out.println("Formatted Image URL: " + imageUrl); // 조정된 이미지 URL 출력
-	    } else {
-	        //System.out.println("No image found"); // 이미지를 찾지 못한 경우
 	    }
 	    return imageUrl;
 	}
