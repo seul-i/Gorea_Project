@@ -32,7 +32,7 @@
                     <li><a href="#">에디터 추천 장소</a></li>
                     <li><a href="#">에디터 꿀팁</a></li>
                     <li><a href="#">트렌드 서울</a></li>
-                    <li><a href="#">공지사항</a></li>
+                    <li><a href="/admin/adminnotice.do">공지사항</a></li>
                 </ul>
             </li>
             <li class="tooltip">
