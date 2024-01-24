@@ -125,7 +125,7 @@ public class Gorea_Header_Controller {
 	// 어드민 페이지 이동
 	@GetMapping("/admin/adminpage.do")
 	public String admin() {
-	    return "gorea_admingPage";
+	    return "admin/gorea_admingPage";
 	}
 	
 }
