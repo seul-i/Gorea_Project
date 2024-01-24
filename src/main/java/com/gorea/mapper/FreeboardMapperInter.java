@@ -20,7 +20,7 @@ public interface FreeboardMapperInter {
 	@Select("select fr.freeSeq, fr.freeTitle, fr.freeContent, fr.freeHit, date_format(fr.freepostDate, '%Y.%m.%d') freepostDate, fr.freeRecomcount, u.userNickname from FreeBoard fr join User u on fr.userSeq = u.userSeq order by fr.freeSeq desc LIMIT #{firstRow}, #{pageSize}")
 	ArrayList<Gorea_Free_BoardTO> Free_List(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize); 
 	
-	@Select("SELECT COUNT(*) FROM Freeboard")
+	@Select("SELECT COUNT(*) FROM FreeBoard")
 	 int free_TotalCount();
 	
 	// Free_WriteOk

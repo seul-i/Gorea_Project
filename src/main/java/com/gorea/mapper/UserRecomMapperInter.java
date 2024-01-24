@@ -37,11 +37,11 @@ public interface UserRecomMapperInter {
     //int increaseLikes(String freeSeq);
 	
 	// 이전 글 가져오기
-    @Select("SELECT * FROM userrecommend WHERE userRecomSeq < #{seq} ORDER BY userRecomSeq DESC LIMIT 1")
+    @Select("SELECT * FROM UserRecommend WHERE userRecomSeq < #{seq} ORDER BY userRecomSeq DESC LIMIT 1")
     Gorea_Recommend_BoardTO  getPreviousPost(int userRecomSeq);
 
     // 다음 글 가져오기
-    @Select("SELECT * FROM userrecommend WHERE userRecomSeq > #{seq} ORDER BY userRecomSeq ASC LIMIT 1")
+    @Select("SELECT * FROM UserRecommend WHERE userRecomSeq > #{seq} ORDER BY userRecomSeq ASC LIMIT 1")
     Gorea_Recommend_BoardTO getNextPost(int userRecomSeq);
 		
 	//viewuserRecomHit
