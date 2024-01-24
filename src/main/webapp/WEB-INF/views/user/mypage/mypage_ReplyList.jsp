@@ -95,6 +95,8 @@
 		        </div>
 		    </div>
 		</div>
+		
+		
     <section class="mypage-section">
         <div class="mypage-container">
             <div class="menu-title">
@@ -107,6 +109,30 @@
 	                </c:choose>
                 </b>
             </div>
+            
+            <div class="board-search">
+    			<form action="userReplyList.do" method="get">
+    				<input type="hidden" name="userSeq" value="${userSeq}">
+		             <c:choose>
+				         <c:when test="${language eq 'korean'}">
+				            <input type="text" name="keyword" placeholder="검색어 입력">
+				             <input type="submit" value="검색">
+				         </c:when>
+				         <c:when test="${language eq 'english'}">
+				            <input type="text" name="keyword" placeholder="Enter search">
+				               <input type="submit" value="search">
+				         </c:when>
+				         <c:when test="${language eq 'japanese'}">
+				            <input type="text" name="keyword" placeholder="検索を入力し">
+				               <input type="submit" value="検索">
+				         </c:when>
+				         <c:when test="${language eq 'chinese'}">
+				            <input type="text" name="keyword" placeholder="输入搜索">
+				             <input type="submit" value="搜索">
+				         </c:when>
+				      </c:choose>
+		    	 </form>
+		   </div>
 
 		<!-- 여행자 추천, BestTop5 부분 추가해야함 -->
 		<div class="board-wrap">
@@ -218,8 +244,8 @@
 			        <div class="pagination">
 			        <!-- 처음 페이지 버튼 -->
 			        <c:if test="${paging.cpage > 1}">
-			            <a href="/user/${language}/replyList.do?userSeq=${userSeq }cpage=1" class="pagination-item">&lt;&lt;</a>
-			            <a href="/user/${language}/replyList.do?userSeq=${userSeq }&cpage=${paging.cpage - 1}" class="pagination-item">&lt;</a>
+			            <a href="/${language}/userReplyList.do?userSeq=${userSeq }cpage=1" class="pagination-item">&lt;&lt;</a>
+			            <a href="/${language}/userReplyList.do?userSeq=${userSeq }&cpage=${paging.cpage - 1}" class="pagination-item">&lt;</a>
 			        </c:if>
 			        <c:if test="${paging.cpage == 1}">
 			            <span class="pagination-item disabled">&lt;&lt;</span>
@@ -233,7 +259,7 @@
 					            <span class="pagination-item active">${i}</span>
 					        </c:when>
 					        <c:otherwise>
-					            <a href="/user/${language}/replyList.do?userSeq=${userSeq}&cpage=${i}" class="pagination-item">${i}</a>
+					            <a href="/${language}/userReplyList.do?userSeq=${userSeq}&cpage=${i}" class="pagination-item">${i}</a>
 					        </c:otherwise>
 					    </c:choose>
 					</c:forEach>
@@ -241,8 +267,8 @@
 			
 			        <!-- 다음 페이지 버튼 -->
 			        <c:if test="${paging.cpage < paging.totalPage}">
-			            <a href="/user/${language}/replyList.do?userSeq=${userSeq}&cpage=${paging.cpage + 1}" class="pagination-item">&gt;</a>
-			            <a href="/user/${language}/replyList.do?userSeq=${userSeq}&cpage=${paging.totalPage}" class="pagination-item">&gt;&gt;</a>
+			            <a href="/${language}/userReplyList.do?userSeq=${userSeq}&cpage=${paging.cpage + 1}" class="pagination-item">&gt;</a>
+			            <a href="/${language}/userReplyList.do?userSeq=${userSeq}&cpage=${paging.totalPage}" class="pagination-item">&gt;&gt;</a>
 			        </c:if>
 			        <c:if test="${paging.cpage == paging.totalPage}">
 			            <span class="pagination-item disabled">&gt;</span>

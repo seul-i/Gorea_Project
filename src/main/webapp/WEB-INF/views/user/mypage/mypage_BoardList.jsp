@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="language" value="${language}" />
 <c:set var="paging" value="${paging}" />
-<c:set var="freeboard" value="${paging.freeboard}" />
+<c:set var="lists" value="${paging.mypageBoardList}" />
 
 <c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 
@@ -114,15 +116,30 @@
                 </b>
             </div>
 
-<!-- 
-             <div class="board-select">
-                <select id="boardType" name="boardType">
-                	<option value="free">전체게시판</option>
-                    <option value="free">자유게시판</option>
-                    <option value="recommend">여행자 추천 게시판</option>
-                    <option value="best">Best Top5 게시판</option>
-                </select>
-            </div>  -->
+ 			<div class="board-search">
+    			<form action="userBoardList.do" method="get">
+    				<input type="hidden" name="userSeq" value="${userSeq}">
+		             <c:choose>
+				         <c:when test="${language eq 'korean'}">
+				            <input type="text" name="keyword" placeholder="검색어 입력">
+				             <input type="submit" value="검색">
+				         </c:when>
+				         <c:when test="${language eq 'english'}">
+				            <input type="text" name="keyword" placeholder="Enter search">
+				               <input type="submit" value="search">
+				         </c:when>
+				         <c:when test="${language eq 'japanese'}">
+				            <input type="text" name="keyword" placeholder="検索を入力し">
+				               <input type="submit" value="検索">
+				         </c:when>
+				         <c:when test="${language eq 'chinese'}">
+				            <input type="text" name="keyword" placeholder="输入搜索">
+				             <input type="submit" value="搜索">
+				         </c:when>
+				      </c:choose>
+		    	 </form>
+		   </div>
+
              <div class="board-wrap">
 			    <table class="board-list">
 			        <thead>
@@ -234,8 +251,8 @@
 					        <div class="pagination">
 					        <!-- 처음 페이지 버튼 -->
 					        <c:if test="${paging.cpage > 1}">
-					            <a href="/user/${language}/boardList.do?userSeq=${userSeq }cpage=1" class="pagination-item">&lt;&lt;</a>
-					            <a href="/user/${language}/boardList.do?userSeq=${userSeq }&cpage=${paging.cpage - 1}" class="pagination-item">&lt;</a>
+					            <a href="/${language}/userBoardList.do?userSeq=${userSeq }cpage=1" class="pagination-item">&lt;&lt;</a>
+					            <a href="/${language}/userBoardList.do?userSeq=${userSeq }&cpage=${paging.cpage - 1}" class="pagination-item">&lt;</a>
 					        </c:if>
 					        <c:if test="${paging.cpage == 1}">
 					            <span class="pagination-item disabled">&lt;&lt;</span>
@@ -249,7 +266,7 @@
 							            <span class="pagination-item active">${i}</span>
 							        </c:when>
 							        <c:otherwise>
-							            <a href="/user/${language}/boardList.do?userSeq=${userSeq}&cpage=${i}" class="pagination-item">${i}</a>
+							            <a href="/${language}/userBoardList.do?userSeq=${userSeq}&cpage=${i}" class="pagination-item">${i}</a>
 							        </c:otherwise>
 							    </c:choose>
 							</c:forEach>
@@ -257,8 +274,8 @@
 					
 					        <!-- 다음 페이지 버튼 -->
 					        <c:if test="${paging.cpage < paging.totalPage}">
-					            <a href="/user/${language}/boardList.do?userSeq=${userSeq}&cpage=${paging.cpage + 1}" class="pagination-item">&gt;</a>
-					            <a href="/user/${language}/boardList.do?userSeq=${userSeq}&cpage=${paging.totalPage}" class="pagination-item">&gt;&gt;</a>
+					            <a href="/${language}/userBoardList.do?userSeq=${userSeq}&cpage=${paging.cpage + 1}" class="pagination-item">&gt;</a>
+					            <a href="/${language}/userBoardList.do?userSeq=${userSeq}&cpage=${paging.totalPage}" class="pagination-item">&gt;&gt;</a>
 					        </c:if>
 					        <c:if test="${paging.cpage == paging.totalPage}">
 					            <span class="pagination-item disabled">&gt;</span>

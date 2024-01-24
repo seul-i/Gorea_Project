@@ -114,8 +114,8 @@
 										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${shortenedNickname}">${shortenedNickname}</a>
 											<div class="headerDropdown-options">
-												<a href="/korean/userMypage.do">마이 페이지</a> <a
-													href="/logoutKr.do" class="logout">로그아웃</a>
+												<a href="/korean/userMypage.do?userSeq=${userSeq }">마이페이지</a>  
+												<a href="/logoutKr.do" class="logout">로그아웃</a>
 											</div>
 										</div>
 									</c:when>
