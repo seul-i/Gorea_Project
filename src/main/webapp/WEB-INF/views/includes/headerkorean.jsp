@@ -125,7 +125,7 @@
 										<div class="headerDropdown">
 											<a href="#" class="mypage-toggle" data-nickname="${role }">ADMIN</a>
 											<div class="headerDropdown-options">
-												<a href="/admin/adminpage.do">관리자 페이지</a> 
+												<a href="/adminpage.do">관리자 페이지</a> 
 												<a href="/logoutKr.do" class="logout">로그아웃</a>
 											</div>
 										</div>
