@@ -51,7 +51,7 @@
   	<div class="menuContainer">
 		    <div class="menuinner">
 		        <div class="mypage-menuBtn">
-		            <a href="userMypage.do" class="mypagebtn active userInfo">
+		            <a href="userMypage.do?userSeq=${userSeq }" class="mypagebtn active userInfo">
 		                <c:choose>
 		                    <c:when test="${language eq 'korean'}">회원정보</c:when>
 		                    <c:when test="${language eq 'english'}">User Information</c:when>

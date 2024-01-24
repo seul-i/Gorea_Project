@@ -9,6 +9,7 @@
 	value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userNickname}" />
 
 <c:set var="maxLength" value="6" />
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 
 <%-- 닉네임의 길이가 maxLength 이상이면 일부만 표시하고 뒤에 "..."을 붙임 --%>
 <c:choose>

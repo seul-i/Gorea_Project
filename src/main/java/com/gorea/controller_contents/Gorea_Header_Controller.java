@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gorea.dto_user.Gorea_JoinTO;
+import com.gorea.dto_user.Gorea_UserTO;
+import com.gorea.repository_contents.Gorea_MypageDAO;
 import com.gorea.service_user.Gorea_JoinCheckService;
 import com.gorea.service_user.Gorea_UserService_Interface;
+
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class Gorea_Header_Controller {
@@ -26,6 +31,9 @@ public class Gorea_Header_Controller {
 	
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder;
+	
+	@Autowired
+	private Gorea_MypageDAO mypageDao;
 	
 	
 	@GetMapping("/{language}/login.do")
@@ -88,30 +96,36 @@ public class Gorea_Header_Controller {
 	
 	// 마이 페이지 이동
 	@GetMapping("/{language}/userMypage.do")
-	public String mypage(@PathVariable String language, Model model) {
+	public String mypage(@PathVariable String language,
+								HttpServletRequest request,
+								Model model) {
 		
-		System.out.println(language);
-		model.addAttribute("language", language);
+		Gorea_UserTO uto = new Gorea_UserTO();
+		uto.setUserSeq(Long.parseLong(request.getParameter("userSeq")));
 		
 		if(language.equals("korean")) {
-			
+			uto = mypageDao.userInfoModify(uto);
 		}else if(language.equals("english")) {
-			
+			uto = mypageDao.userInfoModify(uto);
 		}else if(language.equals("japanese")) {
-			
+			uto = mypageDao.userInfoModify(uto);
 		}else if(language.equals("chinese")) {
-			
+			uto = mypageDao.userInfoModify(uto);
 		}else {
 			return "gorea_accessdeniedPage";
 		}
+		
+		model.addAttribute("uto", uto);
+		model.addAttribute("language", language);
+		model.addAttribute("userSeq", uto.getUserSeq());
 		
 		return "user/mypage/myPage";
 	}
 	
 	// 어드민 페이지 이동
-	@GetMapping("/adminpage.do")
+	@GetMapping("/admin/adminpage.do")
 	public String admin() {
-	    return "admin/gorea_admingPage";
+	    return "gorea_admingPage";
 	}
 	
 }
