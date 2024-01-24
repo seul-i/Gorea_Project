@@ -815,22 +815,80 @@
         
         
         <div class="post-actions">
-	        <div class="left-buttons">
-	        	<c:if test="${not empty prevPost}">
-		            <input type="button" value="이전글" class="btn" onclick="location.href='userRecom_view.do?seq=${prevPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
-		        </c:if>
-		        <c:if test="${not empty nextPost}">
-		            <input type="button" value="다음글" class="btn" onclick="location.href='userRecom_view.do?seq=${nextPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
-		        </c:if>
-	        </div>
-	        <div class="right-buttons">
-	            <c:if test="${userSeq eq to.userSeq}">
-		            <!-- userSeq와 게시글 작성자의 userSeq가 일치하는 경우에만 수정 및 삭제 버튼 표시 -->
-		            <input type="button" value="수정" class="btn" onclick="location.href='${modifyUrl}'" />
-		            <input type="button" value="삭제" class="btn" onclick="confirmDelete('${deleteUrl}')" />
-        		</c:if>
-        		<input type="button" value="목록" class="btn" onclick="location.href='${listUrl}'" />
-	        </div>
+        	<c:choose>
+        		<c:when test="${language eq 'korean' }">
+			        <div class="left-buttons">
+			        	<c:if test="${not empty prevPost}">
+				            <input type="button" value="이전글" class="btn" onclick="location.href='userRecom_view.do?seq=${prevPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+				        </c:if>
+				        <c:if test="${not empty nextPost}">
+				            <input type="button" value="다음글" class="btn" onclick="location.href='userRecom_view.do?seq=${nextPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+				        </c:if>
+			        </div>
+			        <div class="right-buttons">
+			            <c:if test="${userSeq eq to.userSeq}">
+				            <!-- userSeq와 게시글 작성자의 userSeq가 일치하는 경우에만 수정 및 삭제 버튼 표시 -->
+				            <input type="button" value="수정" class="btn" onclick="location.href='${modifyUrl}'" />
+				            <input type="button" value="삭제" class="btn" onclick="confirmDelete('${deleteUrl}')" />
+		        		</c:if>
+		        		<input type="button" value="목록" class="btn" onclick="location.href='${listUrl}'" />
+			        </div>
+		        </c:when>
+		        <c:when test="${language eq 'english' }">
+			        <div class="left-buttons">
+			        	<c:if test="${not empty prevPost}">
+				            <input type="button" value="Pre" class="btn" onclick="location.href='userRecom_view.do?seq=${prevPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+				        </c:if>
+				        <c:if test="${not empty nextPost}">
+				            <input type="button" value="Next" class="btn" onclick="location.href='userRecom_view.do?seq=${nextPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+				        </c:if>
+			        </div>
+			        <div class="right-buttons">
+			            <c:if test="${userSeq eq to.userSeq}">
+				            <!-- userSeq와 게시글 작성자의 userSeq가 일치하는 경우에만 수정 및 삭제 버튼 표시 -->
+				            <input type="button" value="Modify" class="btn" onclick="location.href='${modifyUrl}'" />
+				            <input type="button" value="Delete" class="btn" onclick="confirmDelete('${deleteUrl}')" />
+		        		</c:if>
+		        		<input type="button" value="List" class="btn" onclick="location.href='${listUrl}'" />
+			        </div>
+		        </c:when>
+		        <c:when test="${language eq 'japanese' }">
+			        <div class="left-buttons">
+			        	<c:if test="${not empty prevPost}">
+				            <input type="button" value="Pre" class="btn" onclick="location.href='userRecom_view.do?seq=${prevPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+				        </c:if>
+				        <c:if test="${not empty nextPost}">
+				            <input type="button" value="Next" class="btn" onclick="location.href='userRecom_view.do?seq=${nextPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+				        </c:if>
+			        </div>
+			        <div class="right-buttons">
+			            <c:if test="${userSeq eq to.userSeq}">
+				            <!-- userSeq와 게시글 작성자의 userSeq가 일치하는 경우에만 수정 및 삭제 버튼 표시 -->
+				            <input type="button" value="修正" class="btn" onclick="location.href='${modifyUrl}'" />
+				            <input type="button" value="削除" class="btn" onclick="confirmDelete('${deleteUrl}')" />
+		        		</c:if>
+		        		<input type="button" value="リスト" class="btn" onclick="location.href='${listUrl}'" />
+			        </div>
+		        </c:when>
+		        <c:when test="${language eq 'chinese' }">
+			        <div class="left-buttons">
+			        	<c:if test="${not empty prevPost}">
+				            <input type="button" value="Pre" class="btn" onclick="location.href='userRecom_view.do?seq=${prevPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+				        </c:if>
+				        <c:if test="${not empty nextPost}">
+				            <input type="button" value="Next" class="btn" onclick="location.href='userRecom_view.do?seq=${nextPost.userRecomSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+				        </c:if>
+			        </div>
+			        <div class="right-buttons">
+			            <c:if test="${userSeq eq to.userSeq}">
+				            <!-- userSeq와 게시글 작성자의 userSeq가 일치하는 경우에만 수정 및 삭제 버튼 표시 -->
+				            <input type="button" value="更正" class="btn" onclick="location.href='${modifyUrl}'" />
+				            <input type="button" value="删除" class="btn" onclick="confirmDelete('${deleteUrl}')" />
+		        		</c:if>
+		        		<input type="button" value="列表" class="btn" onclick="location.href='${listUrl}'" />
+			        </div>
+		        </c:when>
+	        </c:choose>
     	</div>
     	
     </div>
@@ -845,9 +903,23 @@
 	}
 	
 	function confirmDelete(deleteUrl) {
-	    if (confirm("글을 삭제하시겠습니까?")) {
-	        location.href = deleteUrl;
-	    }
+		if( '${language}' === 'korean' ){
+		    if (confirm("글을 삭제하시겠습니까?")) {
+		        location.href = deleteUrl;
+		    }
+		} else if ( '${language}' === 'english' ) {
+			if (confirm("Sure you Delete the post?")) {
+		        location.href = deleteUrl;
+		    }
+		} else if ( '${language}' === 'japanese' ) {
+			if (confirm("投稿を削除しますか？")) {
+		        location.href = deleteUrl;
+		    }
+		} else if ( '${language}' === 'chinese' ) {
+			if (confirm("您确定要删除该帖子吗？")) {
+		        location.href = deleteUrl;
+		    }
+		}
 	}
 </script>
 <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>

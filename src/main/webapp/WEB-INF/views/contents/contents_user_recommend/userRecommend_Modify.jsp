@@ -85,7 +85,7 @@
 		    	</form>
 		    </c:when>
 		    <c:when test="${language eq 'chinese' }">
-		        <h2>게시글 수정</h2>
+		        <h2>编辑帖子</h2>
 		        <form action="/${language }/userRecom_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
 			        <c:set var="to" value="${requestScope.to}" />
 			        <input type="hidden" name="seq" value="${ param.seq }" /> 
