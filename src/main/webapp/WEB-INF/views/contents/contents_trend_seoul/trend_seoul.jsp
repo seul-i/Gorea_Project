@@ -19,7 +19,10 @@
     <title>Go!rea TrendSoeul</title>
     <link rel="stylesheet" type="text/css" href="/css/trendseoul/list.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<!-- ajax CDN -->
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script type="text/javascript">
     
     let language = '${language}';
@@ -131,87 +134,44 @@
 	</div>
 	
 	<div class="search_container">
-      <form action="editRecommend_list.do" method="get">
-
-			<select name="searchType">
-				<option value="title">
-					<c:choose>
-						<c:when test="${language eq 'korean'}">제목</c:when>
-						<c:when test="${language eq 'english'}">Title</c:when>
-						<c:when test="${language eq 'japanese'}">タイトル</c:when>
-						<c:when test="${language eq 'chinese'}">标题</c:when>
-						<c:otherwise>제목</c:otherwise>
-					</c:choose>
-				</option>
-				<option value="titleContent">
-					<c:choose>
-						<c:when test="${language eq 'korean'}">제목 + 내용</c:when>
-						<c:when test="${language eq 'english'}">Title + Content</c:when>
-						<c:when test="${language eq 'japanese'}">タイトル + 内容</c:when>
-						<c:when test="${language eq 'chinese'}">标题 + 内容</c:when>
-						<c:otherwise>제목 + 내용</c:otherwise>
-					</c:choose>
-				</option>
+      <form action="trend_seoul.do" method="get">
+			<select name="seoulLocGu">
+				<option value="">Seoul_Gu</option>
+				<c:forEach var="seoulLocgu" items="${seoulLocgu}">
+					<option value="${seoulLocgu.seoulLocGu}">${seoulLocgu.seoulLocGu}</option>
+				</c:forEach>
 			</select>
 			
-			<select name="searchType">
-				<option value="title">
-					<c:choose>
-						<c:when test="${language eq 'korean'}">제목</c:when>
-						<c:when test="${language eq 'english'}">Title</c:when>
-						<c:when test="${language eq 'japanese'}">タイトル</c:when>
-						<c:when test="${language eq 'chinese'}">标题</c:when>
-						<c:otherwise>제목</c:otherwise>
-					</c:choose>
-				</option>
-				<option value="titleContent">
-					<c:choose>
-						<c:when test="${language eq 'korean'}">제목 + 내용</c:when>
-						<c:when test="${language eq 'english'}">Title + Content</c:when>
-						<c:when test="${language eq 'japanese'}">タイトル + 内容</c:when>
-						<c:when test="${language eq 'chinese'}">标题 + 内容</c:when>
-						<c:otherwise>제목 + 내용</c:otherwise>
-					</c:choose>
-				</option>
+			<select id="mainCategorySelect" name="mainCategory">
+				<option value="">Main_Categroy</option>
+				<c:forEach var="item" items="${searchmianCategroy}">
+					<option value="${item.mainCategory}">${item.mainCategory}</option>
+				</c:forEach>
 			</select>
 			
-			<select name="searchType">
-				<option value="title">
-					<c:choose>
-						<c:when test="${language eq 'korean'}">제목</c:when>
-						<c:when test="${language eq 'english'}">Title</c:when>
-						<c:when test="${language eq 'japanese'}">タイトル</c:when>
-						<c:when test="${language eq 'chinese'}">标题</c:when>
-						<c:otherwise>제목</c:otherwise>
-					</c:choose>
-				</option>
-				<option value="titleContent">
-					<c:choose>
-						<c:when test="${language eq 'korean'}">제목 + 내용</c:when>
-						<c:when test="${language eq 'english'}">Title + Content</c:when>
-						<c:when test="${language eq 'japanese'}">タイトル + 内容</c:when>
-						<c:when test="${language eq 'chinese'}">标题 + 内容</c:when>
-						<c:otherwise>제목 + 내용</c:otherwise>
-					</c:choose>
-				</option>
+			<select name="subCategory">
+				<option value="">Sub_Categroy</option>
+				<c:forEach var="item" items="${searchsubCategroy}">
+					<option value="${item.subCategory}">${item.subCategory}</option>
+				</c:forEach>
 			</select>
 
 			<c:choose>
-         <c:when test="${language eq 'korean'}">
-             <input type="submit" value="검색">
-         </c:when>
-         <c:when test="${language eq 'english'}">
-               <input type="submit" value="search">
-         </c:when>
-         <c:when test="${language eq 'japanese'}">
-               <input type="submit" value="検索">
-         </c:when>
-         <c:when test="${language eq 'chinese'}">
-             <input type="submit" value="搜索">
-         </c:when>
-      </c:choose>
-    
-      </form>
+				<c:when test="${language eq 'korean'}">
+					<input type="submit" value="검색" style="width:80px; height:40px">
+				</c:when>
+				<c:when test="${language eq 'english'}">
+					<input type="submit" value="search" style="width:80px; height:40px">
+				</c:when>
+				<c:when test="${language eq 'japanese'}">
+					<input type="submit" value="検索" style="width:80px; height:40px">
+				</c:when>
+				<c:when test="${language eq 'chinese'}">
+					<input type="submit" value="搜索" style="width:80px; height:40px">
+				</c:when>
+			</c:choose>
+
+		</form>
    </div>
 
 	<section class="albums">
@@ -287,7 +247,7 @@
 								<i class='fa fa-star-o fa-2x'
 									style='color: grey; font-size: 1.5em;'></i> <i
 									class='fa fa-star fa-2x'
-									style='color: #94b8f4; font-size: 1.5em;'></i>
+									style='color: #fff23f; font-size: 1.5em;'></i>
 							</div>
 						</div>
 					</div>
@@ -385,6 +345,46 @@
 			</c:choose>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+	
+	$(document).ready(function () {
+					
+		$("#mainCategorySelect").change(function () {
+			var selectedMainCategory = $(this).val();
+			var language = '${language}';
+				        
+				$.ajax({
+					url: "/"+language+"/categorySearch.do",
+					type: "GET",
+					dataType : 'json',
+					data: {
+						mainCategory: selectedMainCategory
+					},
+					
+					success: function (data) {
+				            	
+						// 서버에서 json 출력 데이터 업데이트 , 기존 데이터 empty 
+						var subCategorySelect = $("select[name='subCategory']");
+						subCategorySelect.empty(); 
+						subCategorySelect.append("<option value='#'>Sub_Category</option>");
+
+						// 서버에서 받은 데이터로 옵션 추가
+						$.each(data, function(index, item) {
+							subCategorySelect.append("<option value='" + item.subCategory + "'>" + item.subCategory + "</option>");
+				                });
+						},
+						
+					error: function (error) {
+						console.log("Error:", error);
+					}
+				});
+		});
+		
+	});
+	
+	</script>
+	
 	<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 
 </body>

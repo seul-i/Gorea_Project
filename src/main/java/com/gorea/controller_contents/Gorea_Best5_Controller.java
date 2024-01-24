@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -18,6 +21,9 @@ import com.gorea.dto_board.Gorea_BEST5_BoardTO;
 import com.gorea.dto_board.Gorea_BEST5_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
+import com.gorea.dto_like.Gorea_BEST5_LikeTO;
+import com.gorea.dto_user.Gorea_UserTO;
+import com.gorea.login.LoginService;
 import com.gorea.repository_contents.Gorea_Best5DAO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,17 +37,50 @@ public class Gorea_Best5_Controller {
 	
 	@Value("${geocoding.api.key}")
 	private String googlemap;
+	
+	@PostMapping("/boardFavo.do")
+	public @ResponseBody String addToFavorites(
+	        @RequestParam("top5Seq") String top5Seq,
+	        @RequestParam("boardNo") String boardNo,
+	        @RequestParam("userSeq") String userSeq) {
+
+	    Gorea_BEST5_LikeTO to = new Gorea_BEST5_LikeTO();
+
+	    to.setBoardnoSeq(boardNo);
+	    to.setBoardSeq(top5Seq);
+	    to.setUserSeq(userSeq);
+
+	    dao.addToFavorites(to);
+
+	    return "즐겨찾기 완료";
+	}
 
 	@GetMapping("/{language}/bestTop5.do")
 	public String best5List(@PathVariable String language, Model model) {
 		
 		model.addAttribute("language",language);
 		
+		Gorea_BEST5_LikeTO boardLike = new Gorea_BEST5_LikeTO();
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (authentication instanceof UsernamePasswordAuthenticationToken) {
+		    UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authentication;
+
+		    if (authToken.getPrincipal() instanceof LoginService) {
+		        LoginService loginService = (LoginService) authToken.getPrincipal();
+		        Gorea_UserTO userTO = loginService.getGorea_UserTO();
+
+		        // 이제 userSeq 값을 얻을 수 있습니다.
+		        String userSeq = String.valueOf(userTO.getUserSeq());	        
+		    }
+		}
+
 		List<Gorea_BEST5_ListTO> boardList = new ArrayList<>();
 
 		if(language.equals("korean")) {
 			
-			boardList = dao.best5_top5_boardList();
+ 			boardList = dao.best5_top5_boardList();
 
 		}else if(language.equals("english")) {
 			
@@ -51,6 +90,8 @@ public class Gorea_Best5_Controller {
 			
 		}
 		
+		System.out.println(boardLike);
+
 		model.addAttribute("boardList",boardList);
 		
 		return "contents/contents_BestTop5/bestTop5_List";

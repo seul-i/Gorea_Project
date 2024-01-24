@@ -4,18 +4,26 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.gorea.dto_board.Gorea_BEST5_BoardTO;
 import com.gorea.dto_board.Gorea_BEST5_ListTO;
-import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
+import com.gorea.dto_like.Gorea_BEST5_LikeTO;
 
 @Mapper
 public interface Top5MapperInter {
+	
+	@Insert("INSERT INTO BoardFavo (boardnoSeq, boardSeq, userSeq) VALUES (#{boardnoSeq}, #{boardSeq}, #{userSeq})")
+	@Options(useGeneratedKeys = true, keyProperty = "likeSeq")
+	    int addToFavorites(Gorea_BEST5_LikeTO to);
+	
+	@Select("select boardnoSeq, boardSeq, userSeq from BoardFavo where userSeq = #{userSeq}")
+	Gorea_BEST5_LikeTO boardlikeCheck(Gorea_BEST5_LikeTO boardLike);
 	
 	@Select("select ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, cn.mainCategory, cn.subCategory from TrendSeoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc")
 	List<Gorea_TrendSeoul_ListTO> trendSeoul_List();
