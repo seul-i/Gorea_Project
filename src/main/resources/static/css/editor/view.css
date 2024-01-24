@@ -11,7 +11,6 @@
 }
 
 .infor-title {
-    font-size: 25px;
     margin-top: 10px;
 }
 
@@ -30,7 +29,7 @@
 .h3 {
 	margin-bottom: 10px;
     color: #333;
-    font-size: 45px;
+    font-size: 40px;
 }
 
 .h4 {
@@ -65,8 +64,6 @@ strong {
 }
 
 .location {
-	width: 100%;
-	max-width: 1200px;
 	font-size: 17px;
 	color: #666;
 	box-sizing: border-box;

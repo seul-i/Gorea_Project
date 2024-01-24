@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <c:set var="to" value="${requestScope.to}" />
 <c:set var="seq" value="${param.editrecoSeq}" />
-<c:set var="language" value="${language}" />
 <html>
 <head>
 <title>GO!rea</title>
@@ -27,7 +26,7 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/includes/headerkorean.jsp"></jsp:include>
 	<div class="containers">
 	<div class="tith2">
 		<h2>에디터 추천 장소 수정</h2>
@@ -54,11 +53,11 @@
 			<div class="form-group">
 				<textarea class="form-control" id="content" name="editrecoContent">${to.editrecoContent}</textarea>
 			</div>
-	</div>
-	<div class="btn_wrap">
+			<div class="btn_wrap">
 				<button type="submit" class="btn btn-primary">저장하기</button>
 			</div>
 		</form>
+	</div>
 	<script type="text/javascript">
 		window.onload = function() {
 			CKEDITOR.replace('editrecoContent', {

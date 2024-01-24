@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:set var="language" value="${language}" />
+<c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,7 @@
    	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 		
     <!-- 내가 변경한 css가 밑에있어야함 -->
     <link rel="stylesheet" type="text/css" href="/css/Top5/top5list.css">
@@ -79,6 +81,19 @@
 		    
 		});
 	</script>
+	
+	<style>
+        .fa-star {
+            color: #FFFFFF; /* 초기 회색 */
+            transition: color 0.3s ease; /* 색상 전환 효과를 추가합니다. */
+            cursor: pointer; /* 클릭 가능한 요소로 설정합니다. */ /* 초기 테두리 색상 */
+            border-radius: 5px;
+        }
+
+        .fa-star.clicked {
+            color: #fff23f; /* 클릭된 후의 노랑색 */
+        }
+    </style>
 
 </head>
 
@@ -171,9 +186,9 @@
 								<img src="/img/nation-icon/nation-wr.png" alt="">
 							</c:if>
 						</div>
+						
 						<div style="display: flex; justify-content: center; margin-bottom:10px;">
-							<i class='fa fa-star-o fa-2x' style='color: grey;'></i>
-							<i class='fa fa-star fa-2x' style='color: #fff23f;'></i>
+							<i id="${top5ListData.top5Seq}" data-board-no="${top5ListData.top5boardNo}" data-user-seq="${userSeq}" class='fa fa-star fa-2x' onclick="toggleStar(this)"></i>
 						</div>
 					</div>
 					
@@ -266,7 +281,36 @@
 	</c:forEach>
 	
 	<script type="text/javascript">
-
+	
+	// JavaScript를 사용하여 클릭 시 색상 변경
+    function toggleStar(element) {
+	    element.classList.toggle('clicked');
+	    const top5Seq = element.id;
+	    const boardNo = element.getAttribute('data-board-no');
+	    const userSeq = element.getAttribute('data-user-seq');
+	
+	    console.log("top5Seq: " + top5Seq);
+	    console.log("boardNo: " + boardNo);
+	    console.log("userSeq: " + userSeq);
+	
+	    // AJAX를 사용하여 데이터를 서버로 전송
+// 	    $.ajax({
+// 	        url: "/boardFavo.do",
+// 	        type: "POST",  // POST 방식으로 변경
+// 	        contentType: 'application/x-www-form-urlencoded',
+// 	        data: {
+// 	            top5Seq: top5Seq,
+// 	            boardNo: boardNo,
+// 	            userSeq: userSeq
+// 	        },
+// 	        success: function (data) {
+// 	        	alert(data);
+// 	        },
+// 	        error: function (error) {
+// 	            console.log("Error:", error);
+// 	        }
+// 	    });
+	}
 	
     // language 값을 HTML 속성에 저장
     var language = "${language}";

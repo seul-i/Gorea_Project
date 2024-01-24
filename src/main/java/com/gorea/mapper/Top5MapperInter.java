@@ -4,24 +4,32 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.gorea.dto_board.Gorea_BEST5_BoardTO;
 import com.gorea.dto_board.Gorea_BEST5_ListTO;
-import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
+import com.gorea.dto_like.Gorea_BEST5_LikeTO;
 
 @Mapper
 public interface Top5MapperInter {
 	
-	@Select("select ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, cn.mainCategory, cn.subCategory from trendseoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc")
+	@Insert("INSERT INTO BoardFavo (boardnoSeq, boardSeq, userSeq) VALUES (#{boardnoSeq}, #{boardSeq}, #{userSeq})")
+	@Options(useGeneratedKeys = true, keyProperty = "likeSeq")
+	    int addToFavorites(Gorea_BEST5_LikeTO to);
+	
+	@Select("select boardnoSeq, boardSeq, userSeq from BoardFavo where userSeq = #{userSeq}")
+	Gorea_BEST5_LikeTO boardlikeCheck(Gorea_BEST5_LikeTO boardLike);
+	
+	@Select("select ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, cn.mainCategory, cn.subCategory from TrendSeoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc")
 	List<Gorea_TrendSeoul_ListTO> trendSeoul_List();
 	
 	@Select("SELECT ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, cn.mainCategory, cn.subCategory "
-	        + "FROM trendseoul ts "
+	        + "FROM TrendSeoul ts "
 	        + "JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo "
 	        + "WHERE ts.seoulLocGu LIKE CONCAT('%', #{locGu}, '%') "  // 변경된 부분
 	        + "AND cn.mainCategory LIKE CONCAT('%', #{mainCategory}, '%') "  // 변경된 부분
@@ -31,7 +39,7 @@ public interface Top5MapperInter {
 	                                                    @Param("mainCategory") String mainCategory, 
 	                                                    @Param("subCategory") String subCategory);
 	
-	@Select("select distinct seoulLocGu from trendseoul order by seoulSeq asc")
+	@Select("select distinct seoulLocGu from TrendSeoul order by seoulSeq asc")
 	List<Gorea_TrendSeoul_SearchTO> search_locGu();
 	
 	@Select("select distinct mainCategory from CategoryNo")
@@ -108,7 +116,7 @@ public interface Top5MapperInter {
     List<Gorea_BEST5_ListTO> best5_top5_boardList_NS(String nation);
     
     
-    @Update("update besttop5 set top5Hit=top5Hit+1 where top5Seq=#{top5Seq}")
+    @Update("update BestTop5 set top5Hit=top5Hit+1 where top5Seq=#{top5Seq}")
 	int TrendHit(Gorea_BEST5_ListTO to);
     
     @Select("SELECT bt.top5Seq, u.userNickname, u.userNation, bt.top5Hit, bt.top5postDate, bt.top5boardNo, " +

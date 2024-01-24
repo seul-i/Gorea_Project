@@ -14,12 +14,22 @@ import com.gorea.dto_board.Gorea_BEST5_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
+import com.gorea.dto_like.Gorea_BEST5_LikeTO;
 import com.gorea.mapper.Top5MapperInter;
 
 @Repository
 public class Gorea_Best5DAO {
 	
 	@Autowired Top5MapperInter mapper;
+	
+	public Gorea_BEST5_LikeTO boardlikeCheck(Gorea_BEST5_LikeTO boardLike) {
+		
+		Gorea_BEST5_LikeTO boardList = mapper.boardlikeCheck(boardLike);
+		
+		System.out.println(boardList);
+		
+		return boardList;
+	}
 	
 	// TrendSeoul 전체 데이터 출력
 	public List<Gorea_TrendSeoul_ListTO> trendSeoul_List() {
@@ -33,6 +43,7 @@ public class Gorea_Best5DAO {
 		}
 		return boardList;
 	}
+	
 	
 	// TrendSeoul 검색 데이터 출력
 	public List<Gorea_TrendSeoul_ListTO> trendSeoul_searchList(String locGu, String mainCategory, String subCategory) {
@@ -78,6 +89,19 @@ public class Gorea_Best5DAO {
 		int flag = 1;
 		
 		int result = mapper.besttop5_Write_Ok(to);
+		
+		if( result == 1 ) {
+			flag = 0;
+		}
+		
+		return flag;
+	}
+	
+	public int addToFavorites(Gorea_BEST5_LikeTO to) {
+		
+		int flag = 1;
+		
+		int result = mapper.addToFavorites(to);
 		
 		if( result == 1 ) {
 			flag = 0;

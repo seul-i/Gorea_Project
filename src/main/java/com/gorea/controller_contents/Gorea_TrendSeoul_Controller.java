@@ -32,6 +32,8 @@ import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
 import com.gorea.dto_board.Gorea_PagingTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
+import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
+import com.gorea.repository_contents.Gorea_Best5DAO;
 import com.gorea.repository_contents.Gorea_TrendSeoulDAO;
 import com.gorea.service_contents.Gorea_Content_ListTranslation;
 import com.gorea.service_contents.Gorea_Content_ViewTranslation;
@@ -49,6 +51,9 @@ public class Gorea_TrendSeoul_Controller {
 	
 	@Value("${geocoding.api.key}")
 	private String googlemap;
+	
+	@Autowired
+	private Gorea_Best5DAO dao5;
 
 	@Autowired
 	private Gorea_TrendSeoulDAO dao;
@@ -64,9 +69,10 @@ public class Gorea_TrendSeoul_Controller {
 	
 	@GetMapping("/{language}/trend_seoul.do")
 	public String trendList(@PathVariable String language, Model model,
+			@RequestParam(value = "searchType", required = false) String searchType,
+            @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
 			@RequestParam(defaultValue = "1") int cpage,
 	        @RequestParam(defaultValue = "8") int pageSize) {
-	    System.out.println("TrendSeoul list 호출 성공");
 
 	    // cpage가 0 이하이면 1로 설정
 	    cpage = (cpage <= 0) ? 1 : cpage;
@@ -83,24 +89,37 @@ public class Gorea_TrendSeoul_Controller {
 	    List<Gorea_TrendSeoul_ListTO> boardList = new ArrayList<Gorea_TrendSeoul_ListTO>();
 	    Gorea_PagingTO paging = new Gorea_PagingTO();
 	    
+	    List<Gorea_TrendSeoul_SearchTO> searchGu = new ArrayList<>();
+	    List<Gorea_TrendSeoul_SearchTO> searchmianCategroy = new ArrayList<>();
+	    
 	    if(language.equals("korean")) {
 	    	boardList = listTranslation.trendSeoul_List_KO(offset, pageSize);
+	    	searchGu = dao5.search_locGu();
+	    	searchmianCategroy = dao5.search_mainCategroy();
 	    	paging = createPagingModel(boardList, cpage);
 	    	
 	    }else if(language.equals("english")) {
-	    	boardList = listTranslation.trendSeoul_List_EN(offset, pageSize);				
+	    	boardList = listTranslation.trendSeoul_List_EN(offset, pageSize);	
+	    	searchGu = dao5.search_locGu();
+	    	searchmianCategroy = dao5.search_mainCategroy();
 	    	paging = createPagingModel(boardList, cpage);
 		    
 	    }else if(language.equals("japanese")) {
-	    	boardList = listTranslation.trendSeoul_List_JP(offset, pageSize);				
+	    	boardList = listTranslation.trendSeoul_List_JP(offset, pageSize);
+	    	searchGu = dao5.search_locGu();
+	    	searchmianCategroy = dao5.search_mainCategroy();
 	    	paging = createPagingModel(boardList, cpage);
 		    
 	    }else if(language.equals("chinese")) {
-	    	boardList = listTranslation.trendSeoul_List_CHN(offset, pageSize);				
+	    	boardList = listTranslation.trendSeoul_List_CHN(offset, pageSize);
+	    	searchGu = dao5.search_locGu();
+	    	searchmianCategroy = dao5.search_mainCategroy();
 	    	paging = createPagingModel(boardList, cpage);
 	    }
 	    
+	    model.addAttribute("seoulLocgu",searchGu);
 	    model.addAttribute("paging", paging);
+	    model.addAttribute("searchmianCategroy",searchmianCategroy);
 	    
 	    List<Integer> pageNumbers = new ArrayList<>();
 	    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {

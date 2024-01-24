@@ -2,84 +2,24 @@
     --pink:#e84393;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    text-transform: capitalize;
-    transition: .2s linear;
-
-}
-
-html {
-    font-size: 62.5%;
-    scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
-    overflow-x: hidden; 
-}
-
 .location {
-	width: 100%;
-	max-width: 1200px;
-	margin: 20px auto 0 auto;
-	padding: 10px 0px 20px 20px;
-	font-size: 17px;
-	color: #666;
-	box-sizing: border-box;
-	background-size: 21px auto;
-	margin-left: 20px;
-	/* margin-left 값을 조절하여 왼쪽으로 이동 */
+   padding: 10px 0px 20px 20px;
+   font-size: 17px;
+   color: #666;
+   box-sizing: border-box;
+   background-size: 21px auto;
+   margin-left: 5%;
+   /* margin-left 값을 조절하여 왼쪽으로 이동 */
 }
+
 
 span a {
 	font-weight: bold;
 	color: #333;
 }
 
-i {
-	color: #333;
-}
-
 .ar {
 	font-weight: bold;
-}
-
-.btn {
-	background-color: #007bff;
-	/* 배경색을 원하는 색상으로 설정하세요 */
-	color: #fff;
-	/* 텍스트 색상을 흰색 또는 원하는 색상으로 설정하세요 */
-	border: none;
-	border-radius: 4px;
-	padding: 10px 20px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-
-header {
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #fff;
-    padding: 2rem 9%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1000;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
-}
-
-header .logo {
-    font-size: 3rem;
-    color: #333;
-    font-weight: bolder;
-}
-
-header .logo span {
-    color: var(--pink);
 }
 
 .heading {
@@ -101,11 +41,8 @@ header .logo span {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-}
-
-.logo img {
-    width: 150px; /* 원하는 가로 크기로 조절 */
-    height: auto; /* 가로 크기에 맞게 세로 크기 조절 (비율 유지) */
+    margin-bottom: 40px;
+    justify-content: center;
 }
 
 .album-container .album {
@@ -116,13 +53,6 @@ header .logo span {
     position: relative;
     border: 1px solid #ddd;
     overflow: hidden;
-    margin-bottom: 1.5rem;
-}
-
-
-.album .title,
-.album .subtitle {
-    font-family: 'Noto Sans KR', sans-serif; /* 사용할 폰트 설정 */
 }
 
 .album .content .title-subtitle .title {
@@ -135,13 +65,15 @@ header .logo span {
 
 .album .content .title-subtitle .subtitle {
 	text-align: center;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: lighter;
     margin-bottom: 15px;
     overflow: hidden;
 }
 
 .album-container .album .image {
+	width: 100%;
+	height:230px;
     position: relative;
     text-align: center;
     overflow: hidden;
@@ -149,11 +81,11 @@ header .logo span {
 
 .album-container .album .image img {
     width: 100%;
-    height: 23rem;
+    height: 100%;
 }
 
 .album:hover{
-    transform: scale(0.9); /* 1보다 작은 값으로 조절 */
+    transform: scale(1.1); /* 1보다 작은 값으로 조절 */
     transition: transform 0.2s ease-in-out; /* 부드러운 애니메이션을 위한 트랜지션 추가 */
 }
 
@@ -237,60 +169,68 @@ header .logo span {
     }
 }
 
+.pagination-container {
+   flex-grow: 1;
+   /* 공간을 채우도록 함 */
+   text-align: center;
+   /* 내부 요소(페이징)를 중앙 정렬 */
+   margin-bottom: 20px;
+}
+
 .pagination {
-    margin-bottom: 20px;
-    text-align: center; /* 가운데 정렬 추가 */
-    margin-top: 20px; /* 상단 여백 추가 */
-    font-weight: bolder;
-  }
+   margin: 0;
+   /* 기존 마진 제거 */
+   display: inline-block;
+   text-align: center;
+   /* 가운데 정렬 추가 */
+   font-weight: bolder;
+   flex-grow: 1;
+   font-size: 14px;
+}
 
-  .pagination-item {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-  }
+.pagination-item {
+   margin: 0 5px;
+   padding: 5px 10px;
+   border-radius: 5px;
+   text-decoration: none;
+   color: #333;
+   font-weight: bold;
+}
 
-  .pagination-item.active {
-    background-color: #007bff;
-    color: #fff;
-  }
+.pagination-item.active {
+   background-color: #007bff;
+   color: #fff;
+}
 
-  .pagination-item.disabled {
-    color: #333;
-    cursor: pointer;
-  }
+.pagination-item.disabled {
+   color: #333;
+   cursor: pointer;
+   pointer-events: none;
+}
   
 .search_container {
-	padding: 10px;
-	/* 테두리와 내용 사이의 간격을 조정하세요 */
-	text-align: right;
+   padding: 10px 0px 10px 10px;
+   /* 테두리와 내용 사이의 간격을 조정하세요 */
+   text-align: right;
+   margin-right: 5%;
 }
 
 .search_container form {
-	border: none;
-	/* form 요소에는 테두리를 없애줍니다 */
+   border: none;
+   /* form 요소에는 테두리를 없애줍니다 */
 }
 
 .search_container select,
 .search_container input[type="submit"] {
-	border: 1px solid #000;
-	/* 텍스트 입력 필드와 버튼에 테두리를 추가합니다 */
-	padding: 5px;
-	/* 텍스트 입력 필드와 버튼 내부의 간격을 조정하세요 */
+   border: 1px solid #000;
+   /* 텍스트 입력 필드와 버튼에 테두리를 추가합니다 */
+   padding: 5px;
+   /* 텍스트 입력 필드와 버튼 내부의 간격을 조정하세요 */
 }
 
 .search_container input[type="text"] {
-	border: none;
-	/* 기존의 테두리를 없애줍니다 */
-	padding: 5px;
-	/* 내부의 간격을 조정하세요 */
+   border-bottom: 1px solid #d3d3d3;
 }
-
-
 
 .search_container input[type="text"],
 .search_container input[type="submit"],
@@ -307,18 +247,123 @@ header .logo span {
 }
 
 .write_button_container {
-    text-align: right;  
+    text-align: right;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .write_button {
-    padding: 6px 14px;
+    padding: 10px 20px;
     border: none;
-    margin-right: 10%;
+    margin-top: 10px;
     margin-bottom: 10px;
     cursor: pointer;
     border-radius: 2px;
     background-color: #42424a;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 0.9rem;
     color: aliceblue;
+    margin-right: 5%;
+}
+
+@media only screen and (max-width: 767px) {
+   .pagination {
+      text-align: center;
+      margin: 10px 0;
+   }
+
+   .pagination-item {
+      margin: 0 3px;
+      padding: 3px 8px;
+      font-size: 12px;
+   }
+   
+   .album {
+    max-width: 500px;
+    height: 150px;
+    }
+   
+   .album .image{
+    width: 150px;
+    height: 150px;
+	}
+	
+	.location {
+    margin-left: 2%;
+	}
+	
+	.search_container {
+    margin-right: 2%;
+	}
+	
+	.write_button {
+    margin-right: 2%;
+	}
+
+}
+
+.commonBanner-text h1 {
+    font-size: 45px !important;
+    font-weight: 800;
+    margin-left: 180px;
+}
+
+.noData{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #c5c5c5;
+}
+
+@media only screen and (min-width: 1025px) {
+	.search_container form {
+      position: relative;
+      top: 0;
+      left: 0;
+      margin-top: 15px;
+      margin-bottom: 15px;
+   }
+
+
+   .pagination {
+      margin-bottom: 20px;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bolder;
+   }
+
+   .pagination-item {
+      margin: 0 5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+   }
+
+   .pagination-item.active {
+      background-color: #007bff;
+      color: #fff;
+   }
+
+   .pagination-item.disabled {
+      color: #333;
+      cursor: pointer;
+   }
+}
+
+@media only screen and (max-width: 1024px) {
+	
+	.commonBanner-text h1 {
+    font-size: 25px !important;
+    font-weight: 800;
+    margin-left: 180px;
+	}
+}
+
+@media only screen and (max-width: 600px)
+.search_container input[type="text"] {
+    width: 130px;
 }

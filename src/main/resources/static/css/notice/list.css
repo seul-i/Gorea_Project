@@ -1,7 +1,7 @@
 * {
-            margin: 0;
-            padding: 0;
-        }
+	margin: 0;
+	padding: 0;
+}
 
         ul, li {
             list-style: none;
@@ -13,11 +13,10 @@
         }
 
         .board_wrap {
-            width: 60%;
+            max-width: 60%;
             margin: 0 auto; 
-            margin-top: 50px;
-            margin-bottom: 50px;
-            font-size: 10px;
+            margin: 10px auto 20px auto;
+            font-size: 14px;
         }
 
         .board_title {
@@ -62,6 +61,7 @@
         .board_list {
             width: 100%;
             border-top: 2px solid #000;
+            margin-bottom: 20px;
         }
 
         .board_list > div {
@@ -147,12 +147,6 @@
         }
 
         @media (max-width: 1000px) {
-            .board_wrap {
-                width: 80%;
-                min-width: 320px;
-                padding: 0 30px;
-                box-sizing: border-box;
-            }
 
             .board_list .num,
             .board_list .writer {
@@ -183,11 +177,14 @@
             .board_page a.num {
                 padding-top: 6px;
             }
-	.board_title strong {
-    	font-size: 1.0rem;
-	}
-        }
-        .write_button_container {
+}
+
+.writeBtnBox{
+	float:right; 
+	width:100%;
+}
+        
+.write_button_container {
     text-align: right;
      margin-left: auto;
 }
@@ -195,11 +192,12 @@
 .write_button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007DC3;
+    background-color: #42424a;
     color: white;
     text-decoration: none;
     font-size: 0.9rem;
     transition: background-color 0.3s;
+    cursor: pointer;
 }
 
 /* 검색 컨테이너 스타일 */
@@ -220,10 +218,16 @@
     padding: 5px 10px;
     margin: 2px;
 }
+.search_container select {
+	border: 1px solid #000;
+}
 
+.search_container input[type="text"]{
+	border-bottom: 1px solid #d3d3d3
+}
 /* 검색 버튼 특별 스타일 */
 .search_container input[type="submit"] {
-    background-color: #007DC3;
+    background-color: #42424a;
     color: white;
     border: none;
     cursor: pointer;
@@ -251,16 +255,16 @@
 
 .pagination {
 	margin: 0; /* 기존 마진 제거 */
-	 display: inline-block;
+	display: inline-block;
     text-align: center; /* 가운데 정렬 추가 */
     font-weight: bolder;
-     flex-grow: 1;
+	flex-grow: 1;
+	margin-bottom: 15px;
   }
 
   .pagination-item {
     margin: 0 5px;
     padding: 5px 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
     text-decoration: none;
     color: #333;
@@ -277,3 +281,26 @@
     cursor: pointer;
     pointer-events: none;
   }
+  
+  
+@media only screen and (max-width: 1024px) {
+	
+	.pagination {
+		margin: 0; /* 기존 마진 제거 */
+		display: inline-block;
+    	text-align: center; /* 가운데 정렬 추가 */
+    	font-weight: bolder;
+		flex-grow: 1;
+		margin-bottom:20px;
+  	}
+  	
+  	.writeBtnBox{
+		float:right; 
+		width:100%;
+		margin-bottom: 20px;
+	}
+	
+	.board_wrap{
+		max-width: 95%;
+	}
+}

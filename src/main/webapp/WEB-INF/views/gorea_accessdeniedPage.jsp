@@ -7,7 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	body{
+	html, body {
+		margin: 0;
+		height: 100%;
 		font-family:"montserrat",sans-serif;
 		overflow: hidden;
 	}
@@ -40,29 +42,26 @@
 		text-decoration: none;
 		background: #007DC3;
 		color: #fff;
-		padding: 12px 24px;
+		padding: 12px 30px;
 		display: inline-block;
 		border-radius: 25px;
 		font-size: 14px;
 	}
 	
-	footer{
-		display:none;
-	}
-	
 </style>
 </head>
 <body>
-<div class="container_error">
-	<br/>
-	<h1>ERROR</h1>
-	<h4>해당 페이지를 찾을수 없거나, 잘못된 요청의 접근 입니다</h4>
-	<h4>The record for finding the page is an invalid request for access.</h4>
-	<h4>このページが見つからないか、間違ったリクエストへのアクセスです</h4>
-	<h4>无法找到此页面或访问错误请求 。</h4>
-	<a href="/intro.do">Go IntroPage</a>
-	<a href="javascript:history.back();">Go BackPage</a>
+<div style="width:100%; height:100%; display:flex; align-items: center;">
+	<div class="container_error">
+		<br/>
+		<h1>ERROR</h1>
+		<h4>해당 페이지를 찾을수 없거나, 잘못된 요청의 접근 입니다</h4>
+		<h4>The record for finding the page is an invalid request for access.</h4>
+		<h4>このページが見つからないか、間違ったリクエストへのアクセスです</h4>
+		<h4>无法找到此页面或访问错误请求 。</h4>
+		<a href="/intro.do">Go IntroPage</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="javascript:history.back();">Go BackPage</a>
+	</div>
 </div>
-<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 </body>
 </html>
