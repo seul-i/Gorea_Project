@@ -1,4 +1,4 @@
-package com.gorea.service_contents;
+package com.gorea.service_trans_userrecommend;
 
 import java.util.List;
 
@@ -9,13 +9,13 @@ import com.gorea.dto_board.Gorea_Recommend_BoardTO;
 import com.gorea.repository_contents.Gorea_RecommendDAO;
 
 @Service
-public class Gorea_Content_ListUserRecommend implements Gorea_Content_ListTranslationG {
+public class Gorea_Translate_UserRecommend_List_service implements Gorea_Translate_UserRecom_List_interface {
 	
 	@Autowired
 	private Gorea_RecommendDAO gorea_UserRecomDAO;
 	
 	@Autowired
-	private  Gorea_UserRecommend_ListTranslation translation;
+	private  Gorea_Translate_UserRecommend_List translation;
 	
 	@Override
 	public List<Gorea_Recommend_BoardTO> userRecommend_List_KO(int offset, int pageSize){

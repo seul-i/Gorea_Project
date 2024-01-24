@@ -10,13 +10,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +25,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gorea.dto_board.Gorea_PagingTO;
 import com.gorea.dto_board.Gorea_Recommend_BoardTO;
 import com.gorea.repository_contents.Gorea_RecommendDAO;
-import com.gorea.service_contents.Gorea_Content_ListTranslationG;
-import com.gorea.service_contents.Gorea_Content_ViewTranslationG;
+import com.gorea.service_trans_userrecommend.Gorea_Translate_UserRecom_List_interface;
+import com.gorea.service_trans_userrecommend.Gorea_Translate_UserRecom_View_interface;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,10 +48,10 @@ public class Gorea_Recommend_Controller {
     private String uploadDir;
 	
 	@Autowired
-	private Gorea_Content_ListTranslationG listTranslation;
+	private Gorea_Translate_UserRecom_List_interface listTranslation;
 	
 	@Autowired 
-	private Gorea_Content_ViewTranslationG viewTranslation;
+	private Gorea_Translate_UserRecom_View_interface viewTranslation;
 	
 	@GetMapping("/{language}/userRecom.do")
 	public String list( @PathVariable String language,
@@ -75,6 +76,14 @@ public class Gorea_Recommend_Controller {
 			List<Gorea_Recommend_BoardTO> boardList = listTranslation.userRecommend_List_KO(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList, cpage);
 			
+			if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+	    		boardList = dao.searchUserRecom(searchType, searchKeyword, offset, pageSize);
+	    		totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+	    	} else {
+	    		boardList = dao.userRecom_list(offset, pageSize);
+	    		totalRowCount = dao.getTotalRowCount();
+	    	}
+			
 			model.addAttribute( "lists", boardList );
 			model.addAttribute( "paging", paging );
 			
@@ -88,6 +97,14 @@ public class Gorea_Recommend_Controller {
 		} else if( language.equals("english") ) {
 			List<Gorea_Recommend_BoardTO> boardList_en = listTranslation.userRecommend_List_EN(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList_en, cpage);
+			
+			if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+				boardList_en = dao.searchUserRecom(searchType, searchKeyword, offset, pageSize);
+		        totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+		    } else {
+		    	boardList_en = dao.userRecom_list(offset, pageSize);
+		        totalRowCount = dao.getTotalRowCount();
+		    }
 			
 			model.addAttribute( "lists", boardList_en );
 			model.addAttribute( "paging", paging );
@@ -103,6 +120,14 @@ public class Gorea_Recommend_Controller {
 			List<Gorea_Recommend_BoardTO> boardList_jp = listTranslation.userRecommend_List_JP(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList_jp, cpage);
 			
+			if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+				boardList_jp = dao.searchUserRecom(searchType, searchKeyword, offset, pageSize);
+		        totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+		    } else {
+		    	boardList_jp = dao.userRecom_list(offset, pageSize);
+		        totalRowCount = dao.getTotalRowCount();
+		    }
+			
 			model.addAttribute( "lists", boardList_jp );
 			model.addAttribute( "paging", paging );
 			
@@ -116,6 +141,14 @@ public class Gorea_Recommend_Controller {
 		} else if( language.equals("chinese") ) {
 			List<Gorea_Recommend_BoardTO> boardList_chn = listTranslation.userRecommend_List_CHN(offset, pageSize);
 			Gorea_PagingTO paging = createPagingModel(boardList_chn, cpage);
+			
+			if (searchType != null && searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+				boardList_chn = dao.searchUserRecom(searchType, searchKeyword, offset, pageSize);
+		        totalRowCount = dao.getSearchTotalRowCount(searchType, searchKeyword);
+		    } else {
+		    	boardList_chn = dao.userRecom_list(offset, pageSize);
+		        totalRowCount = dao.getTotalRowCount();
+		    }
 			
 			model.addAttribute( "lists", boardList_chn );
 			model.addAttribute( "paging", paging );
@@ -132,6 +165,24 @@ public class Gorea_Recommend_Controller {
 		
 		return "contents/contents_user_recommend/userRecommend_List";
 	}
+	
+	//paging
+		private Gorea_PagingTO createPagingModel(List<Gorea_Recommend_BoardTO> boardList, int cpage) {
+		Gorea_PagingTO paging = new Gorea_PagingTO();
+		    
+		paging.setBoardList1( boardList != null ? boardList : new ArrayList<>());
+		paging.setTotalRecord(dao.getTotalRowCount());
+		paging.setCpage(cpage);  // 추가: cpage 값을 설정
+
+		// 수정: pageSetting 호출 전에 cpage 값을 확인하고 필요하다면 수정
+		if (cpage > paging.getTotalPage()) {
+		    cpage = paging.getTotalPage();
+		}
+
+		paging.pageSetting();
+		    
+		return paging;
+		}
 	
 	
 	//write
@@ -167,7 +218,7 @@ public class Gorea_Recommend_Controller {
 		
 		model.addAttribute("language", language);
 		model.addAttribute( "flag", flag );
-		System.out.println( "language : " + language );
+		//System.out.println( "language : " + language );
 		
 		return "contents/contents_user_recommend/userRecommend_Write_Ok";
 	}
@@ -192,6 +243,7 @@ public class Gorea_Recommend_Controller {
 		Gorea_Recommend_BoardTO prevPost = dao.getPreviousPost(userRecomSeq);
 		Gorea_Recommend_BoardTO nextPost = dao.getNextPost(userRecomSeq);
 		System.out.println( "view controller에서 : " + request.getParameter( "seq" ) );
+		System.out.println( Integer.toString(userRecomSeq) );
 		
 		if( language.equals("korean")) {
 			to = dao.userRecom_view(to);
@@ -231,27 +283,52 @@ public class Gorea_Recommend_Controller {
 	}
 	
 	
-	@RequestMapping( "/korean/userRecom_delete_ok.do" )
+	/*
+	 * @PostMapping("/increaseLikesUserRecommend")
+	 * 
+	 * @ResponseBody public ResponseEntity<?> increaseLikes(@RequestParam("seq")
+	 * String userRecomSeq) { try { dao.increaseLikesUserRecommend(userRecomSeq);
+	 * 
+	 * // 새로운 Gorea_Recommend_BoardTO 객체를 생성하고 userRecomSeq를 설정
+	 * Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
+	 * to.setUserRecomSeq(userRecomSeq);
+	 * 
+	 * // 업데이트된 데이터를 가져옴 Gorea_Recommend_BoardTO updatedTo = dao.userRecom_view(to);
+	 * 
+	 * // 새로운 추천 수를 반환 return ResponseEntity.ok(updatedTo.getUserRecomcount()); }
+	 * catch (Exception e) { e.printStackTrace(); return
+	 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred"
+	 * ); } }
+	 */
+	
+	
+	@RequestMapping( "/{language}/userRecom_delete_ok.do" )
 	public String deleteOk( HttpServletRequest request , Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
 		
-		to.setUserRecomSeq( request.getParameter( "seq" ) );
+		to.setUserRecomSeq( request.getParameter( "userRecomSeq" ) );
 		
-		System.out.println( "deleteOk : " + request.getParameter( "seq" ));
+		System.out.println( "seq : " + request.getParameter( "userRecomSeq" ) );
 		
 		int flag = dao.userRecom_deleteOk(to);
 		
 		model.addAttribute("flag", flag);
+		
+		System.out.println( "flag : " + flag );
 		
 		return "contents/contents_user_recommend/userRecommend_Delete_Ok";
 	}
 	
 	
 	@RequestMapping( "/{language}/userRecom_modify.do" )
-	public String modify(@PathVariable String language, HttpServletRequest request, Model model ) {
+	public String modify(@PathVariable String language, HttpServletRequest request, @RequestParam(value = "cpage", required = false) String cpage,
+            @RequestParam(value = "searchType", required = false) String searchType,
+            @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model ) {
 		Gorea_Recommend_BoardTO to = new Gorea_Recommend_BoardTO();
 		
 		to.setUserRecomSeq( request.getParameter("seq") );
+		
+		//System.out.println( "1 : " + request.getParameter( "seq" ) );
 		
 		//System.out.println( "modifyseq : " + to.getUserRecomSeq() );
 		
@@ -266,7 +343,12 @@ public class Gorea_Recommend_Controller {
 	      }
 		
 		model.addAttribute( "to" , to );
-		model.addAttribute( "seq", to.getUserRecomSeq() );
+		//model.addAttribute( "seq", request.getParameter("userRecomSeq") );
+		model.addAttribute( "seq", request.getParameter("seq") );
+		
+		model.addAttribute("cpage", cpage);
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
 		
 		return "contents/contents_user_recommend/userRecommend_Modify";
 	}
@@ -313,28 +395,8 @@ public class Gorea_Recommend_Controller {
 	}
 	
 	
-	//paging
-	private Gorea_PagingTO createPagingModel(List<Gorea_Recommend_BoardTO> boardList, int cpage) {
-	    Gorea_PagingTO paging = new Gorea_PagingTO();
-	    
-	    paging.setBoardList1( boardList != null ? boardList : new ArrayList<>());
-	    paging.setTotalRecord(dao.getTotalRowCount());
-	    paging.setCpage(cpage);  // 추가: cpage 값을 설정
-
-	    // 수정: pageSetting 호출 전에 cpage 값을 확인하고 필요하다면 수정
-	    if (cpage > paging.getTotalPage()) {
-	        cpage = paging.getTotalPage();
-	    }
-
-	    paging.pageSetting();
-	    
-	    return paging;
-	}
-		
-	
-	
 	// 이미지 업로드
-    @RequestMapping(value = "/UserRecom/imageUpload", method = RequestMethod.POST)
+    @RequestMapping(value = "UserRecom/imageUpload", method = RequestMethod.POST)
     public void imageUploadForUserRecom(HttpServletRequest request, HttpServletResponse response, @RequestParam("upload") MultipartFile upload) {
         try {
             if (upload != null && !upload.isEmpty() && upload.getContentType().toLowerCase().startsWith("image/")) {
@@ -403,25 +465,6 @@ public class Gorea_Recommend_Controller {
             e.printStackTrace();
         }
     }
-    
- // list에서 content 첫번째 이미지 썸네일
- 	private String extractFirstImageUrl(String content) {
-// 	    System.out.println("Content: " + content); // 콘텐츠 출력
-
- 	    String imageUrl = "";
- 	    Pattern pattern = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
- 	    Matcher matcher = pattern.matcher(content);
- 	    if (matcher.find()) {
- 	        imageUrl = matcher.group(1);
-// 	        System.out.println("Extracted Image URL: " + imageUrl); // 추출된 이미지 URL 출력
-
- 	        // URL에서 필요한 부분 추출 및 조정
- 	        imageUrl = imageUrl.replace("/ckImgSubmitForUserRecom?uid=", "").replace("&amp;fileName=", "_");
-// 	        System.out.println("Formatted Image URL: " + imageUrl); // 조정된 이미지 URL 출력
- 	    } else {
- 	        System.out.println("No image found"); // 이미지를 찾지 못한 경우
- 	    }
- 	    return imageUrl;
- 	}
+ 
     
 }

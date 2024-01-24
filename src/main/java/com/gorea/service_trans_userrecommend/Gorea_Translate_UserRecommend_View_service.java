@@ -1,4 +1,4 @@
-package com.gorea.service_contents;
+package com.gorea.service_trans_userrecommend;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,13 +7,13 @@ import com.gorea.dto_board.Gorea_Recommend_BoardTO;
 import com.gorea.repository_contents.Gorea_RecommendDAO;
 
 @Service
-public class Gorea_Content_ViewUserRecommend implements Gorea_Content_ViewTranslationG {
+public class Gorea_Translate_UserRecommend_View_service implements Gorea_Translate_UserRecom_View_interface {
 
 	@Autowired
 	private Gorea_RecommendDAO gorea_UserRecomDAO;
 	
 	@Autowired
-	private Gorea_UserRecommend_ViewTranslation translation;
+	private Gorea_Translate_UserRecommend_View translation;
 	
 	@Override
 	public Gorea_Recommend_BoardTO userRecommend_View_EN(Gorea_Recommend_BoardTO to) {
