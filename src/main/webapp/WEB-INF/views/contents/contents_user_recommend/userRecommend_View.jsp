@@ -771,19 +771,19 @@
 				     </c:when>
 				     <c:when test="${language eq 'english' }">
 				        <div class="comment-form" style="display: flex;">
-				            <textarea id="replyContent" style="resize: none;" placeholder="Please write reply"></textarea>
+				            <textarea id="replyContent" style="resize: none;" placeholder="Please write reply..."></textarea>
 				            <button class="btn" id="replyWrite">Write</button>
 				        </div>
 				     </c:when>
 				     <c:when test="${language eq 'japanese' }">
 				        <div class="comment-form" style="display: flex;">
-				            <textarea id="replyContent" style="resize: none;" placeholder="コメントを入力してください"></textarea>
+				            <textarea id="replyContent" style="resize: none;" placeholder="コメントを入力してください..."></textarea>
 				            <button class="btn" id="replyWrite">書く</button>
 				        </div>
 				     </c:when>
 				     <c:when test="${language eq 'chinese' }">
 				        <div class="comment-form" style="display: flex;">
-				            <textarea id="replyContent" style="resize: none;" placeholder="请输入您的评论"></textarea>
+				            <textarea id="replyContent" style="resize: none;" placeholder="请输入您的评论..."></textarea>
 				            <button class="btn" id="replyWrite">写</button>
 				        </div>
 				     </c:when>

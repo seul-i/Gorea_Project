@@ -177,10 +177,9 @@
 	    background-color: #007DC3;
 	    color: white;
 	    text-decoration: none;
-	    font-size: 1rem;
+	    font-size: 0.9rem;
 	    transition: background-color 0.3s;
 	    border-radius: 8px;
-	    height: 40px;
 	}
 	
 	.search_container {
