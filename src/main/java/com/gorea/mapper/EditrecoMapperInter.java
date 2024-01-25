@@ -52,27 +52,27 @@ public interface EditrecoMapperInter {
 	
 	// ReplyList
 	@Select("SELECT er.editrecoSeq, er.editrecoCmtSeq, er.userSeq, er.editrecoCmtContent, DATE_FORMAT(er.editrecoCmtWdate, '%Y.%m.%d') AS editrecoCmtWdate, u.userNickname AS userNickname, u.userNation AS userNation " +
-	        "FROM editrecommendreply er " +
-	        "JOIN user u ON er.userSeq = u.userSeq " +
+	        "FROM editrecommendReply er " +
+	        "JOIN User u ON er.userSeq = u.userSeq " +
 	        "WHERE er.editrecoSeq=#{editrecoSeq} " +
 	        "ORDER BY er.editrecoCmtSeq DESC")
 	List<Gorea_EditRecommend_ReplyTO> editReply_List(String editrecoSeq);
 
 		
 	// ReplyWrite_Ok
-	@Insert("insert into editrecommendreply values (#{editrecoSeq}, 0, #{userSeq},  #{editrecoCmtContent}, now() )")
+	@Insert("insert into editrecommendReply values (#{editrecoSeq}, 0, #{userSeq},  #{editrecoCmtContent}, now() )")
 	int EditRecommend_Reply(Gorea_EditRecommend_ReplyTO rto);
 		
 	// ReplyModify
-	@Select("SELECT editrecoCmtSeq, userSeq, editrecoCmtContent FROM editrecommendreply WHERE editrecoCmtSeq = #{editrecoCmtSeq} AND userSeq = #{userSeq}")
+	@Select("SELECT editrecoCmtSeq, userSeq, editrecoCmtContent FROM editrecommendReply WHERE editrecoCmtSeq = #{editrecoCmtSeq} AND userSeq = #{userSeq}")
 	Gorea_EditRecommend_ReplyTO ReplyModify(Gorea_EditRecommend_ReplyTO rto);
 
 	// ReplyModify_Ok
-	@Update("update editrecommendreply set editrecoCmtContent=#{editrecoCmtContent} where editrecoCmtSeq=#{editrecoCmtSeq}")
+	@Update("update editrecommendReply set editrecoCmtContent=#{editrecoCmtContent} where editrecoCmtSeq=#{editrecoCmtSeq}")
 	int ReplyModify_Ok(Gorea_EditRecommend_ReplyTO rto);
 		
 	// ReplyDelete
-	@Delete("delete from editrecommendreply where editrecoCmtSeq=#{editrecoCmtSeq}")
+	@Delete("delete from editrecommendReply where editrecoCmtSeq=#{editrecoCmtSeq}")
 	int ReplyDelete(String editrecoCmtSeq);
 	
 	

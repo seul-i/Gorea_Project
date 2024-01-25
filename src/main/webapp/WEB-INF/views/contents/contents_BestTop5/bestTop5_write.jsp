@@ -31,7 +31,7 @@
 		<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 		
 		<div class="commonBanner" id="comBanner">
-	        <img src="/img/banner/Top5banner2.jpg" alt="banner">
+	        <img src="/img/banner/top5banner2.jpg" alt="banner">
 	        <div class="commonBanner-text">
 	            <h1>Best Top5</h1>
 	        </div>
