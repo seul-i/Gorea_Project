@@ -203,6 +203,14 @@
 					                                <c:when test="${language eq 'chinese'}">自由板</c:when>
 			                           	 		</c:choose>
 		                                    </c:when>
+		                                    <c:when test="${reply.boardType eq '여행자 추천'}">
+					                            <c:choose>
+					                                <c:when test="${language eq 'korean'}">여행자 추천</c:when>
+					                                <c:when test="${language eq 'english'}">Traveler Recommend</c:when>
+					                                <c:when test="${language eq 'japanese'}">旅行者のおすすめ</c:when>
+					                                <c:when test="${language eq 'chinese'}">旅行者推荐</c:when>
+					                            </c:choose>
+					                        </c:when>
 		                                </c:choose>
 		                                
 		                                
@@ -218,9 +226,13 @@
 		                                    <c:when test="${reply.boardType eq '트렌드 서울'}">
 		                                        <a href="/${language}/trend_view.do?seoulSeq=${reply.boardID}">${reply.comment}</a>
 		                                    </c:when>
+		                                    <c:when test="${reply.boardType eq '여행자 추천'}">
+		                                        <a href="/${language}/userRecom_view.do?userRecomSeq=${reply.boardID}">${reply.comment}</a>
+		                                    </c:when>
 		                                    <c:when test="${reply.boardType eq '자유게시판'}">
 		                                        <a href="/${language}/freeboard_view.do?editrecoSeq=${reply.boardID}">${reply.comment}</a>
 		                                    </c:when>
+		                                    
 		                                </c:choose>
 		                            </td>
 		                            <td>${reply.postDate}</td>

@@ -3,6 +3,7 @@ package com.gorea.dto_board;
 import java.util.List;
 
 import com.gorea.dto.mypage.Gorea_BoardListTO;
+import com.gorea.dto_user.Gorea_UserTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +29,9 @@ public class Gorea_CumuPagingTO {
     private List<Gorea_QnA_BoardTO> qna;
     private List<Gorea_BoardListTO> mypageBoardList;
     private List<Gorea_BoardListTO> mypageReplyList;
+    private List<Gorea_TrendSeoul_ListTO> adminTrendList;
+    private List<Gorea_UserTO> userList;
+    private List<Gorea_EditRecommend_BoardTO> editRecoList;
 
     /**
      * 페이지 설정 메소드

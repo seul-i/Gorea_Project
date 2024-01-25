@@ -1,5 +1,8 @@
 package com.gorea.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -43,8 +46,61 @@ public interface UserMapper {
 				"FROM User " +
 				"WHERE username = #{username}")
 	Gorea_UserTO login(String username);
+	
+	// 회원 리스트
+	@Select("SELECT userSeq, username, userLastname, userFirstname, userNickname, userMail, userNation, date_format(userJoindate, '%Y.%m.%d') userJoindate FROM User")
+	List<Gorea_UserTO> userList(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
+	
+	@Select("<script>"
+	        + "SELECT userSeq, username, userLastname, userFirstname, userNickname, userMail, userNation, date_format(userJoindate, '%Y.%m.%d') userJoindate "
+	        + "FROM User "
+	        + "<where>"
+	        + "  <if test='searchType != null and searchKeyword != null'>"
+	        + "    <choose>"
+	        + "      <when test='searchType.equals(\"username\")'>"
+	        + "        AND username LIKE CONCAT('%', #{searchKeyword}, '%')"
+	        + "      </when>"
+	        + "      <when test='searchType.equals(\"userFirstname\")'>"
+	        + "        AND userFirstname LIKE CONCAT('%', #{searchKeyword}, '%')"
+	        + "      </when>"
+	        + "      <when test='searchType.equals(\"userNickname\")'>"
+	        + "        AND userNickname LIKE CONCAT('%', #{searchKeyword}, '%')"
+	        + "      </when>"
+	        + "    </choose>"
+	        + "  </if>"
+	        + "</where>"
+	        + "LIMIT #{firstRow}, #{pageSize}"
+	        + "</script>")
+	List<Gorea_UserTO> searchUserList(@Param("searchType") String searchType, @Param("searchKeyword") String searchKeyword, @Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 
+	@Select("<script>"
+	        + "SELECT COUNT(*) "
+	        + "FROM User "
+	        + "<where>"
+	        + "  <if test='searchType != null and searchKeyword != null'>"
+	        + "    <choose>"
+	        + "      <when test='searchType.equals(\"username\")'>"
+	        + "        AND username LIKE CONCAT('%', #{searchKeyword}, '%')"
+	        + "      </when>"
+	        + "      <when test='searchType.equals(\"userFirstname\")'>"
+	        + "        AND userFirstname LIKE CONCAT('%', #{searchKeyword}, '%')"
+	        + "      </when>"
+	        + "      <when test='searchType.equals(\"userNickname\")'>"
+	        + "        AND userNickname LIKE CONCAT('%', #{searchKeyword}, '%')"
+	        + "      </when>"
+	        + "    </choose>"
+	        + "  </if>"
+	        + "</where>"
+	        + "</script>")
+	int countSearchUser(@Param("searchType") String searchType, @Param("searchKeyword") String searchKeyword);
+
+	 @Select("SELECT COUNT(*) FROM User")
+	 int getUserTotalCount();
+	 
+	 @Delete("DELETE FROM User WHERE userSeq = #{userSeq}")
+	 int userDelete(Gorea_UserTO uto);
 }
+
 
 
 //@Insert("INSERT INTO BM_USER (USERNAME, PASSWORD, EMAIL, NICKNAME, PHONE) " +
