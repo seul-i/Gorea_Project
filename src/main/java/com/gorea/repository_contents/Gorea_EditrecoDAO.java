@@ -135,5 +135,13 @@ public class Gorea_EditrecoDAO {
 	      return imageUrl;
 	   }
 	
+	public Gorea_EditRecommend_BoardTO getPreviousPost(int editrecoSeq) {
+	    return mapper.getPreviousPost(editrecoSeq);
+	}
+
+	public Gorea_EditRecommend_BoardTO getNextPost(int editrecoSeq) {
+	    return mapper.getNextPost(editrecoSeq);
+	}
+	
 }
 
