@@ -6,7 +6,7 @@ img{
 
 html, body {
     height: 100%;
-    font-family: 'Gowun Dodum', sans-serif;	
+    font-family: 'Gowun Dodum', sans-serif;   
 }
 
 form{
@@ -14,7 +14,7 @@ form{
 }
 
 .login_logo{
-	width:150px;	
+   width:150px;   
 }
 
 .login {
@@ -159,7 +159,7 @@ element.style {
 }
 
 .bot_link a {
-	font-size: 18px;
+   font-size: 18px;
 }
 
 .bot_link2 {
@@ -199,11 +199,11 @@ label {
 }
 
 @media screen and (max-width: 375px) {
-	
-	.findid{
-		font-size: 15px;
-	}
-	
+   
+   .findid{
+      font-size: 15px;
+   }
+   
     .login_box .right {
         display: none;
     }
@@ -217,44 +217,47 @@ label {
     .submit {
     width: 50px;
     font-size: 12px;
+    }
 }
 
 @media screen and (max-width: 414px) {
-	width: 70px;
-    font-size: 13px;
+	.submit{
+ 	  width: 70px;
+   	  font-size: 13px;
+   	}
 }
 
 @media screen and (max-height: 768px){
-	.login_logo, .goMain{
-		width:120px;
-		
-	}
-	
-	.left .contact{
-	  	display: flex;
-	    align-items: center;
-	    justify-content: center;
-	    align-self: center;
-	    height: 100%;
-	    width: 100%;
-	    margin: auto;
-	    margin-top: 30px;
-	}
+   .login_logo, .goMain{
+      width:120px;
+      
+   }
+   
+   .left .contact{
+        display: flex;
+       align-items: center;
+       justify-content: center;
+       align-self: center;
+       height: 100%;
+       width: 100%;
+       margin: auto;
+       margin-top: 30px;
+   }
 }
 
 @media screen and (max-height: 667px){
-	.login_logo, .goMain{
-		width:120px;
-	}
-	
-	.left .contact{
-	  	display: flex;
-	    align-items: center;
-	    justify-content: center;
-	    align-self: center;
-	    height: 85%;
-	    width: 100%;
-	    margin: auto;
-	    margin-top: 30px;
-	}
+   .login_logo, .goMain{
+      width:120px;
+   }
+   
+   .left .contact{
+        display: flex;
+       align-items: center;
+       justify-content: center;
+       align-self: center;
+       height: 85%;
+       width: 100%;
+       margin: auto;
+       margin-top: 30px;
+   }
 }
