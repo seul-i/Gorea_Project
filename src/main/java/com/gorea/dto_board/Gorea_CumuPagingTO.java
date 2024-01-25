@@ -25,6 +25,7 @@ public class Gorea_CumuPagingTO {
     
     private List<Gorea_Free_BoardTO> freeboard;
     private List<Gorea_Notice_BoardTO> notice;
+    private List<Gorea_QnA_BoardTO> qna;
     private List<Gorea_BoardListTO> mypageBoardList;
     private List<Gorea_BoardListTO> mypageReplyList;
 

@@ -10,7 +10,7 @@
     <title>GO!REA ADMIN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/admin/admin.css">
-    <link rel="stylesheet" type="text/css" href="/css/notice/modify.css">
+    <link rel="stylesheet" type="text/css" href="/css/qna/modify.css">
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
 <body>
@@ -73,20 +73,32 @@
             <div class="tith2">
                 <h2>공지사항 수정</h2>
             </div>
-            <form action="./adminnotice_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
+            <form action="./adminqna_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
                 <c:set var="to" value="${requestScope.to}" />
-                <input type="hidden" name="noticeSeq" value="${param.noticeSeq}" /> 
+                <input type="hidden" name="qnaSeq" value="${param.qnaSeq}" /> 
                 <input type="hidden" name="cpage" value="${cpage}" /> 
                 <input type="hidden" name="searchType" value="${searchType}" /> 
                 <input type="hidden" name="searchKeyword" value="${searchKeyword}" />
                 <div class="form-group">
+                         <div class="stits">
+                             <p>문의유형</p>
+                         </div>
+                <select class="form-control" name="qnaCategory" style="border: 1px solid #ccc">
+                    <option value="컨텐츠">컨텐츠</option>
+                    <option value="회원">회원</option>
+                    <option value="사이트이용">사이트이용</option>
+                    <option value="게시판">게시판</option>
+                    <option value="기타">기타</option>
+                </select>
+            </div>
+                <div class="form-group">
                     <div class="stits">
                         <p>제목</p>
                     </div>
-                    <input type="text" class="form-control" value="${to.noticeTitle}" name="noticeTitle" style="height: 50px" />
+                    <input type="text" class="form-control" value="${to.qnaTitle}" name="qnaTitle" style="height: 50px" />
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" id="noticeContent" name="noticeContent">${to.noticeContent}</textarea>
+                    <textarea class="form-control" id="qnaContent" name="qnaContent">${to.qnaContent}</textarea>
                 </div>
                 <div class="btn_wrap">
                     <button type="submit" class="btn btn-primary" id="mbtn">저장하기</button>
@@ -96,7 +108,7 @@
 
         <script type="text/javascript">
             window.onload = function() {
-                CKEDITOR.replace('noticeContent', {
+                CKEDITOR.replace('qnaContent', {
                     filebrowserUploadUrl: '/notice/imageUpload',
                     height: 700,
                     toolbar: [
@@ -115,8 +127,8 @@
             };
             
             document.getElementById('mbtn').onclick = function() {
-                var title = document.mfrm.noticeTitle.value.trim();
-                var content = CKEDITOR.instances.noticeContent.getData().trim();
+                var title = document.mfrm.qnaTitle.value.trim();
+                var content = CKEDITOR.instances.qnaContent.getData().trim();
                 
                 if (title === "") {
                     alert('제목을 입력하셔야 합니다.');

@@ -42,7 +42,7 @@
 			</div>
 			<div class="form-group">
 				<div class="stits">
-					<p>제목</p>
+					<p>부제목</p>
 				</div>
 				<input type="text" class="form-control"
 					value="${eto.edittipSubtitle}" name="edittipSubtitle"

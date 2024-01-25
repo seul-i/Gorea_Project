@@ -14,12 +14,15 @@ public class Gorea_QnADAO {
 	@Autowired
 	private QnAMapperInter mapper;
 	
-	public ArrayList<Gorea_QnA_BoardTO> qna_List() {
+	public ArrayList<Gorea_QnA_BoardTO> qna_List(int offset, int pageSize) {
 		ArrayList<Gorea_QnA_BoardTO> lists = new ArrayList<Gorea_QnA_BoardTO>();
-		lists = mapper.QnA_List();
+		lists = mapper.QnA_List(offset, pageSize);
 		
 		 return lists;
 	}
+	public ArrayList<Gorea_QnA_BoardTO> searchQnA(String searchType, String searchKeyword, int offset, int pageSize) {
+        return mapper.searchQnA(searchType, searchKeyword, offset, pageSize);
+    }
 
 	public void qna_Write() {}
 	
@@ -69,6 +72,26 @@ public class Gorea_QnADAO {
 		}
 		
 		return flag;
+	}
+	
+	public Gorea_QnA_BoardTO getPreviousPost(int qnaSeq) {
+	    return mapper.getPreviousPost(qnaSeq);
+	}
+
+	public Gorea_QnA_BoardTO getNextPost(int qnaSeq) {
+	    return mapper.getNextPost(qnaSeq);
+	}
+	
+	// 페이징
+	public int getTotalRowCount() {
+	    int totalRowCount = mapper.QnA_TotalCount();
+	    System.out.println("토탈" + totalRowCount);
+	    return totalRowCount;
+	}
+	
+	// 검색 페이징
+	public int getSearchTotalRowCount(String searchType, String searchKeyword) {
+	    return mapper.searchTotalCount(searchType, searchKeyword);
 	}
 	
 }

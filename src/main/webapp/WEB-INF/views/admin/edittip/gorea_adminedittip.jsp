@@ -74,13 +74,13 @@
 
 		<!-- 공지사항 리스트 내용 시작 -->
 		<c:set var="paging" value="${paging}" />
-		<c:set var="notice" value="${paging.notice}" />
+		<c:set var="lists1" value="${paging.lists1}" />
 		<c:set var="role"
 			value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
 
 		<div class="board_wrap">
 			<div class="board_title">
-				<strong>공지사항 관리</strong>
+				<strong>에디터 꿀팁 관리</strong>
 			</div>
 			<div class="board_list_wrap">
 				<div class="board_list">
@@ -99,16 +99,16 @@
 					<c:if test="${not empty lists}">
 						<c:forEach items="${lists}" var="to">
 							<div class="list-item">
-								<div class='num'>${to.noticeSeq}</div>
+								<div class='num'>${to.edittipSeq}</div>
 								<div class='title'>
-    <a href='./adminnotice_view.do?noticeSeq=${to.noticeSeq}<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
-    ${to.noticeTitle}
+    <a href='./admineditTip_view.do?edittipSeq=${to.edittipSeq}<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
+    ${to.edittipSubject}
 </a>
 </div>
 								<div class='writer'>관리자</div>
-								<div class='date'>${to.noticepostDate}</div>
+								<div class='date'>${to.edittipWdate}</div>
 								<div class='count'>
-									<a href='adminnotice_delete_ok.do?noticeSeq=${to.noticeSeq}'
+									<a href='adminnotice_delete_ok.do?edittipSeq=${to.edittipSeq}'
 										onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
 								</div>
 							</div>
@@ -123,10 +123,10 @@
 							<!-- 처음 페이지 버튼 -->
 							<c:if test="${paging.cpage > 1}">
 								<a
-									href="adminnotice.do?cpage=1<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+									href="admineditTip.do?cpage=1<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 									class="pagination-item">&lt;&lt;</a>
 								<a
-									href="adminnotice.do?cpage=${paging.cpage - 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+									href="admineditTip.do?cpage=${paging.cpage - 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 									class="pagination-item">&lt;</a>
 							</c:if>
 							<c:if test="${paging.cpage == 1}">
@@ -143,7 +143,7 @@
 									</c:when>
 									<c:otherwise>
 										<a
-											href="adminnotice.do?cpage=${i}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+											href="admineditTip.do?cpage=${i}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 											class="pagination-item">${i}</a>
 									</c:otherwise>
 								</c:choose>
@@ -152,10 +152,10 @@
 							<!-- 다음 페이지 버튼 -->
 							<c:if test="${paging.cpage < paging.totalPage}">
 								<a
-									href="adminnotice.do?cpage=${paging.cpage + 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+									href="admineditTip.do?cpage=${paging.cpage + 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 									class="pagination-item">&gt;</a>
 								<a
-									href="adminnotice.do?cpage=${paging.totalPage}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+									href="admineditTip.do?cpage=${paging.totalPage}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 									class="pagination-item">&gt;&gt;</a>
 							</c:if>
 							<c:if test="${paging.cpage == paging.totalPage}">
@@ -165,13 +165,13 @@
 						</div>
 					</div>
 					<div class="write_button_container">
-                                <a href="adminnotice_write.do" class="write_button">글쓰기</a>
+                                <a href="admineditTip_write.do" class="write_button">글쓰기</a>
                             </div>
 				</div>
 
 				<!-- 검색 부분 -->
 				<div class="search_container">
-					<form action="adminnotice.do" method="get">
+					<form action="admineditTip.do" method="get">
 						<select name="searchType">
 							<option value="title">제목</option>
 							<option value="titleContent">제목 + 내용</option>
