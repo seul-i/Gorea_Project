@@ -182,7 +182,7 @@ public interface MypageMapper {
 
 	
 	// 문의 내역 조회
-	@Select("SELECT qnaSeq, qnaTitle, qnaCategory, date_format(qnapostDate, '%Y.%m.%d') as qnapostDate FROM qna WHERE userSeq = #{userSeq} LIMIT #{firstRow}, #{pageSize}")
+	@Select("SELECT qnaSeq, qnaTitle, qnaCategory, qnaCmt, date_format(qnapostDate, '%Y.%m.%d') as qnapostDate FROM qna WHERE userSeq = #{userSeq} LIMIT #{firstRow}, #{pageSize}")
 	List<Gorea_QnA_BoardTO> qnaList(@Param("userSeq") String userSeq, @Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 	
    

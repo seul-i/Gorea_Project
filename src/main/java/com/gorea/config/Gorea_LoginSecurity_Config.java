@@ -56,7 +56,7 @@ public class Gorea_LoginSecurity_Config {
 		http.authorizeHttpRequests(request -> request
 //				.requestMatchers("/adminpage.do").hasRole("ADMIN")
 //              .requestMatchers("/user/**").hasAnyRole("ADMIN, USER")
-				.requestMatchers(new MvcRequestMatcher(null, "/admin/**")).hasRole("ADMIN")
+				.requestMatchers(new MvcRequestMatcher(null, "/admin**")).hasRole("ADMIN")
 				.requestMatchers(new MvcRequestMatcher(null, "/korean/user/**")).hasRole("USER")
 				.requestMatchers(new MvcRequestMatcher(null, "/english/user/**")).hasRole("USER")
 				.requestMatchers(new MvcRequestMatcher(null, "/chinese/user/**")).hasRole("USER")

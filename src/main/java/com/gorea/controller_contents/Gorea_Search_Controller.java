@@ -45,6 +45,13 @@ public class Gorea_Search_Controller {
             model.addAttribute("boards", lists);
             model.addAttribute("boardType", "FreeBoard");
         }
+	 // 유저추천 검색 결과
+        else if (boardType.equals("UserRecommend")) {
+            totalRowCount = searchDAO.countUserRecommend(keyword);
+            lists = searchDAO.searchUserRecommend(keyword, offset, pageSize);
+            model.addAttribute("boards", lists);
+            model.addAttribute("boardType", "UserRecommend");
+        }
 	 // 공지사항 검색 결과
         else if (boardType.equals("Notice")) {
             totalRowCount = searchDAO.countNotice(keyword);
@@ -83,6 +90,7 @@ public class Gorea_Search_Controller {
         model.addAttribute("editTipCount", searchDAO.countEditTip(keyword));
         model.addAttribute("editRecommendCount", searchDAO.countEditRecommend(keyword));
         model.addAttribute("trendSeoulCount", searchDAO.countTrendSeoul(keyword));
+        model.addAttribute("UserRecommendCount", searchDAO.countUserRecommend(keyword));
         model.addAttribute("language", language);
         model.addAttribute("paging", paging);
         

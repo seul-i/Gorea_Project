@@ -45,6 +45,20 @@ public class Gorea_SearchDAO {
 		}
 		 return lists;
     }
+    
+    public List<Gorea_SearchResultTO> searchUserRecommend(String keyword, int offset, int pageSize) {
+    	List<Gorea_SearchResultTO> lists = new ArrayList<Gorea_SearchResultTO>();
+    	lists = searchMapper.searchUserRecommend(keyword, offset, pageSize);
+    	for(Gorea_SearchResultTO to : lists) {
+			String content = to.getContent();
+			
+			Document document = Jsoup.parse(content);
+	        String textContent = document.text();
+	        
+	        to.setContent(textContent);
+		}
+		 return lists;
+    }
 
     public List<Gorea_SearchResultTO> searchNotice(String keyword, int offset, int pageSize) {
     	List<Gorea_SearchResultTO> lists = new ArrayList<Gorea_SearchResultTO>();
@@ -125,6 +139,10 @@ public class Gorea_SearchDAO {
 
     public int countNotice(String keyword) {
         return searchMapper.countNotice(keyword);
+    }
+    
+    public int countUserRecommend(String keyword) {
+        return searchMapper.countUserRecommend(keyword);
     }
 
 }
