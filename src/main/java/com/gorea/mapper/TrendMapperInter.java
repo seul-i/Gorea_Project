@@ -19,8 +19,8 @@ import com.gorea.dto_reply.Gorea_TrendSeoul_ReplyTO;
 public interface TrendMapperInter {
 	
 	// trend_seoul
-	@Select("select ts.userSeq, ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, ts.seoulScore, cn.mainCategory, cn.subCategory from TrendSeoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc LIMIT #{firstRow}, #{pageSize}")
-	List<Gorea_TrendSeoul_ListTO> trendSeoul_List(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
+	   @Select("select ts.userSeq, ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, date_format(ts.seoulpostDate, '%Y.%m.%d') as seoulpostDate, ts.seoulScore, cn.mainCategory, cn.subCategory from TrendSeoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo order by seoulSeq asc LIMIT #{firstRow}, #{pageSize}")
+	   List<Gorea_TrendSeoul_ListTO> trendSeoul_List(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 	
 	 @Select("SELECT COUNT(*) FROM TrendSeoul")
 	 int get_trendSeoulTotalCount();
@@ -113,8 +113,51 @@ public interface TrendMapperInter {
 	        @Param("subCategory") String subCategory);
 
 
+	// Admin List
+	   @Select("<script>"
+	           + "SELECT ts.userSeq, ts.seoulSeq, ts.seoulTitle, date_format(seoulpostDate, '%Y.%m.%d') as seoulpostDate, ts.seoulLocGu, ts.seoulContent, ts.seoulScore, cn.mainCategory, cn.subCategory "
+	           + "FROM TrendSeoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo "
+	           + "<where>"
+	           + "  <if test='searchType != null and searchKeyword != null'>"
+	           + "    <choose>"
+	           + "      <when test='searchType.equals(\"title\")'>"
+	           + "        AND ts.seoulTitle LIKE CONCAT('%', #{searchKeyword}, '%')"
+	           + "      </when>"
+	           + "      <when test='searchType.equals(\"titleContent\")'>"
+	           + "        AND (ts.seoulTitle LIKE CONCAT('%', #{searchKeyword}, '%') OR ts.seoulContent LIKE CONCAT('%', #{searchKeyword}, '%'))"
+	           + "      </when>"
+	           + "    </choose>"
+	           + "  </if>"
+	           + "</where>"
+	           + "ORDER BY ts.seoulSeq ASC LIMIT #{firstRow}, #{pageSize}"
+	           + "</script>")
+	   List<Gorea_TrendSeoul_ListTO> adminSearchTrend_List(@Param("searchType") String searchType, @Param("searchKeyword") String searchKeyword,
+	                                                  @Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
+	   
+	   @Select("<script>"
+	           + "SELECT COUNT(*) "
+	           + "FROM TrendSeoul ts JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo "
+	           + "<where>"
+	           + "  <if test='searchType != null and searchKeyword != null'>"
+	           + "    <choose>"
+	           + "      <when test='searchType.equals(\"title\")'>"
+	           + "        AND ts.seoulTitle LIKE CONCAT('%', #{searchKeyword}, '%')"
+	           + "      </when>"
+	           + "      <when test='searchType.equals(\"titleContent\")'>"
+	           + "        AND (ts.seoulTitle LIKE CONCAT('%', #{searchKeyword}, '%') OR ts.seoulContent LIKE CONCAT('%', #{searchKeyword}, '%'))"
+	           + "      </when>"
+	           + "    </choose>"
+	           + "  </if>"
+	           + "</where>"
+	           + "</script>")
+	   int adminSearchTotalCount(@Param("searchType") String searchType, @Param("searchKeyword") String searchKeyword);
+	   
+	   // 이전 글 가져오기
+	    @Select("SELECT * FROM TrendSeoul WHERE seoulSeq < #{seoulSeq} ORDER BY seoulSeq DESC LIMIT 1")
+	    Gorea_TrendSeoul_BoardTO  getPreviousPost(int seoulSeq);
 
-
-
+	    // 다음 글 가져오기
+	    @Select("SELECT * FROM TrendSeoul WHERE seoulSeq > #{seoulSeq} ORDER BY seoulSeq ASC LIMIT 1")
+	    Gorea_TrendSeoul_BoardTO getNextPost(int seoulSeq);
 	
 }

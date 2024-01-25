@@ -30,6 +30,17 @@
 	<div class="carousel slide" id="carouselDemo" data-bs-wrap="true" data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active" data-bs-interval="3000">
+            	<c:choose>
+                        <c:when test="${language eq 'korean'}"><img src="/img/main/slide5.png" class="w-100"></c:when>
+                        <c:when test="${language eq 'english'}"><img src="/img/main/slide6.png" class="w-100"></c:when>
+                        <c:when test="${language eq 'japanese'}"><img src="/img/main/slide8.png" class="w-100"></c:when>
+                        <c:when test="${language eq 'chinese'}"><img src="/img/main/slide7.png" class="w-100"></c:when>
+                </c:choose>
+            	<div class="carousel-caption">				
+            	</div>
+			</div>	
+			
+			<div class="carousel-item " data-bs-interval="3000">
 				<img src="/img/main/hangang11.jpg" class="w-100">
 				<div class="carousel-caption">	
 					<c:choose>
@@ -51,17 +62,6 @@
             	<div class="carousel-caption">				
             	</div>
         	</div>
-
-        	<div class="carousel-item " data-bs-interval="3000">
-            	<c:choose>
-                        <c:when test="${language eq 'korean'}"><img src="/img/main/slide5.png" class="w-100"></c:when>
-                        <c:when test="${language eq 'english'}"><img src="/img/main/slide6.png" class="w-100"></c:when>
-                        <c:when test="${language eq 'japanese'}"><img src="/img/main/slide8.png" class="w-100"></c:when>
-                        <c:when test="${language eq 'chinese'}"><img src="/img/main/slide7.png" class="w-100"></c:when>
-                </c:choose>
-            	<div class="carousel-caption">				
-            	</div>
-			</div>
     	</div>
 
 	    <button class="carousel-control-prev" type="button" data-bs-target="#carouselDemo" data-bs-slide="prev">
@@ -394,7 +394,7 @@
 </div>
 	
 	
-	<script type="text/javascript" src="/js/main/main.js"></script>
+	<script type="text/javascript" src="../../js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 	
 	<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>

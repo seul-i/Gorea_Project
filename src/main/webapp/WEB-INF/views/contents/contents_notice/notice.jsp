@@ -36,18 +36,116 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+	
+	<div class="commonBanner" id="comBanner">
+        <img src="/img/banner/noticeBanner.jpg" alt="banner">
+        <div class="commonBanner-text">
+            <h1>
+            <c:choose>
+                <c:when test="${language eq 'korean'}">공지사항</c:when>
+                <c:when test="${language eq 'english'}">announcement</c:when>
+                <c:when test="${language eq 'japanese'}">お知らせ</c:when>
+                <c:when test="${language eq 'chinese'}">公告</c:when>
+            </c:choose>
+            </h1>
+        </div>
+    </div>
+    
+    <div class="location">
+		<i class="fa-solid fa-house"></i> <span class="ar">></span>
+		<c:choose>
+			<c:when test="${language eq 'korean'}">
+         
+	            여행자 지원 <span class="ar">></span>
+				<span> <a href="./bestTop5.do.do">공지사항</a>
+				</span>
+
+			</c:when>
+			<c:when test="${language eq 'english'}">
+         
+	            Traveler Assistance <span class="ar">></span>
+				<span> <a href="./bestTop5.do.do">announcement</a>
+				</span>
+
+			</c:when>
+			<c:when test="${language eq 'japanese'}">
+         
+	            旅行者サポート <span class="ar">></span>
+				<span> <a href="./bestTop5.do.do">お知らせ</a>
+				</span>
+
+			</c:when>
+			<c:when test="${language eq 'chinese'}">
+         
+            
+	            旅客协助 <span class="ar">></span>
+				<span> <a href="./bestTop5.do.do">公告</a>
+				</span>
+
+			</c:when>
+
+			<c:otherwise>제목</c:otherwise>
+		</c:choose>
+	</div>
+	
 	<div class="board_wrap">
 		<div class="board_title">
-			<strong>공지사항</strong>
+		<strong>
+		<c:choose>
+                <c:when test="${language eq 'korean'}">공지사항</c:when>
+                <c:when test="${language eq 'english'}">announcement</c:when>
+                <c:when test="${language eq 'japanese'}">お知らせ</c:when>
+                <c:when test="${language eq 'chinese'}">公告</c:when>
+        </c:choose>
+        </strong>
 		</div>
 		<div class="board_list_wrap">
 			<div class="board_list">
 				<div class="top">
-					<div class="num">번호</div>
-					<div class="title">제목</div>
-					<div class="writer">글쓴이</div>
-					<div class="date">작성일</div>
-					<div class="count">조회</div>
+				
+				<c:choose>
+		                <c:when test="${language eq 'korean'}">
+		                
+		                <div class="num">번호</div>
+						<div class="title">제목</div>
+						<div class="writer">글쓴이</div>
+						<div class="date">작성일</div>
+						<div class="count">조회</div>
+		                
+		                </c:when>
+		                
+		                <c:when test="${language eq 'english'}">
+		                
+		                <div class="num">Number</div>
+						<div class="title">Title</div>
+						<div class="writer">Author</div>
+						<div class="date">Date of Writing</div>
+						<div class="count">Comment</div>
+		                
+		                </c:when>
+		                
+		                
+		                <c:when test="${language eq 'japanese'}">
+		                
+		                <div class="num">番号</div>
+						<div class="title">タイトル</div>
+						<div class="writer">著者</div>
+						<div class="date">投稿日</div>
+						<div class="count">コメント</div>
+		                
+		                </c:when>
+		                
+		                <c:when test="${language eq 'chinese'}">
+		                
+		                <div class="num">编号 </div>
+						<div class="title">标题</div>
+						<div class="writer">作者</div>
+						<div class="date">创作日期 </div>
+						<div class="count">评论</div>
+		                
+		                </c:when>
+		        </c:choose>
+				
 				</div>
 
 				<c:if test="${empty lists}">

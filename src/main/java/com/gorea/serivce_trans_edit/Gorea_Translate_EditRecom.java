@@ -25,10 +25,10 @@ public class Gorea_Translate_EditRecom{
 
 	private String lang_code;
 
-	@Value("${spring.papago.clientId}")
+	@Value("${spring.papago.clientId2}")
 	private String clientId;
 	
-	@Value("${spring.papago.clientSecret}")
+	@Value("${spring.papago.clientSecret2}")
 	private String clientSecret;
     
     public List<Gorea_EditRecommend_BoardTO> translateBoardList(List<Gorea_EditRecommend_BoardTO> boardList, String lang_code) {

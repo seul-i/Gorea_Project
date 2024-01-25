@@ -151,5 +151,24 @@ public class Gorea_TrendSeoulDAO {
 	    }
 	    return imageUrl;
 	}
+    
+    public List<Gorea_TrendSeoul_ListTO> adminSearchTrend_List(String searchType, String searchKeyword, int offset, int pageSize) {
+        return mapper.adminSearchTrend_List(searchType, searchKeyword, offset, pageSize);
+     }
+     
+     public int adminTrendTotalCount(String searchType, String searchKeyword) {
+        int totalRowCount = mapper.adminSearchTotalCount(searchType, searchKeyword);
+        return totalRowCount;
+     }
+
+  // 이전글
+      public Gorea_TrendSeoul_BoardTO getPreviousPost(int seoulSeq) {
+         return mapper.getPreviousPost(seoulSeq);
+      }
+      
+      // 다음글
+      public Gorea_TrendSeoul_BoardTO getNextPost(int seoulSeq) {
+         return mapper.getNextPost(seoulSeq);
+      }
 	
 }

@@ -42,6 +42,64 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+
+	<div class="commonBanner" id="comBanner">
+        <img src="/img/banner/userBanner.jpg" alt="banner" style="object-position: center;">
+        
+        <div class="commonBanner-text">
+            <h1>
+            <c:choose>
+                <c:when test="${language eq 'korean'}">유저 추천 장소</c:when>
+                <c:when test="${language eq 'english'}">User's Recommended Places</c:when>
+                <c:when test="${language eq 'japanese'}">ユーザー推奨場所</c:when>
+                <c:when test="${language eq 'chinese'}">用户推荐的地点</c:when>
+            </c:choose>
+            </h1>
+        </div>
+	</div>
+	
+	<div class="location">
+		<i class="fa-solid fa-house"></i>
+		<span class="ar">></span>
+		<c:choose>
+			<c:when test="${language eq 'korean'}">
+         
+	            추천 <span class="ar">></span> 
+	             <span> 
+	                <a href="./editRecommend_list.do">에디터 추천 장소</a>
+	             </span>
+          
+			</c:when>
+         	<c:when test="${language eq 'english'}">
+         
+	            recommend <span class="ar">></span> 
+	             <span> 
+	                <a href="./editRecommend_list.do">Editor's Recommended Places</a>
+	             </span>
+         
+         	</c:when>
+         	<c:when test="${language eq 'japanese'}">
+         
+	            おすすめ <span class="ar">></span> 
+	             <span> 
+	                <a href="./editRecommend_list.do">エディターおすすめの場所</a>
+	             </span>
+         
+         	</c:when>
+         	<c:when test="${language eq 'chinese'}">
+         
+            
+	            建议 <span class="ar">></span> 
+	             <span> 
+	                <a href="./editRecommend_list.do">编辑推荐的地方</a>
+	             </span>
+         
+         	</c:when>
+         	
+         	<c:otherwise>제목</c:otherwise>
+      </c:choose>
+   </div>
+	
     <div class="board_wrap">
 		<div class="board_title">
 			<c:choose>

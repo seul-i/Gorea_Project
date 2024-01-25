@@ -3,13 +3,25 @@
 		    padding: 0;
 		}
 		
-		body {
-		    font-family: Arial, sans-serif;
-		}
-	
-		html, body {
-			height: auto;
-		}
+		
+		.location {
+   padding: 10px 0px 20px 20px;
+   font-size: 17px;
+   color: #666;
+   box-sizing: border-box;
+   background-size: 21px auto;
+   margin-left: 9%;
+   /* margin-left 값을 조절하여 왼쪽으로 이동 */
+}
+
+span a {
+   font-weight: bold;
+   color: #333;
+}
+
+.ar {
+   font-weight: bold;
+}
 		
 		
 		img {
