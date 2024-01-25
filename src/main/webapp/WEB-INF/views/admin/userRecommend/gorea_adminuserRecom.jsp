@@ -34,12 +34,12 @@
 			</a>
 				<ul id="data-management-submenu" class="submenu">
 					<li><a href="#">Best5</a></li>
-					<li><a href="/admin/adminuserRecom.do">유저추천</a></li>
-					<li><a href="/admin/adminfreeboard.do">자유게시판</a></li>
-					<li><a href="#">에디터 추천 장소</a></li>
-					<li><a href="#">에디터 꿀팁</a></li>
-					<li><a href="#">트렌드 서울</a></li>
-					<li><a href="/admin/adminnotice.do">공지사항</a></li>
+					<li><a href="adminuserRecom.do">유저추천</a></li>
+					<li><a href="adminfreeboard.do">자유게시판</a></li>
+					<li><a href="adminEditReco.do">에디터 추천 장소</a></li>
+					<li><a href="admineditTip.do">에디터 꿀팁</a></li>
+					<li><a href="adminTrendseoul.do">트렌드 서울</a></li>
+					<li><a href="adminnotice.do">공지사항</a></li>
 				</ul></li>
 			<li class="tooltip"><a href="javascript:void(0);"
 				onclick="toggleSubmenu('member-management-submenu')"
@@ -48,11 +48,11 @@
 					class="submenu-indicator">∨</span>
 			</a>
 				<ul id="member-management-submenu" class="submenu">
-					<li><a href="#">회원 목록 확인</a></li>
+					<li><a href="adminUserList.do">회원 목록 확인</a></li>
 					<li><a href="#">회원 비밀번호 변경</a></li>
 					<li><a href="#">회원 탈퇴</a></li>
 				</ul></li>
-			<li class="tooltip"><a href="#"><i class="fas fa-envelope"></i>
+			<li class="tooltip"><a href="adminqna.do"><i class="fas fa-envelope"></i>
 					<span class="menu-item-text">문의 관리</span></a></li>
 			<li class="tooltip"><a href="#"><i class="fas fa-chart-bar"></i>
 					<span class="menu-item-text">통계 관리</span></a></li>
@@ -70,7 +70,7 @@
 			<i class="fas fa-bars"></i>
 		</button>
 		<c:set var="paging" value="${paging}" />
-		<c:set var="userRecom" value="${paging.userRecom}" />
+		<c:set var="userRecom" value="${paging.boardList1}" />
 		<c:set var="role" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
 		
 		<div class="board_wrap">

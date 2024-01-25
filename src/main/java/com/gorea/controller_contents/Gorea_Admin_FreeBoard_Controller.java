@@ -172,7 +172,7 @@ public class Gorea_Admin_FreeBoard_Controller {
 		
 		System.out.println("## seq : " + request.getParameter("freeSeq"));
 		
-			flag = dao.free_Modify_Ok(to);
+		flag = dao.free_Modify_Ok(to);
 		
 		model.addAttribute("flag", flag);
 		model.addAttribute("freeSeq", to.getFreeSeq());
