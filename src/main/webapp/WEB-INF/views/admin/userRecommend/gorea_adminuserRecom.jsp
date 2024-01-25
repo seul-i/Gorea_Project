@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.gorea.dto_board.Gorea_Free_BoardTO"%>
+<%@ page import="com.gorea.dto_board.Gorea_Recommend_BoardTO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -70,12 +70,12 @@
 			<i class="fas fa-bars"></i>
 		</button>
 		<c:set var="paging" value="${paging}" />
-		<c:set var="freeboard" value="${paging.freeboard}" />
+		<c:set var="userRecom" value="${paging.boardList1}" />
 		<c:set var="role" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
 		
 		<div class="board_wrap">
 			<div class="board_title">
-				<strong>자유게시판 관리</strong>
+				<strong>유저추천 관리</strong>
 			</div>
 			<div class="board_list">
 				<div class="top">
@@ -91,16 +91,16 @@
 				<c:if test="${not empty lists }">
 					<c:forEach items="${lists }" var="to">
 						<div class="list-item">
-							<div class='num'>${to.freeSeq }</div>
+							<div class='num'>${to.userRecomSeq }</div>
 							<div class='title'>
-								<a href='/admin/adminfreeboard_view.do?freeSeq=${to.freeSeq }<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
-   									 ${to.freeTitle}
+								<a href='/admin/adminuserRecom_view.do?seq=${to.userRecomSeq }<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
+   									 ${to.userRecomTitle}
 								</a>
 							</div>
 							<div class='writer'>${to.userNickname }</div>
-							<div class='date'>${to.freepostDate }</div>
+							<div class='date'>${to.userRecompostDate }</div>
 							<div class='count'>
-								<a href='/admin/adminfreeboard_delete_ok.do?freeSeq=${to.freeSeq }'
+								<a href='/admin/adminuserRecom_delete_ok.do?seq=${to.userRecomSeq }'
 									onclick="return confirm( '정말 삭제하시겠습니까?' );">삭제</a>
 							</div>
 						</div>
@@ -113,10 +113,10 @@
 						<!-- 처음 페이지 버튼 -->
 						<c:if test="${paging.cpage > 1}">
 							<a 
-								href="/admin/adminfreeboard.do?cpage=1<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+								href="/admin/adminuserRecom.do?cpage=1<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 								class="pagination-item">&lt;&lt;</a>
 							<a
-								href="/admin/adminfreeboard.do?cpage=${paging.cpage - 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+								href="/admin/adminuserRecom.do?cpage=${paging.cpage - 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 								class="pagination-item">&lt;</a>
 						</c:if>
 						<c:if test="${paging.cpage == 1}">
@@ -132,7 +132,7 @@
 								</c:when>
 								<c:otherwise>
 									<a
-										href="/admin/adminfreeboard.do?cpage=${i}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+										href="/admin/adminuserRecom.do?cpage=${i}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 										class="pagination-item">${i}</a>
 								</c:otherwise>
 							</c:choose>
@@ -141,10 +141,10 @@
 						<!-- 다음 페이지 버튼 -->
 						<c:if test="${paging.cpage < paging.totalPage}">
 							<a
-								href="/admin/adminfreeboard.do?cpage=${paging.cpage + 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+								href="/admin/adminuserRecom.do?cpage=${paging.cpage + 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 								class="pagination-item">&gt;</a>
 							<a
-								href="/admin/adminfreeboard.do?cpage=${paging.totalPage}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+								href="/admin/adminuserRecom.do?cpage=${paging.totalPage}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 								class="pagination-item">&gt;&gt;</a>
 						</c:if>
 						<c:if test="${paging.cpage == paging.totalPage}">
@@ -154,7 +154,7 @@
 					</div>
 				</div>
 				<div class="search_container">
-					<form action="/admin/adminfreeboard.do" method="get">
+					<form action="/admin/adminuserRecom.do" method="get">
 						<select name="searchType">
 							<option value="title">제목</option>
 							<option value="titleContent">제목 + 내용</option>

@@ -196,7 +196,6 @@
 	.search_container select {
 	    padding: 5px 10px;
 	    margin: 2px;
-	    border: 1px solid #ccc;
 	}
 	
 	.search_container input[type="submit"] {
@@ -204,7 +203,6 @@
 	    color: white;
 	    border: none;
 	    cursor: pointer;
-	    border: 1px solid #ccc;
 	}
 	
 	.bottom-container {
