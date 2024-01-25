@@ -77,7 +77,7 @@
 			// 대댓글 작성 폼 버튼
 			$(document).on( 'click', '#rereplyWrite', function() {
 				const cseq = $(this).closest('.comment').find('#cseq').val();
-				
+					
 				$('.reply-action-btn').hide();
 
 				$( '#rereplyWriteForm' + cseq ).show();

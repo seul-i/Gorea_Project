@@ -15,7 +15,7 @@ import com.gorea.dto_reply.Gorea_ReplyTO;
 public interface ReplyMapper {
 	@Select( "select re.pseq, re.goreaboardNo, re.cseq, re.userSeq, re.replyContent, date_format(re.replypostDate, '%Y.%m.%d %H:%i') replypostDate, re.grp, re.grpl, u.userNickname"
 			+ " from reply re "
-			+ "Join user u ON re.userSeq = u.userSeq "
+			+ "Join User u ON re.userSeq = u.userSeq "
 			+ "where re.goreaboardNo=#{goreaboardNo} and re.pseq=#{pseq}"
 			+ " order by re.grp desc")
 	List<Gorea_ReplyTO> replylist( Gorea_ReplyTO rto );

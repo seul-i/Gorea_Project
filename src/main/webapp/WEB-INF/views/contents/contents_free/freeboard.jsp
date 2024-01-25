@@ -184,7 +184,7 @@
 		
 	        <div class="search_container">
 	           	<form action="freeboard.do" method="get">
-	    			<select name="searchType" style="border: 1px solid #ccc;">
+	    			<select name="searchType">
 	    				<c:choose>
 	    					<c:when test="${language eq 'korean'}">
 	        					<option value="title">제목</option>
@@ -206,19 +206,19 @@
 	    			</select>
 	    			<c:choose>
 	    				<c:when test="${language eq 'korean' }">
-		    				<input type="text" name="searchKeyword" placeholder="검색어 입력" style="border: 1px solid #ccc;">
+		    				<input type="text" name="searchKeyword" placeholder="검색어 입력">
 		    				<input type="submit" value="검색">
 		    			</c:when>
 		    			<c:when test="${language eq 'english' }">
-		    				<input type="text" name="searchKeyword" placeholder="enter..." style="border: 1px solid #ccc;">
+		    				<input type="text" name="searchKeyword" placeholder="enter..." >
 		    				<input type="submit" value="search">
 		    			</c:when>
 		    			<c:when test="${language eq 'japanese' }">
-		    				<input type="text" name="searchKeyword" placeholder="検索語を入力" style="border: 1px solid #ccc;">
+		    				<input type="text" name="searchKeyword" placeholder="検索語を入力">
 		    				<input type="submit" value="検索">
 		    			</c:when>
 		    			<c:when test="${language eq 'chinese' }">
-		    				<input type="text" name="searchKeyword" placeholder="输入搜索词" style="border: 1px solid #ccc;">
+		    				<input type="text" name="searchKeyword" placeholder="输入搜索词">
 		    				<input type="submit" value="搜索">
 		    			</c:when>
 		    		</c:choose>

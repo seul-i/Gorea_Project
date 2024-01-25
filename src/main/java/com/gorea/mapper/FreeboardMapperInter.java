@@ -28,12 +28,12 @@ public interface FreeboardMapperInter {
 	int Free_Write_Ok(Gorea_Free_BoardTO to);
 	
 	// Free_view_hit
-	@Update("update Freeboard set freeHit=freeHit+1 where freeSeq=#{freeSeq}")
+	@Update("update FreeBoard set freeHit=freeHit+1 where freeSeq=#{freeSeq}")
 	int FreeHit(Gorea_Free_BoardTO to);
 	
 	// Free_view
 	@Select("select fr.freeSeq, fr.userSeq, fr.freeboardNo, fr.freeTitle, fr.freeContent, fr.freeHit, date_format(fr.freepostDate, '%Y.%m.%d') freepostDate, fr.freeRecomcount, fr.freeCmt,u.userNickname "
-			+ "from FreeBoard fr join user u on fr.userSeq=u.userSeq where fr.freeSeq=#{freeSeq} ")
+			+ "from FreeBoard fr join User u on fr.userSeq=u.userSeq where fr.freeSeq=#{freeSeq} ")
 	Gorea_Free_BoardTO Free_View(Gorea_Free_BoardTO to);
 	
 	// 이전 글 가져오기
