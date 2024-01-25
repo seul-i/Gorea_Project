@@ -10,7 +10,7 @@
 	if(flag == 0){
 		// 정상
 		out.println("alert('글 수정 성공');");
-		out.println("location.href = '/admin/adminuserRecom.do';");
+		out.println("location.href = 'adminuserRecom.do';");
 	} else if(flag == 1) {
 		// 에러
 		out.println("alert('글 수정 실패.');");

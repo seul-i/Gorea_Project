@@ -25,7 +25,7 @@ public class Gorea_Admin_UserRecommend_Controller {
 	@Autowired
 	Gorea_RecommendDAO dao;
 	
-	@GetMapping("/admin/adminuserRecom.do")
+	@GetMapping("adminuserRecom.do")
 	public String list(@RequestParam(value = "searchType", required = false) String searchType,
 	           @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
 	           HttpServletRequest request, Model model, 
@@ -69,7 +69,7 @@ public class Gorea_Admin_UserRecommend_Controller {
 	    return paging;
 	}
 	
-	@GetMapping("/admin/adminuserRecom_view.do")
+	@GetMapping("adminuserRecom_view.do")
 	public String view(@RequestParam("seq") String userRecomSeqStr, HttpServletRequest request, @RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {
@@ -113,7 +113,7 @@ public class Gorea_Admin_UserRecommend_Controller {
 	}
 	
 	
-	@GetMapping("/admin/adminuserRecom_delete_ok.do")
+	@GetMapping("adminuserRecom_delete_ok.do")
 	public String delete_ok(@RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, HttpServletRequest request, Model model) {
@@ -135,7 +135,7 @@ public class Gorea_Admin_UserRecommend_Controller {
 		return "admin/userRecommend/gorea_adminuserRecom_delete_ok";
 	}
 	
-	@GetMapping("/admin/adminuserRecom_modify.do")
+	@GetMapping("adminuserRecom_modify.do")
 	public String modify(HttpServletRequest request, @RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {
@@ -158,7 +158,7 @@ public class Gorea_Admin_UserRecommend_Controller {
 	}
 	
 	
-	@PostMapping("/admin/adminuserRecom_modify_ok.do")
+	@PostMapping("adminuserRecom_modify_ok.do")
 	public String modify_ok(HttpServletRequest request, MultipartFile upload, @RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {

@@ -86,21 +86,21 @@
             <div class="post-content">
                 <c:out value="${to.freeContent}" escapeXml="false" />
             </div>
-			<c:url var="deleteUrl" value="/admin/adminfreeboard_delete_ok.do">
+			<c:url var="deleteUrl" value="adminfreeboard_delete_ok.do">
             <c:param name="freeSeq" value="${seq}" />
             <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${param.cpage}" /></c:if>
             <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
             <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>
         </c:url>
 
-        <c:url var="modifyUrl" value="/admin/adminfreeboard_modify.do">
+        <c:url var="modifyUrl" value="adminfreeboard_modify.do">
             <c:param name="freeSeq" value="${seq}" />
             <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${param.cpage}" /></c:if>
             <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
             <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>
         </c:url>
 
-        <c:url var="listUrl" value="/admin/adminfreeboard.do">
+        <c:url var="listUrl" value="adminfreeboard.do">
             <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${param.cpage}" /></c:if>
             <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
             <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>

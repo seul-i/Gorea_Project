@@ -71,7 +71,7 @@
             <div class="tith2">
                 <h2>자유게시판 수정</h2>
             </div>
-            <form action="/admin/adminfreeboard_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
+            <form action="adminfreeboard_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
                 <c:set var="to" value="${requestScope.to}" />
                 <input type="hidden" name="freeSeq" value="${param.freeSeq}" /> 
                 <input type="hidden" name="cpage" value="${cpage}" /> 
@@ -85,7 +85,7 @@
                 </div>
                 <div class="btn_wrap">
                     <button type="submit" class="btn btn-primary" id="mbtn">저장하기</button>
-                    <input type="button" value="취소" class="btn" style="cursor: pointer;" onclick="location.href='/admin/adminfreeboard_view.do?freeSeq=${param.freeSeq}'" />
+                    <input type="button" value="취소" class="btn" style="cursor: pointer;" onclick="location.href='adminfreeboard_view.do?freeSeq=${param.freeSeq}'" />
                 </div>
             </form>
         </div>

@@ -27,7 +27,7 @@ public class Gorea_Admin_FreeBoard_Controller {
 	@Autowired
 	private Gorea_FreeBoardDAO dao;
 	
-	@GetMapping("/admin/adminfreeboard.do")
+	@GetMapping("adminfreeboard.do")
 	public String list(@RequestParam(value = "searchType", required = false) String searchType,
 			           @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
 			           HttpServletRequest request, Model model, 
@@ -71,7 +71,7 @@ public class Gorea_Admin_FreeBoard_Controller {
 	    return paging;
 	}
 	
-	@GetMapping("/admin/adminfreeboard_delete_ok.do")
+	@GetMapping("adminfreeboard_delete_ok.do")
 	public String delete_ok(@RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, HttpServletRequest request, Model model) {
@@ -93,7 +93,7 @@ public class Gorea_Admin_FreeBoard_Controller {
 		return "admin/freeboard/gorea_adminfreeboard_delete_ok";
 	}
 	
-	@GetMapping("/admin/adminfreeboard_view.do")
+	@GetMapping("adminfreeboard_view.do")
 	public String view(@RequestParam("freeSeq") String freeSeqStr, HttpServletRequest request, @RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {
@@ -136,7 +136,7 @@ public class Gorea_Admin_FreeBoard_Controller {
 	    return "admin/freeboard/gorea_adminfreeboard_view";
 	}
 	
-	@GetMapping("/admin/adminfreeboard_modify.do")
+	@GetMapping("adminfreeboard_modify.do")
 	public String modify(HttpServletRequest request, @RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {
@@ -158,7 +158,7 @@ public class Gorea_Admin_FreeBoard_Controller {
 		return "admin/freeboard/gorea_adminfreeboard_modify";
 	}
 	
-	@PostMapping("/admin/adminfreeboard_modify_ok.do")
+	@PostMapping("adminfreeboard_modify_ok.do")
 	public String modify_ok(HttpServletRequest request, MultipartFile upload, @RequestParam(value = "cpage", required = false) String cpage,
             @RequestParam(value = "searchType", required = false) String searchType,
             @RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {

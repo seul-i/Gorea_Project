@@ -30,7 +30,7 @@ public interface QnAMapperInter {
 
 	// QnA_view
 	@Select("select q.qnaSeq, q.qnaCategory,  q.qnaTitle, q.userSeq, q.qnaContent, date_format(q.qnapostDate, '%Y.%m.%d') qnapostDate, u.userNickname AS userNickname "
-			+ "FROM QnA q " + "JOIN user u ON q.userSeq = u.userSeq " + "where qnaSeq=#{qnaSeq} ")
+			+ "FROM QnA q " + "JOIN User u ON q.userSeq = u.userSeq " + "where qnaSeq=#{qnaSeq} ")
 	Gorea_QnA_BoardTO QnA_View(Gorea_QnA_BoardTO to);
 	
 	// 이전 글 가져오기
@@ -78,7 +78,7 @@ public interface QnAMapperInter {
 
 	// QnAReplyList
 	@Select("SELECT q.qnaSeq, q.qnaCmtSeq, q.userSeq, q.qnaCmtContent, DATE_FORMAT(q.qnaCmtWdate, '%Y.%m.%d') AS qnaCmtWdate, u.userNickname AS userNickname, u.userNation AS userNation "
-			+ "FROM QnAReply q " + "JOIN user u ON q.userSeq = u.userSeq " + "WHERE q.qnaSeq=#{qnaSeq} "
+			+ "FROM QnAReply q " + "JOIN User u ON q.userSeq = u.userSeq " + "WHERE q.qnaSeq=#{qnaSeq} "
 			+ "ORDER BY q.qnaCmtSeq DESC")
 	List<Gorea_QnA_ReplyTO> QnAReplyList(String qnaSeq);
 
