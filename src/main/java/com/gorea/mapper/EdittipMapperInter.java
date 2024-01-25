@@ -18,7 +18,7 @@ public interface EdittipMapperInter {
 	/* editTip */
 		    
 	// edittipList
-	@Select("SELECT edittipSeq, userSeq, edittipSubject, edittipSubtitle, edittipContent FROM edittip ORDER BY edittipSeq DESC LIMIT #{firstRow}, #{pageSize}")
+	@Select("SELECT edittipSeq, userSeq, edittipSubject, edittipSubtitle, DATE_FORMAT(edittipWdate, '%Y-%m-%d') AS edittipWdate, edittipContent FROM edittip ORDER BY edittipSeq DESC LIMIT #{firstRow}, #{pageSize}")
 	List<Gorea_EditTip_BoardTO> editTip_List(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 	
 	@Select("SELECT COUNT(*) FROM edittip")

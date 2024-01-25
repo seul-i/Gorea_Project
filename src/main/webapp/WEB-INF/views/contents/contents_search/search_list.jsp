@@ -38,6 +38,11 @@
 			</div>
 			<div class="board-count">
 				<a
+					href="/${language}/totalsearch.do?boardType=UserRecommend&keyword=${param.keyword}">여행자
+					추천 (${UserRecommendCount})</a>
+			</div>
+			<div class="board-count">
+				<a
 					href="/${language}/totalsearch.do?boardType=EditTip&keyword=${param.keyword}">에디터
 					팁 (${editTipCount})</a>
 			</div>
@@ -75,6 +80,25 @@
 										<div class="title-content-wrap">
 											<div class="title-wrap">
 												<a href="/${language}/freeboard_view.do?freeSeq=${board.id}">
+													${board.title} </a>
+											</div>
+											<div class="content-wrap">
+												<span>${board.content}</span>
+											</div>
+										</div>
+									</div>
+								</li>
+							</c:when>
+							<c:when test="${board.boardType == 'UserRecommend'}">
+								<li>
+									<div class="cont-wrap">
+										<div class="info-wrap">
+											<p class="label">여행자 추천</p>
+											<span class="time">${board.postDate}</span>
+										</div>
+										<div class="title-content-wrap">
+											<div class="title-wrap">
+												<a href="/${language}/userRecom_view.do?seq=${board.id}">
 													${board.title} </a>
 											</div>
 											<div class="content-wrap">
@@ -186,6 +210,37 @@
 								<div class="title-content-wrap">
 									<div class="title-wrap">
 										<a href="/${language}/freeboard_view.do?freeSeq=${result.id}">
+											${result.title} </a>
+									</div>
+									<div class="content-wrap">
+										<span>${result.content}</span>
+									</div>
+								</div>
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
+			</c:if>
+			<c:if test="${empty boards}">
+				<p style="text-align: center;">등록된 게시글이 없습니다.</p>
+			</c:if>
+		</div>
+		
+		<!-- 여행자추천 탭 컨텐츠 -->
+		<div id="UserRecommend" class="tab-content container search-results"
+			style="display: none;">
+			<c:if test="${not empty UserRecommendResults}">
+				<ul>
+					<c:forEach items="${UserRecommendResults}" var="result">
+						<li>
+							<div class="cont-wrap">
+								<div class="info-wrap">
+									<p class="label">자유게시판</p>
+									<span class="time">${result.postDate}</span>
+								</div>
+								<div class="title-content-wrap">
+									<div class="title-wrap">
+										<a href="/${language}/userRecom_view.do?seq=${result.id}">
 											${result.title} </a>
 									</div>
 									<div class="content-wrap">

@@ -144,7 +144,16 @@
 		                <c:forEach var="qna" items="${lists}">
 		                    <tbody>
 		                        <tr class="boardList">
-		                            <td>답변 대기중</td>
+		                            <td>
+    <c:choose>
+        <c:when test="${qna.qnaCmt >= 1}">
+            답변 완료
+        </c:when>
+        <c:otherwise>
+            답변 대기중
+        </c:otherwise>
+    </c:choose>
+</td>
 		                            <td>
 		                                <a href="/${language}/qna_view.do?qnaSeq=${qna.qnaSeq}">[${qna.qnaCategory}]${qna.qnaTitle}</a>
 		                            </td>

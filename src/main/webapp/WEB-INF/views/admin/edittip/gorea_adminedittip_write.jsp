@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page import="com.gorea.dto_board.Gorea_Notice_BoardTO" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +8,8 @@
     <title>GO!REA ADMIN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/admin/admin.css">
-    <link rel="stylesheet" type="text/css" href="/css/notice/modify.css">
+    <link rel="stylesheet" type="text/css" href="/css/editor/write.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
 <body>
@@ -69,38 +68,54 @@
             <i class="fas fa-bars"></i> 
         </button>
 
+        <!-- 공지사항 작성 폼 -->
+        <c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
+        
         <div class="containers">
             <div class="tith2">
-                <h2>공지사항 수정</h2>
+                <h2>에디터 꿀팁 작성</h2>
             </div>
-            <form action="./adminnotice_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
-                <c:set var="to" value="${requestScope.to}" />
-                <input type="hidden" name="noticeSeq" value="${param.noticeSeq}" /> 
-                <input type="hidden" name="cpage" value="${cpage}" /> 
-                <input type="hidden" name="searchType" value="${searchType}" /> 
-                <input type="hidden" name="searchKeyword" value="${searchKeyword}" />
+
+            <!-- 서버 측 메시지 표시 -->
+            <c:if test="${not empty successMessage}">
+                <div class="success-message">${successMessage}</div>
+            </c:if>
+            <c:if test="${not empty errorMessage}">
+                <div class="error-message">${errorMessage}</div>
+            </c:if>
+
+            <form class="form-horizontal" name="wfrm" method="post" action="./admineditTip_write_ok.do">
+                <input type="hidden" name="userSeq" value="${userSeq}">
                 <div class="form-group">
-                    <div class="stits">
-                        <p>제목</p>
-                    </div>
-                    <input type="text" class="form-control" value="${to.noticeTitle}" name="noticeTitle" style="height: 50px" />
+				<div class="stits">
+                    <p>제목</p>
                 </div>
-                <div class="form-group">
-                    <textarea class="form-control" id="noticeContent" name="noticeContent">${to.noticeContent}</textarea>
+				<input type="text" class="form-control" name="edittipSubject" placeholder="제목을 입력해 주세요." />
+					</div>
+			<div class="form-group">
+				<div class="stits">
+                    <p>부제목</p>
                 </div>
-                <div class="btn_wrap">
-                    <button type="submit" class="btn btn-primary" id="mbtn">저장하기</button>
-                </div>
+					<input type="text" class="form-control" name="edittipSubtitle" placeholder="부제목을 입력해 주세요." />
+					</div>
+			<div class="form-group">
+				<textarea class="form-control" id="content" name="edittipContent"
+					placeholder="내용을 입력해 주세요."></textarea>
+			</div>
+
+			<div class="btn_wrap">
+				<button type="submit" class="btn btn-primary">저장하기</button>
+			</div>
             </form>
         </div>
 
         <script type="text/javascript">
             window.onload = function() {
-                CKEDITOR.replace('noticeContent', {
+                CKEDITOR.replace('edittipContent', {
                     filebrowserUploadUrl: '/notice/imageUpload',
                     height: 700,
                     toolbar: [
-                        { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+                    	{ name: 'clipboard', items: [ 'Undo', 'Redo' ] },
                         { name: 'styles', items: ['Font', 'FontSize' ] },
                         { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting' ] },
                         { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
@@ -114,8 +129,8 @@
                 });
             };
             
-            document.getElementById('mbtn').onclick = function() {
-                var title = document.mfrm.noticeTitle.value.trim();
+            document.getElementById('wbtn').onclick = function() {
+                var title = document.wfrm.noticeTitle.value.trim();
                 var content = CKEDITOR.instances.noticeContent.getData().trim();
                 
                 if (title === "") {

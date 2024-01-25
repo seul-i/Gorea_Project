@@ -74,18 +74,18 @@
 
 		<!-- 공지사항 리스트 내용 시작 -->
 		<c:set var="paging" value="${paging}" />
-		<c:set var="notice" value="${paging.notice}" />
+		<c:set var="qna" value="${paging.qna}" />
 		<c:set var="role"
 			value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
 
 		<div class="board_wrap">
 			<div class="board_title">
-				<strong>공지사항 관리</strong>
+				<strong>QnA 관리</strong>
 			</div>
 			<div class="board_list_wrap">
 				<div class="board_list">
 					<div class="top">
-						<div class="num">번호</div>
+						<div class="num">답변 상태</div>
 						<div class="title">제목</div>
 						<div class="writer">글쓴이</div>
 						<div class="date">작성일</div>
@@ -99,16 +99,25 @@
 					<c:if test="${not empty lists}">
 						<c:forEach items="${lists}" var="to">
 							<div class="list-item">
-								<div class='num'>${to.noticeSeq}</div>
+								<div class='num'>
+									<c:choose>
+										<c:when test="${to.qnaCmt >= 1}">
+            답변 완료
+        </c:when>
+										<c:otherwise>
+            답변 대기중
+        </c:otherwise>
+									</c:choose>
+								</div>
 								<div class='title'>
-    <a href='./adminnotice_view.do?noticeSeq=${to.noticeSeq}<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
-    ${to.noticeTitle}
-</a>
-</div>
-								<div class='writer'>관리자</div>
-								<div class='date'>${to.noticepostDate}</div>
+									<a
+										href='./adminqna_view.do?qnaSeq=${to.qnaSeq}<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
+										[${to.qnaCategory}] ${to.qnaTitle} </a>
+								</div>
+								<div class='writer'>${to.userNickname}</div>
+								<div class='date'>${to.qnapostDate}</div>
 								<div class='count'>
-									<a href='adminnotice_delete_ok.do?noticeSeq=${to.noticeSeq}'
+									<a href='adminqna_delete_ok.do?qnaSeq=${to.qnaSeq}'
 										onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
 								</div>
 							</div>
@@ -123,10 +132,10 @@
 							<!-- 처음 페이지 버튼 -->
 							<c:if test="${paging.cpage > 1}">
 								<a
-									href="adminnotice.do?cpage=1<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+									href="adminqna.do?cpage=1<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 									class="pagination-item">&lt;&lt;</a>
 								<a
-									href="adminnotice.do?cpage=${paging.cpage - 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+									href="adminqna.do?cpage=${paging.cpage - 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 									class="pagination-item">&lt;</a>
 							</c:if>
 							<c:if test="${paging.cpage == 1}">
@@ -143,7 +152,7 @@
 									</c:when>
 									<c:otherwise>
 										<a
-											href="adminnotice.do?cpage=${i}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+											href="adminqna.do?cpage=${i}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 											class="pagination-item">${i}</a>
 									</c:otherwise>
 								</c:choose>
@@ -152,10 +161,10 @@
 							<!-- 다음 페이지 버튼 -->
 							<c:if test="${paging.cpage < paging.totalPage}">
 								<a
-									href="adminnotice.do?cpage=${paging.cpage + 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+									href="adminqna.do?cpage=${paging.cpage + 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 									class="pagination-item">&gt;</a>
 								<a
-									href="adminnotice.do?cpage=${paging.totalPage}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+									href="adminqna.do?cpage=${paging.totalPage}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 									class="pagination-item">&gt;&gt;</a>
 							</c:if>
 							<c:if test="${paging.cpage == paging.totalPage}">
@@ -164,14 +173,11 @@
 							</c:if>
 						</div>
 					</div>
-					<div class="write_button_container">
-                                <a href="adminnotice_write.do" class="write_button">글쓰기</a>
-                            </div>
 				</div>
 
 				<!-- 검색 부분 -->
 				<div class="search_container">
-					<form action="adminnotice.do" method="get">
+					<form action="adminqna.do" method="get">
 						<select name="searchType">
 							<option value="title">제목</option>
 							<option value="titleContent">제목 + 내용</option>

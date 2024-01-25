@@ -11,8 +11,13 @@ import com.gorea.dto_board.Gorea_SearchResultTO;
 @Mapper
 public interface SearchMapper {
 	
-	@Select("SELECT 'FreeBoard' AS boardType, freeSeq AS id, freetitle AS title, freeContent AS content, date_format(freepostDate, '%Y-%m-%d') AS postDate, freeHit AS hit FROM Freeboard WHERE freeTitle LIKE CONCAT('%', #{keyword}, '%') OR freeContent LIKE CONCAT('%', #{keyword}, '%') ORDER BY postDate DESC LIMIT #{pageSize} OFFSET #{offset}")
+	// 자유게시판 검색
+	@Select("SELECT 'FreeBoard' AS boardType, freeSeq AS id, freetitle AS title, freeContent AS content, date_format(freepostDate, '%Y-%m-%d') AS postDate, freeHit AS hit FROM FreeBoard WHERE freeTitle LIKE CONCAT('%', #{keyword}, '%') OR freeContent LIKE CONCAT('%', #{keyword}, '%') ORDER BY postDate DESC LIMIT #{pageSize} OFFSET #{offset}")
 	List<Gorea_SearchResultTO> searchFreeBoard(@Param("keyword") String keyword, @Param("offset") int offset, @Param("pageSize") int pageSize);
+	
+	// 유저추천 검색
+	@Select("SELECT 'UserRecommend' AS boardType, userRecomSeq AS id, userRecomTitle AS title, userRecomContent AS content, date_format(userRecompostDate, '%Y-%m-%d') AS postDate, userRecomHit AS hit FROM UserRecommend WHERE userRecomTitle LIKE CONCAT('%', #{keyword}, '%') OR userRecomContent LIKE CONCAT('%', #{keyword}, '%') ORDER BY postDate DESC LIMIT #{pageSize} OFFSET #{offset}")
+	List<Gorea_SearchResultTO> searchUserRecommend(@Param("keyword") String keyword, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
     // 공지사항 검색
     @Select("SELECT 'Notice' AS boardType, noticeSeq AS id, noticeTitle AS title, noticeContent AS content, date_format(noticepostDate, '%Y-%m-%d') AS postDate, noticeHit AS hit FROM Notice WHERE noticeTitle LIKE CONCAT('%', #{keyword}, '%') OR noticeContent LIKE CONCAT('%', #{keyword}, '%') ORDER BY postDate DESC LIMIT #{pageSize} OFFSET #{offset}")
@@ -33,7 +38,7 @@ public interface SearchMapper {
 	
 	 // 전체 게시판 검색 (통합 쿼리)
     @Select("SELECT 'FreeBoard' AS boardType, freeSeq AS id, freeTitle AS title, freeContent AS content, date_format(freepostDate, '%Y-%m-%d') AS postDate, freeHit AS hit " +
-            "FROM Freeboard WHERE freeTitle LIKE CONCAT('%', #{keyword}, '%') OR freeContent LIKE CONCAT('%', #{keyword}, '%') " +
+            "FROM FreeBoard WHERE freeTitle LIKE CONCAT('%', #{keyword}, '%') OR freeContent LIKE CONCAT('%', #{keyword}, '%') " +
             "UNION ALL " +
             "SELECT 'TrendSeoul' AS boardType, seoulSeq AS id, seoulTitle AS title, seoulContent AS content, date_format(seoulpostDate, '%Y-%m-%d') AS postDate, seoulHit AS hit " +
             "FROM TrendSeoul WHERE seoulTitle LIKE CONCAT('%', #{keyword}, '%') OR seoulContent LIKE CONCAT('%', #{keyword}, '%') " +
@@ -46,12 +51,19 @@ public interface SearchMapper {
             "UNION ALL " +
             "SELECT 'Notice' AS boardType, noticeSeq AS id, noticeTitle AS title, noticeContent AS content, date_format(noticepostDate, '%Y-%m-%d') AS postDate, noticeHit AS hit " +
             "FROM Notice WHERE noticeTitle LIKE CONCAT('%', #{keyword}, '%') OR noticeContent LIKE CONCAT('%', #{keyword}, '%') " +
+            "UNION ALL " +
+            "SELECT 'UserRecommend' AS boardType, userRecomSeq AS id, userRecomTitle AS title, userRecomContent AS content, date_format(userRecompostDate, '%Y-%m-%d') AS postDate, userRecomHit AS hit " +
+            "FROM UserRecommend WHERE userRecomTitle LIKE CONCAT('%', #{keyword}, '%') OR userRecomContent LIKE CONCAT('%', #{keyword}, '%') " +
             "ORDER BY postDate DESC LIMIT #{pageSize} OFFSET #{offset}")
-    List<Gorea_SearchResultTO> searchAllBoards(@Param("keyword") String keyword, @Param("offset") int offset, @Param("pageSize") int pageSize);
+List<Gorea_SearchResultTO> searchAllBoards(@Param("keyword") String keyword, @Param("offset") int offset, @Param("pageSize") int pageSize);
     
     // 자유게시판 검색 결과 카운트
-    @Select("SELECT COUNT(*) FROM Freeboard WHERE freeTitle LIKE CONCAT('%', #{keyword}, '%') OR freeContent LIKE CONCAT('%', #{keyword}, '%')")
+    @Select("SELECT COUNT(*) FROM FreeBoard WHERE freeTitle LIKE CONCAT('%', #{keyword}, '%') OR freeContent LIKE CONCAT('%', #{keyword}, '%')")
     int countFreeBoard(@Param("keyword") String keyword);
+    
+    // 유저 추천게시판 검색 결과 카운트
+    @Select("SELECT COUNT(*) FROM UserRecommend WHERE userRecomTitle LIKE CONCAT('%', #{keyword}, '%') OR userRecomContent LIKE CONCAT('%', #{keyword}, '%')")
+    int countUserRecommend(@Param("keyword") String keyword);
 
     // 트랜드 서울 검색 결과 카운트
     @Select("SELECT COUNT(*) FROM TrendSeoul WHERE seoulTitle LIKE CONCAT('%', #{keyword}, '%') OR seoulContent LIKE CONCAT('%', #{keyword}, '%')")
@@ -71,7 +83,7 @@ public interface SearchMapper {
     
     // 전체 게시판 검색 결과 카운트
     @Select("SELECT SUM(cnt) FROM (" +
-            "SELECT COUNT(*) AS cnt FROM Freeboard WHERE freeTitle LIKE CONCAT('%', #{keyword}, '%') OR freeContent LIKE CONCAT('%', #{keyword}, '%') " +
+            "SELECT COUNT(*) AS cnt FROM FreeBoard WHERE freeTitle LIKE CONCAT('%', #{keyword}, '%') OR freeContent LIKE CONCAT('%', #{keyword}, '%') " +
             "UNION ALL " +
             "SELECT COUNT(*) AS cnt FROM TrendSeoul WHERE seoulTitle LIKE CONCAT('%', #{keyword}, '%') OR seoulContent LIKE CONCAT('%', #{keyword}, '%') " +
             "UNION ALL " +
@@ -80,6 +92,8 @@ public interface SearchMapper {
             "SELECT COUNT(*) AS cnt FROM EditRecommend WHERE editrecoSubject LIKE CONCAT('%', #{keyword}, '%') OR editrecoContent LIKE CONCAT('%', #{keyword}, '%') " +
             "UNION ALL " +
             "SELECT COUNT(*) AS cnt FROM Notice WHERE noticeTitle LIKE CONCAT('%', #{keyword}, '%') OR noticeContent LIKE CONCAT('%', #{keyword}, '%')" +
+            "UNION ALL " +
+            "SELECT COUNT(*) AS cnt FROM UserRecommend WHERE userRecomTitle LIKE CONCAT('%', #{keyword}, '%') OR userRecomContent LIKE CONCAT('%', #{keyword}, '%')" +
             ") total")
-    int countTotalSearchResults(@Param("keyword") String keyword);
+int countTotalSearchResults(@Param("keyword") String keyword);
 }
