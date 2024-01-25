@@ -518,21 +518,21 @@
 	        
 	        <div class="comment-section" id="comment"></div>
 	        
-	        <c:url var="deleteUrl" value="/admin/adminuserRecom_delete_ok.do">
+	        <c:url var="deleteUrl" value="adminuserRecom_delete_ok.do">
 	            <c:param name="userRecomSeq" value="${ param.seq }" />
 	            <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${param.cpage}" /></c:if>
 	            <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
 	            <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>
 	        </c:url>
 	
-	        <c:url var="modifyUrl" value="/admin/adminuserRecom_modify.do">
+	        <c:url var="modifyUrl" value="adminuserRecom_modify.do">
 	            <c:param name="userRecomSeq" value="${ param.seq }" />
 	            <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${ param.cpage }" /></c:if>
 	            <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
 	            <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>
 	        </c:url>
 	
-	        <c:url var="listUrl" value="/admin/adminuserRecom.do">
+	        <c:url var="listUrl" value="adminuserRecom.do">
 	            <c:if test="${not empty param.cpage}"><c:param name="cpage" value="${param.cpage}" /></c:if>
 	            <c:if test="${not empty param.searchType}"><c:param name="searchType" value="${param.searchType}" /></c:if>
 	            <c:if test="${not empty param.searchKeyword}"><c:param name="searchKeyword" value="${param.searchKeyword}" /></c:if>
@@ -541,7 +541,7 @@
 	        <div class="post-actions">
 	            <div class="left-buttons">
 			        <c:if test="${not empty prevPost}">
-			            <input type="button" value="이전글" class="btn" onclick="location.href='/admin/adminuserRecom_view.do?seq=${prevPost.freeSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
+			            <input type="button" value="이전글" class="btn" onclick="location.href='adminuserRecom_view.do?seq=${prevPost.freeSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />
 			        </c:if>
 			        <c:if test="${not empty nextPost}">
 			            <input type="button" value="다음글" class="btn" onclick="location.href='adminuserRecom_view.do?seq=${nextPost.freeSeq}&cpage=${param.cpage}&searchType=${param.searchType}&searchKeyword=${fn:escapeXml(param.searchKeyword)}'" />

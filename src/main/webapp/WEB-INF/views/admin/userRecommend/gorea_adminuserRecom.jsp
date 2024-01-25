@@ -93,14 +93,14 @@
 						<div class="list-item">
 							<div class='num'>${to.userRecomSeq }</div>
 							<div class='title'>
-								<a href='/admin/adminuserRecom_view.do?seq=${to.userRecomSeq }<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
+								<a href='adminuserRecom_view.do?seq=${to.userRecomSeq }<c:if test="${not empty param.cpage}">&cpage=${param.cpage}</c:if><c:if test="${not empty param.searchType}">&searchType=${param.searchType}</c:if><c:if test="${not empty param.searchKeyword}">&searchKeyword=${param.searchKeyword}</c:if>'>
    									 ${to.userRecomTitle}
 								</a>
 							</div>
 							<div class='writer'>${to.userNickname }</div>
 							<div class='date'>${to.userRecompostDate }</div>
 							<div class='count'>
-								<a href='/admin/adminuserRecom_delete_ok.do?seq=${to.userRecomSeq }'
+								<a href='adminuserRecom_delete_ok.do?seq=${to.userRecomSeq }'
 									onclick="return confirm( '정말 삭제하시겠습니까?' );">삭제</a>
 							</div>
 						</div>
@@ -113,10 +113,10 @@
 						<!-- 처음 페이지 버튼 -->
 						<c:if test="${paging.cpage > 1}">
 							<a 
-								href="/admin/adminuserRecom.do?cpage=1<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+								href="adminuserRecom.do?cpage=1<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 								class="pagination-item">&lt;&lt;</a>
 							<a
-								href="/admin/adminuserRecom.do?cpage=${paging.cpage - 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+								href="adminuserRecom.do?cpage=${paging.cpage - 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 								class="pagination-item">&lt;</a>
 						</c:if>
 						<c:if test="${paging.cpage == 1}">
@@ -132,7 +132,7 @@
 								</c:when>
 								<c:otherwise>
 									<a
-										href="/admin/adminuserRecom.do?cpage=${i}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+										href="adminuserRecom.do?cpage=${i}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 										class="pagination-item">${i}</a>
 								</c:otherwise>
 							</c:choose>
@@ -141,10 +141,10 @@
 						<!-- 다음 페이지 버튼 -->
 						<c:if test="${paging.cpage < paging.totalPage}">
 							<a
-								href="/admin/adminuserRecom.do?cpage=${paging.cpage + 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+								href="adminuserRecom.do?cpage=${paging.cpage + 1}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 								class="pagination-item">&gt;</a>
 							<a
-								href="/admin/adminuserRecom.do?cpage=${paging.totalPage}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
+								href="adminuserRecom.do?cpage=${paging.totalPage}<c:if test="${not empty param.searchType and not empty param.searchKeyword}">&searchType=${param.searchType}&searchKeyword=${param.searchKeyword}</c:if>"
 								class="pagination-item">&gt;&gt;</a>
 						</c:if>
 						<c:if test="${paging.cpage == paging.totalPage}">
@@ -154,7 +154,7 @@
 					</div>
 				</div>
 				<div class="search_container">
-					<form action="/admin/adminuserRecom.do" method="get">
+					<form action="adminuserRecom.do" method="get">
 						<select name="searchType">
 							<option value="title">제목</option>
 							<option value="titleContent">제목 + 내용</option>

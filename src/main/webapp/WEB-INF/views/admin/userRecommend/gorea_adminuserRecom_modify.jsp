@@ -73,7 +73,7 @@
     		<div class="tith2">
 			 	<h2>게시글 수정</h2>
 			 </div>
-		        <form action="/admin/adminuserRecom_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
+		        <form action="adminuserRecom_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
 			        <c:set var="to" value="${requestScope.to}" />
 			        <input type="hidden" name="userRecomSeq" value="${ param.userRecomSeq }" /> 
 					<input type="hidden" name="cpage" value="${cpage}" /> 
