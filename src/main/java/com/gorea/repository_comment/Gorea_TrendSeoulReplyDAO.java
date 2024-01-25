@@ -19,23 +19,36 @@ public class Gorea_TrendSeoulReplyDAO {
     }
     
     public int ReviewWrite_Ok(Gorea_TrendSeoul_ReplyTO rto) {
+    	
     	int result = reviewMapper.trendSeoul_Review(rto);
+    	
+    	reviewMapper.updateScore(rto);
+    	
     	return result;
     }
     
     public Gorea_TrendSeoul_ReplyTO ReviewModify(Gorea_TrendSeoul_ReplyTO rto) {
+    	
     	rto = reviewMapper.ReviewModify(rto);
     	return rto;
     }
     
-    public int ReviewModify_Ok(Gorea_TrendSeoul_ReplyTO rto) { 	
+    public int ReviewModify_Ok(Gorea_TrendSeoul_ReplyTO rto) {
+    	
 		int result = reviewMapper.ReviewModify_Ok(rto);
+
+    	reviewMapper.updateScore(rto);
 		
 		return result;
     }
     
-    public int ReviewDelete(String seoulReviewSeq) {	
-		return reviewMapper.ReviewDelete(seoulReviewSeq);
+    public int ReviewDelete(Gorea_TrendSeoul_ReplyTO rto) {	
+    	
+    	int result = reviewMapper.ReviewDelete(rto);
+    	
+    	reviewMapper.updateScore(rto);
+    	
+		return result;
 	}
     
 }

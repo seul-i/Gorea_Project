@@ -1,29 +1,28 @@
 @charset "UTF-8";
 
-*{
-	box-sizing: border-box;
-}
+
 
 .header-navFixed { 
 	position: relative !important;
 }
 
-.banner {
-	position: relative;
+.location {
+   padding: 10px 0px 20px 20px;
+   font-size: 17px;
+   color: #666;
+   box-sizing: border-box;
+   background-size: 21px auto;
+   margin-left: 9%;
+   /* margin-left 값을 조절하여 왼쪽으로 이동 */
 }
 
-.banner-text {
-	position: absolute;
-	bottom: 30px;
-	left: 30px;
-	color: white;
-	font-size: 24px;
-	font-weight: bold;
+span a {
+   font-weight: bold;
+   color: #333;
 }
 
-.banner img {
-	width: 100%;
-	max-height: 500px;
+.ar {
+   font-weight: bold;
 }
 
 .top5container{

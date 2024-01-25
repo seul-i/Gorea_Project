@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_reply.Gorea_TrendSeoul_ReplyTO;
@@ -51,7 +52,7 @@ public interface TrendMapperInter {
 	// ReviewList
 	@Select("SELECT tr.seoulSeq, tr.seoulReviewSeq, tr.userSeq, tr.comment, tr.seoulScore, DATE_FORMAT(tr.reviewDate, '%Y.%m.%d') AS reviewDate, u.userNickname AS userNickname " +
 	        "FROM TrendReview tr " +
-	        "JOIN user u ON tr.userSeq = u.userSeq " +
+	        "JOIN User u ON tr.userSeq = u.userSeq " +
 	        "WHERE tr.seoulSeq=#{seoulSeq} " +
 	        "ORDER BY tr.seoulReviewSeq DESC")
 	List<Gorea_TrendSeoul_ReplyTO> ReviewList(String seoulSeq);
@@ -59,6 +60,14 @@ public interface TrendMapperInter {
 	// ReviewWrite_Ok
 	@Insert("insert into TrendReview values (0, #{userSeq}, #{seoulSeq}, #{comment}, #{seoulScore}, now() )")
 	int trendSeoul_Review(Gorea_TrendSeoul_ReplyTO rto);
+	
+	@Update("UPDATE TrendSeoul "
+	        + "SET seoulScore = ("
+	        + "    SELECT CASE WHEN COUNT(*) > 0 THEN IFNULL(SUM(seoulScore), 0) / COUNT(*) ELSE 0 END "
+	        + "    FROM TrendReview "
+	        + "    WHERE seoulSeq = #{rto.seoulSeq})"
+	        + "WHERE seoulSeq = #{rto.seoulSeq}")
+	int updateScore(@Param("rto") Gorea_TrendSeoul_ReplyTO rto);
 	
 	// ReviewModify
 	@Select("SELECT seoulReviewSeq, userSeq, comment, seoulScore FROM TrendReview WHERE seoulReviewSeq = #{seoulReviewSeq} AND userSeq = #{userSeq}")
@@ -70,6 +79,42 @@ public interface TrendMapperInter {
 	
 	// ReviewDelete
 	@Delete("delete from TrendReview where seoulReviewSeq=#{seoulReviewSeq}")
-	int ReviewDelete(String seoulReviewSeq);
+	int ReviewDelete(Gorea_TrendSeoul_ReplyTO rto);
+	
+	@Select("<script>" +
+	        "SELECT ts.userSeq, ts.seoulSeq, ts.seoulTitle, ts.seoulLocGu, ts.seoulContent, ts.seoulScore, cn.mainCategory, cn.subCategory " +
+	        "FROM TrendSeoul ts " +
+	        "JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo " +
+	        "WHERE " +
+	        "<if test='seoulLocGu != null'> ts.seoulLocGu = #{seoulLocGu} </if>" +
+	        "<if test='mainCategory != null'> OR cn.mainCategory = #{mainCategory} </if>" +
+	        "<if test='subCategory != null'> OR cn.subCategory = #{subCategory} </if>" +
+	        "ORDER BY ts.seoulSeq ASC " +
+	        "LIMIT #{firstRow}, #{pageSize}" +
+	        "</script>")
+	List<Gorea_TrendSeoul_ListTO> trendSeoul_searchList(
+	        @Param("seoulLocGu") String seoulLocGu,
+	        @Param("mainCategory") String mainCategory,
+	        @Param("subCategory") String subCategory,
+	        @Param("firstRow") int firstRow,
+	        @Param("pageSize") int pageSize);
+
+	@Select("<script>" +
+	        "SELECT COUNT(*) FROM TrendSeoul ts " +
+	        "JOIN CategoryNo cn ON ts.seoulcategoryNo = cn.categoryNo " +
+	        "WHERE " +
+	        "<if test='seoulLocGu != null'> ts.seoulLocGu = #{seoulLocGu} </if>" +
+	        "<if test='mainCategory != null'> OR cn.mainCategory = #{mainCategory} </if>" +
+	        "<if test='subCategory != null'> OR cn.subCategory = #{subCategory} </if>" +
+	        "</script>")
+	int trendSeoul_searchListCount(
+	        @Param("seoulLocGu") String seoulLocGu,
+	        @Param("mainCategory") String mainCategory,
+	        @Param("subCategory") String subCategory);
+
+
+
+
+
 	
 }

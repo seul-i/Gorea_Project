@@ -2,9 +2,11 @@ package com.gorea.dto_reply;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class Gorea_TrendSeoul_ReplyTO {
 
 	private String seoulSeq;

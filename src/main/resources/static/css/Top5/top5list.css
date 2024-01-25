@@ -3,6 +3,25 @@ p{
     margin-bottom: 0;
 }
 
+.location {
+   padding: 10px 0px 20px 20px;
+   font-size: 17px;
+   color: #666;
+   box-sizing: border-box;
+   background-size: 21px auto;
+   margin-left: 9%;
+   /* margin-left 값을 조절하여 왼쪽으로 이동 */
+}
+
+span a {
+   font-weight: bold;
+   color: #333;
+}
+
+.ar {
+   font-weight: bold;
+}
+
 .BestTop3place {
     display: flex;
     width: 80%;
@@ -274,6 +293,46 @@ p{
 	}
 	
 }
+
+.pagination-container {
+   flex-grow: 1;
+   /* 공간을 채우도록 함 */
+   text-align: center;
+   /* 내부 요소(페이징)를 중앙 정렬 */
+   margin-bottom: 20px;
+}
+
+.pagination {
+   margin: 0;
+   /* 기존 마진 제거 */
+   display: inline-block;
+   text-align: center;
+   /* 가운데 정렬 추가 */
+   font-weight: bolder;
+   flex-grow: 1;
+   font-size: 14px;
+}
+
+.pagination-item {
+   margin: 0 5px;
+   padding: 5px 10px;
+   border-radius: 5px;
+   text-decoration: none;
+   color: #333;
+   font-weight: bold;
+}
+
+.pagination-item.active {
+   background-color: #007bff;
+   color: #fff;
+}
+
+.pagination-item.disabled {
+   color: #333;
+   cursor: pointer;
+   pointer-events: none;
+}
+
 
 /*view 부분 디자인*/
 

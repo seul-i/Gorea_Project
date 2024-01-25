@@ -53,5 +53,43 @@ public class Gorea_Content_ListTrendSeoul implements Gorea_Content_ListTranslati
 		
 		return translatedList;
 	}
+	
+	@Override
+	public List<Gorea_TrendSeoul_ListTO> trendSeoul_SearchList_KO(int offset, int pageSize , String seoulLocGu, String mainCategory, String subCategory){
+		
+		List<Gorea_TrendSeoul_ListTO> boardList = gorea_TrendSeoulDAO.trendSeoul_searchList(offset,pageSize,seoulLocGu,mainCategory,subCategory);
+
+		return boardList;
+	}
+	
+	@Override
+	public List<Gorea_TrendSeoul_ListTO> trendSeoul_SearchList_EN(int offset, int pageSize , String seoulLocGu, String mainCategory, String subCategory){
+		
+		List<Gorea_TrendSeoul_ListTO> boardList = gorea_TrendSeoulDAO.trendSeoul_searchList(offset,pageSize,seoulLocGu,mainCategory,subCategory);
+		
+		List<Gorea_TrendSeoul_ListTO> translatedList = translation.translateBoardList(boardList, "en");
+
+		return translatedList;
+	}
+	
+	@Override
+	public List<Gorea_TrendSeoul_ListTO> trendSeoul_SearchList_JP(int offset, int pageSize , String seoulLocGu, String mainCategory, String subCategory){
+		
+		List<Gorea_TrendSeoul_ListTO> boardList_jp = gorea_TrendSeoulDAO.trendSeoul_searchList(offset,pageSize,seoulLocGu,mainCategory,subCategory);
+		
+		List<Gorea_TrendSeoul_ListTO> translatedList = translation.translateBoardList(boardList_jp, "ja");
+		
+		return translatedList;
+	}
+	
+	@Override
+	public List<Gorea_TrendSeoul_ListTO> trendSeoul_SearchList_CHN(int offset, int pageSize , String seoulLocGu, String mainCategory, String subCategory){
+		
+		List<Gorea_TrendSeoul_ListTO> boardList_chn = gorea_TrendSeoulDAO.trendSeoul_searchList(offset,pageSize,seoulLocGu,mainCategory,subCategory);
+		
+		List<Gorea_TrendSeoul_ListTO> translatedList = translation.translateBoardList(boardList_chn, "zh-CN");
+		
+		return translatedList;
+	}
 
 }

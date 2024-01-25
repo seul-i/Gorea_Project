@@ -30,12 +30,49 @@
 		
 		<jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
 		
-		<div class="banner" id="banner">
-        	<img src="/img/banner/edittipbanner.jpg" alt="banner">
-        	<div class="banner-text">
-            <h1>에디터 꿀팁</h1>
-        	</div>
-    	</div>	
+		<div class="commonBanner" id="comBanner">
+	        <img src="/img/banner/Top5banner2.jpg" alt="banner">
+	        <div class="commonBanner-text">
+	            <h1>Best Top5</h1>
+	        </div>
+	    </div>
+	    
+	    <div class="location">
+		<i class="fa-solid fa-house"></i> <span class="ar">></span>
+		<c:choose>
+			<c:when test="${language eq 'korean'}">
+         
+	            우리들의 서울 <span class="ar">></span>
+				<span> <a href="./bestTop5.do.do">Best Top5</a>
+				</span>
+
+			</c:when>
+			<c:when test="${language eq 'english'}">
+         
+	            Our Seoul <span class="ar">></span>
+				<span> <a href="./bestTop5.do.do">Best Top5</a>
+				</span>
+
+			</c:when>
+			<c:when test="${language eq 'japanese'}">
+         
+	            僕らのソウル <span class="ar">></span>
+				<span> <a href="./bestTop5.do.do">Best Top5</a>
+				</span>
+
+			</c:when>
+			<c:when test="${language eq 'chinese'}">
+         
+            
+	            我们的首尔 <span class="ar">></span>
+				<span> <a href="./bestTop5.do.do">Best Top5</a>
+				</span>
+
+			</c:when>
+
+			<c:otherwise>제목</c:otherwise>
+		</c:choose>
+	</div>
 	
 			<!-- Moa Modal--> 
 			<div class="modal fade" id="moaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

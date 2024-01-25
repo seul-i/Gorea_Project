@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gorea.dto_board.Gorea_BEST5_BoardTO;
 import com.gorea.dto_board.Gorea_BEST5_ListTO;
+import com.gorea.dto_board.Gorea_PagingTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_SearchTO;
 import com.gorea.dto_like.Gorea_BEST5_LikeTO;
@@ -54,73 +55,145 @@ public class Gorea_Best5_Controller {
 
 	    return "즐겨찾기 완료";
 	}
+	
 
 	@GetMapping("/{language}/bestTop5.do")
-	public String best5List(@PathVariable String language, Model model) {
+	public String best5List(@PathVariable String language, Model model,
+			@RequestParam(defaultValue = "1") int cpage,
+	        @RequestParam(defaultValue = "8") int pageSize) {
+		
+		// cpage가 0 이하이면 1로 설정
+	    cpage = (cpage <= 0) ? 1 : cpage;
+	    
+	    if (cpage <= 0) {
+	        // cpage가 0 이하인 경우, 1페이지로 리다이렉트
+	        return "redirect:/{language}/bestTop5.do?cpage=1";
+	    }
+	    
+	    int offset = (cpage - 1) * pageSize;
 		
 		model.addAttribute("language",language);
-		
-		Gorea_BEST5_LikeTO boardLike = new Gorea_BEST5_LikeTO();
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		if (authentication instanceof UsernamePasswordAuthenticationToken) {
-		    UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authentication;
 
-		    if (authToken.getPrincipal() instanceof LoginService) {
-		        LoginService loginService = (LoginService) authToken.getPrincipal();
-		        Gorea_UserTO userTO = loginService.getGorea_UserTO();
-
-		        // 이제 userSeq 값을 얻을 수 있습니다.
-		        String userSeq = String.valueOf(userTO.getUserSeq());	        
-		    }
-		}
-
-		List<Gorea_BEST5_ListTO> boardList = new ArrayList<>();
+		List<Gorea_BEST5_ListTO> boardList2 = new ArrayList<>();
+		Gorea_PagingTO paging = new Gorea_PagingTO();
 
 		if(language.equals("korean")) {
 			
- 			boardList = dao.best5_top5_boardList();
+ 			boardList2 = dao.best5_top5_boardList(offset, pageSize);
+ 			paging = createPagingModel(boardList2, cpage);
 
 		}else if(language.equals("english")) {
 			
+			boardList2 = dao.best5_top5_boardList(offset, pageSize);
+ 			paging = createPagingModel(boardList2, cpage);
+			
 		}else if(language.equals("japanese")) {
+			
+			boardList2 = dao.best5_top5_boardList(offset, pageSize);
+ 			paging = createPagingModel(boardList2, cpage);
 			
 		}else if(language.equals("chinese")) {
 			
+			boardList2 = dao.best5_top5_boardList(offset, pageSize);
+ 			paging = createPagingModel(boardList2, cpage);
 		}
 		
-		System.out.println(boardLike);
-
-		model.addAttribute("boardList",boardList);
+		model.addAttribute("paging", paging);
+		
+		List<Integer> pageNumbers = new ArrayList<>();
+	    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+	        pageNumbers.add(i);
+	    }
+	    
+	    model.addAttribute("pageNumbers", pageNumbers);
+		
 		
 		return "contents/contents_BestTop5/bestTop5_List";
 	}
 	
+	private Gorea_PagingTO createPagingModel(List<Gorea_BEST5_ListTO> boardList2, int cpage) {
+	    Gorea_PagingTO paging = new Gorea_PagingTO();
+	    paging.setBoardList2(boardList2 != null ? boardList2 : new ArrayList<>());
+	    paging.setTotalRecord(dao.getTop5RowCount());
+	    paging.setCpage(cpage);  // 추가: cpage 값을 설정
+
+	    // 수정: pageSetting 호출 전에 cpage 값을 확인하고 필요하다면 수정
+	    if (cpage > paging.getTotalPage()) {
+	        cpage = paging.getTotalPage();
+	    }
+
+	    paging.pageSetting();
+
+	    return paging;
+	}
+	
 	@GetMapping("/{language}/bestTop5_NS.do")
-	public String best5List_Ps(@PathVariable String language, @RequestParam String nation, Model model) {
+	public String best5List_Ps(@PathVariable String language, @RequestParam String nation, Model model,
+			@RequestParam(defaultValue = "1") int cpage,
+	        @RequestParam(defaultValue = "8") int pageSize) {
 		
-		System.out.println(nation);
+		// cpage가 0 이하이면 1로 설정
+	    cpage = (cpage <= 0) ? 1 : cpage;
+	    
+	    if (cpage <= 0) {
+	        // cpage가 0 이하인 경우, 1페이지로 리다이렉트
+	        return "redirect:/{language}/bestTop5.do?cpage=1";
+	    }
+	    
+	    int offset = (cpage - 1) * pageSize;
 		
 		model.addAttribute("language",language);
 		
-		List<Gorea_BEST5_ListTO> boardList = new ArrayList<>();
+		List<Gorea_BEST5_ListTO> boardList2 = new ArrayList<>();
+		Gorea_PagingTO paging = new Gorea_PagingTO();
 
 		if(language.equals("korean")) {
 			
-			boardList = dao.best5_top5_boardList_NS(nation);
+			boardList2 = dao.best5_top5_boardList_NS(offset, pageSize, nation);
+ 			paging = createPagingModel2(boardList2, cpage);
 
 		}else if(language.equals("english")) {
 			
+			boardList2 = dao.best5_top5_boardList_NS(offset, pageSize, nation);
+ 			paging = createPagingModel2(boardList2, cpage);
+			
 		}else if(language.equals("japanese")) {
+			
+			boardList2 = dao.best5_top5_boardList_NS(offset, pageSize, nation);
+ 			paging = createPagingModel2(boardList2, cpage);
 			
 		}else if(language.equals("chinese")) {
 			
+			boardList2 = dao.best5_top5_boardList_NS(offset, pageSize, nation);
+ 			paging = createPagingModel2(boardList2, cpage);
 		}
 		
-		model.addAttribute("boardList",boardList);
+		model.addAttribute("paging", paging);
+		
+		List<Integer> pageNumbers = new ArrayList<>();
+	    for (int i = paging.getFirstPage(); i <= paging.getLastPage(); i++) {
+	        pageNumbers.add(i);
+	    }
+	    
+	    model.addAttribute("pageNumbers", pageNumbers);
 		
 		return "contents/contents_BestTop5/bestTop5_List";
+	}
+	
+	private Gorea_PagingTO createPagingModel2(List<Gorea_BEST5_ListTO> boardList2, int cpage) {
+	    Gorea_PagingTO paging = new Gorea_PagingTO();
+	    paging.setBoardList2(boardList2 != null ? boardList2 : new ArrayList<>());
+	    paging.setTotalRecord(dao.getsearchTop5RowCount());
+	    paging.setCpage(cpage);  // 추가: cpage 값을 설정
+
+	    // 수정: pageSetting 호출 전에 cpage 값을 확인하고 필요하다면 수정
+	    if (cpage > paging.getTotalPage()) {
+	        cpage = paging.getTotalPage();
+	    }
+
+	    paging.pageSetting();
+
+	    return paging;
 	}
 	
 	@GetMapping("/{language}/bestTop5_write.do")

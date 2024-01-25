@@ -1,44 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    text-transform: capitalize;
-    transition: .2s linear;
 
-}
-
-html {
-    font-size: 62.5%;
-    scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
-    overflow-x: hidden; 
-}
-
-header {
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #fff;
-    padding: 2rem 9%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1000;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
-}
-
-header .logo {
-    font-size: 3rem;
-    color: #333;
-    font-weight: bolder;
-}
-
-header .logo span {
-    color: rgb(236, 134, 134);
-}
 
 /* body {
     font-family: 'Arial', sans-serif;
@@ -47,6 +7,27 @@ header .logo span {
     margin: 0;
     padding: 0;
 } */
+
+.location {
+   padding: 10px 0px 20px 20px;
+   font-size: 17px;
+   color: #666;
+   box-sizing: border-box;
+   background-size: 21px auto;
+   margin-left: 5%;
+   height: 20px;
+   margin-top: 30px;
+   /* margin-left 값을 조절하여 왼쪽으로 이동 */
+}
+
+span a :not(.value)!{
+   font-weight: bold;
+   color: #333;
+}
+
+.ar {
+   font-weight: bold;
+}
 
 .container {
     width: 100%;
@@ -62,6 +43,8 @@ header .logo span {
 .category{
 	font-size: 14px;
 	margin-bottom: 10px;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 .post-title {
@@ -74,7 +57,7 @@ header .logo span {
 
 .post-info {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     border-bottom: 1px solid #eee;
     padding-bottom: 15px;
@@ -152,11 +135,38 @@ header .logo span {
 #map {
     height: 400px;
     width: 100%;
+    margin-bottom: 50px;
 }
 
+.modeBtn{
+	display: flex;
+    justify-content: end;
+}
+
+.modeBtn button{
+	display: flex;
+    justify-content: end;
+    background-color: #9d9d9d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+.modeBtn .modify{
+	margin-right: 10px
+}
 
 .review-section {
     padding-top: 20px;
+    margin-bottom: 20px;
+}
+
+#reviewContainer{
+	margin-bottom:40px;
 }
 
 .review {
@@ -164,6 +174,8 @@ header .logo span {
     flex-direction: column;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
+    margin-bottom: 12px;
+   
 }
 
 .review-header {
@@ -173,7 +185,14 @@ header .logo span {
 }
 
 .review-author {
+	display: flex;
     font-weight: bold;
+    align-items: end;
+}
+
+.review-body {
+	margin-top:5px;
+	font-size: 17px;
 }
 
 .review-actions {
@@ -185,6 +204,7 @@ header .logo span {
 .review-timestamp {
     font-size: 12px;
     color: #aaa;
+    margin-left: 10px;
 }
 .reviews-count {
     font-weight: bold;
@@ -213,7 +233,6 @@ border-bottom: 1px solid #eee;
 
 .comment-container {
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -230,9 +249,8 @@ border-bottom: 1px solid #eee;
 .review-form button {
 	padding: 10px 20px;
 	border: none;
-	border: 1px solid #ccc;
-	border-radius: 4px;
 	cursor: pointer;
+	height: 45px;
 }
 
 .sub-review {
@@ -248,13 +266,14 @@ border-bottom: 1px solid #eee;
 }
 
 .btn {
-	background-color: #007bff; /* 배경색을 원하는 색상으로 설정하세요 */
-	color: #fff; /* 텍스트 색상을 흰색 또는 원하는 색상으로 설정하세요 */
-	border: none;
-	border-radius: 4px;
-	padding: 10px 20px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+	background-color: #42424a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 1px 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 40px;
 }
 .review-form-btn {
 	display: flex;
@@ -324,4 +343,13 @@ border-bottom: 1px solid #eee;
 	    /* border: 1px solid #eee;
 	     border-radius: 10px; */
 	}
+}
+
+.modifyText{
+	resize: none; 
+	font-size:16px; 
+	width:90%; 
+	height:100px; 
+	border: 1px solid #cfcfcf;
+	
 }

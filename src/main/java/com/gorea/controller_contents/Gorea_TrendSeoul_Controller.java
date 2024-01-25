@@ -10,11 +10,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -26,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.gorea.dto_board.Gorea_EditRecommend_BoardTO;
 import com.gorea.dto_board.Gorea_PagingTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_BoardTO;
 import com.gorea.dto_board.Gorea_TrendSeoul_ListTO;
@@ -38,7 +32,6 @@ import com.gorea.repository_contents.Gorea_TrendSeoulDAO;
 import com.gorea.service_contents.Gorea_Content_ListTranslation;
 import com.gorea.service_contents.Gorea_Content_ViewTranslation;
 
-import jakarta.annotation.Resource;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -69,9 +62,10 @@ public class Gorea_TrendSeoul_Controller {
 	
 	@GetMapping("/{language}/trend_seoul.do")
 	public String trendList(@PathVariable String language, Model model,
-			@RequestParam(value = "searchType", required = false) String searchType,
-            @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
-			@RequestParam(defaultValue = "1") int cpage,
+			@RequestParam(value = "seoulLocGu", required = false) String seoulLocGu,
+            @RequestParam(value = "mainCategory", required = false) String mainCategory,
+            @RequestParam(value = "subCategory", required = false) String subCategory,
+            @RequestParam(defaultValue = "1") int cpage,
 	        @RequestParam(defaultValue = "8") int pageSize) {
 
 	    // cpage가 0 이하이면 1로 설정
@@ -93,29 +87,46 @@ public class Gorea_TrendSeoul_Controller {
 	    List<Gorea_TrendSeoul_SearchTO> searchmianCategroy = new ArrayList<>();
 	    
 	    if(language.equals("korean")) {
-	    	boardList = listTranslation.trendSeoul_List_KO(offset, pageSize);
-	    	searchGu = dao5.search_locGu();
-	    	searchmianCategroy = dao5.search_mainCategroy();
-	    	paging = createPagingModel(boardList, cpage);
+	    	if (seoulLocGu != null && mainCategory != null && subCategory != null) {
+		    	boardList = listTranslation.trendSeoul_SearchList_KO(offset,pageSize,seoulLocGu,mainCategory,subCategory);
+		    	paging = createSearchPagingModel(boardList, cpage, seoulLocGu,mainCategory,subCategory);
+	    	} else {
+	    		boardList = listTranslation.trendSeoul_List_KO(offset, pageSize);
+	    		paging = createPagingModel(boardList, cpage);
+	    	}
 	    	
 	    }else if(language.equals("english")) {
-	    	boardList = listTranslation.trendSeoul_List_EN(offset, pageSize);	
-	    	searchGu = dao5.search_locGu();
-	    	searchmianCategroy = dao5.search_mainCategroy();
-	    	paging = createPagingModel(boardList, cpage);
+	    	if (seoulLocGu != null && mainCategory != null && subCategory != null) {
+		    	boardList = listTranslation.trendSeoul_SearchList_EN(offset,pageSize,seoulLocGu,mainCategory,subCategory);
+		    	paging = createSearchPagingModel(boardList, cpage, seoulLocGu,mainCategory,subCategory);
+	    	} else {
+	    		boardList = listTranslation.trendSeoul_List_EN(offset, pageSize);
+	    		paging = createPagingModel(boardList, cpage);
+	    	}	
 		    
 	    }else if(language.equals("japanese")) {
-	    	boardList = listTranslation.trendSeoul_List_JP(offset, pageSize);
-	    	searchGu = dao5.search_locGu();
-	    	searchmianCategroy = dao5.search_mainCategroy();
-	    	paging = createPagingModel(boardList, cpage);
+	    	if (seoulLocGu != null && mainCategory != null && subCategory != null) {
+		    	boardList = listTranslation.trendSeoul_SearchList_JP(offset,pageSize,seoulLocGu,mainCategory,subCategory);
+		    	paging = createSearchPagingModel(boardList, cpage, seoulLocGu,mainCategory,subCategory);
+	    	} else {
+	    		boardList = listTranslation.trendSeoul_List_JP(offset, pageSize);
+	    		paging = createPagingModel(boardList, cpage);
+	    	}
+
 		    
 	    }else if(language.equals("chinese")) {
-	    	boardList = listTranslation.trendSeoul_List_CHN(offset, pageSize);
-	    	searchGu = dao5.search_locGu();
-	    	searchmianCategroy = dao5.search_mainCategroy();
-	    	paging = createPagingModel(boardList, cpage);
+	    	if (seoulLocGu != null && mainCategory != null && subCategory != null) {
+		    	boardList = listTranslation.trendSeoul_SearchList_CHN(offset,pageSize,seoulLocGu,mainCategory,subCategory);
+		    	paging = createSearchPagingModel(boardList, cpage, seoulLocGu,mainCategory,subCategory);
+	    	} else {
+	    		boardList = listTranslation.trendSeoul_List_CHN(offset, pageSize);
+	    		paging = createPagingModel(boardList, cpage);
+	    	}
+
 	    }
+	    
+	    searchGu = dao5.search_locGu();
+    	searchmianCategroy = dao5.search_mainCategroy();
 	    
 	    model.addAttribute("seoulLocgu",searchGu);
 	    model.addAttribute("paging", paging);
@@ -135,6 +146,22 @@ public class Gorea_TrendSeoul_Controller {
 	    Gorea_PagingTO paging = new Gorea_PagingTO();
 	    paging.setBoardList(boardList != null ? boardList : new ArrayList<>());
 	    paging.setTotalRecord(dao.getTotalRowCount());
+	    paging.setCpage(cpage);  // 추가: cpage 값을 설정
+
+	    // 수정: pageSetting 호출 전에 cpage 값을 확인하고 필요하다면 수정
+	    if (cpage > paging.getTotalPage()) {
+	        cpage = paging.getTotalPage();
+	    }
+
+	    paging.pageSetting();
+
+	    return paging;
+	}
+	
+	private Gorea_PagingTO createSearchPagingModel(List<Gorea_TrendSeoul_ListTO> boardList, int cpage, String seoulLocGu, String mainCategory, String subCategory) {
+	    Gorea_PagingTO paging = new Gorea_PagingTO();
+	    paging.setBoardList(boardList != null ? boardList : new ArrayList<>());
+	    paging.setTotalRecord(dao.trendSeoul_searchListCount(seoulLocGu,mainCategory,subCategory));
 	    paging.setCpage(cpage);  // 추가: cpage 값을 설정
 
 	    // 수정: pageSetting 호출 전에 cpage 값을 확인하고 필요하다면 수정

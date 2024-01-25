@@ -10,7 +10,7 @@ public interface Gorea_Content_Review {
 	public int TrendReview_Ok(Gorea_TrendSeoul_ReplyTO rto);  					// reviewWrite_Ok
 	public Gorea_TrendSeoul_ReplyTO ReviewModify(Gorea_TrendSeoul_ReplyTO rto);	// reviewModify
 	public int ReviewModify_Ok(Gorea_TrendSeoul_ReplyTO rto);
-	public int ReviewDelete(String seoulReviewSeq);						// reviewDelete
+	public int ReviewDelete(Gorea_TrendSeoul_ReplyTO rto);						// reviewDelete
 }
 
 

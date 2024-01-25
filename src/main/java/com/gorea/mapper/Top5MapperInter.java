@@ -82,8 +82,11 @@ public interface Top5MapperInter {
             "LEFT JOIN CategoryNo cn3 ON ts3.seoulcategoryNo = cn3.categoryNo " +
             "LEFT JOIN CategoryNo cn4 ON ts4.seoulcategoryNo = cn4.categoryNo " +
             "LEFT JOIN CategoryNo cn5 ON ts5.seoulcategoryNo = cn5.categoryNo " +
-            "LEFT JOIN BoardNo bn ON bt.top5boardNo = bn.goreaboardNo")
-    List<Gorea_BEST5_ListTO> best5_top5_boardList();
+            "LEFT JOIN BoardNo bn ON bt.top5boardNo = bn.goreaboardNo LIMIT #{firstRow}, #{pageSize}")
+    List<Gorea_BEST5_ListTO> best5_top5_boardList(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
+    
+    @Select("SELECT COUNT(*) FROM BestTop5")
+	int get_trendSeoulTotalCount();
     
     @Select("SELECT bt.top5Seq, u.userNickname, u.userNation, bt.top5Hit, bt.top5postDate, bt.top5boardNo, " +
             "ts1.seoulSeq AS seoulSeq1, ts1.seoulTitle AS seoulTitle1, " +
@@ -112,9 +115,11 @@ public interface Top5MapperInter {
             "LEFT JOIN CategoryNo cn4 ON ts4.seoulcategoryNo = cn4.categoryNo " +
             "LEFT JOIN CategoryNo cn5 ON ts5.seoulcategoryNo = cn5.categoryNo " +
             "LEFT JOIN BoardNo bn ON bt.top5boardNo = bn.goreaboardNo " +
-            "WHERE u.userNation = #{nation}")
-    List<Gorea_BEST5_ListTO> best5_top5_boardList_NS(String nation);
+            "WHERE u.userNation = #{nation}  LIMIT #{firstRow}, #{pageSize}")
+    List<Gorea_BEST5_ListTO> best5_top5_boardList_NS(String nation, @Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
     
+    @Select("SELECT COUNT(*) FROM BestTop5")
+	int get_searchtrendSeoulTotalCount();
     
     @Update("update BestTop5 set top5Hit=top5Hit+1 where top5Seq=#{top5Seq}")
 	int TrendHit(Gorea_BEST5_ListTO to);

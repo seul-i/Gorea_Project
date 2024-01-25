@@ -40,8 +40,9 @@ public class Gorea_TrendSeoul_Review implements Gorea_Content_Review {
 	}
 	
 	@Override
-	public int ReviewDelete(String seoulReviewSeq) {	
-		return gorea_TrendSeoulReplyDAO.ReviewDelete(seoulReviewSeq);
+	public int ReviewDelete(Gorea_TrendSeoul_ReplyTO rto) {	
+		
+		return gorea_TrendSeoulReplyDAO.ReviewDelete(rto);
 	}
 
 

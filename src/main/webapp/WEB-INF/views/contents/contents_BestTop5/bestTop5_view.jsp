@@ -119,14 +119,6 @@
 			</div>
 			
 		</div>
-		
-		<div class="best5CommentBox">
-			<div class="best5Comment">
-				<label>댓글수</label>
-				<hr/>
-				<div style="height:100px;"></div>
-			</div>
-		</div>
 	<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
 	
 </body>

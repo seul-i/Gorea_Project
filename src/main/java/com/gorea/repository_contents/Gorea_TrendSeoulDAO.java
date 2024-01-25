@@ -34,8 +34,27 @@ public class Gorea_TrendSeoulDAO {
 		return boardList;
 	}
 	
+	public List<Gorea_TrendSeoul_ListTO> trendSeoul_searchList(int offset, int pageSize , String seoulLocGu, String mainCategory, String subCategory) {
+		
+		List<Gorea_TrendSeoul_ListTO> boardList = mapper.trendSeoul_searchList(seoulLocGu,mainCategory,subCategory,offset,pageSize);
+		
+		for (Gorea_TrendSeoul_ListTO board : boardList) {
+			String content = board.getSeoulContent();
+			String firstImageUrl = extractFirstImageUrl(content);
+			board.setFirstImageUrl(firstImageUrl); // BoardTO에 첫 번째 이미지 URL을 설정
+		}
+		
+		return boardList;
+	}
+	
 	public int getTotalRowCount() {
 	    int totalRowCount = mapper.get_trendSeoulTotalCount();
+	    System.out.println("토탈" + totalRowCount);
+	    return totalRowCount;
+	}
+	
+	public int trendSeoul_searchListCount(String seoulLocGu, String mainCategory, String subCategory) {
+	    int totalRowCount = mapper.trendSeoul_searchListCount(seoulLocGu,mainCategory,subCategory);
 	    System.out.println("토탈" + totalRowCount);
 	    return totalRowCount;
 	}

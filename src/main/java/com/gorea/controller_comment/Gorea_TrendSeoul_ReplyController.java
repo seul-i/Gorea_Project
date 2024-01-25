@@ -35,6 +35,7 @@ public class Gorea_TrendSeoul_ReplyController {
 	@PostMapping("/korean/reviewOk")
 	@ResponseBody
 	public int addTrendReview(Gorea_TrendSeoul_ReplyTO rto) {
+		
 		return reviewService.TrendReview_Ok(rto);
 		 
 	}
@@ -56,14 +57,20 @@ public class Gorea_TrendSeoul_ReplyController {
 	@PostMapping("korean/modifyOk")
 	@ResponseBody
 	public int ReviewModifyOk(Gorea_TrendSeoul_ReplyTO rto) {
-		
+
 		return reviewService.ReviewModify_Ok(rto);
 	}
 	
 	// 리뷰 삭제
 	@PostMapping("/korean/delete/{seoulReviewSeq}")
 	@ResponseBody
-    public int ReviewDelete(@PathVariable String seoulReviewSeq) {
-        return reviewService.ReviewDelete(seoulReviewSeq);
+    public int ReviewDelete(@PathVariable String seoulReviewSeq, @RequestParam String seoulSeq) {
+		
+		Gorea_TrendSeoul_ReplyTO rto = new Gorea_TrendSeoul_ReplyTO();
+		
+		rto.setSeoulReviewSeq(seoulReviewSeq);
+		rto.setSeoulSeq(seoulSeq);
+		
+        return reviewService.ReviewDelete(rto);
     }
 }

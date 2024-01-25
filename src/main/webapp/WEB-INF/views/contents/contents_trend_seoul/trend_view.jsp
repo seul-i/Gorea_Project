@@ -7,6 +7,8 @@
 <c:set var="seq" value="${param.seoulSeq}" />
 <c:set var="to" value="${requestScope.to}" />
 <c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
+<c:set var="role"
+   value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userRole}" />
 
 <!DOCTYPE html>
 
@@ -83,8 +85,8 @@
                     var comment = response[i];
 
                     var html = '<div class="review" id="comment_' + comment.seoulReviewSeq + '">';
+                    html += '<div class="review-author">' + comment.userNickname + '<div class="review-timestamp">' + '   _  ' + comment.reviewDate + '</div></div>';
                     html += '<div class="review-rating">';
-
                     for (var j = 0; j < 5; j++) {
                         if (j < comment.seoulScore) {
                             html += '<i class="fas fa-star"></i>'; // Filled star
@@ -92,68 +94,66 @@
                             html += '<i class="far fa-star"></i>'; // Empty star
                         }
                     }
-
                     html += '</div>';
-                    html += '<div class="review-author">' + comment.userNickname + '</div>';
-                    
                     // 댓글 내용(comment)과 리뷰 날짜(reviewDate) 표시
                     html += '<div class="review-body">' + comment.comment + '</div>';
-                    html += '<div class="review-timestamp">' + comment.reviewDate + '</div>';
-                    
-                 // 추가: 로그인한 경우에만 수정/삭제 버튼 표시
-                    var loginUserSeq = "${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}";
-                    if (loginUserSeq == comment.userSeq) {
-                     	// 수정 폼 추가
-    	                html += '<div class="reviewModify-form" id="reviewModifyForm_' + comment.seoulReviewSeq + '" style="display:none;">';
-    	                html += '<input type="hidden" name="' + comment.seoulReviewSeq + '" value="' + comment.seoulReviewSeq + '">'
-    	                html += '<div class="rating-container">';
-    	                html += '<input type="hidden" id="revieModifyRating_' + comment.seoulReviewSeq + '" value="' + comment.seoulScore + '">';
-    	                for (var k = 1; k <= 5; k++) {
-    	                    if (k <= comment.seoulScore) {
-    	                        html += '<div class="star" data-rating="' + k + '"><i class="fas fa-star"></i></div>';
-    	                    } else {
-    	                        html += '<div class="star" data-rating="' + k + '"><i class="far fa-star"></i></div>';
-    	                    }
-    	                }
-    	                html += '</div>';
 
-    	                html += '<div class="comment-container">';
-    	                html += '<textarea style="resize: none;" id="reviewModifyComment_' + comment.seoulReviewSeq + '" placeholder="댓글 내용">' + comment.comment + '</textarea>';
-    	                html += '<button class="save btn" data-review="' + comment.seoulReviewSeq + '">저장</button>';
-    	                html += '</div>';
-    	                html += '</div>';
-    	                    
+                    // 추가: 로그인한 경우에만 수정/삭제 버튼 표시
+                    var loginUserSeq = "${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}";
+
+                    if (loginUserSeq == comment.userSeq) {
                         // "수정" 버튼에 클릭 이벤트 추가 및 수정 폼 표시
-                        html += '<div>';
+                        html += '<div class="modeBtn">';
                         html += '<button class="modify" data-review="' + comment.seoulReviewSeq + '" data-user-seq="' + comment.userSeq + '">수정</button>';
                         html += '<button class="delete" data-review="' + comment.seoulReviewSeq + '" data-user-seq="' + comment.userSeq + '">삭제</button>';
+                        html += '</div>';
+
+                        // 수정 폼 추가
+                        html += '<div class="reviewModify-form" id="reviewModifyForm_' + comment.seoulReviewSeq + '" style="display:none;">';
+                        html += '<input type="hidden" name="' + comment.seoulReviewSeq + '" value="' + comment.seoulReviewSeq + '">';
+                        html += '<div class="rating-container">';
+                        html += '<input type="hidden" id="revieModifyRating_' + comment.seoulReviewSeq + '" value="' + comment.seoulScore + '">';
+                        for (var k = 1; k <= 5; k++) {
+                            if (k <= comment.seoulScore) {
+                                html += '<div class="star" data-rating="' + k + '"><i class="fas fa-star"></i></div>';
+                            } else {
+                                html += '<div class="star" data-rating="' + k + '"><i class="far fa-star"></i></div>';
+                            }
+                        }
+                        html += '</div>';
+                        html += '<div class="comment-container">';
+                        html += '<textarea class="modifyText" id="reviewModifyComment_' + comment.seoulReviewSeq + '" placeholder="댓글 내용">' + comment.comment + '</textarea>';
+                        html += '<button class="save btn" data-review="' + comment.seoulReviewSeq + '">저장</button>';
                         html += '</div>';
                         html += '</div>';
                     }
 
                     html += '</div>';
                     reviewContainer.append(html);
+
                 }
 
                 // "수정" 버튼에 클릭 이벤트 추가
                 $(".modify").on("click", function () {
                     var seoulReviewSeq = $(this).data("review");
                     var reviewElement = $("#comment_" + seoulReviewSeq);
+                    var seoulSeq = $("#seoulSeq").val();
                     
                  // 서버에서 받아온 댓글 정보 중에서 작성자 userSeq를 추출
                     var reviewUserSeq = $(this).data("user-seq");
 
                     // 현재 로그인한 사용자의 userSeq 가져오기
                     var loginUserSeq = "${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}";
-                    
-
+					
                     // 댓글 작성자와 로그인한 사용자가 동일한 경우에만 수정 허용
-                    if (reviewUserSeq == loginUserSeq) {
-                        reviewElement.find(".review-body").hide();  // 댓글 내용 숨김
-                        reviewElement.find(".review-timestamp").hide();  // 리뷰 날짜 숨김
+                    if (reviewUserSeq == loginUserSeq) {  
+                        reviewElement.find(".review-timestamp").hide();
+                        reviewElement.find(".review-rating").hide();
+                        reviewElement.find(".review-body").hide();// 리뷰 날짜 숨김
                         reviewElement.find(".modify").hide();
                         reviewElement.find(".delete").hide();
                         reviewElement.find(".review-rating").hide();
+                        console.log(seoulReviewSeq);
                         reviewElement.find("#reviewModifyForm_" + seoulReviewSeq).show();  // 수정 폼 표시
 
                         // 별점 수정 폼에 있는 별점에 대한 클릭 이벤트 추가
@@ -169,7 +169,7 @@
                             var comment = $("#reviewModifyComment_" + seoulReviewSeq).val();
 
                             // 수정된 데이터를 서버로 전송
-                            saveReview(seoulReviewSeq, seoulScore, comment);
+                            saveReview(seoulSeq, seoulReviewSeq, seoulScore, comment);
                         });
                     } else {
                         // 댓글 작성자와 로그인한 사용자가 다를 경우에는 수정을 허용하지 않음
@@ -240,12 +240,13 @@
 
  	
 	 // 저장 함수
-    function saveReview(seoulReviewSeq, seoulScore, comment) {
+    function saveReview(seoulSeq, seoulReviewSeq, seoulScore, comment) {
         // 서버로 수정된 데이터를 전송하는 AJAX 코드
     	$.ajax({
     	    type: 'POST',
     	    url: "/korean/modifyOk",
     	    data: {
+    	    	seoulSeq: seoulSeq,
     	        seoulReviewSeq: seoulReviewSeq,
     	        seoulScore: seoulScore,
     	        comment: comment
@@ -267,6 +268,7 @@
  	// 삭제 버튼 클릭 이벤트
    	 $(document).on("click", ".delete", function(event) {
    	 	   event.preventDefault();
+		   var seoulSeq = $("#seoulSeq").val();
      	   var seoulReviewSeq = $(this).data("review");
            // 서버에서 받아온 댓글 정보 중에서 작성자 userSeq를 추출
            var reviewUserSeq = $(this).data("user-seq");
@@ -283,6 +285,9 @@
 	        $.ajax({
 	            type: 'post',
 	            url: "/korean/delete/" + seoulReviewSeq,
+	            data: {
+	            	seoulSeq: seoulSeq
+	            },
 	            success: function (response) {
 	                if (response > 0) {
 	                    // 댓글 목록 갱신
@@ -316,11 +321,50 @@
 <body>
 
     <jsp:include page="/WEB-INF/views/includes/header${language}.jsp"></jsp:include>
+    
+    <div class="location">
+		<i class="fa-solid fa-house"></i> <span class="ar">></span>
+		<c:choose>
+			<c:when test="${language eq 'korean'}">
+         
+	            명소 <span class="ar">></span>
+				<span> <a href="./editRecommend_list.do">트렌드 서울</a>
+				</span>
+
+			</c:when>
+			<c:when test="${language eq 'english'}">
+         
+	            sights <span class="ar">></span>
+				<span> <a href="./editRecommend_list.do">Trend seoul</a>
+				</span>
+
+			</c:when>
+			<c:when test="${language eq 'japanese'}">
+         
+	            観光 <span class="ar">></span>
+				<span> <a href="./editRecommend_list.do">トレンドソウル</a>
+				</span>
+
+			</c:when>
+			<c:when test="${language eq 'chinese'}">
+         
+            
+	            景点 <span class="ar">></span>
+				<span> <a href="./editRecommend_list.do">潮流首尔</a>
+				</span>
+
+			</c:when>
+
+			<c:otherwise>제목</c:otherwise>
+		</c:choose>
+	</div>
+    
      <main>
         <section>
             <div class="container">
-            	<div class="category">${to.subCategory} </div>
-                <div class="post-title">${to.seoulTitle}</div>
+                <div class="post-title">${to.seoulTitle}
+                </div>
+                <div class="category">${to.mainCategory} / ${to.subCategory}</div>
                 <div class="post-info">
                     <div class="post-info-right">
                         <span class="post-info-item">작성일: ${to.seoulpostDate}</span>
@@ -379,42 +423,100 @@
                 <div id="map" data-address="${to.seoulLoc}"></div>
                 
                 <div class="map"> </div>
-                <form id="reviewForm" method="post">
-				    <input type="hidden" id="seoulSeq" value="${param.seoulSeq}" />
-				    <input type="hidden" name="userSeq" value="${userSeq}">
-				    <div class="review-form">
-				        <!-- 별점 입력 폼 -->
-				        <div class="rating-container">
-				            <input type="hidden" id="ratingInput" value="0"> <!-- 초기값: 0점 -->
-				            <div class="star" data-rating="1"><i class="far fa-star"></i></div>
-				            <div class="star" data-rating="2"><i class="far fa-star"></i></div>
-				            <div class="star" data-rating="3"><i class="far fa-star"></i></div>
-				            <div class="star" data-rating="4"><i class="far fa-star"></i></div>
-				            <div class="star" data-rating="5"><i class="far fa-star"></i></div>
-				        </div>
-				
-				        <div class="comment-container">
-				            <textarea style="resize: none;" id="comment" placeholder="리뷰를 입력하세요"></textarea>
-				            <button type="button" class="btn" id="submitReviewBtn">리뷰 작성</button>
-				        </div>
-				    </div>
+				<form id="reviewForm" method="post">
+					<input type="hidden" id="seoulSeq" value="${param.seoulSeq}" /> <input
+						type="hidden" name="userSeq" value="${userSeq}">
+
+					<div class="review-form">
+						<!-- 별점 입력 폼 -->
+						<div class="rating-container">
+							<input type="hidden" id="ratingInput" value="0">
+							<!-- 초기값: 0점 -->
+							<div class="star" data-rating="1">
+								<i class="far fa-star"></i>
+							</div>
+							<div class="star" data-rating="2">
+								<i class="far fa-star"></i>
+							</div>
+							<div class="star" data-rating="3">
+								<i class="far fa-star"></i>
+							</div>
+							<div class="star" data-rating="4">
+								<i class="far fa-star"></i>
+							</div>
+							<div class="star" data-rating="5">
+								<i class="far fa-star"></i>
+							</div>
+						</div>
+
+						<div class="comment-container">
+							<c:choose>
+								<c:when test="${language eq 'korean'}">
+									<textarea style="resize: none;" id="comment" placeholder="리뷰를 입력하세요"></textarea>
+				            		<button type="button" class="btn" id="submitReviewBtn">작성</button>
+								</c:when>
+								<c:when test="${language eq 'english'}">
+									<textarea style="resize: none;" id="comment" placeholder="Enter your review"></textarea>
+				            		<button type="button" class="btn" id="submitReviewBtn">Write</button>
+								</c:when>
+								<c:when test="${language eq 'japanese'}">
+									<textarea style="resize: none;" id="comment" placeholder="レビューを入力してください"></textarea>
+				            		<button type="button" class="btn" id="submitReviewBtn">書く</button>
+								</c:when>
+								<c:when test="${language eq 'chinese'}">
+									<textarea style="resize: none;" id="comment" placeholder="输入您的评论"></textarea>
+				            		<button type="button" class="btn" id="submitReviewBtn">写</button>
+								</c:when>
+							</c:choose>
+
+						</div>
+					</div>
 				</form>
-				
-				
+
+
 				<div class="review-section">
-  				    <div id="reviews-count">추천 5개 리뷰 3개</div>
 				    <div id="reviewContainer">
 				    	
 				    </div>
 				</div>
+
+				<c:choose>
+					<c:when test="${role eq 'ROLE_USER'}">
+						<div class="post-actions" style="text-align: right; margin-top: 10px;">
+						<c:choose>
+							<c:when test="${language eq 'korean'}">
+							<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='./trend_seoul.do'" />
+							</c:when>
+							
+							<c:when test="${language eq 'english'}">
+							<input type="button" value="List" class="btn" style="cursor: pointer;" onclick="location.href='./trend_seoul.do'" />
+							</c:when>
+							<c:when test="${language eq 'japanese'}">
+							<input type="button" value="リスト" class="btn" style="cursor: pointer;" onclick="location.href='./trend_seoul.do'" />
+							</c:when>
+							
+							<c:when test="${language eq 'chinese'}">
+							<input type="button" value="列表" class="btn" style="cursor: pointer;" onclick="location.href='./trend_seoul.do'" />
+							</c:when>
+						</c:choose>
+						</div>
+					</c:when>
+				</c:choose>
 				
-                <div class="post-actions" style="text-align: right; margin-top: 10px;">
-                    <input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='./trend_delete_ok.do?seoulSeq=${seq}'" />
-                    <input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='./trend_modify.do?seoulSeq=${seq}'" />
-                     <input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='./trend_seoul.do'" />
-                </div>
+				<c:choose>
+           			<c:when test="${role eq 'ROLE_ADMIN'}">
+						<div class="post-actions" style="text-align: right; margin-top: 10px;">
+							<input type="button" value="삭제" class="btn" style="cursor: pointer;" onclick="location.href='./trend_delete_ok.do?seoulSeq=${seq}'" />
+							<input type="button" value="수정" class="btn" style="cursor: pointer;" onclick="location.href='./trend_modify.do?seoulSeq=${seq}'" />
+							<input type="button" value="목록" class="btn" style="cursor: pointer;" onclick="location.href='./trend_seoul.do'" />
+		                </div>
+					</c:when>
+				</c:choose>
             </div>
         </section>
     </main>
+    
+    <jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+    
 </body>
 </html>

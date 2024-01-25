@@ -110,9 +110,9 @@ public class Gorea_Best5DAO {
 		return flag;
 	}
 	
-	public List<Gorea_BEST5_ListTO> best5_top5_boardList() {
+	public List<Gorea_BEST5_ListTO> best5_top5_boardList(int offset, int pageSize) {
 			
-		List<Gorea_BEST5_ListTO> boardList = mapper.best5_top5_boardList();
+		List<Gorea_BEST5_ListTO> boardList = mapper.best5_top5_boardList(offset, pageSize);
 		
 		for (Gorea_BEST5_ListTO board : boardList) {
 			String content1 = board.getSeoulContent1();
@@ -138,9 +138,15 @@ public class Gorea_Best5DAO {
 		return boardList;
 	}
 	
-	public List<Gorea_BEST5_ListTO> best5_top5_boardList_NS(String nation) {
+	public int getTop5RowCount() {
+	    int totalRowCount = mapper.get_trendSeoulTotalCount();
+	    System.out.println("토탈" + totalRowCount);
+	    return totalRowCount;
+	}
+	
+	public List<Gorea_BEST5_ListTO> best5_top5_boardList_NS(int offset, int pageSize, String nation) {
 		
-		List<Gorea_BEST5_ListTO> boardList = mapper.best5_top5_boardList_NS(nation);
+		List<Gorea_BEST5_ListTO> boardList = mapper.best5_top5_boardList_NS(nation,offset,pageSize);
 		
 		for (Gorea_BEST5_ListTO board : boardList) {
 			String content1 = board.getSeoulContent1();
@@ -166,6 +172,11 @@ public class Gorea_Best5DAO {
 		return boardList;
 	}
 	
+	public int getsearchTop5RowCount() {
+	    int totalRowCount = mapper.get_searchtrendSeoulTotalCount();
+	    System.out.println("토탈" + totalRowCount);
+	    return totalRowCount;
+	}
 	
 	public Gorea_BEST5_ListTO bestTop5_View(Gorea_BEST5_ListTO to) {
 		

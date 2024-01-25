@@ -135,15 +135,16 @@
 	
 	<div class="search_container">
       <form action="trend_seoul.do" method="get">
+      <div style="margin-bottom:10px">
 			<select name="seoulLocGu">
-				<option value="">Seoul_Gu</option>
+				<option value="locGu">Seoul_Gu</option>
 				<c:forEach var="seoulLocgu" items="${seoulLocgu}">
 					<option value="${seoulLocgu.seoulLocGu}">${seoulLocgu.seoulLocGu}</option>
 				</c:forEach>
 			</select>
 			
 			<select id="mainCategorySelect" name="mainCategory">
-				<option value="">Main_Categroy</option>
+				<option value="mainCategory">Main_Categroy</option>
 				<c:forEach var="item" items="${searchmianCategroy}">
 					<option value="${item.mainCategory}">${item.mainCategory}</option>
 				</c:forEach>
@@ -155,22 +156,23 @@
 					<option value="${item.subCategory}">${item.subCategory}</option>
 				</c:forEach>
 			</select>
-
+		</div>
+		<div>
 			<c:choose>
 				<c:when test="${language eq 'korean'}">
-					<input type="submit" value="검색" style="width:80px; height:40px">
+					<input type="submit" value="검색" style="width:80px; height:35px">
 				</c:when>
 				<c:when test="${language eq 'english'}">
-					<input type="submit" value="search" style="width:80px; height:40px">
+					<input type="submit" value="search" style="width:80px; height:35px">
 				</c:when>
 				<c:when test="${language eq 'japanese'}">
-					<input type="submit" value="検索" style="width:80px; height:40px">
+					<input type="submit" value="検索" style="width:80px; height:35px">
 				</c:when>
 				<c:when test="${language eq 'chinese'}">
-					<input type="submit" value="搜索" style="width:80px; height:40px">
+					<input type="submit" value="搜索" style="width:80px; height:35px">
 				</c:when>
 			</c:choose>
-
+		</div>
 		</form>
    </div>
 
@@ -355,7 +357,7 @@
 			var language = '${language}';
 				        
 				$.ajax({
-					url: "/"+language+"/categorySearch.do",
+					url: "/korean/categorySearch.do",
 					type: "GET",
 					dataType : 'json',
 					data: {
