@@ -6,12 +6,12 @@
 <c:set var="flag" value="${requestScope.flag}" />
 <c:set var="cpage" value="${param.cpage}" />
 <c:set var="searchType" value="${param.searchType}" />
-<c:set var="qnaSeq" value="${param.qnaSeq}" />
+<c:set var="noticeSeq" value="${param.noticeSeq}" />
 <c:set var="searchKeyword" value="${fn:escapeXml(param.searchKeyword)}" />
 
 <!-- URL 기본 구조 설정 및 쿼리 문자열 생성 -->
-<c:url var="finalUrl" value="adminqna.do">
-    <c:param name="qnaSeq" value="${qnaSeq}" />
+<c:url var="finalUrl" value="admineditTip_view.do">
+    <c:param name="edittipSeq" value="${edittipSeq}" />
     <c:param name="cpage" value="${cpage}" />
     <c:param name="searchType" value="${searchType}" />
     <c:param name="searchKeyword" value="${searchKeyword}" />

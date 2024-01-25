@@ -8,7 +8,7 @@
 <c:set var="searchKeyword" value="${param.searchKeyword}" />
 
 <!-- URL 기본 구조 설정 -->
-<c:set var="redirectUrl" value="adminqna.do" />
+<c:set var="redirectUrl" value="adminnotice.do" />
 
 <!-- URL에 추가할 쿼리 문자열 생성 -->
 <c:set var="queryParams" value="" />

@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="com.gorea.dto_board.Gorea_Notice_BoardTO" %>
+<c:set var="eto" value="${requestScope.eto}" />
+<c:set var="seq" value="${param.edittipSeq}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +12,7 @@
     <title>GO!REA ADMIN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/admin/admin.css">
-    <link rel="stylesheet" type="text/css" href="/css/notice/modify.css">
+    <link rel="stylesheet" type="text/css" href="/css/editor/write.css">
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
 <body>
@@ -70,33 +72,49 @@
         </button>
 
         <div class="containers">
-            <div class="tith2">
-                <h2>공지사항 수정</h2>
-            </div>
-            <form action="./adminnotice_modify_ok.do" method="post" name="mfrm" enctype="multipart/form-data" class="form-horizontal">
-                <c:set var="to" value="${requestScope.to}" />
-                <input type="hidden" name="noticeSeq" value="${param.noticeSeq}" /> 
-                <input type="hidden" name="cpage" value="${cpage}" /> 
-                <input type="hidden" name="searchType" value="${searchType}" /> 
-                <input type="hidden" name="searchKeyword" value="${searchKeyword}" />
-                <div class="form-group">
-                    <div class="stits">
-                        <p>제목</p>
-                    </div>
-                    <input type="text" class="form-control" value="${to.noticeTitle}" name="noticeTitle" style="height: 50px" />
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" id="noticeContent" name="noticeContent">${to.noticeContent}</textarea>
-                </div>
-                <div class="btn_wrap">
-                    <button type="submit" class="btn btn-primary" id="mbtn">저장하기</button>
-                </div>
-            </form>
-        </div>
+		<div class="tith2">
+			<h2>게시글 수정</h2>
+		</div>
+		<form action="/admineditTip_modify_ok.do" method="post" name="mfrm"
+			enctype="multipart/form-data" class="form-horizontal">
+			<input type="hidden" name="edittipSeq" value="${seq}" />
+			<div class="form-group">
+				<div class="stits">
+					<p>제목</p>
+				</div>
+				<input type="text" class="form-control"
+					value="${eto.edittipSubject}" name="edittipSubject"
+					style="height: 40px" />
+			</div>
+			<div class="form-group">
+				<div class="stits">
+					<p>부제목</p>
+				</div>
+				<input type="text" class="form-control"
+					value="${eto.edittipSubtitle}" name="edittipSubtitle"
+					style="height: 40px" />
+			</div>
+			<div class="form-group">
+				<div class="stits">
+					<p>제목</p>
+				</div>
+				<input type="text" class="form-control"
+					value="${eto.edittipSubtitle}" name="edittipSubtitle"
+					style="height: 40px" />
+			</div>
+			<div class="form-group">
+				<textarea class="form-control" id="content" name="edittipContent">${eto.edittipContent}</textarea>
+			</div>
+
+			<div class="btn_wrap">
+				<button type="submit" class="btn btn-primary">저장하기</button>
+			</div>
+		</form>
+	</div>
 
         <script type="text/javascript">
             window.onload = function() {
-                CKEDITOR.replace('noticeContent', {
+                CKEDITOR.replace('edittipContent', {
                     filebrowserUploadUrl: '/notice/imageUpload',
                     height: 700,
                     toolbar: [

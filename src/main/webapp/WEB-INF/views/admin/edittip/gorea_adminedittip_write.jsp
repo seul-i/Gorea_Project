@@ -8,7 +8,7 @@
     <title>GO!REA ADMIN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/admin/admin.css">
-    <link rel="stylesheet" type="text/css" href="/css/notice/write.css">
+    <link rel="stylesheet" type="text/css" href="/css/editor/write.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
 </head>
@@ -17,42 +17,44 @@
 		<button class="close-sidebar-btn" onclick="toggleSidebar()">X</button>
 		<div class="logo">GO!REA</div>
 		<ul>
-			<li class="tooltip"><a href="#"><i
-					class="fas fa-tachometer-alt"></i> <span class="menu-item-text">대시보드</span></a>
-			</li>
-			<li class="tooltip"><a href="#"><i class="fas fa-home"></i>
-					<span class="menu-item-text">메인 관리</span></a></li>
-			<li class="tooltip"><a href="javascript:void(0);"
-				onclick="toggleSubmenu('data-management-submenu')"
-				data-target="data-management-submenu"> <i
-					class="fas fa-database"></i> <span class="menu-item-text">데이터
-						관리</span><span class="submenu-indicator">∨</span>
-			</a>
-				<ul id="data-management-submenu" class="submenu">
-					<li><a href="#">Best5</a></li>
-					<li><a href="#">장소추천</a></li>
-					<li><a href="#">자유게시판</a></li>
-					<li><a href="#">에디터 추천 장소</a></li>
-					<li><a href="#">에디터 꿀팁</a></li>
-					<li><a href="#">트렌드 서울</a></li>
-					<li><a href="/admin/adminnotice.do">공지사항</a></li>
-				</ul></li>
-			<li class="tooltip"><a href="javascript:void(0);"
-				onclick="toggleSubmenu('member-management-submenu')"
-				data-target="member-management-submenu"> <i class="fas fa-users"></i>
-					<span class="menu-item-text">회원 관리</span><span
-					class="submenu-indicator">∨</span>
-			</a>
-				<ul id="member-management-submenu" class="submenu">
-					<li><a href="#">회원 목록 확인</a></li>
-					<li><a href="#">회원 비밀번호 변경</a></li>
-					<li><a href="#">회원 탈퇴</a></li>
-				</ul></li>
-			<li class="tooltip"><a href="#"><i class="fas fa-envelope"></i>
-					<span class="menu-item-text">문의 관리</span></a></li>
-			<li class="tooltip"><a href="#"><i class="fas fa-chart-bar"></i>
-					<span class="menu-item-text">통계 관리</span></a></li>
-		</ul>
+            <li class="tooltip">
+                <a href="#"><i class="fas fa-tachometer-alt"></i> <span class="menu-item-text">대시보드</span></a>
+            </li>
+            <li class="tooltip">
+                <a href="#"><i class="fas fa-home"></i> <span class="menu-item-text">메인 관리</span></a>
+            </li>
+            <li class="tooltip">
+                <a href="javascript:void(0);" onclick="toggleSubmenu('data-management-submenu')" data-target="data-management-submenu">
+                    <i class="fas fa-database"></i> <span class="menu-item-text">데이터 관리</span><span class="submenu-indicator">∨</span>
+                </a>
+                <ul id="data-management-submenu" class="submenu">
+                    <li><a href="#">Best5</a></li>
+                    <li><a href="adminuserRecom.do">장소추천</a></li>
+                    <li><a href="adminfreeboard.do">자유게시판</a></li>
+                    <li><a href="adminEditReco.do">에디터 추천 장소</a></li>
+                    <li><a href="admineditTip.do">에디터 꿀팁</a></li>
+                    <li><a href="adminTrendseoul.do">트렌드 서울</a></li>
+                    <li><a href="adminnotice.do">공지사항</a></li>
+                </ul>
+            </li>
+            <li class="tooltip">
+                <a href="javascript:void(0);" onclick="toggleSubmenu('member-management-submenu')" data-target="member-management-submenu">
+                    <i class="fas fa-users"></i> <span class="menu-item-text">회원 관리</span><span class="submenu-indicator">∨</span>
+                </a>
+                <ul id="member-management-submenu" class="submenu">
+                    <li><a href="adminUserList.do">회원 목록 확인</a></li>
+                    <!-- 
+                    <li><a href="#">회원 비밀번호 변경</a></li>
+                    <li><a href="#">회원 탈퇴</a></li>  -->
+                </ul>
+            </li>
+            <li class="tooltip">
+                <a href="adminqna.do"><i class="fas fa-envelope"></i> <span class="menu-item-text">문의 관리</span></a>
+            </li>
+            <li class="tooltip">
+                <a href="#"><i class="fas fa-chart-bar"></i> <span class="menu-item-text">통계 관리</span></a>
+            </li>
+        </ul>
 		<footer class="sidebar-footer">
 			<a href="#"></a> <a href="#"></a>
 		</footer>
@@ -67,12 +69,11 @@
         </button>
 
         <!-- 공지사항 작성 폼 -->
-        <c:set var="language" value="${language}" />
         <c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
         
         <div class="containers">
             <div class="tith2">
-                <h2>공지사항 작성</h2>
+                <h2>에디터 꿀팁 작성</h2>
             </div>
 
             <!-- 서버 측 메시지 표시 -->
@@ -83,26 +84,34 @@
                 <div class="error-message">${errorMessage}</div>
             </c:if>
 
-            <form class="form-horizontal" name="wfrm" method="post" action="./adminnotice_write_ok.do">
+            <form class="form-horizontal" name="wfrm" method="post" action="./admineditTip_write_ok.do">
                 <input type="hidden" name="userSeq" value="${userSeq}">
                 <div class="form-group">
-                    <div class="stits">
-                        <p>제목</p>
-                    </div>
-                    <input type="text" class="form-control" name="noticeTitle" style="height: 40px" placeholder="제목을 입력해 주세요."/>
+				<div class="stits">
+                    <p>제목</p>
                 </div>
-                <div class="form-group">
-                    <textarea class="form-control" id="noticeContent" name="noticeContent" placeholder="내용을 입력해 주세요."></textarea>
+				<input type="text" class="form-control" name="edittipSubject" placeholder="제목을 입력해 주세요." />
+					</div>
+			<div class="form-group">
+				<div class="stits">
+                    <p>부제목</p>
                 </div>
-                <div class="btn_wrap">
-                    <button type="submit" id="wbtn" class="btn btn-primary">저장하기</button>
-                </div>
+					<input type="text" class="form-control" name="edittipSubtitle" placeholder="부제목을 입력해 주세요." />
+					</div>
+			<div class="form-group">
+				<textarea class="form-control" id="content" name="edittipContent"
+					placeholder="내용을 입력해 주세요."></textarea>
+			</div>
+
+			<div class="btn_wrap">
+				<button type="submit" class="btn btn-primary">저장하기</button>
+			</div>
             </form>
         </div>
 
         <script type="text/javascript">
             window.onload = function() {
-                CKEDITOR.replace('noticeContent', {
+                CKEDITOR.replace('edittipContent', {
                     filebrowserUploadUrl: '/notice/imageUpload',
                     height: 700,
                     toolbar: [
@@ -135,6 +144,6 @@
             };
         </script>
     </main>
-    <script type="text/javascript" src="/js/admin/admin.js"></script>
+    <script type="text/javascript" src="../../js/admin.js"></script>
 </body>
 </html>
