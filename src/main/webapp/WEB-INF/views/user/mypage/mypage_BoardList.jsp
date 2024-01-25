@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="language" value="${language}" />
 <c:set var="paging" value="${paging}" />
@@ -201,12 +202,20 @@
 						                                <c:when test="${language eq 'chinese'}">自由板</c:when>
 						                            </c:choose>
 						                        </c:when>
-						                        <c:when test="${board.boardType eq '에디터 추천'}">
+						                        <c:when test="${board.boardType eq '여행자 추천'}">
 						                            <c:choose>
-						                                <c:when test="${language eq 'korean'}">에디터 추천</c:when>
-						                                <c:when test="${language eq 'english'}">Editor's Recommend</c:when>
-						                                <c:when test="${language eq 'japanese'}">編集者のおすすめ</c:when>
-						                                <c:when test="${language eq 'chinese'}">编辑推荐</c:when>
+						                                <c:when test="${language eq 'korean'}">여행자 추천</c:when>
+						                                <c:when test="${language eq 'english'}">Traveler Recommend</c:when>
+						                                <c:when test="${language eq 'japanese'}">旅行者のおすすめ</c:when>
+						                                <c:when test="${language eq 'chinese'}">旅行者推荐</c:when>
+						                            </c:choose>
+						                        </c:when>
+						                        <c:when test="${board.boardType eq 'BestTop5'}">
+						                            <c:choose>
+						                                <c:when test="${language eq 'korean'}">BestTop5</c:when>
+						                                <c:when test="${language eq 'english'}">BestTop5</c:when>
+						                                <c:when test="${language eq 'japanese'}">BestTop5</c:when>
+						                                <c:when test="${language eq 'chinese'}">BestTop5</c:when>
 						                            </c:choose>
 						                        </c:when>
 						                    </c:choose>
@@ -216,8 +225,25 @@
 					                        <c:when test="${board.boardType eq '자유게시판'}">
 					                            <a href="/${language}/freeboard_view.do?freeSeq=${board.id}">${board.title}</a>
 					                        </c:when>
-					                        <c:when test="${board.boardType eq '에디터 추천'}">
-					                            <a href="/${language}/editRecommend_view.do?editrecoSeq=${board.id}">${board.title}</a>
+					                         <c:when test="${board.boardType eq 'BestTop5'}">
+					                            <a href="/${language}/editRecommend_view.do?top5Seq=${board.id}">${board.userNickname}이(가) 작성한 Best5</a>
+					                        </c:when>
+					                        <%--
+					                        	<c:when test="${board.boardType eq 'BestTop5'}">
+												    <c:set var="maxTitleLength" value="20" />
+												    <c:set var="trimmedTitle" value="${fn:substring(board.title, 0, maxTitleLength)}" />
+												    <c:choose>
+												        <c:when test="${fn:length(board.title) <= maxTitleLength}">
+												            <a href="/${language}/editRecommend_view.do?top5Seq=${board.id}">${board.title}</a>
+												        </c:when>
+												        <c:otherwise>
+												            <a href="/${language}/editRecommend_view.do?top5Seq=${board.id}">${trimmedTitle}...</a>
+												        </c:otherwise>
+												    </c:choose>
+												</c:when> 
+					                         --%>
+					                         <c:when test="${board.boardType eq '여행자 추천'}">
+					                            <a href="/${language}/userRecom_view.do?userRecomSeq=${board.id}">${board.title}</a>
 					                        </c:when>
 					                    </c:choose>
 						                </td>

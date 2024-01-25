@@ -19,6 +19,7 @@ public class Gorea_TrendSeoul_ListTO implements Serializable {
 	private String seoulSeq;         // 글 번호
 	private String userSeq;          // 글 작성자 정보
 	private String seoulRank;        // 검색건 수
+	private String seoulpostDate;
 	private String seoulTitle;       // 제목
 	private String seoulContent;     // 내용
 	private String seoulLocGu;		 // 구 
