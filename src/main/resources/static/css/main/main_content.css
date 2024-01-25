@@ -635,12 +635,11 @@
   left: 5px !important;
   text-align: left !important;
   padding: 20px !important;
-  color: #FFF !important;
+  color: #fff !important;
   width: auto !important; /* 너비를 자동으로 설정합니다. */
   max-width: 65%; /* 최대 너비를 설정합니다. */
   font-weight: bold !important;
   margin: 0 !important;
-  background: linear-gradient(rgba(128, 128, 128, 0.1), rgba(128, 128, 128, 0.1));
   padding: 10px; /* 원하는 만큼 내부 여백을 추가합니다. */
   line-height: normal;
   font-size: 30px;
