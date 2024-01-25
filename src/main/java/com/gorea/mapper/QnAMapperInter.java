@@ -17,7 +17,7 @@ import com.gorea.dto_reply.Gorea_QnA_ReplyTO;
 public interface QnAMapperInter {
 
 	// QnA
-	@Select("SELECT q.qnaSeq, q.qnaCategory, q.qnaCmt,  q.qnaTitle, q.qnaContent, date_format(q.qnapostDate, '%Y.%m.%d') qnapostDate, u.userNickname AS userNickname FROM QnA q JOIN user u ON q.userSeq = u.userSeq LIMIT #{firstRow}, #{pageSize}")
+	@Select("SELECT q.qnaSeq, q.qnaCategory, q.qnaCmt,  q.qnaTitle, q.qnaContent, date_format(q.qnapostDate, '%Y.%m.%d') qnapostDate, u.userNickname AS userNickname FROM QnA q JOIN User u ON q.userSeq = u.userSeq LIMIT #{firstRow}, #{pageSize}")
 	ArrayList<Gorea_QnA_BoardTO> QnA_List(@Param("firstRow") int firstRow, @Param("pageSize") int pageSize);
 
 	// QnA 카운트

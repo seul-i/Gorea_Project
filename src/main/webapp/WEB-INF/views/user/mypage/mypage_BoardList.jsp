@@ -226,7 +226,7 @@
 					                            <a href="/${language}/freeboard_view.do?freeSeq=${board.id}">${board.title}</a>
 					                        </c:when>
 					                         <c:when test="${board.boardType eq 'BestTop5'}">
-					                            <a href="/${language}/editRecommend_view.do?top5Seq=${board.id}">${board.userNickname}이(가) 작성한 Best5</a>
+					                            <a href="/${language}/bestTop5_view.do?top5Seq=${board.id}">${board.userNickname}이(가) 작성한 Best5</a>
 					                        </c:when>
 					                        <%--
 					                        	<c:when test="${board.boardType eq 'BestTop5'}">

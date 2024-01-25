@@ -24,11 +24,11 @@ public interface SearchMapper {
     List<Gorea_SearchResultTO> searchNotice(@Param("keyword") String keyword, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
     // 에디터 팁 검색
-    @Select("SELECT 'EditTip' AS boardType, edittipSeq AS id, edittipSubject AS title, edittipContent AS content, date_format(edittipWdate, '%Y-%m-%d') AS postDate, edittipHit AS hit FROM EditTip WHERE edittipSubject LIKE CONCAT('%', #{keyword}, '%') OR edittipContent LIKE CONCAT('%', #{keyword}, '%') ORDER BY postDate DESC LIMIT #{pageSize} OFFSET #{offset}")
+    @Select("SELECT 'edittip' AS boardType, edittipSeq AS id, edittipSubject AS title, edittipContent AS content, date_format(edittipWdate, '%Y-%m-%d') AS postDate, edittipHit AS hit FROM EditTip WHERE edittipSubject LIKE CONCAT('%', #{keyword}, '%') OR edittipContent LIKE CONCAT('%', #{keyword}, '%') ORDER BY postDate DESC LIMIT #{pageSize} OFFSET #{offset}")
     List<Gorea_SearchResultTO> searchEditTip(@Param("keyword") String keyword, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
     // 에디터 추천 검색
-    @Select("SELECT 'EditRecommend' AS boardType, editrecoSeq AS id, editrecoSubject AS title, editrecoContent AS content, date_format(editrecoWdate, '%Y-%m-%d') AS postDate, editrecoHit AS hit FROM EditRecommend WHERE editrecoSubject LIKE CONCAT('%', #{keyword}, '%') OR editrecoContent LIKE CONCAT('%', #{keyword}, '%') ORDER BY postDate DESC LIMIT #{pageSize} OFFSET #{offset}")
+    @Select("SELECT 'editrecommend' AS boardType, editrecoSeq AS id, editrecoSubject AS title, editrecoContent AS content, date_format(editrecoWdate, '%Y-%m-%d') AS postDate, editrecoHit AS hit FROM editrecommend WHERE editrecoSubject LIKE CONCAT('%', #{keyword}, '%') OR editrecoContent LIKE CONCAT('%', #{keyword}, '%') ORDER BY postDate DESC LIMIT #{pageSize} OFFSET #{offset}")
     List<Gorea_SearchResultTO> searchEditRecommend(@Param("keyword") String keyword, @Param("offset") int offset, @Param("pageSize") int pageSize);
     
     // 트랜드 서울 게시판 검색
@@ -43,11 +43,11 @@ public interface SearchMapper {
             "SELECT 'TrendSeoul' AS boardType, seoulSeq AS id, seoulTitle AS title, seoulContent AS content, date_format(seoulpostDate, '%Y-%m-%d') AS postDate, seoulHit AS hit " +
             "FROM TrendSeoul WHERE seoulTitle LIKE CONCAT('%', #{keyword}, '%') OR seoulContent LIKE CONCAT('%', #{keyword}, '%') " +
             "UNION ALL " +
-            "SELECT 'EditTip' AS boardType, edittipSeq AS id, edittipSubject AS title, edittipContent AS content, date_format(edittipWdate, '%Y-%m-%d') AS postDate, edittipHit AS hit " +
-            "FROM EditTip WHERE edittipSubject LIKE CONCAT('%', #{keyword}, '%') OR edittipContent LIKE CONCAT('%', #{keyword}, '%') " +
+            "SELECT 'edittip' AS boardType, edittipSeq AS id, edittipSubject AS title, edittipContent AS content, date_format(edittipWdate, '%Y-%m-%d') AS postDate, edittipHit AS hit " +
+            "FROM edittip WHERE edittipSubject LIKE CONCAT('%', #{keyword}, '%') OR edittipContent LIKE CONCAT('%', #{keyword}, '%') " +
             "UNION ALL " +
-            "SELECT 'EditRecommend' AS boardType, editrecoSeq AS id, editrecoSubject AS title, editrecoContent AS content, date_format(editrecoWdate, '%Y-%m-%d') AS postDate, editrecoHit AS hit " +
-            "FROM EditRecommend WHERE editrecoSubject LIKE CONCAT('%', #{keyword}, '%') OR editrecoContent LIKE CONCAT('%', #{keyword}, '%') " +
+            "SELECT 'editrecommend' AS boardType, editrecoSeq AS id, editrecoSubject AS title, editrecoContent AS content, date_format(editrecoWdate, '%Y-%m-%d') AS postDate, editrecoHit AS hit " +
+            "FROM editrecommend WHERE editrecoSubject LIKE CONCAT('%', #{keyword}, '%') OR editrecoContent LIKE CONCAT('%', #{keyword}, '%') " +
             "UNION ALL " +
             "SELECT 'Notice' AS boardType, noticeSeq AS id, noticeTitle AS title, noticeContent AS content, date_format(noticepostDate, '%Y-%m-%d') AS postDate, noticeHit AS hit " +
             "FROM Notice WHERE noticeTitle LIKE CONCAT('%', #{keyword}, '%') OR noticeContent LIKE CONCAT('%', #{keyword}, '%') " +
@@ -70,11 +70,11 @@ List<Gorea_SearchResultTO> searchAllBoards(@Param("keyword") String keyword, @Pa
     int countTrendSeoul(@Param("keyword") String keyword);
 
     // 에디터 팁 검색 결과 카운트
-    @Select("SELECT COUNT(*) FROM EditTip WHERE edittipSubject LIKE CONCAT('%', #{keyword}, '%') OR edittipContent LIKE CONCAT('%', #{keyword}, '%')")
+    @Select("SELECT COUNT(*) FROM edittip WHERE edittipSubject LIKE CONCAT('%', #{keyword}, '%') OR edittipContent LIKE CONCAT('%', #{keyword}, '%')")
     int countEditTip(@Param("keyword") String keyword);
 
     // 에디터 추천 검색 결과 카운트
-    @Select("SELECT COUNT(*) FROM EditRecommend WHERE editrecoSubject LIKE CONCAT('%', #{keyword}, '%') OR editrecoContent LIKE CONCAT('%', #{keyword}, '%')")
+    @Select("SELECT COUNT(*) FROM editrecommend WHERE editrecoSubject LIKE CONCAT('%', #{keyword}, '%') OR editrecoContent LIKE CONCAT('%', #{keyword}, '%')")
     int countEditRecommend(@Param("keyword") String keyword);
 
     // 공지사항 검색 결과 카운트
@@ -87,9 +87,9 @@ List<Gorea_SearchResultTO> searchAllBoards(@Param("keyword") String keyword, @Pa
             "UNION ALL " +
             "SELECT COUNT(*) AS cnt FROM TrendSeoul WHERE seoulTitle LIKE CONCAT('%', #{keyword}, '%') OR seoulContent LIKE CONCAT('%', #{keyword}, '%') " +
             "UNION ALL " +
-            "SELECT COUNT(*) AS cnt FROM EditTip WHERE edittipSubject LIKE CONCAT('%', #{keyword}, '%') OR edittipContent LIKE CONCAT('%', #{keyword}, '%') " +
+            "SELECT COUNT(*) AS cnt FROM edittip WHERE edittipSubject LIKE CONCAT('%', #{keyword}, '%') OR edittipContent LIKE CONCAT('%', #{keyword}, '%') " +
             "UNION ALL " +
-            "SELECT COUNT(*) AS cnt FROM EditRecommend WHERE editrecoSubject LIKE CONCAT('%', #{keyword}, '%') OR editrecoContent LIKE CONCAT('%', #{keyword}, '%') " +
+            "SELECT COUNT(*) AS cnt FROM editrecommend WHERE editrecoSubject LIKE CONCAT('%', #{keyword}, '%') OR editrecoContent LIKE CONCAT('%', #{keyword}, '%') " +
             "UNION ALL " +
             "SELECT COUNT(*) AS cnt FROM Notice WHERE noticeTitle LIKE CONCAT('%', #{keyword}, '%') OR noticeContent LIKE CONCAT('%', #{keyword}, '%')" +
             "UNION ALL " +

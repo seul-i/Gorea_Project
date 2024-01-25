@@ -221,7 +221,7 @@
 		                                        <a href="/${language}/editRecommend_view.do?editrecoSeq=${reply.boardID}">${reply.comment}</a>
 		                                    </c:when>
 		                                    <c:when test="${reply.boardType eq '에디터 꿀팁'}">
-		                                        <a href="/${language}/editTip_view.do?editrecoSeq=${reply.boardID}">${reply.comment}</a>
+		                                        <a href="/${language}/editTip_view.do?edittipSeq=${reply.boardID}">${reply.comment}</a>
 		                                    </c:when>
 		                                    <c:when test="${reply.boardType eq '트렌드 서울'}">
 		                                        <a href="/${language}/trend_view.do?seoulSeq=${reply.boardID}">${reply.comment}</a>

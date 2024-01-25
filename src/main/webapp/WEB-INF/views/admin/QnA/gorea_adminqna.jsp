@@ -66,7 +66,7 @@
 	<main>
 		<div class="logo-space">
 			<span class="admin-title">관리자 페이지</span>
-			<button class="logout-btn">Main</button>
+			<button class="logout-btn"><a href="/korean/main.do">Main</a></button>
 		</div>
 		<button class="toggle-sidebar-btn" onclick="toggleSidebar()">
 			<i class="fas fa-bars"></i>
