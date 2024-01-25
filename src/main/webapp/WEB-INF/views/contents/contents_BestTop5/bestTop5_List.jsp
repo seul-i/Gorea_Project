@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:set var="language" value="${language}" />
+<c:set var="paging" value="${paging}" />
+<c:set var="boardList" value="${paging.boardList2}" />
 <c:set var="userSeq" value="${SPRING_SECURITY_CONTEXT.authentication.principal.gorea_UserTO.userSeq}" />
 
 <!DOCTYPE html>
@@ -279,6 +281,88 @@
 			<div style="height:150px"></div>
 		</div>
 	</c:forEach>
+	
+	<div class="pagination-container">
+		<div class="pagination">
+			<!-- 처음 페이지 버튼 -->
+			<c:choose>
+				<c:when test="${paging.cpage == 1}">
+					<span class="pagination-item disabled">&lt;&lt;</span>
+				</c:when>
+				<c:otherwise>
+					<a href="/${language}/trend_seoul.do?cpage=1"
+						class="pagination-item">&lt;&lt;</a>
+				</c:otherwise>
+			</c:choose>
+	
+			<!-- 이전 페이지 버튼 -->
+			<c:choose>
+				<c:when test="${paging.cpage == 1}">
+					<span class="pagination-item disabled">&lt;</span>
+				</c:when>
+				<c:otherwise>
+					<a href="/${language}/trend_seoul.do?cpage=${paging.cpage - 1}"
+						class="pagination-item">&lt;</a>
+				</c:otherwise>
+			</c:choose>
+	
+			<!-- 페이지 번호 -->
+			<c:choose>
+				<c:when test="${paging.totalPage <= 5}">
+					<!-- 페이지 개수가 5 이하인 경우 -->
+					<c:forEach var="i" begin="${1}" end="${paging.totalPage}"
+						varStatus="loop">
+						<c:choose>
+							<c:when test="${i == paging.cpage}">
+								<span class="pagination-item active">${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="/${language}/trend_seoul.do?cpage=${i}"
+									class="pagination-item">${i}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<!-- 페이지 개수가 5 초과인 경우 -->
+					<c:forEach var="i" begin="${paging.firstPage}"
+						end="${paging.lastPage}" varStatus="loop">
+						<c:choose>
+							<c:when test="${i == paging.cpage}">
+								<span class="pagination-item active">${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="/${language}/trend_seoul.do?cpage=${i}"
+									class="pagination-item">${i}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+	
+			<!-- 다음 페이지 버튼 -->
+			<c:choose>
+				<c:when test="${paging.cpage == paging.totalPage}">
+					<span class="pagination-item disabled">&gt;</span>
+				</c:when>
+				<c:otherwise>
+					<a href="/${language}/trend_seoul.do?cpage=${paging.cpage + 1}"
+						class="pagination-item">&gt;</a>
+				</c:otherwise>
+			</c:choose>
+	
+			<!-- 마지막 페이지 버튼 -->
+			<c:choose>
+				<c:when test="/${paging.cpage == paging.totalPage}">
+					<span class="pagination-item disabled">&gt;&gt;</span>
+				</c:when>
+				<c:otherwise>
+					<a href="/${language}/trend_seoul.do?cpage=${paging.totalPage}"
+						class="pagination-item">&gt;&gt;</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
 	
 	<script type="text/javascript">
 	
